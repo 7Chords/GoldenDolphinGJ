@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace GJFramwork
+namespace GJFramework
 {
     public class SingletonMono<T> : MonoBehaviour where T : SingletonMono<T>
     {

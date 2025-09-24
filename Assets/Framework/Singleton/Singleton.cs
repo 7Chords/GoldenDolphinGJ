@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace GJFramwork
+namespace GJFramework
 {
     // 单例基类
     public class Singleton<T> where T : new()

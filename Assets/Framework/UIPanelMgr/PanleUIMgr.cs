@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 
 
-namespace GJFramwork
+namespace GJFramework
 {
 
     // 面板类型枚举

@@ -1,9 +1,9 @@
-using GJFramwork;
+using GJFramework;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace GJFramwork
+namespace GJFramework
 {
     // 基础面板类
     public class UIPanelBase : MonoBehaviour
