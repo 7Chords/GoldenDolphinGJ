@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 // 过渡面板继承自 UIPanelBase
-public class TransitionPanel : UIPanelBase
+public class TransitionPanelBase : UIPanelBase
 {
     private string targetSceneName; // 目标场景名（需要加载的场景）
     // 此处补充一些过度动画所需要的参数

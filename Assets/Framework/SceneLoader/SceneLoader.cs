@@ -154,7 +154,7 @@ namespace GJFramework
                 PanelUIMgr.Instance.OpenPanel(targetPanelType);
             }
 
-            if (transitionPanel is TransitionPanel transitionPanelImpl)
+            if (transitionPanel is TransitionPanelBase transitionPanelImpl)
             {
                 // 传入某个过渡panel 要切换到的场景名字
                 transitionPanelImpl.StartTransition(sceneName); 
