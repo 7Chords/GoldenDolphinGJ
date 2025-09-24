@@ -1,3 +1,4 @@
+using System;
 using GJFramework;
 using System.Collections;
 using System.Collections.Generic;
@@ -24,6 +25,10 @@ namespace GJFramework
             OnHide();
         }
 
+        public void PlayTransition(string _sceneName)
+        {
+            OnTransition(_sceneName);
+        }
         // 销毁面板
         public void Destroy()
         {
@@ -39,6 +44,9 @@ namespace GJFramework
 
         // 销毁时的回调（供子类重写）
         protected virtual void OnDestroy() { }
+
+        protected virtual void OnTransition(string _sceneName) { }
+
     }
 
 }

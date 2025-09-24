@@ -11,6 +11,7 @@ namespace GJFramework
     // 面板类型枚举
     public enum EPanelType
     {
+        DefaultPanel,
         MainMenu,
         Settings,
         Inventory,
@@ -20,7 +21,7 @@ namespace GJFramework
     }
 
     // 全屏面板UI管理器
-    public class PanleUIMgr : Singleton<PanleUIMgr>
+    public class PanelUIMgr : Singleton<PanelUIMgr>
     {
         // 面板根节点（所有面板都作为其子对象）
         private Transform _panelRoot;
@@ -34,7 +35,7 @@ namespace GJFramework
         // 面板预制体路径（Resources文件夹下的路径）
         private const string PANEL_RESOURCE_PATH = "UI/Panels/";
 
-        public PanleUIMgr()
+        public PanelUIMgr()
         {
             EnsurePanelRootExists();
         }
