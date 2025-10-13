@@ -1,52 +1,52 @@
 using DG.Tweening;
-using GJFramework;
 using UnityEngine;
-using UnityEngine.UI;
 
-// 过渡面板继承自 UIPanelBase
-public class TransitionPanelBase : UIPanelBase
+
+namespace GJFramework
 {
-    private string targetSceneName; // 目标场景名（需要加载的场景）
-    // 此处补充一些过度动画所需要的参数
-
-
-
-
-    // 开始过渡动画的入口方法
-    public void StartTransition(string sceneName)
+    // 中间基类
+    public class TransitionPanelBase : UIPanelBase
     {
-        targetSceneName = sceneName;
-        // 播放动画
-        onTransition();
-    }
+        // 通用配置
+        [Header("过渡通用配置")]
+        [SerializeField] protected float transitionDuration = 0.5f; // 过渡总时长
 
-    // 动画开始
-    private void onTransition()
-    {
-        // 过渡动画刚开始播放 就开始加载场景
-        MsgCenter.SendMsg(MsgConst.OnTransitionFinnish, targetSceneName);
-        // 过渡动画逻辑
+        // 通用变量
+        protected string targetSceneName;
+        protected Tween currentTween; // 管理动画，防止重复/内存泄漏
 
+        // 过渡入口
+        public void StartTransition(string sceneName)
+        {
+            targetSceneName = sceneName;
+            // 触发子类的具体过渡逻辑 由子类实现
+            OnTransitionStart();
+        }
 
-        /*currentTween = canvasGroup.DOFade(0, fadeOutTime)
-           .OnComplete(onTransitionComplete);*/
-    }
+        // 过渡开始后，先执行子类动画，动画完成后发消息给SceneLoader
+        protected void TriggerTransitionComplete()
+        {
+            // 过渡动画完成  通知SceneLoader加载场景
+            MsgCenter.SendMsg(MsgConst.OnTransitionFinnish, targetSceneName);
+            // 执行后续清理
+            OnTransitionCleanup();
+        }
 
-    // 过渡动画结束的回调
-    private void onTransitionComplete()
-    {
-        Hide();
-        targetSceneName = null;
-    }
+        // 具体过渡动画逻辑
+        protected virtual void OnTransitionStart() { }
 
-    // 重写基类的 OnShow 方法
-    protected override void OnShow()
-    {
-        base.OnShow();
+        // 过渡完成后的清理
+        protected virtual void OnTransitionCleanup() { }
 
-    }
-    protected override void OnHide()
-    {
-        base.OnHide();
+        // 通用动画清理
+        protected override void OnDestroy()
+        {
+            base.OnDestroy();
+            if (currentTween != null && currentTween.IsActive())
+            {
+                currentTween.Kill();
+            }
+            DOTween.Clear(false);
+        }
     }
 }
