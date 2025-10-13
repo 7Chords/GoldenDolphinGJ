@@ -78,7 +78,7 @@ namespace GJFramework
         public void PlayBgm(string fadeInMusicName, float fadeInDuration = 0.5f,
             float fadeOutDuration = 0.5f, bool loop = true)
         {
-            if (bgmAudioInfo == null)
+            if (bgmAudioInfo.audioSource == null)
             {
                 // 创建新的BGM AudioSource
                 GameObject bgmGO = new GameObject(fadeInMusicName + "_BGM");
@@ -172,7 +172,7 @@ namespace GJFramework
         /// <param name="fadeOutDuration">淡出间隔</param>
         public void PauseBgm(float fadeOutDuration = 0.5f)
         {
-            if (bgmAudioInfo == null || bgmAudioInfo.audioSource == null)
+            if (bgmAudioInfo.audioSource == null)
             {
                 Debug.LogWarning("当前bgmAudioInfo为空，没有播放任何音乐！！！");
                 return;
@@ -197,7 +197,7 @@ namespace GJFramework
         /// <param name="fadeInDuration">淡入间隔</param>
         public void ResumeBgm(float fadeInDuration = 0.5f)
         {
-            if (bgmAudioInfo == null || bgmAudioInfo.audioSource == null)
+            if (bgmAudioInfo.audioSource == null)
             {
                 Debug.LogWarning("当前bgmAudioInfo为空，没有可恢复的音乐！！！");
                 return;
@@ -219,7 +219,7 @@ namespace GJFramework
         /// <param name="fadeOutDuration">淡出间隔</param>
         public void StopBgm(float fadeOutDuration = 0.5f)
         {
-            if (bgmAudioInfo == null || bgmAudioInfo.audioSource == null)
+            if (bgmAudioInfo.audioSource == null)
             {
                 Debug.LogWarning("当前没有播放BGM！！！");
                 return;
