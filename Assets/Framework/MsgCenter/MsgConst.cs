@@ -5,7 +5,7 @@ namespace GJFramework
     /// </summary>
     public class MsgConst
     {
-        public const int Testmsg = 1001;// 测试点
-        public const int OnTransitionFinnish = 1002;// 某个动画过渡结束
+        public const int onTransitionIn = 1001; // 场景切换淡入结束
+        public const int onTransitionOut = 1002; // 场景切换淡出结束
     }
 }

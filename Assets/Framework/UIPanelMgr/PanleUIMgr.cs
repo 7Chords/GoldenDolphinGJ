@@ -13,7 +13,6 @@
         {
             StorePanel,
             BagPanel,
-            Transition_Fade
             // 其他面板类型
         }
 
@@ -42,10 +41,10 @@
             /// </summary>
             private void EnsurePanelRootExists()
             {
-                GameObject rootObj = GameObject.Find("UIPanelRoot");
+                GameObject rootObj = GameObject.Find("UIRoot");
                 if (rootObj == null)
                 {
-                    rootObj = new GameObject("UIPanelRoot");
+                    rootObj = new GameObject("UIRoot");
                     // 添加Canvas组件确保UI正常显示
                     Canvas canvas = rootObj.AddComponent<Canvas>();
                     canvas.renderMode = RenderMode.ScreenSpaceOverlay;
@@ -235,6 +234,16 @@
                 panelObj.SetActive(false);
 
                 return panel;
+            }
+
+            public void OpenPanelFromList(List<EPanelType> EPanelTypeList, Action isAllLoaded = null)
+            {
+                foreach (var panelType in EPanelTypeList)
+                {
+                    OpenPanel(panelType);
+                }
+
+                isAllLoaded?.Invoke();
             }
 
             /// <summary>

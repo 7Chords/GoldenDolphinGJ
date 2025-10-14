@@ -7,13 +7,11 @@ using UnityEngine;
 public class GameMgr : MonoBehaviour
 {
     public Transform UIRoot;
-    
+    public Transform TransitionRoot;
 
     private void Awake()
     {
-        if(UIRoot != null) PanelUIMgr.Instance._panelRoot = UIRoot;
-        else Debug.LogError("UI Root is Null");
-        DontDestroyOnLoad(this.gameObject);
+        GameInit();
     }
 
     void Start()
@@ -30,15 +28,18 @@ public class GameMgr : MonoBehaviour
         
     }
 
-    IEnumerator Test1()
+    private void GameInit()
     {
-        yield return new WaitForSeconds(2f);
-        PanelUIMgr.Instance.OpenPanel(EPanelType.BagPanel);
-        yield return new WaitForSeconds(2f);
-        PanelUIMgr.Instance.OpenPanel(EPanelType.StorePanel);
-        yield return new WaitForSeconds(2f);
-        PanelUIMgr.Instance.GoBack();
+        if (UIRoot != null) PanelUIMgr.Instance._panelRoot = UIRoot;
+        else Debug.LogError("UI Root is Null");
+        DontDestroyOnLoad(this.gameObject);
 
+        DontDestroyOnLoad(UIRoot);
+
+        if (TransitionRoot != null) TransitionMgr.Instance.transitionRoot = TransitionRoot;
+        else Debug.LogError("TransitionRoot is Null");
+
+        DontDestroyOnLoad(TransitionRoot);
     }
 
     

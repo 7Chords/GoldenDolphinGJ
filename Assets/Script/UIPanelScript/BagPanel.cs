@@ -33,10 +33,7 @@ public class BagPanel : UIPanelBase
 
     public void OnLoadScene()
     {
-        SceneLoader.Instance.LoadSceneWithTransition(
-            loadSceneName: "SampleScene",    // 目标场景
-            closeSceneName: "YZScene",      // 要关闭的场景
-            presetName: "Fade"              // 过渡预设名（对应SceneLoader配置的PresetName）
-        );
+        SceneLoader.Instance.AddNextScenePanel(EPanelType.StorePanel);
+        TransitionMgr.Instance.StarTransition("SampleScene", "FadeInAndOutTransition");
     }
 }
