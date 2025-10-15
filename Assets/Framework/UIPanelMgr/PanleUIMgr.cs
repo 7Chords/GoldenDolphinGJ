@@ -1,261 +1,260 @@
-    using System;
-    using System.Collections.Generic;
-    using UnityEngine;
-    using UnityEngine.UI;
+using System;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
 
 
 
-    namespace GJFramework
+namespace GJFramework
+{
+    // 面板类型枚举
+    public enum EPanelType
     {
+        StorePanel,
+        BagPanel,
+        // 其他面板类型
+    }
 
-        // 面板类型枚举
-        public enum EPanelType
+    // 全屏面板UI管理器
+    public class PanelUIMgr : Singleton<PanelUIMgr>
+    {
+        // 面板根节点（所有面板都作为其子对象）
+        public Transform _panelRoot;
+
+        // 面板栈 - 存储所有打开的面板
+        private Stack<UIPanelBase> _panelStack = new Stack<UIPanelBase>();
+
+        // 缓存所有已加载的面板（包括隐藏的），实现复用
+        private Dictionary<EPanelType, UIPanelBase> _cachedPanels = new Dictionary<EPanelType, UIPanelBase>();
+
+        // 面板预制体路径（Resources文件夹下的路径）
+        private const string PANEL_RESOURCE_PATH = "UI/PanelsPrefabs/";
+
+        public PanelUIMgr()
         {
-            StorePanel,
-            BagPanel,
-            // 其他面板类型
+            EnsurePanelRootExists();
         }
 
-        // 全屏面板UI管理器
-        public class PanelUIMgr : Singleton<PanelUIMgr>
+        /// <summary>
+        /// 确保面板根节点存在
+        /// </summary>
+        private void EnsurePanelRootExists()
         {
-            // 面板根节点（所有面板都作为其子对象）
-            public Transform _panelRoot;
-
-            // 面板栈 - 存储所有打开的面板
-            private Stack<UIPanelBase> _panelStack = new Stack<UIPanelBase>();
-
-            // 缓存所有已加载的面板（包括隐藏的），实现复用
-            private Dictionary<EPanelType, UIPanelBase> _cachedPanels = new Dictionary<EPanelType, UIPanelBase>();
-
-            // 面板预制体路径（Resources文件夹下的路径）
-            private const string PANEL_RESOURCE_PATH = "UI/PanelsPrefabs/";
-
-            public PanelUIMgr()
+            GameObject rootObj = GameObject.Find("UIRoot");
+            if (rootObj == null)
             {
-                EnsurePanelRootExists();
+                rootObj = new GameObject("UIRoot");
+                // 添加Canvas组件确保UI正常显示
+                Canvas canvas = rootObj.AddComponent<Canvas>();
+                canvas.renderMode = RenderMode.ScreenSpaceOverlay;
+                rootObj.AddComponent<CanvasScaler>();
+                rootObj.AddComponent<GraphicRaycaster>();
             }
+            _panelRoot = rootObj.transform;
+        }
 
-            /// <summary>
-            /// 确保面板根节点存在
-            /// </summary>
-            private void EnsurePanelRootExists()
+        /// <summary>
+        /// 打开面板（优先从缓存中获取，不存在则加载）
+        /// </summary>
+        public bool OpenPanel(EPanelType panelType)
+        {
+            // 1. 先检查缓存中是否已有该面板
+            if (_cachedPanels.TryGetValue(panelType, out UIPanelBase panel))
             {
-                GameObject rootObj = GameObject.Find("UIRoot");
-                if (rootObj == null)
+                // 缓存中存在，直接复用
+                // 如果已经在栈中，先移除（避免重复入栈）
+                if (_panelStack.Contains(panel))
                 {
-                    rootObj = new GameObject("UIRoot");
-                    // 添加Canvas组件确保UI正常显示
-                    Canvas canvas = rootObj.AddComponent<Canvas>();
-                    canvas.renderMode = RenderMode.ScreenSpaceOverlay;
-                    rootObj.AddComponent<CanvasScaler>();
-                    rootObj.AddComponent<GraphicRaycaster>();
+                    RemoveFromStack(panel);
                 }
-                _panelRoot = rootObj.transform;
             }
-
-            /// <summary>
-            /// 打开面板（优先从缓存中获取，不存在则加载）
-            /// </summary>
-            public bool OpenPanel(EPanelType panelType)
+            else
             {
-                // 1. 先检查缓存中是否已有该面板
-                if (_cachedPanels.TryGetValue(panelType, out UIPanelBase panel))
+                // 2. 缓存中没有，从资源加载并创建
+                panel = LoadPanelFromResources(panelType);
+                if (panel == null)
                 {
-                    // 缓存中存在，直接复用
-                    // 如果已经在栈中，先移除（避免重复入栈）
-                    if (_panelStack.Contains(panel))
-                    {
-                        RemoveFromStack(panel);
-                    }
-                }
-                else
-                {
-                    // 2. 缓存中没有，从资源加载并创建
-                    panel = LoadPanelFromResources(panelType);
-                    if (panel == null)
-                    {
-                        Debug.LogError($"无法加载面板 {panelType}");
-                        return false;
-                    }
-                    // 加入缓存
-                    _cachedPanels.Add(panelType, panel);
-                }
-
-                // 3. 处理显示逻辑：隐藏当前栈顶面板，显示新面板
-                if (_panelStack.Count > 0)
-                {
-                    _panelStack.Peek().Hide();
-                }
-
-                // 将新面板入栈并显示
-                _panelStack.Push(panel);
-                panel.Show();
-
-                // 确保新面板在最上层显示
-                panel.transform.SetAsLastSibling();
-
-                return true;
-            }
-
-            /// <summary>
-            /// 关闭指定面板
-            /// </summary>
-            public bool ClosePanel(EPanelType panelType)
-            {
-                if (!_cachedPanels.TryGetValue(panelType, out UIPanelBase panel))
-                {
-                    Debug.LogWarning($"面板 {panelType} 未加载");
+                    Debug.LogError($"无法加载面板 {panelType}");
                     return false;
                 }
-
-                if (!_panelStack.Contains(panel))
-                {
-                    Debug.LogWarning($"面板 {panelType} 不在当前栈中");
-                    return false;
-                }
-
-                // 从栈中移除
-                RemoveFromStack(panel);
-                // 隐藏面板（不销毁，保留在缓存中）
-                panel.Hide();
-
-                // 显示新栈顶
-                if (_panelStack.Count > 0)
-                {
-                    UIPanelBase newTop = _panelStack.Peek();
-                    newTop.Show();
-                    newTop.transform.SetAsLastSibling(); // 确保显示在最上层
-                }
-
-                return true;
+                // 加入缓存
+                _cachedPanels.Add(panelType, panel);
             }
 
-            /// <summary>
-            /// 返回上一个面板（关闭当前栈顶）
-            /// </summary>
-            public bool GoBack()
+            // 将新面板入栈并显示
+            _panelStack.Push(panel);
+            panel.Show();
+
+            // 确保新面板在最上层显示
+            panel.transform.SetAsLastSibling();
+
+            return true;
+        }
+
+        /// <summary>
+        /// 关闭指定面板
+        /// </summary>
+        public bool ClosePanel(EPanelType panelType)
+        {
+            if (!_cachedPanels.TryGetValue(panelType, out UIPanelBase panel))
             {
-                if (_panelStack.Count <= 1)
-                {
-                    Debug.LogWarning("已经是最底层面板，无法返回");
-                    return false;
-                }
-
-                var currentTop = _panelStack.Peek();
-                return ClosePanel(currentTop.PanelType);
-            }
-
-            /// <summary>
-            /// 彻底销毁面板（从缓存中移除）
-            /// </summary>
-            public bool DestroyPanel(EPanelType panelType)
-            {
-                if (_cachedPanels.TryGetValue(panelType, out UIPanelBase panel))
-                {
-                    // 从栈中移除
-                    if (_panelStack.Contains(panel))
-                    {
-                        RemoveFromStack(panel);
-
-                        // 如果销毁的是栈顶面板，显示新的栈顶
-                        if (_panelStack.Count > 0)
-                        {
-                            UIPanelBase newTop = _panelStack.Peek();
-                            newTop.Show();
-                            newTop.transform.SetAsLastSibling();
-                        }
-                    }
-
-                    // 销毁实例
-                    panel.Destroy();
-                    // 从缓存中移除
-                    _cachedPanels.Remove(panelType);
-                    return true;
-                }
+                Debug.LogWarning($"面板 {panelType} 未加载");
                 return false;
             }
 
-            /// <summary>
-            /// 从栈中移除指定面板
-            /// </summary>
-            private void RemoveFromStack(UIPanelBase panel)
+            if (!_panelStack.Contains(panel))
             {
-                List<UIPanelBase> tempList = new List<UIPanelBase>();
-
-                // 弹出所有元素直到找到目标面板
-                while (_panelStack.Count > 0)
-                {
-                    var current = _panelStack.Pop();
-                    if (current == panel)
-                    {
-                        break;
-                    }
-                    tempList.Add(current);
-                }
-
-                // 将临时存储的元素重新压回栈中
-                for (int i = tempList.Count - 1; i >= 0; i--)
-                {
-                    _panelStack.Push(tempList[i]);
-                }
+                Debug.LogWarning($"面板 {panelType} 不在当前栈中");
+                return false;
             }
 
-            /// <summary>
-            /// 从Resources加载面板
-            /// </summary>
-            private UIPanelBase LoadPanelFromResources(EPanelType panelType)
+            // 从栈中移除
+            RemoveFromStack(panel);
+            // 隐藏面板（不销毁，保留在缓存中）
+            panel.Hide();
+
+            // 显示新栈顶
+            if (_panelStack.Count > 0)
             {
-                string resourcePath = PANEL_RESOURCE_PATH + panelType.ToString();
-                GameObject panelPrefab = Resources.Load<GameObject>(resourcePath);
-                if (panelPrefab == null)
-                {
-                    Debug.LogError($"找不到面板预制体: {resourcePath}");
-                    return null;
-                }
-
-                // 实例化面板并设置父节点
-                GameObject panelObj = GameObject.Instantiate(panelPrefab, _panelRoot);
-                panelObj.name = panelType.ToString();
-
-                // 获取面板组件
-                UIPanelBase panel = panelObj.GetComponent<UIPanelBase>();
-                if (panel == null)
-                {
-                    Debug.LogError($"面板 {panelType} 缺少 UIPanelBase 组件");
-                    panel.Destroy();
-                    return null;
-                }
-
-                // 确保面板类型正确
-                panel.PanelType = panelType;
-
-                // 初始隐藏新面板
-                panelObj.SetActive(false);
-
-                return panel;
+                UIPanelBase newTop = _panelStack.Peek();
+                newTop.Show();
+                newTop.transform.SetAsLastSibling(); // 确保显示在最上层
             }
 
-            public void OpenPanelFromList(List<EPanelType> EPanelTypeList, Action isAllLoaded = null)
-            {
-                foreach (var panelType in EPanelTypeList)
-                {
-                    OpenPanel(panelType);
-                }
+            return true;
+        }
 
-                isAllLoaded?.Invoke();
+        /// <summary>
+        /// 返回上一个面板（关闭当前栈顶）
+        /// </summary>
+        public bool GoBack()
+        {
+            if (_panelStack.Count <= 1)
+            {
+                Debug.LogWarning("已经是最底层面板，无法返回");
+                return false;
             }
 
-            /// <summary>
-            /// 获取缓存的面板
-            /// </summary>
-            public UIPanelBase GetCachedPanel(EPanelType panelType)
+            var currentTop = _panelStack.Peek();
+            return ClosePanel(currentTop.PanelType);
+        }
+
+        /// <summary>
+        /// 彻底销毁面板（从缓存中移除）
+        /// </summary>
+        public bool DestroyPanel(EPanelType panelType)
+        {
+            if (_cachedPanels.TryGetValue(panelType, out UIPanelBase panel))
             {
-                if (_cachedPanels.TryGetValue(panelType, out var panel))
+                // 从栈中移除
+                if (_panelStack.Contains(panel))
                 {
-                    return panel;
+                    RemoveFromStack(panel);
+
                 }
-                return null;
+
+                // 销毁实例
+                panel.Destroy();
+                // 从缓存中移除
+                _cachedPanels.Remove(panelType);
+                return true;
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// 从栈中移除指定面板
+        /// </summary>
+        private void RemoveFromStack(UIPanelBase panel)
+        {
+            List<UIPanelBase> tempList = new List<UIPanelBase>();
+
+            // 弹出所有元素直到找到目标面板
+            while (_panelStack.Count > 0)
+            {
+                var current = _panelStack.Pop();
+                if (current == panel)
+                {
+                    break;
+                }
+                tempList.Add(current);
+            }
+
+            // 将临时存储的元素重新压回栈中
+            for (int i = tempList.Count - 1; i >= 0; i--)
+            {
+                _panelStack.Push(tempList[i]);
             }
         }
+
+        /// <summary>
+        /// 从Resources加载面板
+        /// </summary>
+        private UIPanelBase LoadPanelFromResources(EPanelType panelType)
+        {
+            string resourcePath = PANEL_RESOURCE_PATH + panelType.ToString();
+            GameObject panelPrefab = Resources.Load<GameObject>(resourcePath);
+            if (panelPrefab == null)
+            {
+                Debug.LogError($"找不到面板预制体: {resourcePath}");
+                return null;
+            }
+
+            // 实例化面板并设置父节点
+            GameObject panelObj = GameObject.Instantiate(panelPrefab, _panelRoot);
+            panelObj.name = panelType.ToString();
+
+            // 获取面板组件
+            UIPanelBase panel = panelObj.GetComponent<UIPanelBase>();
+            if (panel == null)
+            {
+                Debug.LogError($"面板 {panelType} 缺少 UIPanelBase 组件");
+                panel.Destroy();
+                return null;
+            }
+
+            // 确保面板类型正确
+            panel.PanelType = panelType;
+
+            // 初始隐藏新面板
+            panelObj.SetActive(false);
+
+            return panel;
+        }
+
+        //关闭所有面板
+        public void HideAllPanel()
+        {
+            foreach (var panel in _panelStack)
+            {
+                panel.Hide();
+            }
+        }
+
+        public void OpenPanelFromList(List<EPanelType> EPanelTypeList, Action isAllLoaded = null)
+        {
+            // 先关闭所有面板
+            HideAllPanel();
+
+            // 依次打开列表中的面板
+            foreach (var panelType in EPanelTypeList)
+            {
+                OpenPanel(panelType);
+            }
+
+            isAllLoaded?.Invoke();
+        }
+
+        /// <summary>
+        /// 获取缓存的面板
+        /// </summary>
+        public UIPanelBase GetCachedPanel(EPanelType panelType)
+        {
+            if (_cachedPanels.TryGetValue(panelType, out var panel))
+            {
+                return panel;
+            }
+            return null;
+        }
     }
+}

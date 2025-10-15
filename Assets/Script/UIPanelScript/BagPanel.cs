@@ -33,7 +33,7 @@ public class BagPanel : UIPanelBase
 
     public void OnLoadScene()
     {
-        SceneLoader.Instance.AddNextScenePanel(EPanelType.StorePanel);
+        SceneLoader.Instance.AddNextScenePanel(EPanelType.BagPanel);
         TransitionMgr.Instance.StarTransition("SampleScene", "FadeInAndOutTransition");
     }
 }
