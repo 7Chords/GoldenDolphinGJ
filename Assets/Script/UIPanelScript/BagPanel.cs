@@ -20,6 +20,7 @@ public class BagPanel : UIPanelBase
         });
         Debug.Log($"{this.name} is Show!");
         Button btn2 = btnGo2.GetComponent<Button>();
+        btn2.onClick.RemoveAllListeners();
         btn2.onClick.AddListener(() =>
         {
             OnLoadScene();
