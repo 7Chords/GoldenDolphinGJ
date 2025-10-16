@@ -23,7 +23,7 @@ public class FadeInAndOutTransition : TransitionBase
             .SetEase(Ease.InOutQuad) // 缓动曲线
             .OnComplete(() =>
             {
-                MsgCenter.SendMsg(MsgConst.onTransitionIn, tragetSceneName);
+                MsgCenter.SendMsg(MsgConst.ON_TRANSITION_IN, tragetSceneName);
                 // 过渡进入完成后 发送信息 并开启过渡淡出
                 StartCoroutine(ExitTransition());
             });
@@ -44,7 +44,7 @@ public class FadeInAndOutTransition : TransitionBase
             .SetEase(Ease.InOutQuad)
             .OnComplete(() =>
             {
-                MsgCenter.SendMsgAct(MsgConst.onTransitionOut);
+                MsgCenter.SendMsgAct(MsgConst.ON_TRANSITION_OUT);
                 gameObject.SetActive(false);
             });
 

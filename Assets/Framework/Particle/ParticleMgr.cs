@@ -21,7 +21,7 @@ namespace GJFramework
         }
     }
 
-    public class ParticleMgr : SingletonMono<ParticleMgr>
+    public class ParticleMgr : SingletonPersistent<ParticleMgr>
     {
         public List<ParticleInfo> activeParticleEffects;
 

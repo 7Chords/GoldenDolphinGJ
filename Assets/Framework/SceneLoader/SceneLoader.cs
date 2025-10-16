@@ -8,18 +8,17 @@ using UnityEngine.SceneManagement;
 namespace GJFramework
 {
 
-    public class SceneLoader : SingletonMono<SceneLoader>
+    public class SceneLoader : SingletonPersistent<SceneLoader>
     {
-        private bool isAllPreLoad = false;
-        private LoadSceneMode loadSceneMode = LoadSceneMode.Single;
+        private bool _isAllPreLoad = false;
+        private LoadSceneMode _loadSceneMode = LoadSceneMode.Single;
         // 下一个场景预加载的面板类型列表
-        private List<EPanelType> nextSceneEPanelTypes;
+        private List<EPanelType> _nextSceneEPanelTypes;
         protected override void Awake()
         {
             base.Awake();
-            MsgCenter.RegisterMsg(MsgConst.onTransitionIn, LoadScene);
-            nextSceneEPanelTypes = new List<EPanelType>();
-            DontDestroyOnLoad(this.gameObject);
+            MsgCenter.RegisterMsg(MsgConst.ON_TRANSITION_IN, LoadScene);
+            _nextSceneEPanelTypes = new List<EPanelType>();
         }
 
         // 直接加载场景
@@ -30,7 +29,7 @@ namespace GJFramework
                 Debug.LogError("currentSceneName is Null");
                 return;
             }
-            AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(tragetSceneName, loadSceneMode);
+            AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(tragetSceneName, _loadSceneMode);
             if (asyncOperation == null) return;
 
             asyncOperation.allowSceneActivation = false;
@@ -47,12 +46,12 @@ namespace GJFramework
                 return;
             }
             string tragetSceneName = _objs[0] as string;
-            AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(tragetSceneName, loadSceneMode);
+            AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(tragetSceneName, _loadSceneMode);
             PanelUIMgr.Instance.OpenPanelFromList(
-                nextSceneEPanelTypes,
+                _nextSceneEPanelTypes,
                 () =>
                 {
-                    isAllPreLoad = true;
+                    _isAllPreLoad = true;
                 });
             
             if (asyncOperation == null) return;
@@ -63,14 +62,14 @@ namespace GJFramework
 
         private IEnumerator MonitorLoadingProgress(AsyncOperation operation)
         {
-            while (!operation.isDone && isAllPreLoad)
+            while (!operation.isDone && _isAllPreLoad)
             {
                 float progress = Mathf.Clamp01(operation.progress / 0.9f);
                 if (operation.progress >= 0.9f)
                 {
                     operation.allowSceneActivation = true;
                     // 重置预加载状态
-                    isAllPreLoad = false;
+                    _isAllPreLoad = false;
                     ClearNextScenePanelList();
                 }
                 yield return null;
@@ -90,26 +89,26 @@ namespace GJFramework
 
         private void OnDestroy()
         {
-            MsgCenter.UnregisterMsg(MsgConst.onTransitionIn, LoadScene);
+            MsgCenter.UnregisterMsg(MsgConst.ON_TRANSITION_IN, LoadScene);
         }
 
         public void SetLoadSceneMode(LoadSceneMode mode)
         {
-            loadSceneMode = mode;
+            _loadSceneMode = mode;
         }
 
         public void SetNexScenePanel(List<EPanelType> panelTypeList)
         {
-            nextSceneEPanelTypes = panelTypeList;
+            _nextSceneEPanelTypes = panelTypeList;
         }
         public void AddNextScenePanel(EPanelType panelType)
         {
-            nextSceneEPanelTypes.Add(panelType);
+            _nextSceneEPanelTypes.Add(panelType);
         }
 
         private void ClearNextScenePanelList()
         {
-            nextSceneEPanelTypes.Clear();
+            _nextSceneEPanelTypes.Clear();
         }
     }
 }

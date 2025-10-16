@@ -104,11 +104,6 @@ namespace GJFramework
         /// </summary>
         protected virtual void OnHideImmediately() { }
 
-        public void OnDestroy()
-        {
-            Destroy(gameObject);
-        }
-
         public void OnHide()
         {
             gameObject.SetActive(false);
