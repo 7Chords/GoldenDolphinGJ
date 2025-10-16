@@ -9,7 +9,7 @@ public class TransitionMgr : Singleton<TransitionMgr>
     // 面板根节点
     public Transform transitionRoot;
 
-    private TransitionBase curTransition;
+    private TransitionBase _curTransition;
 
     /// <summary>
     /// tragetSceneName = 目标场景名字
@@ -45,13 +45,13 @@ public class TransitionMgr : Singleton<TransitionMgr>
         if (transitionPanle == null)
         {
             Debug.LogError($"面板 {transitionName} 缺少 TransitionBase 组件");
-            transitionPanle.OnDestroy();
+            GameObject.Destroy(transitionPanle.gameObject);
             return null;
         }
         // 隐藏上一个过渡Go
-        if(curTransition != null) curTransition.OnHide();
+        if(_curTransition != null) _curTransition.OnHide();
         // 存储下一个过渡Go 用于下一次隐藏
-        curTransition = transitionPanle;
+        _curTransition = transitionPanle;
 
         return transitionPanle;
     }
