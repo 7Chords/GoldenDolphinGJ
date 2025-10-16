@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.EventSystems;
 
 
 
@@ -37,7 +36,7 @@ namespace GJFramework
         }
 
         /// <summary>
-        /// 确保面板根节点和 EventSystem 存在
+        /// 确保面板根节点存在
         /// </summary>
         private void EnsurePanelRootExists()
         {
@@ -45,25 +44,13 @@ namespace GJFramework
             if (rootObj == null)
             {
                 rootObj = new GameObject("UIRoot");
+                // 添加Canvas组件确保UI正常显示
+                Canvas canvas = rootObj.AddComponent<Canvas>();
+                canvas.renderMode = RenderMode.ScreenSpaceOverlay;
+                rootObj.AddComponent<CanvasScaler>();
+                rootObj.AddComponent<GraphicRaycaster>();
             }
-
-            // 确保必须组件存在
-            var canvas = rootObj.GetComponent<Canvas>();
-            if (canvas == null) canvas = rootObj.AddComponent<Canvas>();
-            canvas.renderMode = RenderMode.ScreenSpaceOverlay;
-            if (rootObj.GetComponent<CanvasScaler>() == null) rootObj.AddComponent<CanvasScaler>();
-            if (rootObj.GetComponent<GraphicRaycaster>() == null) rootObj.AddComponent<GraphicRaycaster>();
-
             _panelRoot = rootObj.transform;
-
-            // 确保全局 EventSystem 存在（切换场景后仍可交互）
-            if (EventSystem.current == null)
-            {
-                var esGo = new GameObject("EventSystem");
-                esGo.transform.SetParent(_panelRoot, false);
-                esGo.AddComponent<EventSystem>();
-                esGo.AddComponent<StandaloneInputModule>();
-            }
         }
 
         /// <summary>
@@ -271,3 +258,4 @@ namespace GJFramework
         }
     }
 }
+    
