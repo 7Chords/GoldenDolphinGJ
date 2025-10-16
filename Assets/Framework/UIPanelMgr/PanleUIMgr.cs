@@ -20,7 +20,7 @@ namespace GJFramework
     public class PanelUIMgr : Singleton<PanelUIMgr>
     {
         // 面板根节点（所有面板都作为其子对象）
-        public Transform _panelRoot;
+        public Transform panelRoot;
 
         // 面板栈 - 存储所有打开的面板
         private Stack<UIPanelBase> _panelStack = new Stack<UIPanelBase>();
@@ -54,13 +54,13 @@ namespace GJFramework
             if (rootObj.GetComponent<CanvasScaler>() == null) rootObj.AddComponent<CanvasScaler>();
             if (rootObj.GetComponent<GraphicRaycaster>() == null) rootObj.AddComponent<GraphicRaycaster>();
 
-            _panelRoot = rootObj.transform;
+            panelRoot = rootObj.transform;
 
             // 确保全局 EventSystem 存在（切换场景后仍可交互）
             if (EventSystem.current == null)
             {
                 var esGo = new GameObject("EventSystem");
-                esGo.transform.SetParent(_panelRoot, false);
+                esGo.transform.SetParent(panelRoot, false);
                 esGo.AddComponent<EventSystem>();
                 esGo.AddComponent<StandaloneInputModule>();
             }
@@ -149,7 +149,7 @@ namespace GJFramework
             }
 
             var currentTop = _panelStack.Peek();
-            return ClosePanel(currentTop.PanelType);
+            return ClosePanel(currentTop.panelType);
         }
 
         /// <summary>
@@ -214,7 +214,7 @@ namespace GJFramework
             }
 
             // 实例化面板并设置父节点
-            GameObject panelObj = GameObject.Instantiate(panelPrefab, _panelRoot);
+            GameObject panelObj = GameObject.Instantiate(panelPrefab, panelRoot);
             panelObj.name = panelType.ToString();
 
             // 获取面板组件
@@ -227,7 +227,7 @@ namespace GJFramework
             }
 
             // 确保面板类型正确
-            panel.PanelType = panelType;
+            panel.panelType = panelType;
 
             // 初始隐藏新面板
             panelObj.SetActive(false);

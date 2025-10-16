@@ -19,7 +19,7 @@ namespace GJFramework
         }
     }
 
-    public class AudioMgr : SingletonMono<AudioMgr>
+    public class AudioMgr : SingletonPersistent<AudioMgr>
     {
         // BGM的音频信息
         public AudioInfo bgmAudioInfo;

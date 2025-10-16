@@ -30,7 +30,7 @@ public class GameMgr : MonoBehaviour
 
     private void GameInit()
     {
-        if (UIRoot != null) PanelUIMgr.Instance._panelRoot = UIRoot;
+        if (UIRoot != null) PanelUIMgr.Instance.panelRoot = UIRoot;
         else Debug.LogError("UI Root is Null");
         DontDestroyOnLoad(this.gameObject);
 

@@ -1,4 +1,5 @@
 using GJFramework;
+using System;
 using UnityEngine;
 
 public class StorePanel : UIPanelBase
@@ -8,8 +9,8 @@ public class StorePanel : UIPanelBase
         Debug.Log($"{this.name} is Show!");
     }
 
-    protected override void OnHide()
+    protected override void OnHide(Action onHideFinished)
     {
-        Debug.Log($"{this.name} is Hide!");
+        onHideFinished?.Invoke();
     }
 }

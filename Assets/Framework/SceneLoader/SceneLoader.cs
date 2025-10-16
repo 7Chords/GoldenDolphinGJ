@@ -8,7 +8,7 @@ using UnityEngine.SceneManagement;
 namespace GJFramework
 {
 
-    public class SceneLoader : SingletonMono<SceneLoader>
+    public class SceneLoader : SingletonPersistent<SceneLoader>
     {
         private bool isAllPreLoad = false;
         private LoadSceneMode loadSceneMode = LoadSceneMode.Single;
@@ -17,7 +17,7 @@ namespace GJFramework
         protected override void Awake()
         {
             base.Awake();
-            MsgCenter.RegisterMsg(MsgConst.onTransitionIn, LoadScene);
+            MsgCenter.RegisterMsg(MsgConst.ON_TRANSITION_IN, LoadScene);
             nextSceneEPanelTypes = new List<EPanelType>();
             DontDestroyOnLoad(this.gameObject);
         }
@@ -90,7 +90,7 @@ namespace GJFramework
 
         private void OnDestroy()
         {
-            MsgCenter.UnregisterMsg(MsgConst.onTransitionIn, LoadScene);
+            MsgCenter.UnregisterMsg(MsgConst.ON_TRANSITION_IN, LoadScene);
         }
 
         public void SetLoadSceneMode(LoadSceneMode mode)

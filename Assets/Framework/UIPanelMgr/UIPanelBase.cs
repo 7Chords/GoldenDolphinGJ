@@ -9,7 +9,7 @@ namespace GJFramework
     // 基础面板类
     public class UIPanelBase : MonoBehaviour
     {
-        public EPanelType PanelType;
+        public EPanelType panelType;
 
         // 显示面板
         public void Show()
@@ -21,8 +21,10 @@ namespace GJFramework
         // 隐藏面板
         public void Hide()
         {
-            gameObject.SetActive(false);
-            OnHide();
+            OnHide(()=>
+            {
+                gameObject.SetActive(false);
+            });
         }
 
         public void PlayTransition(string _sceneName)
@@ -32,7 +34,7 @@ namespace GJFramework
         // 销毁面板
         public void Destroy()
         {
-            OnDestroy();
+            BeforeDestroy();
             Destroy(gameObject);
         }
 
@@ -40,10 +42,10 @@ namespace GJFramework
         protected virtual void OnShow() { }
 
         // 隐藏时的回调（供子类重写）
-        protected virtual void OnHide() { }
+        protected virtual void OnHide(Action onHideFinished) { }
 
         // 销毁时的回调（供子类重写）
-        protected virtual void OnDestroy() { }
+        protected virtual void BeforeDestroy() { }
 
         protected virtual void OnTransition(string _sceneName) { }
 

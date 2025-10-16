@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace GJFramework
 {
-    public class SingletonMono<T> : MonoBehaviour where T : SingletonMono<T>
+    public class SingletonPersistent<T> : MonoBehaviour where T : SingletonPersistent<T>
     {
         private static T _instance;
 

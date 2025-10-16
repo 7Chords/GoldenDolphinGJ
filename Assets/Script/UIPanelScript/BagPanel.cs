@@ -1,7 +1,6 @@
 using GJFramework;
-using Unity.VisualScripting;
+using System;
 using UnityEngine;
-using TMPro;
 using UnityEngine.UI;
 
 public class BagPanel : UIPanelBase
@@ -27,9 +26,10 @@ public class BagPanel : UIPanelBase
         });
     }
 
-    protected override void OnHide()
+    protected override void OnHide(Action onHideFinished)
     {
         Debug.Log($"{this.name} is Hide!");
+        onHideFinished?.Invoke();
     }
 
     public void OnLoadScene()
