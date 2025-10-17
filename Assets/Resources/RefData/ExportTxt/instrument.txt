@@ -1,0 +1,2 @@
+﻿id	instrumentType	instrumentName	instrumentDesc	attack	health
+1001	PIANO	钢琴	钢琴的描述	10	10

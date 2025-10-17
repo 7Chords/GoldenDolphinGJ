@@ -6,10 +6,10 @@ namespace GJFramework
     public class SCRefDataMgr : Singleton<SCRefDataMgr>
     {
 
-
+        public InstrumentRefObj instrumentRefObj = new InstrumentRefObj(InstrumentRefObj.assetPath, InstrumentRefObj.sheetName);
         public void Init()
         {
-
+            instrumentRefObj.readFromTxt();
         }
     }
 }
