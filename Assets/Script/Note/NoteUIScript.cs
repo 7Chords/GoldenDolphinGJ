@@ -44,6 +44,9 @@ public class NoteUIScript : MonoBehaviour, IPointerClickHandler
     }
     private void Init()
     {
+        // 音符种类随机
+        noteType = GetRandomEnumAndSetImage();
+
         // 音符颜色随机
         if (noteImage == null)
         {
@@ -64,9 +67,12 @@ public class NoteUIScript : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        // 点击播放的动画和时间到了一样
+        // 点击播放的动画和时间到了一样 如果点击了看看是什么类型并且对应加上数量
         if (!isPlayingAnimation)
         {
+            PlayerMgr.Instance.AddNoteNum(noteType);
+            Debug.Log(noteType);
+            Debug.Log(PlayerMgr.Instance.noteDic[noteType]);
             isPlayingAnimation = true;
             OnNoteDisappear();
         }
@@ -79,6 +85,7 @@ public class NoteUIScript : MonoBehaviour, IPointerClickHandler
 
     private void OnNoteDisappear()
     {
+
         isPlayingAnimation = true;
         // 点击的时候播放回收的动画
         Sequence seq = DOTween.Sequence();
@@ -93,6 +100,15 @@ public class NoteUIScript : MonoBehaviour, IPointerClickHandler
     private Color GetRandomColor()
     {
         return new Color(Random.value, Random.value, Random.value, 1f); // RGB 随机 Alpha 为 1
+    }
+
+    public NoteType GetRandomEnumAndSetImage()
+    {
+        // todo: Set Note Image
+        int temp = Random.Range(0, 3);
+        if(temp == 0) return NoteType.HightNote;
+        else if(temp == 1) return NoteType.MiddleNote;
+        else return NoteType.LowNote;
     }
 
 }
