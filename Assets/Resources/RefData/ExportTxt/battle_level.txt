@@ -1,2 +1,2 @@
-﻿id	level	enemyType	enemyHealth	enemyAttack	enemyIconPath	enemyBgPath
-1001	1	MonsterNote	100	100	null	null
+﻿id	level	enemyType	enemyName	enemyHealth	enemyAttack	enemyIconPath	enemyBgPath
+1001	1	MonsterNote	音符怪物	100	100	null	null

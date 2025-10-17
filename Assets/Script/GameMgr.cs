@@ -31,6 +31,7 @@ public class GameMgr : SingletonPersistent<GameMgr>
 
     private void GameInit()
     {
+        _curLevel = 1;
         SCRefDataMgr.Instance.Init();
 
         if (UIRoot != null) PanelUIMgr.Instance.panelRoot = UIRoot;

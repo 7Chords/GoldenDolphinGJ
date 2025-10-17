@@ -6,13 +6,17 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 /// <summary>
-/// 乐器
+/// 乐器UIItem
 /// </summary>
 public class InstrumentItem : UIPanelBase, IPointerEnterHandler, IPointerExitHandler
 {
     
-    [SerializeField] private Image _instrumentIcon;
-    [SerializeField] private Image _instrumentBack;
+    public Image instrumentIcon;
+    public Image instrumentBack;
+    public Text txtHealth;
+    public Text txtAttack;
+    public Text txtName;
+
 
     [Space(10)]
 
@@ -47,6 +51,8 @@ public class InstrumentItem : UIPanelBase, IPointerEnterHandler, IPointerExitHan
 
     protected override void OnHide(Action onHideFinished)
     {
+        _tweenContainer?.KillAllDoTween();
+        _tweenContainer = null;
     }
     public void Init()
     {
@@ -56,6 +62,16 @@ public class InstrumentItem : UIPanelBase, IPointerEnterHandler, IPointerExitHan
     public void SetInfo(InstrumentInfo instrumentInfo)
     {
         _instrumentInfo = instrumentInfo;
+        RefreshShow();
+    }
+
+    private void RefreshShow()
+    {
+        if (_instrumentInfo == null)
+            return;
+        txtHealth.text = _instrumentInfo.health.ToString();
+        txtAttack.text = _instrumentInfo.attack.ToString();
+        txtName.text = _instrumentInfo.instrumentName;
     }
     public void OnPointerEnter(PointerEventData eventData)
     {
@@ -77,11 +93,5 @@ public class InstrumentItem : UIPanelBase, IPointerEnterHandler, IPointerExitHan
         exitSeq.Join(transform.DOShakePosition(exitShakeDuration, exitShakeStrength));
         _tweenContainer.RegDoTween(exitSeq);
 
-    }
-
-    private void OnDestroy()
-    {
-        _tweenContainer?.KillAllDoTween();
-        _tweenContainer = null;
     }
 }

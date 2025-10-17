@@ -93,8 +93,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 841620aca5c2bc94c9fc94d432b3afc9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _instrumentIcon: {fileID: 3984253411842842193}
-  _instrumentBack: {fileID: 3837164378774544113}
+  panelType: 0
+  instrumentIcon: {fileID: 0}
+  instrumentBack: {fileID: 0}
+  txtHealth: {fileID: 7884588462770427656}
+  txtAttack: {fileID: 4274562442579294597}
+  txtName: {fileID: 3146803876133421920}
   enterBiggerDuration: 0.1
   enterBiggerScale: 1.2
   enterShakeStrength: 10

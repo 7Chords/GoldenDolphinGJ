@@ -14,13 +14,17 @@ public class InstrumentInfo
     public string instrumentDesc;
     public int health;
     public int attack;
+    public string instrumentIconPath;
+    public string instrumentBgPath;
 
-    public InstrumentInfo(EInstrumentType instrumentType,string instrumentName,string instrumentDesc, int health, int attack)
+    public InstrumentInfo(EInstrumentType instrumentType, string instrumentName, string instrumentDesc, int health, int attack, string instrumentIconPath, string instrumentBgPath)
     {
         this.instrumentType = instrumentType;
         this.instrumentName = instrumentName;
         this.instrumentDesc = instrumentDesc;
         this.health = health;
         this.attack = attack;
+        this.instrumentIconPath = instrumentIconPath;
+        this.instrumentBgPath = instrumentBgPath;
     }
 }

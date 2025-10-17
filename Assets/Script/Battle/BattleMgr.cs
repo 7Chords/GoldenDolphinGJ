@@ -32,6 +32,7 @@ public class BattleMgr : SingletonMono<BattleMgr>
         if (battleLevelRefObj != null)
         {
             _enemyInfo = new EnemyInfo(battleLevelRefObj.enemyType,
+                battleLevelRefObj.enemyName,
                 battleLevelRefObj.enemyHealth,
                 battleLevelRefObj.enemyAttack,
                 battleLevelRefObj.enemyIconPath,
@@ -46,7 +47,9 @@ public class BattleMgr : SingletonMono<BattleMgr>
                 instrumentRefObj.instrumentName,
                 instrumentRefObj.instrumentDesc,
                 instrumentRefObj.health,
-                instrumentRefObj.attack);
+                instrumentRefObj.attack,
+                instrumentRefObj.instrumentIconPath,
+                instrumentRefObj.instrumentBgPath);
             _instrumentInfoList.Add(info);
         }
 
