@@ -17,8 +17,6 @@ public class BattlePanel : UIPanelBase
     public Text txtTurnCount;
     [Header("回合持有者文本")]
     public Text txtTurnOwner;
-
-    private int _turnCount;//回合数
     protected override void OnShow()
     {
         MsgCenter.RegisterMsg(MsgConst.ON_BATTLE_START, OnBattleStartStart);
@@ -34,11 +32,21 @@ public class BattlePanel : UIPanelBase
 
     private void OnBattleStartStart(object[] _objs)
     {
-        _turnCount = 1;
-        txtTurnCount.text = _turnCount.ToString();
+        if (_objs == null || _objs.Length == 0)
+            return;
 
+        EnemyInfo enemyInfo = _objs[0] as EnemyInfo;
+        List<InstrumentInfo> instrumentInfoList = _objs[1] as List<InstrumentInfo>;
+
+        txtTurnCount.text = BattleMgr.instance.turnCount.ToString();
+        txtTurnOwner.text = BattleMgr.instance.curTurn.ToString();
 
         instrumentContainer.Show();
-        
+        instrumentContainer.SetInfo(instrumentInfoList);
+        GameObject enemyItem = GameObject.Instantiate(enemyPrefab);
+        enemyItem.transform.SetParent(transform);
+        enemyItem.transform.localPosition = enemySpawnTransfrom.localPosition;
+        EnemyItem item = enemyItem.GetComponent<EnemyItem>();
+        item.SetInfo(enemyInfo);
     }
 }
