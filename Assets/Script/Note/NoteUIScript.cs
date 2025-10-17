@@ -1,8 +1,5 @@
 using DG.Tweening;
 using GJFramework;
-using NPOI.SS.Formula.Functions;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -24,40 +21,66 @@ public class NoteUIScript : MonoBehaviour, IPointerClickHandler
     [SerializeField] private Image noteImage;// 音符对应的图片
     [SerializeField] private RectTransform transform;// 对应的UI框架
     private bool isPlayingAnimation = false;
-    public void OnPointerClick(PointerEventData eventData)
-    {
-        var tween1 = transform.DOSizeDelta(new Vector2(200, 200), 0.5f).SetEase(Ease.OutBack);
-
-        // 改变透明度
-        var tween2 = noteImage.DOFade(0.3f, 0.5f); // 0.3 表示更透明
-    }
-
+    private TweenContainer tweenContainer;
     private void Awake()
     {
+        tweenContainer = new TweenContainer();
 
-        
     }
     private void Start()
     {
-        
+        // 初始化
+        Init();
     }
 
     private void Update()
     {
         // 每帧减少时间
         existTime -= Time.deltaTime;
-        if(existTime <= 1f && isPlayingAnimation)
+        if(existTime <= 1f && !isPlayingAnimation)
         {
-
+            OnNoteDisappear();
         }
     }
-
     private void Init()
     {
         // 初始化的时候获得一个随机的时间
         existTime = Random.Range(maxTime, minTime);
+
+        Sequence seq = DOTween.Sequence();
+        // 更改大小
+        seq.Append(transform.DOSizeDelta(new Vector2(200, 200), 1f).SetEase(Ease.OutBack));
+        // 改变透明度
+        seq.Join(noteImage.DOFade(1f, 0f).SetEase(Ease.InQuad));
+        tweenContainer.RegDoTween(seq);
     }
 
-    
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        // 点击播放的动画和时间到了一样
+        if (!isPlayingAnimation)
+        {
+            isPlayingAnimation = true;
+            OnNoteDisappear();
+        }
+    }
+    private void OnDestroy()
+    {
+        tweenContainer?.KillAllDoTween();
+        tweenContainer = null;
+    }
+
+    private void OnNoteDisappear()
+    {
+        isPlayingAnimation = true;
+        // 点击的时候播放回收的动画
+        Sequence seq = DOTween.Sequence();
+        seq.Append(transform.DOSizeDelta(new Vector2(0, 0), 1f).SetEase(Ease.OutBack));
+        // 播放完就直接Destroy
+        seq.Join(noteImage.DOFade(0f, 1f).SetEase(Ease.InQuad).OnComplete(() => {
+            Destroy(this.gameObject);
+        }));
+        tweenContainer.RegDoTween(seq);
+    }
 
 }
