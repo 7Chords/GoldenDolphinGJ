@@ -38,4 +38,20 @@ public class BattlePanel : UIPanelBase
         txtTurnCount.text = _turnCount.ToString();
 
     }
+
+    public void SpawnInstruments()
+    {
+        for (int i = 0; i < PlayerMgr.Instance.instrumentInfoList.Count; i++)
+        {
+            GameObject instrumentGO = GameObject.Instantiate(instrumentPrefab);
+            if (instrumentGO == null)
+                continue;
+            Instrument instrument = instrumentGO.GetComponent<Instrument>();
+            if (instrument == null)
+                continue;
+            instrument.SetInfo(PlayerMgr.Instance.instrumentInfoList[i]);
+            instrument.Init();
+        }
+
+    }
 }

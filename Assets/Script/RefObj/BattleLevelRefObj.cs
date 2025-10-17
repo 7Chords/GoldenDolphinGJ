@@ -6,6 +6,7 @@ using UnityEngine;
 public class BattleLevelRefObj : SCRefDataCore
 {
     public long id;
+    public int level;
     public EEnemyType enemyType;
     public int enemyHealth;
     public int enemyAttack;
@@ -14,6 +15,7 @@ public class BattleLevelRefObj : SCRefDataCore
     protected override void _parseFromString()
     {
         id = getLong("id");
+        level = getInt("level");
         enemyType = (EEnemyType)getEnum("enemyType", typeof(EEnemyType));
         enemyHealth = getInt("enemyHealth");
         enemyAttack = getInt("enemyAttack");

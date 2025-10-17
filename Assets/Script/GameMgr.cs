@@ -4,13 +4,18 @@ using System.Collections.Generic;
 using GJFramework;
 using UnityEngine;
 
-public class GameMgr : MonoBehaviour
+public class GameMgr : SingletonPersistent<GameMgr>
 {
     public Transform UIRoot;
     public Transform TransitionRoot;
 
-    private void Awake()
+
+    private int _curLevel;
+    public int curLevel => _curLevel;
+
+    protected override void Awake()
     {
+        base.Awake();
         GameInit();
     }
 
@@ -22,11 +27,6 @@ public class GameMgr : MonoBehaviour
         PanelUIMgr.Instance.OpenPanel(EPanelType.BagPanel);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     private void GameInit()
     {
