@@ -3,23 +3,17 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class BagPanel : UIPanelBase
+public class NoteCollectPanel : UIPanelBase
 {
     [SerializeField] private GameObject btnGo;
-    [SerializeField] private GameObject btnGo2;
     protected override void OnShow()
     {
+        
     }
 
     protected override void OnHide(Action onHideFinished)
     {
         Debug.Log($"{this.name} is Hide!");
         onHideFinished?.Invoke();
-    }
-
-    public void OnLoadScene()
-    {
-        SceneLoader.Instance.AddNextScenePanel(EPanelType.BagPanel);
-        TransitionMgr.Instance.StarTransition("SampleScene", "FadeInAndOutTransition");
     }
 }

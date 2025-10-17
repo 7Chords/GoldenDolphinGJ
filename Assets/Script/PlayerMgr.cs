@@ -20,12 +20,20 @@ public class PlayerMgr : SingletonPersistent<PlayerMgr>
     public void AddNoteNum(NoteType noteType)
     {
         noteDic[noteType] ++;
+
+        // 参数是 高 中 低 音符目前的数量
+        MsgCenter.SendMsgAct(MsgConst.ON_NOTE_COUNT_CHANGE);
     }
 
     public void RemoveNoteNum(NoteType noteType, int num) 
     {
         if (noteDic[noteType] >= num) noteDic[noteType] -= num;
         else Debug.Log("current noteType not enough");
+    }
+    // 获得对应种类的音符数量
+    public int GetNoteNum(NoteType noteType)
+    {
+        return noteDic[noteType];
     }
     private void Init()
     {

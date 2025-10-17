@@ -1,5 +1,8 @@
 using UnityEngine;
 
+/// <summary>
+/// 管理音符的生成
+/// </summary>
 public class NoteMgr : MonoBehaviour
 {
     [Header("配置参数")]
