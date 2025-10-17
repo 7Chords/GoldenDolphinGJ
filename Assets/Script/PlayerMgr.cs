@@ -9,7 +9,7 @@ using UnityEngine;
 public class PlayerMgr : SingletonPersistent<PlayerMgr>
 {
     //玩家当前持有的乐器信息
-    public List<InstrumentInfo> instrumentInfoList;
+    public List<long> instrumentIdList;
     public Dictionary<NoteType, int> noteDic;// 玩家现在有的音符资源
     protected override void Awake()
     {

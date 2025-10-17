@@ -13,6 +13,9 @@ public class GameMgr : SingletonPersistent<GameMgr>
     private int _curLevel;
     public int curLevel => _curLevel;
 
+    [Header("玩家姓名")]
+    public string playerName;
+
     protected override void Awake()
     {
         base.Awake();
@@ -21,15 +24,16 @@ public class GameMgr : SingletonPersistent<GameMgr>
 
     void Start()
     {
-        //StartCoroutine(Test1());
-        
-        PanelUIMgr.Instance.OpenPanel(EPanelType.StorePanel);
-        PanelUIMgr.Instance.OpenPanel(EPanelType.BagPanel);
+        //PanelUIMgr.Instance.OpenPanel(EPanelType.StorePanel);
+        //PanelUIMgr.Instance.OpenPanel(EPanelType.BagPanel);
     }
 
 
     private void GameInit()
     {
+        _curLevel = 1;
+        SCRefDataMgr.Instance.Init();
+
         if (UIRoot != null) PanelUIMgr.Instance.panelRoot = UIRoot;
         else Debug.LogError("UI Root is Null");
         DontDestroyOnLoad(this.gameObject);

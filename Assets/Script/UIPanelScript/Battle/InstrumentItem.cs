@@ -1,17 +1,22 @@
 using DG.Tweening;
 using GJFramework;
+using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 /// <summary>
-/// 乐器
+/// 乐器UIItem
 /// </summary>
-public class Instrument : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+public class InstrumentItem : UIPanelBase, IPointerEnterHandler, IPointerExitHandler
 {
     
-    [SerializeField] private Image _instrumentIcon;
-    [SerializeField] private Image _instrumentBack;
+    public Image instrumentIcon;
+    public Image instrumentBack;
+    public Text txtHealth;
+    public Text txtAttack;
+    public Text txtName;
+
 
     [Space(10)]
 
@@ -37,10 +42,17 @@ public class Instrument : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
 
     private bool _hasInited;
 
-    private void Start()
+
+
+    protected override void OnShow()
     {
-        //todo:test
         Init();
+    }
+
+    protected override void OnHide(Action onHideFinished)
+    {
+        _tweenContainer?.KillAllDoTween();
+        _tweenContainer = null;
     }
     public void Init()
     {
@@ -50,6 +62,16 @@ public class Instrument : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     public void SetInfo(InstrumentInfo instrumentInfo)
     {
         _instrumentInfo = instrumentInfo;
+        RefreshShow();
+    }
+
+    private void RefreshShow()
+    {
+        if (_instrumentInfo == null)
+            return;
+        txtHealth.text = _instrumentInfo.health.ToString();
+        txtAttack.text = _instrumentInfo.attack.ToString();
+        txtName.text = _instrumentInfo.instrumentName;
     }
     public void OnPointerEnter(PointerEventData eventData)
     {
@@ -71,11 +93,5 @@ public class Instrument : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
         exitSeq.Join(transform.DOShakePosition(exitShakeDuration, exitShakeStrength));
         _tweenContainer.RegDoTween(exitSeq);
 
-    }
-
-    private void OnDestroy()
-    {
-        _tweenContainer?.KillAllDoTween();
-        _tweenContainer = null;
     }
 }

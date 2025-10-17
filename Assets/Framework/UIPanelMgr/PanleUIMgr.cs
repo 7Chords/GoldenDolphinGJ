@@ -11,6 +11,7 @@ namespace GJFramework
     // 面板类型枚举
     public enum EPanelType
     {
+        SubPanel,//面板中的子面板统一设置
         StorePanel,
         BagPanel,
         BattlePanel,

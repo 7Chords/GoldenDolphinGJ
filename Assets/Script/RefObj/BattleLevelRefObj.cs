@@ -8,6 +8,7 @@ public class BattleLevelRefObj : SCRefDataCore
     public long id;
     public int level;
     public EEnemyType enemyType;
+    public string enemyName;
     public int enemyHealth;
     public int enemyAttack;
     public string enemyIconPath;
@@ -17,6 +18,7 @@ public class BattleLevelRefObj : SCRefDataCore
         id = getLong("id");
         level = getInt("level");
         enemyType = (EEnemyType)getEnum("enemyType", typeof(EEnemyType));
+        enemyName = getString("enemyName");
         enemyHealth = getInt("enemyHealth");
         enemyAttack = getInt("enemyAttack");
         enemyIconPath = getString("enemyIconPath");
