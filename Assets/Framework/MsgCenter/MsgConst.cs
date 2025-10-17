@@ -10,5 +10,7 @@ namespace GJFramework
 
         public const int ON_BATTLE_START = 1003;
         public const int ON_BATTLE_TURN_CHG = 1004;
+
+        public const int ON_NOTE_COUNT_CHANGE = 1005;// 音符的数量变更了
     }
 }
