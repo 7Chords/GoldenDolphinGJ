@@ -24,13 +24,15 @@ public class GameMgr : SingletonPersistent<GameMgr>
 
     void Start()
     {
-        PanelUIMgr.Instance.OpenPanel(EPanelType.StorePanel);
-        PanelUIMgr.Instance.OpenPanel(EPanelType.BagPanel);
+        //PanelUIMgr.Instance.OpenPanel(EPanelType.StorePanel);
+        //PanelUIMgr.Instance.OpenPanel(EPanelType.BagPanel);
     }
 
 
     private void GameInit()
     {
+        SCRefDataMgr.Instance.Init();
+
         if (UIRoot != null) PanelUIMgr.Instance.panelRoot = UIRoot;
         else Debug.LogError("UI Root is Null");
         DontDestroyOnLoad(this.gameObject);

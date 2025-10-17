@@ -13,6 +13,13 @@ public class BattleMgr : SingletonMono<BattleMgr>
 
     private EnemyInfo _enemyInfo;//敌人信息
     private List<InstrumentInfo> _instrumentInfoList;//音乐列表信息
+
+
+    private void Start()
+    {
+        //todo:test
+        StartBattle();
+    }
     public void StartBattle()
     {
         PanelUIMgr.Instance.OpenPanel(EPanelType.BattlePanel);
