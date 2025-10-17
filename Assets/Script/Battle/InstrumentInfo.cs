@@ -3,11 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public enum EInstrumentType
-{
-    Piano,
-}
-
 
 /// <summary>
 /// 乐器信息类

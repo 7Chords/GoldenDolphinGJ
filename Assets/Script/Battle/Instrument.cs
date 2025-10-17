@@ -37,6 +37,11 @@ public class Instrument : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
 
     private bool _hasInited;
 
+    private void Start()
+    {
+        //todo:test
+        Init();
+    }
     public void Init()
     {
         _hasInited = true;

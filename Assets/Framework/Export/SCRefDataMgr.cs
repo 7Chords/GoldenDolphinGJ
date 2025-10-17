@@ -6,10 +6,13 @@ namespace GJFramework
     public class SCRefDataMgr : Singleton<SCRefDataMgr>
     {
 
-        public InstrumentRefObj instrumentRefObj = new InstrumentRefObj(InstrumentRefObj.assetPath, InstrumentRefObj.sheetName);
+        public SCRefDataList<InstrumentRefObj> instrumentRefList = new SCRefDataList<InstrumentRefObj>(InstrumentRefObj.assetPath, InstrumentRefObj.sheetName);
+        public SCRefDataList<BattleLevelRefObj> battleLevelRefList = new SCRefDataList<BattleLevelRefObj>(BattleLevelRefObj.assetPath, BattleLevelRefObj.sheetName);
+
         public void Init()
         {
-            instrumentRefObj.readFromTxt();
+            instrumentRefList.readFromTxt();
+            battleLevelRefList.readFromTxt();
         }
     }
 }

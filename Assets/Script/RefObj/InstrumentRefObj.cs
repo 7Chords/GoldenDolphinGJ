@@ -16,6 +16,9 @@ public class InstrumentRefObj : SCRefDataCore
     public string instrumentDesc;
     public int attack;
     public int health;
+    public string instrumentIconPath;
+    public string instrumentBgPath;
+
     protected override void _parseFromString()
     {
         id = getLong("id");
@@ -24,7 +27,8 @@ public class InstrumentRefObj : SCRefDataCore
         instrumentDesc = getString("instrumentDesc");
         attack = getInt("attack");
         health = getInt("health");
-
+        instrumentIconPath = getString("instrumentIconPath");
+        instrumentBgPath = getString("instrumentBgPath");
     }
 
     public static string assetPath => "RefData/ExportTxt";

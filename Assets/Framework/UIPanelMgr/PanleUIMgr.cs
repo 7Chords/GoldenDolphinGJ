@@ -13,6 +13,7 @@ namespace GJFramework
     {
         StorePanel,
         BagPanel,
+        BattlePanel,
         // 其他面板类型
     }
 
