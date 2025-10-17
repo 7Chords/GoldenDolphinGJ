@@ -1,0 +1,2 @@
+﻿id	enemyType	enemyHealth	enemyAttack	enemyIconPath	enemyBgPath
+1001	MonsterNote	100	100	null	null
