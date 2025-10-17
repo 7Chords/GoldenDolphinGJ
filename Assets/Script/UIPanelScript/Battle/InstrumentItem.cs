@@ -8,7 +8,7 @@ using UnityEngine.UI;
 /// <summary>
 /// 乐器UIItem
 /// </summary>
-public class InstrumentItem : UIPanelBase, IPointerEnterHandler, IPointerExitHandler
+public class InstrumentItem : UIPanelBase, IPointerEnterHandler, IPointerExitHandler,IBeginDragHandler,IDragHandler,IEndDragHandler
 {
     
     public Image instrumentIcon;
@@ -37,12 +37,19 @@ public class InstrumentItem : UIPanelBase, IPointerEnterHandler, IPointerExitHan
     [Header("移出震动持续时间")]
     public float exitShakeDuration;
 
+    [Header("画布组件")]
+    public CanvasGroup canvasGroup;
+    //[Header("选中时的淡出时间")]
+    //public float selectFadeOutDuration;
+    //[Header("取消选中时的淡入时间")]
+    //public float unSelectFadeInDuration;
+
     private InstrumentInfo _instrumentInfo;
     private TweenContainer _tweenContainer;
 
     private bool _hasInited;
 
-
+    private GameObject _cloneInstrumentGO;
 
     protected override void OnShow()
     {
@@ -79,7 +86,7 @@ public class InstrumentItem : UIPanelBase, IPointerEnterHandler, IPointerExitHan
             return;
         Sequence enterSeq = DOTween.Sequence();
         enterSeq.Append(transform.DOScale(enterBiggerScale, enterBiggerDuration));
-        enterSeq.Join(transform.DOShakePosition(enterShakeDuration, enterShakeStrength));
+        enterSeq.Join(transform.DOShakePosition(enterShakeDuration, enterShakeStrength, fadeOut: true));
         _tweenContainer.RegDoTween(enterSeq);
     }
 
@@ -90,8 +97,24 @@ public class InstrumentItem : UIPanelBase, IPointerEnterHandler, IPointerExitHan
         Sequence exitSeq = DOTween.Sequence();
 
         exitSeq.Append(transform.DOScale(exitSmallerScale, exitSmallerDuration));
-        exitSeq.Join(transform.DOShakePosition(exitShakeDuration, exitShakeStrength));
+        exitSeq.Join(transform.DOShakePosition(exitShakeDuration, exitShakeStrength, fadeOut: true));
         _tweenContainer.RegDoTween(exitSeq);
 
+    }
+
+    public void OnBeginDrag(PointerEventData eventData)
+    {
+        canvasGroup.alpha = 0;
+        canvasGroup.interactable = false;
+    }
+
+    public void OnDrag(PointerEventData eventData)
+    {
+    }
+
+    public void OnEndDrag(PointerEventData eventData)
+    {
+        canvasGroup.alpha = 1;
+        canvasGroup.interactable = true;
     }
 }

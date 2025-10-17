@@ -40,8 +40,8 @@ public class InstrumentContainer : UIPanelBase
             }
             if (item == null)
                 continue;
-            item.SetInfo(instrumentInfoList[i]);
             item.Show();
+            item.SetInfo(instrumentInfoList[i]);
 
             count++;
         }
