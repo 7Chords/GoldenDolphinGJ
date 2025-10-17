@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3760610530605302414}
   - component: {fileID: 4735896350035064111}
   m_Layer: 5
-  m_Name: panel_battle
+  m_Name: BattlePanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

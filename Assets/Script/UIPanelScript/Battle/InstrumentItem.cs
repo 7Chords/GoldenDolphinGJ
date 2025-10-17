@@ -1,5 +1,6 @@
 using DG.Tweening;
 using GJFramework;
+using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -7,7 +8,7 @@ using UnityEngine.UI;
 /// <summary>
 /// 乐器
 /// </summary>
-public class Instrument : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+public class InstrumentItem : UIPanelBase, IPointerEnterHandler, IPointerExitHandler
 {
     
     [SerializeField] private Image _instrumentIcon;
@@ -37,10 +38,15 @@ public class Instrument : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
 
     private bool _hasInited;
 
-    private void Start()
+
+
+    protected override void OnShow()
     {
-        //todo:test
         Init();
+    }
+
+    protected override void OnHide(Action onHideFinished)
+    {
     }
     public void Init()
     {

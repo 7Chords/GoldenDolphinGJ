@@ -7,22 +7,22 @@ using UnityEngine.UI;
 
 public class BattlePanel : UIPanelBase
 {
-    public GridLayout instrumentGridLayout;
-
-    [Header("乐器预制体")]
-    public GameObject instrumentPrefab;
     [Header("敌人预制体")]
     public GameObject enemyPrefab;
     [Header("敌人生成位置")]
     public RectTransform enemySpawnTransfrom;
-
+    [Header("乐器Conatiner")]
+    public InstrumentContainer instrumentContainer;
+    [Header("回合数文本")]
     public Text txtTurnCount;
+    [Header("回合持有者文本")]
     public Text txtTurnOwner;
 
-    private int _turnCount;
+    private int _turnCount;//回合数
     protected override void OnShow()
     {
         MsgCenter.RegisterMsg(MsgConst.ON_BATTLE_START, OnBattleStartStart);
+
 
     }
 
@@ -37,21 +37,8 @@ public class BattlePanel : UIPanelBase
         _turnCount = 1;
         txtTurnCount.text = _turnCount.ToString();
 
-    }
 
-    public void SpawnInstruments()
-    {
-        for (int i = 0; i < PlayerMgr.Instance.instrumentInfoList.Count; i++)
-        {
-            GameObject instrumentGO = GameObject.Instantiate(instrumentPrefab);
-            if (instrumentGO == null)
-                continue;
-            Instrument instrument = instrumentGO.GetComponent<Instrument>();
-            if (instrument == null)
-                continue;
-            instrument.SetInfo(PlayerMgr.Instance.instrumentInfoList[i]);
-            instrument.Init();
-        }
-
+        instrumentContainer.Show();
+        
     }
 }
