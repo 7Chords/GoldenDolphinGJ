@@ -90,8 +90,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   duration: 0.5
-  fadeInDuration: 0.15
-  fadeOutDuration: 0.15
+  fadeInDuration: 0.5
+  fadeOutDuration: 0.5
   canvasGourp: {fileID: -906234585847456783}
 --- !u!225 &-906234585847456783
 CanvasGroup:
@@ -101,7 +101,7 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8782641917851560745}
   m_Enabled: 1
-  m_Alpha: 0
+  m_Alpha: 0.0492332
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0

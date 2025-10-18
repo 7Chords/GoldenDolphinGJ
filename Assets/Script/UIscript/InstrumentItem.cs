@@ -67,6 +67,8 @@ public class InstrumentItem : UIPanelBase,
     public float clickBiggerScale;
     [Header("点击角色放大持续时间")]
     public float clickBiggerDuration;
+    [Header("点击角色放大后不变时间")]
+    public float clickKeepDuration;
     [Header("点击角色缩小持续时间")]
     public float clickSmallerDuration;
 
@@ -87,6 +89,7 @@ public class InstrumentItem : UIPanelBase,
     //private LineRenderer _lineRenderer;
     private int _maxHealth;
 
+    private int _extraAttack;
 
     private bool _hasInited;
     private bool _hasActioned;
@@ -130,12 +133,23 @@ public class InstrumentItem : UIPanelBase,
             return;
         instrumentIcon.sprite = Resources.Load<Sprite>(_instrumentInfo.instrumentBodyBgWithChaPath);
         instrumentBack.sprite = Resources.Load<Sprite>(_instrumentInfo.instrumentBgPath);
-        imgHealthBar.fillAmount = (float)_instrumentInfo.health / _maxHealth;
+        imgName.sprite = Resources.Load<Sprite>(_instrumentInfo.instrumentNamePath);
+        imgName.SetNativeSize();
+        imgAttack.sprite = Resources.Load<Sprite>(_instrumentInfo.instrumentAttackIconPath);
+        txtHealth.text = _instrumentInfo.health.ToString() + "/" + _maxHealth.ToString();
+        Tween tween =  imgHealthBar.DOFillAmount((float)_instrumentInfo.health / _maxHealth,0.5f);
+        _tweenContainer.RegDoTween(tween);
+        instrumentCharacter.sprite = Resources.Load<Sprite>(_instrumentInfo.instrumentBodyPath);
 
         switch (_instrumentInfo.effectType)
         {
             case EInstrumentEffectType.Attack:
-                txtAttack.text = _instrumentInfo.attack.ToString();
+                {
+                    if (_extraAttack > 0)
+                        txtAttack.text = (_instrumentInfo.attack - _extraAttack).ToString() + "<color=#00FF00>+" + _extraAttack.ToString() + "</color>";
+                    else
+                        txtAttack.text = _instrumentInfo.attack.ToString();
+                }
                 break;
             case EInstrumentEffectType.Heal:
                 txtAttack.text = _instrumentInfo.heal.ToString();
@@ -146,7 +160,6 @@ public class InstrumentItem : UIPanelBase,
             default:
                 break;
         }
-        imgName.sprite = Resources.Load<Sprite>(_instrumentInfo.instrumentNamePath);
     }
     public void OnPointerEnter(PointerEventData eventData)
     {
@@ -224,6 +237,7 @@ public class InstrumentItem : UIPanelBase,
     public void TakeBuff(int buffAmount)
     {
         instrumentInfo.attack += buffAmount;
+        _extraAttack += buffAmount;
         RefreshShow();
 
     }
@@ -244,43 +258,49 @@ public class InstrumentItem : UIPanelBase,
         _isPlaying = true;
         btnClick.enabled = false;
         MsgCenter.SendMsgAct(MsgConst.ON_INSTRUMENT_START_ATTACK);
-        //突出到前方
-        iconCanvas.sortingOrder = 3;
+        instrumentCharacter.gameObject.SetActive(true);
+        instrumentIcon.sprite = Resources.Load<Sprite>(_instrumentInfo.instrumentBodyBgPath);
         Sequence seq = DOTween.Sequence();
-        seq.Append(instrumentIcon.transform.DOScale(clickBiggerScale, clickBiggerDuration).OnComplete(() =>
-        {
-            List<IDamagable> damagableList = new List<IDamagable>();
+        seq.Append(instrumentCharacter.transform.DOScale(clickBiggerScale, clickBiggerDuration));
 
-            switch (instrumentInfo.effectType)
-            {
-                case EInstrumentEffectType.Attack:
-                    damagableList.Add(BattleMgr.instance.enemyItem);
-                    break;
-                case EInstrumentEffectType.Heal:
-                    foreach (var item in BattleMgr.instance.instrumentItemList)
-                    {
-                        damagableList.Add(item);
-                    }
-                    break;
-                case EInstrumentEffectType.Buff:
-                    foreach (var item in BattleMgr.instance.instrumentItemList)
-                    {
-                        damagableList.Add(item);
-                    }
-                    break;
-                default:
-                    break;
-            }
-            if (damagableList != null)
-                AttackHandler.DealAttack(instrumentInfo.effectType, this, damagableList);
-            MsgCenter.SendMsgAct(MsgConst.ON_INSTRUMENT_END_ATTACK);
 
-        }));
-        seq.Append(instrumentIcon.transform.DOScale(Vector3.one, clickSmallerDuration)).OnComplete(() =>
+
+        seq.Append(DOVirtual.DelayedCall(clickKeepDuration, () =>
+         {
+             List<IDamagable> damagableList = new List<IDamagable>();
+
+             switch (instrumentInfo.effectType)
+             {
+                 case EInstrumentEffectType.Attack:
+                     damagableList.Add(BattleMgr.instance.enemyItem);
+                     break;
+                 case EInstrumentEffectType.Heal:
+                     foreach (var item in BattleMgr.instance.instrumentItemList)
+                     {
+                         damagableList.Add(item);
+                     }
+                     break;
+                 case EInstrumentEffectType.Buff:
+                     foreach (var item in BattleMgr.instance.instrumentItemList)
+                     {
+                         damagableList.Add(item);
+                     }
+                     break;
+                 default:
+                     break;
+             }
+             if (damagableList != null)
+                 AttackHandler.DealAttack(instrumentInfo.effectType, this, damagableList);
+             MsgCenter.SendMsgAct(MsgConst.ON_INSTRUMENT_END_ATTACK);
+         }));
+
+
+        seq.Append(instrumentCharacter.transform.DOScale(Vector3.one, clickSmallerDuration)).OnComplete(() =>
         {
             _isPlaying = false;
-            iconCanvas.sortingOrder = 1;
             btnClick.enabled = true;
+            instrumentCharacter.gameObject.SetActive(false);
+            instrumentIcon.sprite = Resources.Load<Sprite>(_instrumentInfo.instrumentBodyBgWithChaPath);
         });
 
         _tweenContainer.RegDoTween(seq);

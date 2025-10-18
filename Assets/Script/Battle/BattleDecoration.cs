@@ -17,6 +17,12 @@ public class BattleDecoration : MonoBehaviour
 
     public void Init()
     {
+
+        fadeInDuration += Random.Range(-0.1f, 0.1f);
+        duration += Random.Range(-0.1f, 0.1f);
+        fadeOutDuration += Random.Range(-0.1f, 0.1f);
+
+
         canvasGourp.alpha = 0;
         _tweenContainer = new TweenContainer();
         Sequence seq = DOTween.Sequence();

@@ -154,6 +154,60 @@ public class BattlePanel : UIPanelBase
     private void OnEnemyStartAttack()
     {
         maskAttack.SetActive(true);
+        int randomIdx = 0;
+        int randomPosIdx = 0;
+        List<int> hasSpawnPosIdxList = new List<int>();
+        for (int i = 0; i < longDurationDecSpawnPerAmount; i++)
+        {
+            randomIdx = Random.Range(0, longDurationDecList.Count);
+            randomPosIdx = Random.Range(0, longDurationDecPosList.Count);
+
+            while (hasSpawnPosIdxList.Contains(randomPosIdx))
+            {
+                randomPosIdx = Random.Range(0, longDurationDecPosList.Count);
+            }
+            hasSpawnPosIdxList.Add(randomPosIdx);
+            GameObject decGO = GameObject.Instantiate(longDurationDecList[randomIdx]);
+            decGO.transform.SetParent(transform);
+
+            decGO.GetComponent<RectTransform>().localPosition = longDurationDecPosList[randomPosIdx].localPosition;
+            decGO.GetComponent<BattleDecoration>().Init();
+        }
+
+        hasSpawnPosIdxList.Clear();
+        for (int i = 0; i < middleDurationDecSpawnPerAmount; i++)
+        {
+            randomIdx = Random.Range(0, middleDurationDecList.Count);
+            randomPosIdx = Random.Range(0, middleDurationDecPosList.Count);
+
+            while (hasSpawnPosIdxList.Contains(randomPosIdx))
+            {
+                randomPosIdx = Random.Range(0, middleDurationDecPosList.Count);
+            }
+            hasSpawnPosIdxList.Add(randomPosIdx);
+            GameObject decGO = GameObject.Instantiate(middleDurationDecList[randomIdx]);
+            decGO.transform.SetParent(transform);
+            decGO.GetComponent<RectTransform>().localPosition = middleDurationDecPosList[randomPosIdx].localPosition;
+            decGO.GetComponent<BattleDecoration>().Init();
+        }
+
+        hasSpawnPosIdxList.Clear();
+        for (int i = 0; i < smallDurationDecSpawnPerAmount; i++)
+        {
+            randomIdx = Random.Range(0, smallDurationDecList.Count);
+            randomPosIdx = Random.Range(0, smallDurationDecPosList.Count);
+
+            while (hasSpawnPosIdxList.Contains(randomPosIdx))
+            {
+                randomPosIdx = Random.Range(0, smallDurationDecPosList.Count);
+            }
+            hasSpawnPosIdxList.Add(randomPosIdx);
+            GameObject decGO = GameObject.Instantiate(smallDurationDecList[randomIdx]);
+            decGO.transform.SetParent(transform);
+
+            decGO.GetComponent<RectTransform>().localPosition = smallDurationDecPosList[randomPosIdx].localPosition;
+            decGO.GetComponent<BattleDecoration>().Init();
+        }
     }
 
     private void OnEnemyEndAttack()

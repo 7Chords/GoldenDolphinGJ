@@ -90,9 +90,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   duration: 0.5
-  fadeInDuration: 0.15
-  fadeOutDuration: 0.15
-  canvasGourp: {fileID: -906234585847456783, guid: c6ed783402a8cd645aafa5593ab9c3b6, type: 3}
+  fadeInDuration: 0.5
+  fadeOutDuration: 0.5
+  canvasGourp: {fileID: -3789831842854693464}
 --- !u!225 &-3789831842854693464
 CanvasGroup:
   m_ObjectHideFlags: 0
