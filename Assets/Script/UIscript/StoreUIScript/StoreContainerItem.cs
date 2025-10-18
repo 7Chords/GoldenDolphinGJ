@@ -83,6 +83,7 @@ public class StoreContainerItem : MonoBehaviour, IPointerClickHandler
         bool temp = (PlayerMgr.Instance.GetNoteNum(NoteType.HightNote) >= highNoteCost &&
                PlayerMgr.Instance.GetNoteNum(NoteType.LowNote) >= middleCost &&
                PlayerMgr.Instance.GetNoteNum(NoteType.MiddleNote) >= lowCost);
+        temp &= !PlayerMgr.Instance.instrumentIdList.Contains(instrumentStoreRefObj.instrumentId);
 
         if (temp)
         {
@@ -91,6 +92,7 @@ public class StoreContainerItem : MonoBehaviour, IPointerClickHandler
             PlayerMgr.Instance.RemoveNoteNum(NoteType.LowNote, lowCost);
             PlayerMgr.Instance.RemoveNoteNum(NoteType.HightNote, highNoteCost);
             PlayerMgr.Instance.RemoveNoteNum(NoteType.MiddleNote, middleCost);
+            MsgCenter.SendMsgAct(MsgConst.ON_NOTE_COUNT_CHANGE);
         }
 
         return temp;
