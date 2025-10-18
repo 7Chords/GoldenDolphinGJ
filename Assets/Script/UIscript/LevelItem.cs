@@ -70,11 +70,6 @@ public class LevelItem : UIPanelBase,
         btnSelect.onClick.AddListener(OnSelectBtnClicked);
         btnReturn.onClick.AddListener(CancelSelect);
 
-        btnStart.onClick.AddListener(()=>
-        {
-            SceneLoader.Instance.AddNextScenePanel(EPanelType.NoteCollectPanel);
-            TransitionMgr.Instance.StarTransition("NoteCollectScene", "FadeInAndOutTransition");
-        });
 
     }
 

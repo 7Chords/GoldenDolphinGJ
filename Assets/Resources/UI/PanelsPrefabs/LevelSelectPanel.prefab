@@ -500,7 +500,8 @@ GameObject:
   - component: {fileID: 719598844003102396}
   - component: {fileID: 86082522702387473}
   - component: {fileID: 5089187502786824375}
-  - component: {fileID: 9067400175120629201}
+  - component: {fileID: 3193575364794778078}
+  - component: {fileID: 3161159135026241478}
   m_Layer: 5
   m_Name: btn_start_game
   m_TagString: Untagged
@@ -566,7 +567,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &9067400175120629201
+--- !u!114 &3193575364794778078
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3176470165089417972}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6ea084424e549b4d81ea47d7b91a163, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &3161159135026241478
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -717,7 +730,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &3409929448858191214
 RectTransform:
   m_ObjectHideFlags: 0
@@ -758,7 +771,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.5019608}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -2208,7 +2221,7 @@ PrefabInstance:
     - target: {fileID: 4145064850267468554, guid: e3646e2f0187d9744b55c4659df58e3b, type: 3}
       propertyPath: btnStart
       value: 
-      objectReference: {fileID: 9067400175120629201}
+      objectReference: {fileID: 3161159135026241478}
     - target: {fileID: 4145064850267468554, guid: e3646e2f0187d9744b55c4659df58e3b, type: 3}
       propertyPath: btnReturn
       value: 

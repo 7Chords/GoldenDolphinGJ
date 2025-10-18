@@ -78,6 +78,8 @@ namespace GJFramework
         }
         public void AddNextScenePanel(EPanelType panelType)
         {
+            //去重
+            if (_nextSceneEPanelTypes.Contains(panelType)) return;
             _nextSceneEPanelTypes.Add(panelType);
         }
 

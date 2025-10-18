@@ -9,7 +9,8 @@ public class NoteCollectPanel : UIPanelBase
 
     protected override void OnShow()
     {
-        
+        PlayerMgr.Instance.ClearInstrumentIdList();
+        PlayerMgr.Instance.ResetNoteNum();
     }
 
     protected override void OnHide(Action onHideFinished)

@@ -26,6 +26,18 @@ public class PlayerMgr : SingletonPersistent<PlayerMgr>
         MsgCenter.SendMsgAct(MsgConst.ON_NOTE_COUNT_CHANGE);
     }
 
+    public void ClearInstrumentIdList()
+    {
+        instrumentIdList.Clear();
+    }
+
+    public void ResetNoteNum()
+    {
+        noteDic[NoteType.LowNote] = 0;
+        noteDic[NoteType.MiddleNote] = 0;
+        noteDic[NoteType.HightNote] = 0;
+        MsgCenter.SendMsgAct(MsgConst.ON_NOTE_COUNT_CHANGE);
+    }
     public void RemoveNoteNum(NoteType noteType, int num) 
     {
         if (noteDic[noteType] >= num) noteDic[noteType] -= num;
