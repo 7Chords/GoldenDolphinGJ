@@ -26,7 +26,7 @@ public class InstrumentRefObj : SCRefDataCore
     public string instrumentBodyBgPath;
     public string instrumentNamePath;
     public string instrumentBodyBgWithChaPath;
-
+    public string instrumentAttackIconPath;
 
     protected override void _parseFromString()
     {
@@ -46,6 +46,7 @@ public class InstrumentRefObj : SCRefDataCore
         instrumentBodyBgPath = getString("instrumentBodyBgPath");
         instrumentNamePath = getString("instrumentNamePath");
         instrumentBodyBgWithChaPath = getString("instrumentBodyBgWithChaPath");
+        instrumentAttackIconPath = getString("instrumentAttackIconPath");
 
     }
 
