@@ -22,7 +22,7 @@ public class InstrumentItem : UIPanelBase,
 
     public Image instrumentIcon;
     public Image instrumentBack;
-    public Text txtHealth;
+    public Image imgHealthBar;
     public Text txtAttack;
     public Text txtName;
 
@@ -90,6 +90,7 @@ public class InstrumentItem : UIPanelBase,
     private bool _hasActioned;
     private bool _hasDead;
     private bool _isPlaying;
+    private bool _isScaling;
     protected override void OnShow()
     {
 
@@ -127,7 +128,7 @@ public class InstrumentItem : UIPanelBase,
             return;
         instrumentIcon.sprite = Resources.Load<Sprite>(_instrumentInfo.instrumentIconPath);
         instrumentBack.sprite = Resources.Load<Sprite>(_instrumentInfo.instrumentBgPath);
-        txtHealth.text = _instrumentInfo.health.ToString();
+        imgHealthBar.fillAmount = (float)_instrumentInfo.health / _maxHealth;
 
         switch (_instrumentInfo.effectType)
         {
@@ -147,14 +148,15 @@ public class InstrumentItem : UIPanelBase,
     }
     public void OnPointerEnter(PointerEventData eventData)
     {
-        if (!_hasInited && _hasDead && _isPlaying)
+        if (!_hasInited || _hasDead )
             return;
-
+        _isScaling = true;
         Sequence enterSeq = DOTween.Sequence();
         enterSeq.Append(transform.DOScale(enterBiggerScale, enterBiggerDuration));
         enterSeq.Join(transform.DOShakePosition(enterShakeDuration, enterShakeStrength, fadeOut: true))
             .OnComplete(() =>
             {
+                _isScaling = false;
                 // 强制刷新布局
                 LayoutRebuilder.ForceRebuildLayoutImmediate(transform.parent.GetComponent<RectTransform>());
             });
@@ -163,136 +165,22 @@ public class InstrumentItem : UIPanelBase,
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        if (!_hasInited && _hasDead && _isPlaying)
+        if (!_hasInited || _hasDead )
             return;
+        _isScaling = true;
 
         Sequence exitSeq = DOTween.Sequence();
         exitSeq.Append(transform.DOScale(exitSmallerScale, exitSmallerDuration));
         exitSeq.Join(transform.DOShakePosition(exitShakeDuration, exitShakeStrength, fadeOut: true))
                                     .OnComplete(() =>
                                     {
+                                        _isScaling = false;
                                         // 强制刷新布局
                                         LayoutRebuilder.ForceRebuildLayoutImmediate(transform.parent.GetComponent<RectTransform>());
                                     });
         _tweenContainer.RegDoTween(exitSeq);
 
     }
-
-
-    #region Delete
-    //public void OnBeginDrag(PointerEventData eventData)
-    //{
-    //    if (!_hasInited && _hasDead)
-    //        return;
-    //    if (_hasActioned)
-    //        return;
-    //    // 创建攻击指示线
-    //    _attackLineGO = Instantiate(attackLinePrefab);
-    //    _lineRenderer = _attackLineGO.GetComponent<LineRenderer>();
-
-    //    // 设置初始位置
-    //    UpdateLinePositions(eventData);
-    //}
-
-    //public void OnDrag(PointerEventData eventData)
-    //{
-    //    if (!_hasInited && _hasDead)
-    //        return;
-    //    if (_hasActioned)
-    //        return;
-    //    if (_lineRenderer != null)
-    //    {
-    //        UpdateLinePositions(eventData);
-    //    }
-    //}
-
-    //public void OnEndDrag(PointerEventData eventData)
-    //{
-    //    if (!_hasInited && _hasDead)
-    //        return;
-    //    if (_hasActioned)
-    //        return;
-    //    // 这里可以添加释放后的逻辑，比如检测释放目标等
-
-    //    GameObject enemyIconGO = eventData.hovered?.Find(x => x.tag == "EnemyIcon");
-    //    if(enemyIconGO != null)
-    //    {
-
-    //        List<IDamagable> damagableList = new List<IDamagable>();
-
-    //        switch(instrumentInfo.effectType)
-    //        {
-    //            case EInstrumentEffectType.Attack:
-    //                damagableList.Add(enemyIconGO.transform.parent.GetComponent<IDamagable>());
-    //                break;
-    //            case EInstrumentEffectType.Heal:
-    //                foreach (var item in BattleMgr.instance.instrumentItemList)
-    //                {
-    //                    damagableList.Add(item as IDamagable);
-    //                }
-    //                break;
-    //            case EInstrumentEffectType.Buff:
-    //                foreach (var item in BattleMgr.instance.instrumentItemList)
-    //                {
-    //                    damagableList.Add(item as IDamagable);
-    //                }
-    //                break;
-    //            default:
-    //                break;
-    //        }
-    //        if (damagableList != null)
-    //            AttackHandler.DealAttack(instrumentInfo.effectType,this, damagableList);
-    //    }
-    //    // 销毁攻击指示线
-    //    if (_attackLineGO != null)
-    //    {
-    //        Destroy(_attackLineGO);
-    //        _attackLineGO = null;
-    //        _lineRenderer = null;
-    //    }
-    //}
-
-    ///// <summary>
-    ///// 更新攻击指示线的起点和终点位置
-    ///// </summary>
-    //private void UpdateLinePositions(PointerEventData eventData)
-    //{
-    //    if (_lineRenderer == null) return;
-
-    //    // 获取UI元素的世界位置（起点）
-    //    Vector3 startWorldPos = GetUIPositionWorldPos(transform.position);
-    //    Vector3 endWorldPos;
-
-    //    endWorldPos = GetMouseWorldPosition(eventData.position);
-
-    //    // 设置LineRenderer的位置
-    //    _lineRenderer.positionCount = 2;
-    //    _lineRenderer.SetPosition(0, startWorldPos);
-    //    _lineRenderer.SetPosition(1, endWorldPos);
-    //}
-
-    ///// <summary>
-    ///// 获取UI位置对应的世界坐标
-    ///// </summary>
-    //private Vector3 GetUIPositionWorldPos(Vector3 uiPosition)
-    //{
-    //    Vector3 worldPos = Vector3.zero;
-    //    worldPos = Camera.main.ScreenToWorldPoint(uiPosition);
-    //    return worldPos;
-    //}
-
-    ///// <summary>
-    ///// 获取鼠标位置对应的世界坐标
-    ///// </summary>
-    //private Vector3 GetMouseWorldPosition(Vector3 mousePos)
-    //{
-
-    //    Vector3 mouseScreenPos = mousePos;
-
-    //    return Camera.main.ScreenToWorldPoint(new Vector3(mouseScreenPos.x, mouseScreenPos.y, 10f));
-    //}
-
-    #endregion
 
 
     public void Attack()
@@ -349,10 +237,10 @@ public class InstrumentItem : UIPanelBase,
 
     private void OnBtnClicked()
     {
-        if (_isPlaying || _hasActioned || _hasDead )
+        if (_isPlaying || _hasActioned || _hasDead || _isScaling)
             return;
         _isPlaying = true;
-
+        btnClick.enabled = false;
         MsgCenter.SendMsgAct(MsgConst.ON_INSTRUMENT_START_ATTACK);
         //突出到前方
         iconCanvas.sortingOrder = 3;
@@ -386,10 +274,11 @@ public class InstrumentItem : UIPanelBase,
             MsgCenter.SendMsgAct(MsgConst.ON_INSTRUMENT_END_ATTACK);
 
         }));
-        seq.Append(transform.DOScale(Vector3.one, clickSmallerDuration)).OnComplete(() =>
+        seq.Append(instrumentIcon.transform.DOScale(Vector3.one, clickSmallerDuration)).OnComplete(() =>
         {
             _isPlaying = false;
             iconCanvas.sortingOrder = 1;
+            btnClick.enabled = true;
         });
 
         _tweenContainer.RegDoTween(seq);

@@ -35,6 +35,7 @@ public class EnemyItem : UIPanelBase,IDamagable
     private int _maxHealth;
     protected override void OnShow()
     {
+        Debug.Log("EnemyItemShow!!!");
         MsgCenter.RegisterMsgAct(MsgConst.ON_TURN_CHG, OnTurnChg);
         _tweenContainer = new TweenContainer();
         BattleMgr.instance.RegEnemyItem(this);
@@ -121,8 +122,11 @@ public class EnemyItem : UIPanelBase,IDamagable
     }
     private void OnTurnChg()
     {
+
         if(BattleMgr.instance.curTurn == ETurnType.Enemy)
         {
+            Debug.Log("EnemyItemOnTurnChg!!!");
+
             Sequence seq = DOTween.Sequence();
             seq.AppendInterval(attackWaitDuration).OnComplete(() =>
             {
