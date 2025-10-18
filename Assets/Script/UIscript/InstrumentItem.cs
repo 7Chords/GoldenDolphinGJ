@@ -250,6 +250,7 @@ public class InstrumentItem : UIPanelBase,
     public void Dead()
     {
         _hasDead = true;
+        canvasGroup.alpha = alreadyActionAlpha;
         MsgCenter.SendMsgAct(MsgConst.ON_INSTRUMENT_DEAD);
     }
 
@@ -309,6 +310,9 @@ public class InstrumentItem : UIPanelBase,
     }
     private void OnTurnChg()
     {
+
+        if (_hasDead)
+            return;
         if(BattleMgr.instance.curTurn == ETurnType.Player)
         {
             _hasActioned = false;

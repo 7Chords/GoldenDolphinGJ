@@ -20,8 +20,9 @@ public class BattleMgr : SingletonMono<BattleMgr>
     //比较烂的写法 时间紧迫
     public List<InstrumentItem> instrumentItemList;
     public EnemyItem enemyItem;
-
     public bool gameStarted;
+
+    private int _instrumentAliveCount;
     private void Start()
     {
         MsgCenter.RegisterMsgAct(MsgConst.ON_INSTRUMENT_ACTION_OVER, OnInstrumentActionOver);
@@ -84,7 +85,7 @@ public class BattleMgr : SingletonMono<BattleMgr>
                 instrumentRefObj.instrumentAttackIconPath);
             _instrumentInfoList.Add(info);
         }
-
+        _instrumentAliveCount = _instrumentInfoList.Count;
         MsgCenter.SendMsg(MsgConst.ON_BATTLE_START, _enemyInfo, _instrumentInfoList);
     }
 
@@ -127,12 +128,10 @@ public class BattleMgr : SingletonMono<BattleMgr>
             return;
 
         _instrumentActionCount++;
-        if(_instrumentActionCount == _instrumentInfoList.Count)
+        if(_instrumentActionCount == _instrumentAliveCount)
         {
             curTurn = ETurnType.Enemy;
             turnCount++;
-            if (!gameStarted)
-                return;
             MsgCenter.SendMsgAct(MsgConst.ON_TURN_CHG);
         }
     }
@@ -141,7 +140,6 @@ public class BattleMgr : SingletonMono<BattleMgr>
        
         if (!gameStarted)
             return;
-        Debug.Log("OnEnemyActionOver");
         _instrumentActionCount = 0;
         curTurn = ETurnType.Player;
         turnCount++;
@@ -160,7 +158,8 @@ public class BattleMgr : SingletonMono<BattleMgr>
         if (!gameStarted)
             return;
         _instrumentDeadCount++;
-        if(_instrumentDeadCount == _instrumentInfoList.Count)
+        _instrumentAliveCount--;
+        if (_instrumentDeadCount == _instrumentInfoList.Count)
         {
             FinishBattle(false);
         }
