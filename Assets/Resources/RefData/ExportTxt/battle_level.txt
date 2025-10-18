@@ -1,2 +1,2 @@
 ﻿id	level	enemyType	enemyName	enemyHealth	enemyAttack	enemyIconPath	enemyBgPath	recommendinstrumentsIdList
-1001	1	MonsterNote	音符怪物	100	100	UI/Icon/square	UI/Icon/square	1001;1002;1003
+1001	1	MonsterNote	音符怪物	100	1	UI/Icon/square	UI/Icon/square	1001;1002;1003

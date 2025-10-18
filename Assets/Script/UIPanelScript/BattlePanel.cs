@@ -26,7 +26,7 @@ public class BattlePanel : UIPanelBase
     protected override void OnHide(Action onHideFinished)
     {
         MsgCenter.UnregisterMsg(MsgConst.ON_BATTLE_START, OnBattleStartStart);
-        MsgCenter.RegisterMsgAct(MsgConst.ON_TURN_CHG, OnTurnChg);
+        MsgCenter.UnregisterMsgAct(MsgConst.ON_TURN_CHG, OnTurnChg);
 
     }
 
