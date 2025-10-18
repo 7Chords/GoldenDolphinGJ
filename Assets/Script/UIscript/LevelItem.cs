@@ -6,9 +6,9 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class LevelItem : UIPanelBase,
-    IPointerEnterHandler,
-    IPointerExitHandler
+public class LevelItem : UIPanelBase
+    //IPointerEnterHandler,
+    //IPointerExitHandler
 {
     public Image imgContent;
     public GameObject levelDescGO;
@@ -102,25 +102,25 @@ public class LevelItem : UIPanelBase,
         levelDescGO.SetActive(!levelDescGO.activeInHierarchy);
     }
 
-    public void OnPointerEnter(PointerEventData eventData)
-    {
-        _isScaleChging = true;
-        _tweenContainer.RegDoTween(transform.DOScale(Vector3.one * selectBiggerScale, selectBiggerDuration).OnComplete
-            (() =>
-            {
-                _isScaleChging = false;
+    //public void OnPointerEnter(PointerEventData eventData)
+    //{
+    //    _isScaleChging = true;
+    //    _tweenContainer.RegDoTween(transform.DOScale(Vector3.one * selectBiggerScale, selectBiggerDuration).OnComplete
+    //        (() =>
+    //        {
+    //            _isScaleChging = false;
 
-            }));
+    //        }));
 
-    }
+    //}
 
-    public void OnPointerExit(PointerEventData eventData)
-    {
-        _isScaleChging = true;
-        _tweenContainer.RegDoTween(transform.DOScale(Vector3.one, unselecSmallerDuration).OnComplete
-            (() =>
-            {
-                _isScaleChging = false;
-            }));
-    }
+    //public void OnPointerExit(PointerEventData eventData)
+    //{
+    //    _isScaleChging = true;
+    //    _tweenContainer.RegDoTween(transform.DOScale(Vector3.one, unselecSmallerDuration).OnComplete
+    //        (() =>
+    //        {
+    //            _isScaleChging = false;
+    //        }));
+    //}
 }

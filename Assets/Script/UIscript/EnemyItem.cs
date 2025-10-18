@@ -11,7 +11,7 @@ public class EnemyItem : UIPanelBase,IDamagable
     public Image imgEnemyBg;
     public Image imgEnemyIcon;
     public Text txtAttack;
-    //public Text txtHealth;
+    public Text txtHealth;
     public Text txtName;
     public Image imgHealthBar;
 
@@ -26,6 +26,10 @@ public class EnemyItem : UIPanelBase,IDamagable
     [Header("血条变化时间")]
     public float healthBarChgDuration;
 
+
+    [Header("切换到敌人回合时等待多久播放装饰")]
+    public float attackWaitDecDuration;
+
     [Header("切换到敌人回合时攻击前的等待时间")]
     public float attackWaitDuration;
     #endregion
@@ -33,7 +37,6 @@ public class EnemyItem : UIPanelBase,IDamagable
     private EnemyInfo _enemyInfo;
     private TweenContainer _tweenContainer;
     private int _maxHealth;
-
     private bool _flag;
     protected override void OnShow()
     {
@@ -67,13 +70,14 @@ public class EnemyItem : UIPanelBase,IDamagable
         imgEnemyIcon.sprite = Resources.Load<Sprite>(_enemyInfo.enemyBodyPath);
         txtAttack.text = _enemyInfo.enemyAttack.ToString();
         txtName.text = _enemyInfo.enemyName;
+        txtHealth.text = _enemyInfo.enemyHealth + "/" + _maxHealth;
         Tween healthTween = imgHealthBar.DOFillAmount((float)_enemyInfo.enemyHealth / _maxHealth, healthBarChgDuration);
         _tweenContainer.RegDoTween(healthTween);
     }
 
     public void Attack()
     {
-        MsgCenter.SendMsgAct(MsgConst.ON_ENEMY_ACTION_OVER);
+        MsgCenter.SendMsgAct(MsgConst.ON_ENEMY_END_ATTACK);
     }
 
     public void TakeDamage(int damage)
@@ -128,9 +132,14 @@ public class EnemyItem : UIPanelBase,IDamagable
         _flag = true;
         if (BattleMgr.instance.curTurn == ETurnType.Enemy)
         {
-            MsgCenter.SendMsgAct(MsgConst.ON_ENEMY_START_ATTACK);
             Sequence seq = DOTween.Sequence();
-            seq.Append(DOVirtual.DelayedCall(attackWaitDuration, () =>
+
+            seq.Append(DOVirtual.DelayedCall(attackWaitDecDuration, () =>
+            {
+                MsgCenter.SendMsgAct(MsgConst.ON_ENEMY_START_ATTACK);
+            }));
+
+            seq.Append(DOVirtual.DelayedCall(attackWaitDuration - attackWaitDecDuration, () =>
              {
                  List<IDamagable> damagableList = new List<IDamagable>();
                  foreach (var item in BattleMgr.instance.instrumentItemList)
@@ -138,8 +147,8 @@ public class EnemyItem : UIPanelBase,IDamagable
                      damagableList.Add(item as IDamagable);
                  }
                  AttackHandler.DealAttack(EInstrumentEffectType.Attack, this, damagableList);
-                 MsgCenter.SendMsgAct(MsgConst.ON_ENEMY_END_ATTACK);
-                 _flag = false;
+                 MsgCenter.SendMsgAct(MsgConst.ON_ENEMY_ACTION_OVER); 
+                  _flag = false;
              }));
             _tweenContainer.RegDoTween(seq);
         }
