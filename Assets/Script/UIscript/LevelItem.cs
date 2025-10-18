@@ -66,14 +66,14 @@ public class LevelItem : UIPanelBase,
     protected override void OnShow()
     {
         _tweenContainer = new TweenContainer();
-        _tweenContainer.RegDoTween(canvasGroup.DOFade(1, fadeInDuration));
 
         btnSelect.onClick.AddListener(OnSelectBtnClicked);
         btnReturn.onClick.AddListener(CancelSelect);
+
         btnStart.onClick.AddListener(()=>
         {
             SceneLoader.Instance.AddNextScenePanel(EPanelType.NoteCollectPanel);
-            SceneLoader.Instance.LoadScene("NoteCollectScene");
+            TransitionMgr.Instance.StarTransition("NoteCollectScene", "FadeInAndOutTransition");
         });
 
     }
@@ -84,10 +84,6 @@ public class LevelItem : UIPanelBase,
         btnReturn.onClick.RemoveAllListeners();
         btnStart.onClick.RemoveAllListeners();
 
-        _tweenContainer.RegDoTween(canvasGroup.DOFade(0, fadeOutDuration).OnComplete(() =>
-        {
-            onHideFinished?.Invoke();
-        }));
     }
 
     private void OnDestroy()

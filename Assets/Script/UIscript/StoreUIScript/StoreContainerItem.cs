@@ -81,8 +81,9 @@ public class StoreContainerItem : MonoBehaviour, IPointerClickHandler
         int lowCost = instrumentStoreRefObj.lowNoteNum;
 
         bool temp = (PlayerMgr.Instance.GetNoteNum(NoteType.HightNote) >= highNoteCost &&
-               PlayerMgr.Instance.GetNoteNum(NoteType.LowNote) >= middleCost &&
-               PlayerMgr.Instance.GetNoteNum(NoteType.MiddleNote) >= lowCost);
+               PlayerMgr.Instance.GetNoteNum(NoteType.MiddleNote) >= middleCost &&
+               PlayerMgr.Instance.GetNoteNum(NoteType.LowNote) >= lowCost);
+
         temp &= !PlayerMgr.Instance.instrumentIdList.Contains(instrumentStoreRefObj.instrumentId);
 
         if (temp)

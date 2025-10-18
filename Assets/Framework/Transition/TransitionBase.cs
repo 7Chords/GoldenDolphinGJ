@@ -1,16 +1,13 @@
+
 using System;
 using UnityEngine;
-using System.Collections;
-
 
 namespace GJFramework
 {
-    using UnityEngine;
-    using System.Collections;
-
     /// <summary>
     /// 过渡效果基类（抽象类）
     /// 仅提供基础框架，具体过渡效果由子类重写实现
+    /// 已修改为非协程实现：EnterTransition/ExitTransition 为同步方法（void）
     /// </summary>
     public abstract class TransitionBase : MonoBehaviour
     {
@@ -50,7 +47,7 @@ namespace GJFramework
         }
 
         /// <summary>
-        /// 开始进入过渡
+        /// 开始进入过渡（同步）
         /// </summary>
         public void StartEnterTransition()
         {
@@ -58,24 +55,23 @@ namespace GJFramework
 
             gameObject.SetActive(true);
             isTransitioning = true;
-            StartCoroutine(EnterTransition());
+            EnterTransition();
         }
         /// <summary>
-        /// 进入过渡（抽象方法，子类必须实现）
+        /// 进入过渡（抽象方法，子类必须实现） - 非协程版
         /// </summary>
-        protected abstract IEnumerator EnterTransition();
+        protected abstract void EnterTransition();
 
         /// <summary>
-        /// 退出过渡（抽象方法，子类必须实现）
+        /// 退出过渡（抽象方法，子类必须实现） - 非协程版
         /// </summary>
-        protected abstract IEnumerator ExitTransition();
+        protected abstract void ExitTransition();
 
         /// <summary>
         /// 立即显示（无过渡效果）
         /// </summary>
         public virtual void ShowImmediately()
         {
-            StopAllCoroutines();
             canvasGroup.alpha = 1;
             isTransitioning = false;
             gameObject.SetActive(true);
@@ -87,7 +83,6 @@ namespace GJFramework
         /// </summary>
         public virtual void HideImmediately()
         {
-            StopAllCoroutines();
             canvasGroup.alpha = 0;
             isTransitioning = false;
             gameObject.SetActive(false);
@@ -114,6 +109,4 @@ namespace GJFramework
             gameObject.SetActive(true);
         }
     }
-
-
 }

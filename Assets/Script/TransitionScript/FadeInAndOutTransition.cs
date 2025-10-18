@@ -1,17 +1,18 @@
+
 using DG.Tweening;
 using GJFramework;
-using System.Collections;
 using UnityEngine;
 
 public class FadeInAndOutTransition : TransitionBase
 {
-    // 淡入过渡
-    protected override IEnumerator EnterTransition()
+    // 淡入过渡（非协程）
+    protected override void EnterTransition()
     {
         if (string.IsNullOrEmpty(tragetSceneName))
         {
             Debug.LogError("SceneName IsNullOrEmpty!");
-            yield return null;
+            isTransitioning = false;
+            return;
         }
 
         // 先杀死可能存在的旧动画，避免冲突
@@ -23,20 +24,17 @@ public class FadeInAndOutTransition : TransitionBase
             .SetEase(Ease.InOutQuad) // 缓动曲线
             .OnComplete(() =>
             {
+                // 进入过渡完成后发送消息并开始退出过渡（非协程）
                 MsgCenter.SendMsg(MsgConst.ON_TRANSITION_IN, tragetSceneName);
-                // 过渡进入完成后 发送信息 并开启过渡淡出
-                StartCoroutine(ExitTransition());
+                ExitTransition();
             });
-
-        yield return null;
     }
 
-    // 淡出过渡
-    protected override IEnumerator ExitTransition()
+    // 淡出过渡（非协程）
+    protected override void ExitTransition()
     {
         // 先杀死可能存在的旧动画
         canvasGroup.DOKill();
-
 
         // DOTween 控制 alpha 从 1 到 0（淡出）
         canvasGroup.alpha = 1; // 起始透明度
@@ -46,8 +44,7 @@ public class FadeInAndOutTransition : TransitionBase
             {
                 MsgCenter.SendMsgAct(MsgConst.ON_TRANSITION_OUT);
                 gameObject.SetActive(false);
+                isTransitioning = false;
             });
-
-        yield return null;
     }
 }

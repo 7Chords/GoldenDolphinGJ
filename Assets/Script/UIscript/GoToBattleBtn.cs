@@ -12,6 +12,6 @@ public class GoToBattleBtn : MonoBehaviour, IPointerClickHandler
             return;
         }
         SceneLoader.Instance.AddNextScenePanel(EPanelType.BattlePanel);
-        SceneLoader.Instance.LoadScene("BattleScene");
+        TransitionMgr.Instance.StarTransition("BattleScene", "FadeInAndOutTransition");
     }
 }

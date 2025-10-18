@@ -21,23 +21,24 @@ public class LevelSelectPanel : UIPanelBase
     public LevelItem levelItem;
     protected override void OnShow()
     {
-        _tweenContainer = new TweenContainer();
-        _tweenContainer.RegDoTween(canvasGroup.DOFade(1, fadeInDuration));
+        //_tweenContainer = new TweenContainer();
+        //_tweenContainer.RegDoTween(canvasGroup.DOFade(1, fadeInDuration));
         levelItem?.Show();
     }
 
 
     protected override void OnHide(Action onHideFinished)
     {
-        _tweenContainer.RegDoTween(canvasGroup.DOFade(0, fadeOutDuration).OnComplete(() =>
-        {
-            onHideFinished?.Invoke();
-        }));
+        //_tweenContainer.RegDoTween(canvasGroup.DOFade(0, fadeOutDuration).OnComplete(() =>
+        //{
+        //    onHideFinished?.Invoke();
+        //    _tweenContainer?.KillAllDoTween();
+        //    _tweenContainer = null;
+        //}));
+        onHideFinished?.Invoke();
     }
 
     private void OnDestroy()
     {
-        _tweenContainer?.KillAllDoTween();
-        _tweenContainer = null;
     }
 }

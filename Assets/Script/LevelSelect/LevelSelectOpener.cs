@@ -7,6 +7,6 @@ public class LevelSelectOpener : MonoBehaviour
 {
     private void Start()
     {
-        PanelUIMgr.Instance.OpenPanel(EPanelType.LevelSelectPanel);
+        //PanelUIMgr.Instance.OpenPanel(EPanelType.LevelSelectPanel);
     }
 }

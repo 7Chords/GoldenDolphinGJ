@@ -28,6 +28,7 @@ public class NoteUIScript : MonoBehaviour, IPointerClickHandler
     private bool isPlayingAnimation = false; 
     private TweenContainer tweenContainer;
     [SerializeField] private List<Sprite> noteSpritList;// 音符对应的图片列表
+    private bool isDestory = false;
     private void Awake()
     {
         tweenContainer = new TweenContainer();
@@ -47,8 +48,9 @@ public class NoteUIScript : MonoBehaviour, IPointerClickHandler
 
     private void DoInupdate()
     {
-        if(NoteMgr.instance.isEnd)
+        if((NoteMgr.instance.isEnd || NoteMgr.instance.isBack) && !isDestory)
         {
+            isDestory = true;
             OnNoteDisappear();
         }
 

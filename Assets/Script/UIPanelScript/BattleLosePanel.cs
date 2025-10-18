@@ -23,7 +23,7 @@ public class BattleLosePanel : UIPanelBase
         btnConfirm.onClick.AddListener(() =>
         {
             SceneLoader.Instance.AddNextScenePanel(EPanelType.LevelSelectPanel);
-            SceneLoader.Instance.LoadScene("LevelSelectScene");
+            TransitionMgr.Instance.StarTransition("LevelSelectScene", "FadeInAndOutTransition");
         });
     }
     protected override void OnHide(Action onHideFinished)

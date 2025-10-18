@@ -16,6 +16,7 @@ public class NoteMgr : SingletonMono<NoteMgr>
     [SerializeField] private Canvas targetCanvas;   // UI所属的Canvas（必填）
     private RectTransform canvasRect; // Canvas的RectTransform组件
     private bool isCurrentPause = false;
+    public bool isBack = false;
     public bool IsCurrentPause { get { return isCurrentPause; } }
     [SerializeField] private float totalTime;
     public float TotalTime { get { return totalTime; } }

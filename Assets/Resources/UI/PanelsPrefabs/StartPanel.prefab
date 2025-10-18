@@ -330,5 +330,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e47b639b4d116bd40965218109601faf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  panelType: 0
+  panelType: 10
   btnGo: {fileID: 6559892725738866276}

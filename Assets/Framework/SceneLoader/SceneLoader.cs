@@ -10,7 +10,6 @@ namespace GJFramework
 
     public class SceneLoader : SingletonPersistent<SceneLoader>
     {
-        private bool _isAllPreLoad = false;
         private LoadSceneMode _loadSceneMode = LoadSceneMode.Single;
         // 下一个场景预加载的面板类型列表
         private List<EPanelType> _nextSceneEPanelTypes;
@@ -21,28 +20,7 @@ namespace GJFramework
             _nextSceneEPanelTypes = new List<EPanelType>();
         }
 
-        // 直接加载场景
-        public void LoadScene(string tragetSceneName)
-        {
-            if (string.IsNullOrEmpty(tragetSceneName))
-            {
-                Debug.LogError("currentSceneName is Null");
-                return;
-            }
-            AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(tragetSceneName, _loadSceneMode);
-            if (asyncOperation == null) return;
-            PanelUIMgr.Instance.OpenPanelFromList(
-                _nextSceneEPanelTypes,
-                () =>
-                {
-                    _isAllPreLoad = true;
-                });
-            asyncOperation.allowSceneActivation = false;
-            StartCoroutine(MonitorLoadingProgress(asyncOperation));
-        }
-
         // 过渡动画回调加载场景 加载场景名通过参数传递
-
         private void LoadScene(object[] _objs)
         {
             if (_objs == null || _objs.Length == 0)
@@ -51,34 +29,26 @@ namespace GJFramework
                 return;
             }
             string tragetSceneName = _objs[0] as string;
-            AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(tragetSceneName, _loadSceneMode);
+            if (string.IsNullOrEmpty(tragetSceneName))
+            {
+                Debug.LogError("过渡动画回调传入的SceneName为空或类型错误");
+                return;
+            }
+
+            if (!SceneExists(tragetSceneName))
+            {
+                Debug.LogError($"Scene '{tragetSceneName}' is not in Build Settings");
+                return;
+            }
+
             PanelUIMgr.Instance.OpenPanelFromList(
                 _nextSceneEPanelTypes,
                 () =>
                 {
-                    _isAllPreLoad = true;
-                });
-            
-            if (asyncOperation == null) return;
-
-            asyncOperation.allowSceneActivation = false;
-            StartCoroutine(MonitorLoadingProgress(asyncOperation));
-        }
-
-        private IEnumerator MonitorLoadingProgress(AsyncOperation operation)
-        {
-            while (!operation.isDone && _isAllPreLoad)
-            {
-                float progress = Mathf.Clamp01(operation.progress / 0.9f);
-                if (operation.progress >= 0.9f)
-                {
-                    operation.allowSceneActivation = true;
-                    // 重置预加载状态
-                    _isAllPreLoad = false;
+                    // 同步加载场景
+                    SceneManager.LoadScene(tragetSceneName, _loadSceneMode);
                     ClearNextScenePanelList();
-                }
-                yield return null;
-            }
+                });
         }
 
         private bool SceneExists(string sceneName)

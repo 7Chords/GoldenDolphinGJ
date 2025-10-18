@@ -249,6 +249,7 @@ namespace GJFramework
         {
             foreach (var panel in _panelStack)
             {
+                Debug.Log($"name is {panel.ToString()}");
                 panel.Hide();
             }
         }
