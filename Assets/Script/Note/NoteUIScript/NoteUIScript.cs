@@ -96,6 +96,7 @@ public class NoteUIScript : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
+        NoteMgr.instance.ReduceRemainNoteNum();
         // 点击播放的动画和时间到了一样 如果点击了看看是什么类型并且对应加上数量
         if (!isPlayingAnimation && NoteMgr.instance.IsCurrentPause && isUseful)
         {
@@ -127,16 +128,36 @@ public class NoteUIScript : MonoBehaviour, IPointerClickHandler
 
     public NoteType GetRandomEnumAndSetImage()
     {
-        // todo: Set Note Image
-        int temp = Random.Range(0, 7);
-        if (temp >= 0 && temp <= 2) isUseful = true;
+
+        Sprite spriteHightNote = noteSpritList[2];
+        Sprite spriteLowNote = noteSpritList[1];
+        Sprite spriteMiddleNote = noteSpritList[0];
+
+        // 5 : 3 : 2 高 中 低
+        int temp = Random.Range(0, 18);
+        if (temp >= 0 && temp <= 9) isUseful = true;
+
+        if (temp >= 0 && temp <= 4)
+        {
+            noteImage.sprite = spriteHightNote;
+            return NoteType.HightNote;
+        }
+        else if (temp >= 5 && temp <= 7)
+        {
+            noteImage.sprite = spriteMiddleNote;
+            return NoteType.MiddleNote;
+        }
+        else if(temp >= 8 && temp <= 9)
+        {
+            noteImage.sprite = spriteLowNote;
+            return NoteType.LowNote;
+        }
+        // 如果随机到无用的音符的话
+        temp = Random.Range(3, 7);
         noteImage.sprite = noteSpritList[temp];
-        if (temp == 0) return NoteType.MiddleNote;
-        else if (temp == 1) return NoteType.LowNote;
-        else if (temp == 2) return NoteType.HightNote; 
-        else if (temp == 3) return NoteType.Trash1;
+        if (temp == 3) return NoteType.Trash1;
         else if (temp == 4) return NoteType.Trash2;
         else if (temp == 5) return NoteType.Trash3;
-        else return NoteType.Trash4;
+        else return NoteType.Trash4; 
     }
 }

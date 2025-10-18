@@ -14,7 +14,6 @@ public class NoteCollectPanel : UIPanelBase
 
     protected override void OnHide(Action onHideFinished)
     {
-        Debug.Log($"{this.name} is Hide!");
         onHideFinished?.Invoke();
     }
 }

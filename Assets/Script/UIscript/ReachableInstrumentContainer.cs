@@ -6,28 +6,31 @@ using UnityEngine;
 public class ReachableInstrumentContainer : MonoBehaviour
 {
     public List<InstrumentContainerItem> instrumentContainerItems;
-    private long currentBattleLevelId = 1001;// 当前战斗关卡ID
     private List<long> curLevelInstrumentIdList;
 
     // Start is called before the first frame update
     void Start()
     {
-        //currentBattleLevelId = GameMgr.Instance.curLevel;
-        BattleLevelRefObj battleLevelRefObj = SCRefDataMgr.Instance.battleLevelRefList.refDataList
-            .Find(x => x.id == currentBattleLevelId);
-        if(battleLevelRefObj != null)
+        Init();
+    }
+
+
+    private void Init()
+    {
+
+        List<InstrumentRefObj> instrumentRefObjList = SCRefDataMgr.Instance.instrumentRefList.refDataList;
+        List<long> longs = new List<long>();
+        foreach(InstrumentRefObj refobj in instrumentRefObjList)
         {
-            curLevelInstrumentIdList = battleLevelRefObj.recommendinstrumentsIdList;
+            longs.Add(refobj.id);
         }
-        else
-        {
-            Debug.LogError("battleLevelRefObj有误");
-        }
+
+        curLevelInstrumentIdList = longs;
+
         SetContainerItemInfo();
 
         MsgCenter.RegisterMsgAct(MsgConst.ON_NOTE_COUNT_CHANGE, refresh);
     }
-
     private void SetContainerItemInfo()
     {
         // 因为乐器容器 严格 == 乐器id 所以索引index 可以共用

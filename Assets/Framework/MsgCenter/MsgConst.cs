@@ -27,5 +27,11 @@ namespace GJFramework
 
         public const int ON_STORE_ITEM_SELECT = 1015; // 选中商品
 
+       
+    }
+
+    public class ConstVar
+    {
+        public const int MAX_NOTE_NUM = 9;// 最大的音符数量 
     }
 }
