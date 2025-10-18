@@ -1,0 +1,58 @@
+using GJFramework;
+using System;
+using UnityEngine;
+using DG.Tweening;
+
+public class ColloctFinishPanel : UIPanelBase
+{
+    [SerializeField] private float fadeDuration = 1f;
+    [SerializeField] private Ease fadeEase = Ease.OutQuad;
+
+    private CanvasGroup canvasGroup;
+    private Tween currentTween;
+
+    private void Awake()
+    {
+        // 确保有 CanvasGroup，用于控制整个面板的透明度与交互
+        canvasGroup = GetComponent<CanvasGroup>() ?? gameObject.AddComponent<CanvasGroup>();
+    }
+
+    protected override void OnShow()
+    {
+        // 终止任何残留 Tween，开始淡入
+        currentTween?.Kill();
+        canvasGroup.alpha = 0f;
+        canvasGroup.interactable = false;
+        canvasGroup.blocksRaycasts = false;
+
+        currentTween = canvasGroup.DOFade(1f, fadeDuration)
+            .SetEase(fadeEase)
+            .OnComplete(() =>
+            {
+                canvasGroup.interactable = true;
+                canvasGroup.blocksRaycasts = true;
+                currentTween = null;
+            });
+    }
+
+    protected override void OnHide(Action onHideFinished)
+    {
+        // 终止任何残留 Tween，开始淡出，完成后回调
+        currentTween?.Kill();
+        canvasGroup.interactable = false;
+        canvasGroup.blocksRaycasts = false;
+
+        currentTween = canvasGroup.DOFade(0f, fadeDuration)
+            .SetEase(fadeEase)
+            .OnComplete(() =>
+            {
+                currentTween = null;
+                onHideFinished?.Invoke();
+            });
+    }
+
+    private void OnDestroy()
+    {
+        currentTween?.Kill();
+    }
+}
