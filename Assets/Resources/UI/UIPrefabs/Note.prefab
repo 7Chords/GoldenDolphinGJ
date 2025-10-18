@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2060729316356696962}
   - component: {fileID: 743990130226560723}
   - component: {fileID: 3581221664848429870}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -85,7 +85,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7141624417387107161}
   - component: {fileID: 6282017231822950596}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: Note
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -124,8 +124,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b687654a79c94e40a8aeb6229f8a75d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  noteType: 0
   maxTime: 5
   minTime: 4
   noteImage: {fileID: 3581221664848429870}
   myTransform: {fileID: 2060729316356696962}
+  noteSpritList:
+  - {fileID: 21300000, guid: b08f8689d1f506a44839303615162d6e, type: 3}
+  - {fileID: 21300000, guid: aeca15a15932bf5409f1df82c74564cd, type: 3}
+  - {fileID: 21300000, guid: 9010d4101f017d84eb8ae7f1c9a3554a, type: 3}

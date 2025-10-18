@@ -1,5 +1,6 @@
 using GJFramework;
 using UnityEngine;
+using UnityEngine.UI;
 
 /// <summary>
 /// 管理音符的生成
@@ -16,8 +17,8 @@ public class NoteMgr : SingletonMono<NoteMgr>
     private RectTransform canvasRect; // Canvas的RectTransform组件
     private bool isCurrentPause = false;
     public bool IsCurrentPause { get { return isCurrentPause; } }
-    [SerializeField] private float totalPauseTime;
-    public float TotalPauseTime { get { return totalPauseTime; } }
+    [SerializeField] private float totalTime;
+    public float TotalTime { get { return totalTime; } }
 
     void Start()
     {
@@ -51,14 +52,13 @@ public class NoteMgr : SingletonMono<NoteMgr>
     private void DoInUpdate()
     {
         // 生成时检测暂停状态
-        // 暂停时只计时暂停总时长
+        // 一旦进入就开始减少总收集时间
         // 非暂停时计时生成间隔
-        if (isCurrentPause)
-        {
-            totalPauseTime -= Time.deltaTime;
-        }
+
+        totalTime -= Time.deltaTime;
         // 非暂停状态下计时生成音符
-        else
+
+        if (!isCurrentPause)
         {
             timeCounter -= Time.deltaTime;
             if (timeCounter < 0f)

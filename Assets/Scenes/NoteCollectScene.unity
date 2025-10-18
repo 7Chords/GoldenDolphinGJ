@@ -555,7 +555,7 @@ MonoBehaviour:
   notePrefab: {fileID: 8745829693439343011, guid: 1afa5c507d1364444860de2b06d10640, type: 3}
   targetCamera: {fileID: 1176344129}
   targetCanvas: {fileID: 745097645}
-  totalPauseTime: 30
+  totalTime: 30
 --- !u!4 &1499603580
 Transform:
   m_ObjectHideFlags: 0
