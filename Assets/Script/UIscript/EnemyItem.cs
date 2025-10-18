@@ -129,9 +129,7 @@ public class EnemyItem : UIPanelBase,IDamagable
         _flag = true;
         if (BattleMgr.instance.curTurn == ETurnType.Enemy)
         {
-
-            Debug.Log("EnemyItemOnTurnChg!!!");
-
+            MsgCenter.SendMsgAct(MsgConst.ON_ENEMY_START_ATTACK);
             Sequence seq = DOTween.Sequence();
             seq.Append(DOVirtual.DelayedCall(attackWaitDuration, () =>
              {
@@ -141,18 +139,9 @@ public class EnemyItem : UIPanelBase,IDamagable
                      damagableList.Add(item as IDamagable);
                  }
                  AttackHandler.DealAttack(EInstrumentEffectType.Attack, this, damagableList);
+                 MsgCenter.SendMsgAct(MsgConst.ON_ENEMY_END_ATTACK);
                  _flag = false;
              }));
-            //seq.AppendInterval(attackWaitDuration).OnComplete(() =>
-            //{
-            //    List<IDamagable> damagableList = new List<IDamagable>();
-            //    foreach (var item in BattleMgr.instance.instrumentItemList)
-            //    {
-            //        damagableList.Add(item as IDamagable);
-            //    }
-            //    AttackHandler.DealAttack(EInstrumentEffectType.Attack, this, damagableList);
-            //    MsgCenter.SendMsgAct(MsgConst.ON_ENEMY_ACTION_OVER);
-            //});
             _tweenContainer.RegDoTween(seq);
         }
 

@@ -22,3 +22,10 @@ public enum EInstrumentEffectType
     Heal,
     Buff,
 }
+
+public enum EBattleDecorationType
+{
+    HighFreq,
+    MiddleFreq,
+    LowFreq,
+}

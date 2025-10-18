@@ -18,7 +18,9 @@ namespace GJFramework
         public const int ON_TURN_CHG = 1008;//回合轮转
         public const int ON_ENEMY_DEAD = 1009;//敌人阵亡
         public const int ON_INSTRUMENT_DEAD = 1010;//乐器阵亡
-        public const int ON_INSTRUMENT_START_ATTACK = 1011;
-        public const int ON_INSTRUMENT_END_ATTACK = 1012;
+        public const int ON_INSTRUMENT_START_ATTACK = 1011;//乐器开始攻击
+        public const int ON_INSTRUMENT_END_ATTACK = 1012;//乐器结束攻击
+        public const int ON_ENEMY_START_ATTACK = 1013;//敌人开始攻击
+        public const int ON_ENEMY_END_ATTACK = 1014;//敌人结束攻击
     }
 }

@@ -11,7 +11,7 @@ public class BattleInfoPanel : UIPanelBase
     public HorizontalLayoutGroup recommondLayoutGroup;
     public Button btnStart;
 
-    private BattleLevelRefObj _battleLevelRefObj;
+    private BattleLevelRefObj _battleLevelRefObj; 
     protected override void OnShow()
     {
 
