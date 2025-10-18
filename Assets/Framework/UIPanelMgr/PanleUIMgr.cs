@@ -16,6 +16,8 @@ namespace GJFramework
         BagPanel,
         BattlePanel,
         NoteCollectPanel,
+        BattleWinPanel,
+        LevelSelectPanel,
         // 其他面板类型
     }
 

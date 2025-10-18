@@ -203,6 +203,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   curTurn: 0
   turnCount: 0
+  instrumentItemList: []
+  gameStarted: 0
 --- !u!1 &555072884
 GameObject:
   m_ObjectHideFlags: 0

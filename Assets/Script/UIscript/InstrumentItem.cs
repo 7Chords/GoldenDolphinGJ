@@ -96,6 +96,8 @@ public class InstrumentItem : UIPanelBase,
         _tweenContainer?.KillAllDoTween();
         _tweenContainer = null;
         BattleMgr.instance.UnregInstrumentItem(this);
+
+        onHideFinished?.Invoke();
     }
     public void SetInfo(InstrumentInfo instrumentInfo)
     {
@@ -121,7 +123,12 @@ public class InstrumentItem : UIPanelBase,
 
         Sequence enterSeq = DOTween.Sequence();
         enterSeq.Append(transform.DOScale(enterBiggerScale, enterBiggerDuration));
-        enterSeq.Join(transform.DOShakePosition(enterShakeDuration, enterShakeStrength, fadeOut: true));
+        enterSeq.Join(transform.DOShakePosition(enterShakeDuration, enterShakeStrength, fadeOut: true))
+            .OnComplete(() =>
+            {
+                // 强制刷新布局
+                LayoutRebuilder.ForceRebuildLayoutImmediate(transform.parent.GetComponent<RectTransform>());
+            });
         _tweenContainer.RegDoTween(enterSeq);
     }
 
@@ -132,7 +139,12 @@ public class InstrumentItem : UIPanelBase,
 
         Sequence exitSeq = DOTween.Sequence();
         exitSeq.Append(transform.DOScale(exitSmallerScale, exitSmallerDuration));
-        exitSeq.Join(transform.DOShakePosition(exitShakeDuration, exitShakeStrength, fadeOut: true));
+        exitSeq.Join(transform.DOShakePosition(exitShakeDuration, exitShakeStrength, fadeOut: true))
+                                    .OnComplete(() =>
+                                    {
+                                        // 强制刷新布局
+                                        LayoutRebuilder.ForceRebuildLayoutImmediate(transform.parent.GetComponent<RectTransform>());
+                                    });
         _tweenContainer.RegDoTween(exitSeq);
 
     }

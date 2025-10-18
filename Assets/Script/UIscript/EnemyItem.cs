@@ -45,6 +45,7 @@ public class EnemyItem : UIPanelBase,IDamagable
 
         _tweenContainer?.KillAllDoTween();
         _tweenContainer = null;
+        onHideFinished?.Invoke();
     }
 
     public void SetInfo(EnemyInfo enemInfo)

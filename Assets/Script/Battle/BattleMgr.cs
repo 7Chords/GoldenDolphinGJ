@@ -18,6 +18,8 @@ public class BattleMgr : SingletonMono<BattleMgr>
 
     //比较烂的写法 时间紧迫
     public List<InstrumentItem> instrumentItemList;
+
+    public bool gameStarted;
     private void Start()
     {
         MsgCenter.RegisterMsgAct(MsgConst.ON_INSTRUMENT_ACTION_OVER, OnInstrumentActionOver);
@@ -36,6 +38,8 @@ public class BattleMgr : SingletonMono<BattleMgr>
     }
     public void StartBattle()
     {
+        gameStarted = true;
+
         PanelUIMgr.Instance.OpenPanel(EPanelType.BattlePanel);
 
         curTurn = ETurnType.Player;
@@ -70,6 +74,14 @@ public class BattleMgr : SingletonMono<BattleMgr>
         MsgCenter.SendMsg(MsgConst.ON_BATTLE_START, _enemyInfo, _instrumentInfoList);
     }
 
+    public void FinishBattle(bool playerWin)
+    {
+        gameStarted = false;
+        if (playerWin)
+            PanelUIMgr.Instance.OpenPanel(EPanelType.BattleWinPanel);
+
+        //todo:else
+    }
     public void RegInstrumentItem(InstrumentItem item)
     {
         instrumentItemList?.Add(item);
@@ -81,6 +93,8 @@ public class BattleMgr : SingletonMono<BattleMgr>
         if (instrumentItemList.Contains(item))
             instrumentItemList.Remove(item);
     }
+
+
     private void OnInstrumentActionOver()
     {
         _instrumentActionCount++;
