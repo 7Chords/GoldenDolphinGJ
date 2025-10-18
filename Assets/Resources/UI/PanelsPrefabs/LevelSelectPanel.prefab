@@ -102,6 +102,7 @@ GameObject:
   - component: {fileID: 129140227488782992}
   - component: {fileID: 278937232768425634}
   - component: {fileID: 2789246447192772737}
+  - component: {fileID: 6551968999480498057}
   m_Layer: 5
   m_Name: LevelSelectPanel
   m_TagString: Untagged
@@ -182,6 +183,21 @@ MonoBehaviour:
   panelType: 6
   horizontalLayoutGroup: {fileID: 8709454587684341500}
   levelPrefab: {fileID: 1786817159046822735, guid: e3646e2f0187d9744b55c4659df58e3b, type: 3}
+  canvasGroup: {fileID: 6551968999480498057}
+  fadeInDuration: 1
+  fadeOutDuration: 1
+--- !u!225 &6551968999480498057
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2194457426843673113}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &2659619525382766471
 GameObject:
   m_ObjectHideFlags: 0
@@ -272,8 +288,8 @@ MonoBehaviour:
     m_Right: 0
     m_Top: 0
     m_Bottom: 0
-  m_ChildAlignment: 4
-  m_Spacing: 100
+  m_ChildAlignment: 3
+  m_Spacing: 200
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 0
