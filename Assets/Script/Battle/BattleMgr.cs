@@ -23,6 +23,8 @@ public class BattleMgr : SingletonMono<BattleMgr>
     public bool gameStarted;
 
     private int _instrumentAliveCount;
+
+    public bool isPlaying;
     private void Start()
     {
         MsgCenter.RegisterMsgAct(MsgConst.ON_INSTRUMENT_ACTION_OVER, OnInstrumentActionOver);
@@ -31,6 +33,7 @@ public class BattleMgr : SingletonMono<BattleMgr>
         MsgCenter.RegisterMsgAct(MsgConst.ON_INSTRUMENT_DEAD, OnInstrumentDead);
 
         instrumentItemList = new List<InstrumentItem>();
+        isPlaying = false;
 
         StartBattle();
     }

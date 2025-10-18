@@ -12,9 +12,6 @@ using UnityEngine.UI;
 public class InstrumentItem : UIPanelBase, 
     IPointerEnterHandler, 
     IPointerExitHandler,
-    //IBeginDragHandler,
-    //IDragHandler,
-    //IEndDragHandler,
     IDamagable
 {
 
@@ -28,6 +25,7 @@ public class InstrumentItem : UIPanelBase,
     public Text txtHealth;
     public Image imgName;
     public Image imgAttack;
+    public Image imgDeadMask;
 
     [Space(10)]
 
@@ -84,9 +82,6 @@ public class InstrumentItem : UIPanelBase,
     public InstrumentInfo instrumentInfo => _instrumentInfo;
 
     private TweenContainer _tweenContainer;
-
-    //private GameObject _attackLineGO;
-    //private LineRenderer _lineRenderer;
     private int _maxHealth;
 
     private int _extraAttack;
@@ -140,9 +135,6 @@ public class InstrumentItem : UIPanelBase,
         Tween tween =  imgHealthBar.DOFillAmount((float)_instrumentInfo.health / _maxHealth,0.5f);
         _tweenContainer.RegDoTween(tween);
         instrumentCharacter.sprite = Resources.Load<Sprite>(_instrumentInfo.instrumentBodyPath);
-        ////Vector3 scale = instrumentCharacter.GetComponent<RectTransform>().localScale;
-        //float originalHeigth = instrumentCharacter.GetComponent<RectTransform>().rect.height;
-        //instrumentCharacter.SetNativeSize();
         switch (_instrumentInfo.effectType)
         {
             case EInstrumentEffectType.Attack:
@@ -165,7 +157,7 @@ public class InstrumentItem : UIPanelBase,
     }
     public void OnPointerEnter(PointerEventData eventData)
     {
-        if (!_hasInited || _hasDead )
+        if (!_hasInited || _hasDead || BattleMgr.instance.isPlaying)
             return;
         _isScaling = true;
         Sequence enterSeq = DOTween.Sequence();
@@ -179,10 +171,9 @@ public class InstrumentItem : UIPanelBase,
             });
         _tweenContainer.RegDoTween(enterSeq);
     }
-
     public void OnPointerExit(PointerEventData eventData)
     {
-        if (!_hasInited || _hasDead )
+        if (!_hasInited || _hasDead || BattleMgr.instance.isPlaying)
             return;
         _isScaling = true;
 
@@ -199,14 +190,12 @@ public class InstrumentItem : UIPanelBase,
 
     }
 
-
     public void Attack()
     {
         _hasActioned = true;
-        canvasGroup.alpha = alreadyActionAlpha;
+        imgDeadMask.gameObject.SetActive(true);
         MsgCenter.SendMsgAct(MsgConst.ON_INSTRUMENT_END_ATTACK);
     }
-
     public void TakeDamage(int damage)
     {
         if (_hasDead)
@@ -236,8 +225,6 @@ public class InstrumentItem : UIPanelBase,
     {
         return instrumentInfo.heal;
     }
-
-
     public void TakeBuff(int buffAmount)
     {
         instrumentInfo.attack += buffAmount;
@@ -252,15 +239,14 @@ public class InstrumentItem : UIPanelBase,
     public void Dead()
     {
         _hasDead = true;
-        canvasGroup.alpha = alreadyActionAlpha;
+        imgDeadMask.gameObject.SetActive(true);
         MsgCenter.SendMsgAct(MsgConst.ON_INSTRUMENT_DEAD);
     }
-
     private void OnBtnClicked()
     {
-        if (_isPlaying || _hasActioned || _hasDead || _isScaling)
+        if (BattleMgr.instance.isPlaying || _hasActioned || _hasDead || _isScaling)
             return;
-        _isPlaying = true;
+        BattleMgr.instance.isPlaying = true;
         btnClick.enabled = false;
         MsgCenter.SendMsgAct(MsgConst.ON_INSTRUMENT_START_ATTACK);
         instrumentCharacter.gameObject.SetActive(true);
@@ -302,10 +288,11 @@ public class InstrumentItem : UIPanelBase,
 
         seq.Append(instrumentCharacter.transform.DOScale(Vector3.one, clickSmallerDuration)).OnComplete(() =>
         {
-            _isPlaying = false;
+            BattleMgr.instance.isPlaying = false;
             btnClick.enabled = true;
             instrumentCharacter.gameObject.SetActive(false);
             instrumentIcon.sprite = Resources.Load<Sprite>(_instrumentInfo.instrumentBodyBgWithChaPath);
+            OnPointerExit(null);
         });
 
         _tweenContainer.RegDoTween(seq);
@@ -318,8 +305,7 @@ public class InstrumentItem : UIPanelBase,
         if(BattleMgr.instance.curTurn == ETurnType.Player)
         {
             _hasActioned = false;
-            canvasGroup.alpha = 1;
+            imgDeadMask.gameObject.SetActive(false);
         }
     }
-
 }
