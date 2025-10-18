@@ -85,6 +85,8 @@ GameObject:
   m_Component:
   - component: {fileID: 7141624417387107161}
   - component: {fileID: 6282017231822950596}
+  - component: {fileID: 1411009074259873292}
+  - component: {fileID: 3153942256111676082}
   m_Layer: 7
   m_Name: Note
   m_TagString: Untagged
@@ -132,3 +134,43 @@ MonoBehaviour:
   - {fileID: 21300000, guid: b08f8689d1f506a44839303615162d6e, type: 3}
   - {fileID: 21300000, guid: aeca15a15932bf5409f1df82c74564cd, type: 3}
   - {fileID: 21300000, guid: 9010d4101f017d84eb8ae7f1c9a3554a, type: 3}
+--- !u!223 &1411009074259873292
+Canvas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8745829693439343011}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_RenderMode: 0
+  m_Camera: {fileID: 0}
+  m_PlaneDistance: 100
+  m_PixelPerfect: 0
+  m_ReceivesEvents: 1
+  m_OverrideSorting: 1
+  m_OverridePixelPerfect: 0
+  m_SortingBucketNormalizedSize: 0
+  m_VertexColorAlwaysGammaSpace: 0
+  m_AdditionalShaderChannelsFlag: 0
+  m_UpdateRectTransformForStandalone: 0
+  m_SortingLayerID: 0
+  m_SortingOrder: 2
+  m_TargetDisplay: 0
+--- !u!114 &3153942256111676082
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8745829693439343011}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IgnoreReversedGraphics: 1
+  m_BlockingObjects: 0
+  m_BlockingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
