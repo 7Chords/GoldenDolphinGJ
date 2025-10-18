@@ -6,7 +6,7 @@ public class SliderNoteBinder : MonoBehaviour
     [SerializeField] private SimpleSliderUI slider;
 
     [Tooltip("用于计算比例的总时长（秒），例如计时上限）")]
-    [SerializeField] private float maxTotalTime = 5f;
+    [SerializeField] private float maxTotalTime = 30f;
 
     [Tooltip("是否使用平滑过渡（DOTween）而不是直接设置）")]
     [SerializeField] private bool useAnimate = false;

@@ -8,7 +8,8 @@ public class PhonographUIScript : MonoBehaviour, IPointerClickHandler
     public void OnPointerClick(PointerEventData eventData)
     {
         // 打开留声机 暂停时间流逝
-        NoteMgr.instance.SetPauseState(currentPauseState);
         currentPauseState = !currentPauseState;
+        NoteMgr.instance.SetPauseState(currentPauseState);
+
     }
 }
