@@ -7,9 +7,8 @@ using UnityEngine.UI;
 using DG.Tweening;
 
 public class LevelSelectPanel : UIPanelBase
-{
-    public HorizontalLayoutGroup horizontalLayoutGroup;
-    public GameObject levelPrefab;
+{ 
+
     public CanvasGroup canvasGroup;
 
     [Header("淡入时间")]
@@ -18,25 +17,13 @@ public class LevelSelectPanel : UIPanelBase
     public float fadeOutDuration;
 
     private TweenContainer _tweenContainer;
+
+    public LevelItem levelItem;
     protected override void OnShow()
     {
         _tweenContainer = new TweenContainer();
         _tweenContainer.RegDoTween(canvasGroup.DOFade(1, fadeInDuration));
-
-
-        List<BattleLevelRefObj> battleLevelRefList = SCRefDataMgr.Instance.battleLevelRefList.refDataList;
-
-        if(battleLevelRefList != null && battleLevelRefList.Count > 0)
-        {
-            for(int i =0;i<battleLevelRefList.Count;i++)
-            {
-                GameObject levelGO = GameObject.Instantiate(levelPrefab);
-                levelGO.transform.SetParent(horizontalLayoutGroup.transform);
-                LevelItem item = levelGO.GetComponent<LevelItem>();
-                item.Show();
-                item.SetInfo(battleLevelRefList[i]);
-            }
-        }
+        levelItem?.Show();
     }
 
 
