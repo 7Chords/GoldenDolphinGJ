@@ -20,6 +20,7 @@ namespace GJFramework
         LevelSelectPanel,
         BossInfoPanel,
         ColloctFinishPanel,
+        BattleLosePanel,
         // 其他面板类型
     }
 

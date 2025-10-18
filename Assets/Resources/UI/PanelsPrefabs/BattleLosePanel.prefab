@@ -65,7 +65,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: f93c09ac53c150843a9249569d2dce7e, type: 3}
+  m_Sprite: {fileID: 21300000, guid: a938cbd5f5afffe43ab01af0406f8a4d, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -86,10 +86,10 @@ GameObject:
   - component: {fileID: 4376612227512131082}
   - component: {fileID: 5727565654640798540}
   - component: {fileID: 3079359535482864637}
-  - component: {fileID: 5168572013239677056}
   - component: {fileID: 6580640977939824892}
+  - component: {fileID: 5099163596159080050}
   m_Layer: 5
-  m_Name: BattleWinPanel
+  m_Name: BattleLosePanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -154,23 +154,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &5168572013239677056
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5683187057331400766}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f33587eb9c17627489a7d500dec9f806, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  panelType: 5
-  canvasGroup: {fileID: 6580640977939824892}
-  fadeInDuration: 0.5
-  fadeOutDuration: 0.5
-  btnConfirm: {fileID: 1481324492634834289}
 --- !u!225 &6580640977939824892
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -183,6 +166,23 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!114 &5099163596159080050
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5683187057331400766}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fed5c4fba9b2c964cb8856214231df3e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  panelType: 9
+  canvasGroup: {fileID: 6580640977939824892}
+  fadeInDuration: 0.5
+  fadeOutDuration: 0.5
+  btnConfirm: {fileID: 1481324492634834289}
 --- !u!1 &8968417248029905666
 GameObject:
   m_ObjectHideFlags: 0

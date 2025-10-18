@@ -4,7 +4,7 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class BattleWinPanel : UIPanelBase
+public class BattleLosePanel : UIPanelBase
 {
 
     public CanvasGroup canvasGroup;
@@ -20,7 +20,6 @@ public class BattleWinPanel : UIPanelBase
         canvasGroup.alpha = 0;
         _tweenContainer = new TweenContainer();
         _tweenContainer.RegDoTween(canvasGroup.DOFade(1, fadeInDuration));
-
         btnConfirm.onClick.AddListener(() =>
         {
             SceneLoader.Instance.LoadScene("LevelSelectScene");
@@ -29,7 +28,6 @@ public class BattleWinPanel : UIPanelBase
     protected override void OnHide(Action onHideFinished)
     {
         btnConfirm.onClick.RemoveAllListeners();
-
         _tweenContainer.RegDoTween(canvasGroup.DOFade(0, fadeOutDuration).OnComplete(() =>
         {
             onHideFinished?.Invoke();
