@@ -10,19 +10,22 @@ public enum NoteType
     HightNote,// 高音
     MiddleNote,// 中音符
     LowNote,// 低音符
-    Default// 默认
+    Trash1,// 垃圾音符1
+    Trash2,// 垃圾音符2
+    Trash3,// 垃圾音符3
+    Trash4,// 垃圾音符4
 }
 
 public class NoteUIScript : MonoBehaviour, IPointerClickHandler
 {
+    private bool isUseful = false;
     private NoteType noteType;// 音符的类别
     private float existTime;// 存在时间
     [SerializeField] private float maxTime;// 随机时间
     [SerializeField] private float minTime;
     [SerializeField] private Image noteImage;// 音符对应的图片引用
     [SerializeField] private RectTransform myTransform;// 对应的UI框架
-    private bool isPlayingAnimation = false;
-    private bool isPaused = false;  
+    private bool isPlayingAnimation = false; 
     private TweenContainer tweenContainer;
     [SerializeField] private List<Sprite> noteSpritList;// 音符对应的图片列表
     private void Awake()
@@ -64,7 +67,7 @@ public class NoteUIScript : MonoBehaviour, IPointerClickHandler
     {
         // 音符种类随机
         noteType = GetRandomEnumAndSetImage();
-
+        noteImage.SetNativeSize();
         // 音符颜色随机
         if (noteImage == null)
         {
@@ -76,7 +79,16 @@ public class NoteUIScript : MonoBehaviour, IPointerClickHandler
 
         Sequence seq = DOTween.Sequence();
         // 更改大小
-        seq.Append(myTransform.DOSizeDelta(new Vector2(200, 200), 1f).SetEase(Ease.OutBack));
+        // 获取原始尺寸（动画前的初始尺寸）
+        Vector2 originalSize = myTransform.sizeDelta;
+        // 计算原始宽高比（关键：保持这个比例不变）
+        float aspectRatio = originalSize.x / originalSize.y;
+
+        // 目标尺寸
+        Vector2 targetSize = originalSize * 0.5f;
+
+        // 执行动画（使用计算后的目标尺寸，保持比例）
+        seq.Append(myTransform.DOSizeDelta(targetSize, 1f).SetEase(Ease.OutBack));
         // 改变透明度
         seq.Join(noteImage.DOFade(1f, 0f).SetEase(Ease.InQuad));
         tweenContainer.RegDoTween(seq);
@@ -85,7 +97,7 @@ public class NoteUIScript : MonoBehaviour, IPointerClickHandler
     public void OnPointerClick(PointerEventData eventData)
     {
         // 点击播放的动画和时间到了一样 如果点击了看看是什么类型并且对应加上数量
-        if (!isPlayingAnimation && NoteMgr.instance.IsCurrentPause)
+        if (!isPlayingAnimation && NoteMgr.instance.IsCurrentPause && isUseful)
         {
             PlayerMgr.Instance.AddNoteNum(noteType);
             isPlayingAnimation = true;
@@ -116,13 +128,15 @@ public class NoteUIScript : MonoBehaviour, IPointerClickHandler
     public NoteType GetRandomEnumAndSetImage()
     {
         // todo: Set Note Image
-        int temp = Random.Range(0, 3);
+        int temp = Random.Range(0, 7);
+        if (temp >= 0 && temp <= 2) isUseful = true;
         noteImage.sprite = noteSpritList[temp];
         if (temp == 0) return NoteType.HightNote;
-        else if(temp == 1) return NoteType.MiddleNote;
-        else return NoteType.LowNote;
-
-
+        else if (temp == 1) return NoteType.MiddleNote;
+        else if (temp == 2) return NoteType.LowNote;
+        else if (temp == 3) return NoteType.Trash1;
+        else if (temp == 4) return NoteType.Trash2;
+        else if (temp == 5) return NoteType.Trash3;
+        else return NoteType.Trash4;
     }
-
 }

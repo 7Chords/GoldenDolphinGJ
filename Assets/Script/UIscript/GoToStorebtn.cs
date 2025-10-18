@@ -1,0 +1,16 @@
+using GJFramework;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.EventSystems;
+
+public class GoToStorebtn : MonoBehaviour, IPointerClickHandler
+{
+    // 去商店按钮点击事件
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        PanelUIMgr.Instance.OpenPanel(EPanelType.StorePanel);
+        PanelUIMgr.Instance.ClosePanel(EPanelType.NoteCollectPanel);
+        PanelUIMgr.Instance.ClosePanel(EPanelType.ColloctFinishPanel);
+    }
+}

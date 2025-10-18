@@ -20,6 +20,7 @@ public class NoteMgr : SingletonMono<NoteMgr>
     [SerializeField] private float totalTime;
     public float TotalTime { get { return totalTime; } }
 
+    public bool isEnd = false;
     void Start()
     {
         // 自动获取必要组件，避免配置遗漏
@@ -54,11 +55,15 @@ public class NoteMgr : SingletonMono<NoteMgr>
         // 生成时检测暂停状态
         // 一旦进入就开始减少总收集时间
         // 非暂停时计时生成间隔
-
+        if (totalTime < 0f && !isEnd)
+        {
+            isEnd = true;
+            PanelUIMgr.Instance.OpenPanel(EPanelType.ColloctFinishPanel);
+        }
         totalTime -= Time.deltaTime;
         // 非暂停状态下计时生成音符
 
-        if (!isCurrentPause)
+        if (!isCurrentPause && !isEnd)
         {
             timeCounter -= Time.deltaTime;
             if (timeCounter < 0f)
@@ -72,7 +77,7 @@ public class NoteMgr : SingletonMono<NoteMgr>
     void SpawnInViewRandom()
     {
         // 复位计时器
-        timeCounter = 2f;
+        timeCounter = 0.5f;
 
         // 正交相机参数计算
         float orthoSize = targetCamera.orthographicSize;
@@ -119,5 +124,9 @@ public class NoteMgr : SingletonMono<NoteMgr>
     public void SetPauseState(bool isPause)
     {
         isCurrentPause = isPause;
+    }
+
+    private void OpenStore()
+    {
     }
 }

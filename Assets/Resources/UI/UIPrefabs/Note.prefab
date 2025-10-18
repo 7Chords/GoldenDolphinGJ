@@ -131,9 +131,13 @@ MonoBehaviour:
   noteImage: {fileID: 3581221664848429870}
   myTransform: {fileID: 2060729316356696962}
   noteSpritList:
-  - {fileID: 21300000, guid: b08f8689d1f506a44839303615162d6e, type: 3}
-  - {fileID: 21300000, guid: aeca15a15932bf5409f1df82c74564cd, type: 3}
-  - {fileID: 21300000, guid: 9010d4101f017d84eb8ae7f1c9a3554a, type: 3}
+  - {fileID: 21300000, guid: b5ed365b31e33c04eb6fa4a31dfef956, type: 3}
+  - {fileID: 21300000, guid: 9d95b406dc6612a44a23843ae4403fe4, type: 3}
+  - {fileID: 21300000, guid: 7e1e14b5e7dda664cbba900fe55bd53e, type: 3}
+  - {fileID: 21300000, guid: 5e3f0eed2a6d277448ca81a0e02529c5, type: 3}
+  - {fileID: 21300000, guid: 91a7bdb25601fa740bb973ab6cd2fe75, type: 3}
+  - {fileID: 21300000, guid: d0273b14adc69b549a0645fa6f684448, type: 3}
+  - {fileID: 21300000, guid: 73b4967a6fc092e47b1a76aa3b54df30, type: 3}
 --- !u!223 &1411009074259873292
 Canvas:
   m_ObjectHideFlags: 0
