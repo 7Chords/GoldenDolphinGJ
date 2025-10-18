@@ -12,9 +12,9 @@ using UnityEngine.UI;
 public class InstrumentItem : UIPanelBase, 
     IPointerEnterHandler, 
     IPointerExitHandler,
-    IBeginDragHandler,
-    IDragHandler,
-    IEndDragHandler,
+    //IBeginDragHandler,
+    //IDragHandler,
+    //IEndDragHandler,
     IDamagable
 {
 
@@ -57,6 +57,17 @@ public class InstrumentItem : UIPanelBase,
     [Header("受伤颜色变化时间")]
     public float hurtColorFadeDuration;
 
+    [Header("点击按钮")]
+    public Button btnClick;
+    [Header("角色画布（突出用）")]
+    public Canvas iconCanvas;
+    [Header("点击角色放大缩放")]
+    public float clickBiggerScale;
+    [Header("点击角色放大持续时间")]
+    public float clickBiggerDuration;
+    [Header("点击角色缩小持续时间")]
+    public float clickSmallerDuration;
+
     [Header("画布组件")]
     public CanvasGroup canvasGroup;
 
@@ -70,14 +81,15 @@ public class InstrumentItem : UIPanelBase,
 
     private TweenContainer _tweenContainer;
 
-    private GameObject _attackLineGO;
-    private LineRenderer _lineRenderer;
+    //private GameObject _attackLineGO;
+    //private LineRenderer _lineRenderer;
     private int _maxHealth;
 
 
     private bool _hasInited;
     private bool _hasActioned;
     private bool _hasDead;
+    private bool _isPlaying;
     protected override void OnShow()
     {
 
@@ -87,6 +99,8 @@ public class InstrumentItem : UIPanelBase,
         _hasInited = true;
         _tweenContainer = new TweenContainer();
         BattleMgr.instance.RegInstrumentItem(this);
+
+        btnClick.onClick.AddListener(OnBtnClicked);
     }
 
     protected override void OnHide(Action onHideFinished)
@@ -98,6 +112,7 @@ public class InstrumentItem : UIPanelBase,
         BattleMgr.instance.UnregInstrumentItem(this);
 
         onHideFinished?.Invoke();
+        btnClick.onClick.RemoveAllListeners();
     }
     public void SetInfo(InstrumentInfo instrumentInfo)
     {
@@ -113,12 +128,26 @@ public class InstrumentItem : UIPanelBase,
         instrumentIcon.sprite = Resources.Load<Sprite>(_instrumentInfo.instrumentIconPath);
         instrumentBack.sprite = Resources.Load<Sprite>(_instrumentInfo.instrumentBgPath);
         txtHealth.text = _instrumentInfo.health.ToString();
-        txtAttack.text = _instrumentInfo.attack.ToString();
+
+        switch (_instrumentInfo.effectType)
+        {
+            case EInstrumentEffectType.Attack:
+                txtAttack.text = _instrumentInfo.attack.ToString();
+                break;
+            case EInstrumentEffectType.Heal:
+                txtAttack.text = _instrumentInfo.heal.ToString();
+                break;
+            case EInstrumentEffectType.Buff:
+                txtAttack.text = _instrumentInfo.buff.ToString();
+                break;
+            default:
+                break;
+        }
         txtName.text = _instrumentInfo.instrumentName;
     }
     public void OnPointerEnter(PointerEventData eventData)
     {
-        if (!_hasInited && _hasDead)
+        if (!_hasInited && _hasDead && _isPlaying)
             return;
 
         Sequence enterSeq = DOTween.Sequence();
@@ -134,7 +163,7 @@ public class InstrumentItem : UIPanelBase,
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        if (!_hasInited && _hasDead)
+        if (!_hasInited && _hasDead && _isPlaying)
             return;
 
         Sequence exitSeq = DOTween.Sequence();
@@ -149,98 +178,123 @@ public class InstrumentItem : UIPanelBase,
 
     }
 
-    public void OnBeginDrag(PointerEventData eventData)
-    {
-        if (!_hasInited && _hasDead)
-            return;
-        if (_hasActioned)
-            return;
-        // 创建攻击指示线
-        _attackLineGO = Instantiate(attackLinePrefab);
-        _lineRenderer = _attackLineGO.GetComponent<LineRenderer>();
 
-        // 设置初始位置
-        UpdateLinePositions(eventData);
-    }
+    #region Delete
+    //public void OnBeginDrag(PointerEventData eventData)
+    //{
+    //    if (!_hasInited && _hasDead)
+    //        return;
+    //    if (_hasActioned)
+    //        return;
+    //    // 创建攻击指示线
+    //    _attackLineGO = Instantiate(attackLinePrefab);
+    //    _lineRenderer = _attackLineGO.GetComponent<LineRenderer>();
 
-    public void OnDrag(PointerEventData eventData)
-    {
-        if (!_hasInited && _hasDead)
-            return;
-        if (_hasActioned)
-            return;
-        if (_lineRenderer != null)
-        {
-            UpdateLinePositions(eventData);
-        }
-    }
+    //    // 设置初始位置
+    //    UpdateLinePositions(eventData);
+    //}
 
-    public void OnEndDrag(PointerEventData eventData)
-    {
-        if (!_hasInited && _hasDead)
-            return;
-        if (_hasActioned)
-            return;
-        // 这里可以添加释放后的逻辑，比如检测释放目标等
+    //public void OnDrag(PointerEventData eventData)
+    //{
+    //    if (!_hasInited && _hasDead)
+    //        return;
+    //    if (_hasActioned)
+    //        return;
+    //    if (_lineRenderer != null)
+    //    {
+    //        UpdateLinePositions(eventData);
+    //    }
+    //}
 
-        GameObject enemyIconGO = eventData.hovered?.Find(x => x.tag == "EnemyIcon");
-        if(enemyIconGO != null)
-        {
-            IDamagable targetDamagable = enemyIconGO.transform.parent.GetComponent<IDamagable>();
-            if (targetDamagable != null)
-                AttackHandler.DealAttack(this, new List<IDamagable>() { targetDamagable });
-        }
-        // 销毁攻击指示线
-        if (_attackLineGO != null)
-        {
-            Destroy(_attackLineGO);
-            _attackLineGO = null;
-            _lineRenderer = null;
-        }
-    }
+    //public void OnEndDrag(PointerEventData eventData)
+    //{
+    //    if (!_hasInited && _hasDead)
+    //        return;
+    //    if (_hasActioned)
+    //        return;
+    //    // 这里可以添加释放后的逻辑，比如检测释放目标等
 
-    /// <summary>
-    /// 更新攻击指示线的起点和终点位置
-    /// </summary>
-    private void UpdateLinePositions(PointerEventData eventData)
-    {
-        if (_lineRenderer == null) return;
+    //    GameObject enemyIconGO = eventData.hovered?.Find(x => x.tag == "EnemyIcon");
+    //    if(enemyIconGO != null)
+    //    {
 
-        // 获取UI元素的世界位置（起点）
-        Vector3 startWorldPos = GetUIPositionWorldPos(transform.position);
-        Vector3 endWorldPos;
+    //        List<IDamagable> damagableList = new List<IDamagable>();
 
-        endWorldPos = GetMouseWorldPosition(eventData.position);
+    //        switch(instrumentInfo.effectType)
+    //        {
+    //            case EInstrumentEffectType.Attack:
+    //                damagableList.Add(enemyIconGO.transform.parent.GetComponent<IDamagable>());
+    //                break;
+    //            case EInstrumentEffectType.Heal:
+    //                foreach (var item in BattleMgr.instance.instrumentItemList)
+    //                {
+    //                    damagableList.Add(item as IDamagable);
+    //                }
+    //                break;
+    //            case EInstrumentEffectType.Buff:
+    //                foreach (var item in BattleMgr.instance.instrumentItemList)
+    //                {
+    //                    damagableList.Add(item as IDamagable);
+    //                }
+    //                break;
+    //            default:
+    //                break;
+    //        }
+    //        if (damagableList != null)
+    //            AttackHandler.DealAttack(instrumentInfo.effectType,this, damagableList);
+    //    }
+    //    // 销毁攻击指示线
+    //    if (_attackLineGO != null)
+    //    {
+    //        Destroy(_attackLineGO);
+    //        _attackLineGO = null;
+    //        _lineRenderer = null;
+    //    }
+    //}
 
-        // 设置LineRenderer的位置
-        _lineRenderer.positionCount = 2;
-        _lineRenderer.SetPosition(0, startWorldPos);
-        _lineRenderer.SetPosition(1, endWorldPos);
-    }
+    ///// <summary>
+    ///// 更新攻击指示线的起点和终点位置
+    ///// </summary>
+    //private void UpdateLinePositions(PointerEventData eventData)
+    //{
+    //    if (_lineRenderer == null) return;
 
-    #region Util
-    /// <summary>
-    /// 获取UI位置对应的世界坐标
-    /// </summary>
-    private Vector3 GetUIPositionWorldPos(Vector3 uiPosition)
-    {
-        Vector3 worldPos = Vector3.zero;
-        worldPos = Camera.main.ScreenToWorldPoint(uiPosition);
-        return worldPos;
-    }
+    //    // 获取UI元素的世界位置（起点）
+    //    Vector3 startWorldPos = GetUIPositionWorldPos(transform.position);
+    //    Vector3 endWorldPos;
 
-    /// <summary>
-    /// 获取鼠标位置对应的世界坐标
-    /// </summary>
-    private Vector3 GetMouseWorldPosition(Vector3 mousePos)
-    {
+    //    endWorldPos = GetMouseWorldPosition(eventData.position);
 
-        Vector3 mouseScreenPos = mousePos;
+    //    // 设置LineRenderer的位置
+    //    _lineRenderer.positionCount = 2;
+    //    _lineRenderer.SetPosition(0, startWorldPos);
+    //    _lineRenderer.SetPosition(1, endWorldPos);
+    //}
 
-        return Camera.main.ScreenToWorldPoint(new Vector3(mouseScreenPos.x, mouseScreenPos.y, 10f));
-    }
+    ///// <summary>
+    ///// 获取UI位置对应的世界坐标
+    ///// </summary>
+    //private Vector3 GetUIPositionWorldPos(Vector3 uiPosition)
+    //{
+    //    Vector3 worldPos = Vector3.zero;
+    //    worldPos = Camera.main.ScreenToWorldPoint(uiPosition);
+    //    return worldPos;
+    //}
+
+    ///// <summary>
+    ///// 获取鼠标位置对应的世界坐标
+    ///// </summary>
+    //private Vector3 GetMouseWorldPosition(Vector3 mousePos)
+    //{
+
+    //    Vector3 mouseScreenPos = mousePos;
+
+    //    return Camera.main.ScreenToWorldPoint(new Vector3(mouseScreenPos.x, mouseScreenPos.y, 10f));
+    //}
 
     #endregion
+
+
     public void Attack()
     {
         _hasActioned = true;
@@ -261,22 +315,85 @@ public class InstrumentItem : UIPanelBase,
         if (instrumentInfo.health == 0)
             Dead();
     }
-
     public int GetAttackAmount()
     {
         return instrumentInfo.attack;
     }
-    public void Dead()
+    public void TakeHeal(int healAmount)
     {
-        _hasDead = true;
+        instrumentInfo.health = Mathf.Clamp(instrumentInfo.health + healAmount, 0, _maxHealth);
+        RefreshShow();
+    }
+
+    public int GetHealAmount()
+    {
+        return instrumentInfo.heal;
     }
 
 
+    public void TakeBuff(int buffAmount)
+    {
+        instrumentInfo.attack += buffAmount;
+        RefreshShow();
 
+    }
+    public int GetBuffAmount()
+    {
+        return instrumentInfo.buff;
+    }
+    public void Dead()
+    {
+        _hasDead = true;
+        MsgCenter.SendMsgAct(MsgConst.ON_INSTRUMENT_DEAD);
+    }
 
+    private void OnBtnClicked()
+    {
+        if (_isPlaying || _hasActioned || _hasDead )
+            return;
+        _isPlaying = true;
 
+        MsgCenter.SendMsgAct(MsgConst.ON_INSTRUMENT_START_ATTACK);
+        //突出到前方
+        iconCanvas.sortingOrder = 3;
+        Sequence seq = DOTween.Sequence();
+        seq.Append(instrumentIcon.transform.DOScale(clickBiggerScale, clickBiggerDuration).OnComplete(() =>
+        {
+            List<IDamagable> damagableList = new List<IDamagable>();
 
+            switch (instrumentInfo.effectType)
+            {
+                case EInstrumentEffectType.Attack:
+                    damagableList.Add(BattleMgr.instance.enemyItem);
+                    break;
+                case EInstrumentEffectType.Heal:
+                    foreach (var item in BattleMgr.instance.instrumentItemList)
+                    {
+                        damagableList.Add(item);
+                    }
+                    break;
+                case EInstrumentEffectType.Buff:
+                    foreach (var item in BattleMgr.instance.instrumentItemList)
+                    {
+                        damagableList.Add(item);
+                    }
+                    break;
+                default:
+                    break;
+            }
+            if (damagableList != null)
+                AttackHandler.DealAttack(instrumentInfo.effectType, this, damagableList);
+            MsgCenter.SendMsgAct(MsgConst.ON_INSTRUMENT_END_ATTACK);
 
+        }));
+        seq.Append(transform.DOScale(Vector3.one, clickSmallerDuration)).OnComplete(() =>
+        {
+            _isPlaying = false;
+            iconCanvas.sortingOrder = 1;
+        });
+
+        _tweenContainer.RegDoTween(seq);
+    }
     private void OnTurnChg()
     {
         if(BattleMgr.instance.curTurn == ETurnType.Player)

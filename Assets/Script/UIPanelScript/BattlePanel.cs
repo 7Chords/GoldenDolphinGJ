@@ -15,11 +15,14 @@ public class BattlePanel : UIPanelBase
     public Text txtTurnCount;
     [Header("回合持有者文本")]
     public Text txtTurnOwner;
-
+    [Header("攻击时的遮罩")]
+    public GameObject maskAttack;
     protected override void OnShow()
     {
         MsgCenter.RegisterMsg(MsgConst.ON_BATTLE_START, OnBattleStartStart);
         MsgCenter.RegisterMsgAct(MsgConst.ON_TURN_CHG, OnTurnChg);
+        MsgCenter.RegisterMsgAct(MsgConst.ON_INSTRUMENT_START_ATTACK, OnInstrumentStartAttack);
+        MsgCenter.RegisterMsgAct(MsgConst.ON_INSTRUMENT_END_ATTACK, OnInstrumentEndAttack);
 
     }
 
@@ -27,6 +30,8 @@ public class BattlePanel : UIPanelBase
     {
         MsgCenter.UnregisterMsg(MsgConst.ON_BATTLE_START, OnBattleStartStart);
         MsgCenter.UnregisterMsgAct(MsgConst.ON_TURN_CHG, OnTurnChg);
+        MsgCenter.UnregisterMsgAct(MsgConst.ON_INSTRUMENT_START_ATTACK, OnInstrumentStartAttack);
+        MsgCenter.UnregisterMsgAct(MsgConst.ON_INSTRUMENT_END_ATTACK, OnInstrumentEndAttack);
         onHideFinished?.Invoke();
     }
 
@@ -53,5 +58,15 @@ public class BattlePanel : UIPanelBase
     {
         txtTurnCount.text = BattleMgr.instance.turnCount.ToString();
         txtTurnOwner.text = BattleMgr.instance.curTurn.ToString();
-    }    
+    }
+
+    private void OnInstrumentStartAttack()
+    {
+        maskAttack.SetActive(true);
+    }
+
+    private void OnInstrumentEndAttack()
+    {
+        maskAttack.SetActive(false);
+    }
 }

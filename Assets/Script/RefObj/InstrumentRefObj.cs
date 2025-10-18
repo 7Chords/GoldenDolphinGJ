@@ -12,10 +12,13 @@ public class InstrumentRefObj : SCRefDataCore
 
     public long id;
     public EInstrumentType instrumentType;
+    public EInstrumentEffectType effectType;
     public string instrumentName;
     public string instrumentDesc;
     public int attack;
     public int health;
+    public int heal;
+    public int buff;
     public string instrumentIconPath;
     public string instrumentBgPath;
 
@@ -23,10 +26,13 @@ public class InstrumentRefObj : SCRefDataCore
     {
         id = getLong("id");
         instrumentType = (EInstrumentType)getEnum("instrumentType", typeof(EInstrumentType));
+        effectType = (EInstrumentEffectType)getEnum("effectType", typeof(EInstrumentEffectType));
         instrumentName = getString("instrumentName");
         instrumentDesc = getString("instrumentDesc");
         attack = getInt("attack");
         health = getInt("health");
+        heal = getInt("heal");
+        buff = getInt("buff");
         instrumentIconPath = getString("instrumentIconPath");
         instrumentBgPath = getString("instrumentBgPath");
     }
