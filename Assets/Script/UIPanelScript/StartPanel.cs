@@ -10,7 +10,8 @@ public class StartPanel : UIPanelBase
         btnGo.onClick.AddListener(() =>
         {
             SceneLoader.Instance.AddNextScenePanel(EPanelType.LevelSelectPanel);
-            TransitionMgr.Instance.StarTransition("LevelSelectScene", "FadeInAndOutTransition");
+            //TransitionMgr.Instance.StarTransition("LevelSelectScene", "FadeInAndOutTransition");
+            Scen
         });
     }
     protected override void OnHide(Action onHideFinished)

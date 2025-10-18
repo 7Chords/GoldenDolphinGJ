@@ -72,6 +72,7 @@ public class LevelItem : UIPanelBase,
         btnReturn.onClick.AddListener(CancelSelect);
         btnStart.onClick.AddListener(()=>
         {
+            SceneLoader.Instance.AddNextScenePanel(EPanelType.NoteCollectPanel);
             SceneLoader.Instance.LoadScene("NoteCollectScene");
         });
 
