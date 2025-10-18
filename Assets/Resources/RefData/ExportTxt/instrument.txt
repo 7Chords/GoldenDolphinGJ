@@ -1,4 +1,4 @@
-﻿id	instrumentType	effectType	instrumentName	instrumentDesc	health	attack	heal	buff	instrumentIconPath	instrumentBgPath
-1001	Piano	Attack	钢琴	钢琴的描述	10	1	0	0	UI/Icon/square	UI/Icon/square
-1002	Violin	Heal	小提琴	小提琴的描述	8	0	2	0	UI/Icon/square	UI/Icon/square
-1003	Accordion	Buff	手风琴	手风琴的描述	9	0	0	3	UI/Icon/square	UI/Icon/square
+﻿id	instrumentType	effectType	instrumentName	instrumentDesc	health	attack	heal	buff	instrumentIconPath	instrumentBgPath	instrumentIconUnlockPath
+1001	Harp	Attack	钢琴	钢琴的描述	10	1	0	0	UI/Icon/竖琴解锁@2x	UI/Icon/square	UI/Icon/竖琴未解锁@2x
+1002	Violin	Heal	小提琴	小提琴的描述	8	0	2	0	UI/Icon/提琴解锁@2x	UI/Icon/square	UI/Icon/提琴未解锁@2x
+1003	Trumpet	Buff	手风琴	手风琴的描述	9	0	0	3	UI/Icon/小号解锁@2x	UI/Icon/square	UI/Icon/小号未解锁@2x

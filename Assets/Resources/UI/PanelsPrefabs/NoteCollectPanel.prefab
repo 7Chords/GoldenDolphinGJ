@@ -847,6 +847,7 @@ GameObject:
   - component: {fileID: 8197485728446565942}
   - component: {fileID: 3337236042202469561}
   - component: {fileID: 5817929357564677682}
+  - component: {fileID: 8627352256593293729}
   m_Layer: 5
   m_Name: TimeLineText
   m_TagString: Untagged
@@ -915,6 +916,29 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: "\u65F6\u95F4\u5012\u8BA1\u65F6\u6761"
+--- !u!223 &8627352256593293729
+Canvas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8283353639696976301}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_RenderMode: 2
+  m_Camera: {fileID: 0}
+  m_PlaneDistance: 100
+  m_PixelPerfect: 0
+  m_ReceivesEvents: 1
+  m_OverrideSorting: 1
+  m_OverridePixelPerfect: 0
+  m_SortingBucketNormalizedSize: 0
+  m_VertexColorAlwaysGammaSpace: 0
+  m_AdditionalShaderChannelsFlag: 0
+  m_UpdateRectTransformForStandalone: 0
+  m_SortingLayerID: 0
+  m_SortingOrder: 3
+  m_TargetDisplay: 0
 --- !u!1 &8477411141976024329
 GameObject:
   m_ObjectHideFlags: 0

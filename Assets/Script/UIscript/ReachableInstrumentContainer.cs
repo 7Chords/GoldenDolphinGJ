@@ -47,6 +47,7 @@ public class ReachableInstrumentContainer : MonoBehaviour
             }
             else Debug.LogError("instrumentRefObj有误");
         }
+        refresh();
     }
 
     private void refresh()
