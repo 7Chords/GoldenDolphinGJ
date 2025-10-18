@@ -124,7 +124,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6fa9ab2be5943bb4b9c3d033f0ade7cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clickScale: 1.15
-  totalDuration: 0.22
+  clickScale: 1.04
+  totalDuration: 0.32
   ease: 27
   StoreItemImg: {fileID: 7188396393124774275}
+  selectedSprite: {fileID: 0}
+  stroeItemId: 0

@@ -8,6 +8,7 @@ public class BackUI : MonoBehaviour, IPointerClickHandler
 {
     public void OnPointerClick(PointerEventData eventData)
     {
-        PanelUIMgr.Instance.GoBack();
+        PanelUIMgr.Instance.OpenPanel(EPanelType.LevelSelectPanel);
+        PanelUIMgr.Instance.ClosePanel(EPanelType.StorePanel);
     }
 }

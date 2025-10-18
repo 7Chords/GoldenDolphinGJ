@@ -24,6 +24,7 @@ public class SelectorContainer : MonoBehaviour
 
         if (!selectItemList[0].IsSelected)
         {
+            
             selectItemList[0].SetItemInfo(sprite);
             selectItemList[0].gameObject.SetActive(true);
         }
@@ -32,7 +33,7 @@ public class SelectorContainer : MonoBehaviour
             selectItemList[1].SetItemInfo(sprite);
             selectItemList[1].gameObject.SetActive(true);
         }
-        else
+        else if(!selectItemList[2].IsSelected)
         {
             selectItemList[2].SetItemInfo(sprite);
             selectItemList[2].gameObject.SetActive(true);

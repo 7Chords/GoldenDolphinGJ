@@ -10,7 +10,7 @@ public class InstrumentStoreRefObj : SCRefDataCore
     public int hightNoteNum;
     public int lowNoteNum;
     public int middleNoteNum;
-    public EInstrumentEffectType effectType;
+    public EInstrumentType instrumentType;
     public string instrumentName;
     protected override void _parseFromString()
     {
@@ -19,7 +19,7 @@ public class InstrumentStoreRefObj : SCRefDataCore
         hightNoteNum = getInt("hightNoteNum");
         lowNoteNum = getInt("lowNoteNum");
         middleNoteNum = getInt("middleNoteNum");
-        effectType = (EInstrumentEffectType)getEnum("effectType", typeof(EInstrumentEffectType));
+        instrumentType = (EInstrumentType)getEnum("instrumentType", typeof(EInstrumentType));
         instrumentName = getString("instrumentName");
     }
 
