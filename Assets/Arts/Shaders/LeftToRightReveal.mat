@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: UI_DiagonalReveal
+  m_Name: LeftToRightReveal
   m_Shader: {fileID: 4800000, guid: 96f117fcfe42d0442a6bd0b80bbd4374, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -30,8 +30,8 @@ Material:
     m_Ints: []
     m_Floats:
     - _ColorMask: 15
-    - _RevealAmount: 0.584
-    - _Softness: 0.0897
+    - _RevealAmount: 1
+    - _Softness: 0.028
     - _Stencil: 0
     - _StencilComp: 8
     - _StencilOp: 0

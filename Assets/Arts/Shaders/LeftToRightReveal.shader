@@ -1,11 +1,11 @@
-Shader "UI/DiagonalReveal"
+Shader "UI/LeftCircleReveal"
 {
     Properties
     {
         [PerRendererData] _MainTex("Main Texture", 2D) = "white" {}
         _Color("Tint", Color) = (1,1,1,1)
         _RevealAmount("RevealAmount", Range(0, 1)) = 0
-        _Softness("Softness", Range(0, 0.1)) = 0.02
+        _Softness("Softness", Range(0, 0.2)) = 0.02
 
         _StencilComp("Stencil Comparison", Float) = 8
         _Stencil("Stencil ID", Float) = 0
@@ -82,15 +82,19 @@ Shader "UI/DiagonalReveal"
                 {
                     fixed4 col = tex2D(_MainTex, i.uv) * i.color;
 
-                // 左上到右下：左上角(0,1) -> 右下角(1,0)
-                // 对角线：y = 1 - x
-                float diagonal = i.uv.x + (1 - i.uv.y);  // 范围 0-2
-                float threshold = _RevealAmount * 2.0;   // 映射到0-2范围
+                // 圆形扩散中心：从左边界开始，垂直居中
+                float2 circleCenter = float2(0.0, 0.5);
 
-                // 创建遮罩（带柔化边缘）
-                float mask = smoothstep(threshold - _Softness, threshold + _Softness, diagonal);
+                // 计算当前圆的半径（从0到√2，确保能覆盖整个区域）
+                float currentRadius = _RevealAmount * 1.5; // 1.5确保能完全覆盖
 
-                // 应用透明度：在阈值上方的区域隐藏
+                // 计算像素到圆心的距离
+                float dist = distance(i.uv, circleCenter);
+
+                // 创建圆形遮罩
+                float mask = smoothstep(currentRadius - _Softness, currentRadius + _Softness, dist);
+
+                // 应用透明度：圆形内部显示，外部隐藏
                 col.a *= (1 - mask);
 
                 return col;
