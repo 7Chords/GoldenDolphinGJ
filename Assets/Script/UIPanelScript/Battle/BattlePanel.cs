@@ -7,10 +7,8 @@ using UnityEngine.UI;
 
 public class BattlePanel : UIPanelBase
 {
-    [Header("敌人预制体")]
-    public GameObject enemyPrefab;
-    [Header("敌人生成位置")]
-    public RectTransform enemySpawnTransfrom;
+    [Header("敌人item")]
+    public EnemyItem enemyItem;
     [Header("乐器Conatiner")]
     public InstrumentContainer instrumentContainer;
     [Header("回合数文本")]
@@ -18,7 +16,6 @@ public class BattlePanel : UIPanelBase
     [Header("回合持有者文本")]
     public Text txtTurnOwner;
 
-    private EnemyItem _enemyItem;
     protected override void OnShow()
     {
         MsgCenter.RegisterMsg(MsgConst.ON_BATTLE_START, OnBattleStartStart);
@@ -46,11 +43,7 @@ public class BattlePanel : UIPanelBase
         instrumentContainer.Show();
         instrumentContainer.SetInfo(instrumentInfoList);
 
-        GameObject enemyItemGO = GameObject.Instantiate(enemyPrefab);
-        enemyItemGO.transform.SetParent(transform);
-        enemyItemGO.transform.localPosition = enemySpawnTransfrom.localPosition;
-        _enemyItem = enemyItemGO.GetComponent<EnemyItem>();
-        _enemyItem.Show();
-        _enemyItem.SetInfo(enemyInfo);
+        enemyItem.Show();
+        enemyItem.SetInfo(enemyInfo);
     }
 }

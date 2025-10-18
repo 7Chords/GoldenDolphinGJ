@@ -10,10 +10,13 @@ public class EnemyItem : UIPanelBase
     public Image imgEnemyBg;
     public Image imgEnemyIcon;
     public Text txtAttack;
-    public Text txtHealth;
+    //public Text txtHealth;
     public Text txtName;
+    public Image imgHealthBar;
 
     private EnemyInfo _enemyInfo;
+
+    private int _maxHealth;
     protected override void OnShow()
     {
     }
@@ -25,6 +28,7 @@ public class EnemyItem : UIPanelBase
     public void SetInfo(EnemyInfo enemInfo)
     {
         _enemyInfo = enemInfo;
+        _maxHealth = _enemyInfo.enemyHealth;
         RefreshShow();
     }
 
@@ -32,8 +36,11 @@ public class EnemyItem : UIPanelBase
     {
         if (_enemyInfo == null)
             return;
+        imgEnemyBg.sprite = Resources.Load<Sprite>(_enemyInfo.enemyBgPath);
+        imgEnemyIcon.sprite = Resources.Load<Sprite>(_enemyInfo.enemyIconPath);
         txtAttack.text = _enemyInfo.enemyAttack.ToString();
-        txtHealth.text = _enemyInfo.enemyHealth.ToString();
+        //txtHealth.text = _enemyInfo.enemyHealth.ToString();
         txtName.text = _enemyInfo.enemyName;
+        imgHealthBar.fillAmount = (float)_enemyInfo.enemyHealth / _maxHealth;
     }
 }

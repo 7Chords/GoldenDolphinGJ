@@ -8,9 +8,17 @@ using UnityEngine.UI;
 /// <summary>
 /// 乐器UIItem
 /// </summary>
-public class InstrumentItem : UIPanelBase, IPointerEnterHandler, IPointerExitHandler,IBeginDragHandler,IDragHandler,IEndDragHandler
+public class InstrumentItem : UIPanelBase, 
+    IPointerEnterHandler, 
+    IPointerExitHandler,
+    IBeginDragHandler,
+    IDragHandler,
+    IEndDragHandler,
+    IDamagable
 {
-    
+
+    #region Mono
+
     public Image instrumentIcon;
     public Image instrumentBack;
     public Text txtHealth;
@@ -44,12 +52,20 @@ public class InstrumentItem : UIPanelBase, IPointerEnterHandler, IPointerExitHan
     //[Header("取消选中时的淡入时间")]
     //public float unSelectFadeInDuration;
 
+    [Header("攻击指示线预制体")]
+    public GameObject attackLinePrefab;
+
+    #endregion
+
     private InstrumentInfo _instrumentInfo;
+    public InstrumentInfo instrumentInfo => _instrumentInfo;
+
     private TweenContainer _tweenContainer;
 
     private bool _hasInited;
 
-    private GameObject _cloneInstrumentGO;
+    private GameObject _attackLineGO;
+    private LineRenderer _lineRenderer;
 
     protected override void OnShow()
     {
@@ -76,6 +92,8 @@ public class InstrumentItem : UIPanelBase, IPointerEnterHandler, IPointerExitHan
     {
         if (_instrumentInfo == null)
             return;
+        instrumentIcon.sprite = Resources.Load<Sprite>(_instrumentInfo.instrumentIconPath);
+        instrumentBack.sprite = Resources.Load<Sprite>(_instrumentInfo.instrumentBgPath);
         txtHealth.text = _instrumentInfo.health.ToString();
         txtAttack.text = _instrumentInfo.attack.ToString();
         txtName.text = _instrumentInfo.instrumentName;
@@ -104,17 +122,83 @@ public class InstrumentItem : UIPanelBase, IPointerEnterHandler, IPointerExitHan
 
     public void OnBeginDrag(PointerEventData eventData)
     {
-        canvasGroup.alpha = 0;
-        canvasGroup.interactable = false;
+        // 创建攻击指示线
+        _attackLineGO = Instantiate(attackLinePrefab);
+        _lineRenderer = _attackLineGO.GetComponent<LineRenderer>();
+
+        // 设置初始位置
+        UpdateLinePositions(eventData);
     }
 
     public void OnDrag(PointerEventData eventData)
     {
+        if (_lineRenderer != null)
+        {
+            UpdateLinePositions(eventData);
+        }
     }
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        canvasGroup.alpha = 1;
-        canvasGroup.interactable = true;
+        // 这里可以添加释放后的逻辑，比如检测释放目标等
+
+        // 销毁攻击指示线
+        if (_attackLineGO != null)
+        {
+            Destroy(_attackLineGO);
+            _attackLineGO = null;
+            _lineRenderer = null;
+        }
+    }
+
+    /// <summary>
+    /// 更新攻击指示线的起点和终点位置
+    /// </summary>
+    private void UpdateLinePositions(PointerEventData eventData)
+    {
+        if (_lineRenderer == null) return;
+
+        // 获取UI元素的世界位置（起点）
+        Vector3 startWorldPos = GetUIPositionWorldPos(transform.position);
+
+
+
+        // 获取鼠标位置对应的世界位置（终点）
+        Vector3 endWorldPos = GetMouseWorldPosition(eventData);
+
+        // 设置LineRenderer的位置
+        _lineRenderer.positionCount = 2;
+        _lineRenderer.SetPosition(0, startWorldPos);
+        _lineRenderer.SetPosition(1, endWorldPos);
+    }
+
+    /// <summary>
+    /// 获取UI位置对应的世界坐标
+    /// </summary>
+    private Vector3 GetUIPositionWorldPos(Vector3 uiPosition)
+    {
+        Vector3 worldPos = Vector3.zero;
+        worldPos = Camera.main.ScreenToWorldPoint(uiPosition);
+        return worldPos;
+    }
+
+    /// <summary>
+    /// 获取鼠标位置对应的世界坐标
+    /// </summary>
+    private Vector3 GetMouseWorldPosition(PointerEventData eventData)
+    {
+
+        Vector3 mouseScreenPos = eventData.position;
+
+        return Camera.main.ScreenToWorldPoint(new Vector3(mouseScreenPos.x, mouseScreenPos.y, 10f));
+    }
+
+    public void Attack()
+    {
+    }
+
+    public void TakeDamage(int damage)
+    {
+
     }
 }
