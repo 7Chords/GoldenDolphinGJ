@@ -40,7 +40,5 @@ public static class AttackHandler
                 }
                 break;
         }
-
-        Debug.Log("Attack");
     }
 }
