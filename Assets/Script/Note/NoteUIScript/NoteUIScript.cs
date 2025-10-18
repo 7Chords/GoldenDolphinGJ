@@ -131,9 +131,9 @@ public class NoteUIScript : MonoBehaviour, IPointerClickHandler
         int temp = Random.Range(0, 7);
         if (temp >= 0 && temp <= 2) isUseful = true;
         noteImage.sprite = noteSpritList[temp];
-        if (temp == 0) return NoteType.HightNote;
-        else if (temp == 1) return NoteType.MiddleNote;
-        else if (temp == 2) return NoteType.LowNote;
+        if (temp == 0) return NoteType.MiddleNote;
+        else if (temp == 1) return NoteType.LowNote;
+        else if (temp == 2) return NoteType.HightNote; 
         else if (temp == 3) return NoteType.Trash1;
         else if (temp == 4) return NoteType.Trash2;
         else if (temp == 5) return NoteType.Trash3;

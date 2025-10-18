@@ -91,6 +91,17 @@ public class NoteMgr : SingletonMono<NoteMgr>
         float minScreenY = margin;
         float maxScreenY = screenHeight - margin;
 
+        // 将可用范围在中心缩小为 80%（长宽各 x0.8），避免大幅改动其它逻辑
+        const float scaleFactor = 0.8f;
+        float usableWidth = (maxScreenX - minScreenX) * scaleFactor;
+        float usableHeight = (maxScreenY - minScreenY) * scaleFactor;
+        float centerX = (minScreenX + maxScreenX) * 0.5f;
+        float centerY = (minScreenY + maxScreenY) * 0.5f;
+        minScreenX = centerX - usableWidth * 0.5f;
+        maxScreenX = centerX + usableWidth * 0.5f;
+        minScreenY = centerY - usableHeight * 0.5f;
+        maxScreenY = centerY + usableHeight * 0.5f;
+
         // 2. 生成屏幕内随机像素坐标
         float randomScreenX = Random.Range(minScreenX, maxScreenX);
         float randomScreenY = Random.Range(minScreenY, maxScreenY);
