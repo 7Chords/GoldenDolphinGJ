@@ -103,10 +103,10 @@ public class NoteUIScript : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        NoteMgr.instance.ReduceRemainNoteNum();
         // 点击播放的动画和时间到了一样 如果点击了看看是什么类型并且对应加上数量
         if (!isPlayingAnimation && NoteMgr.instance.IsCurrentPause && isUseful)
         {
+            NoteMgr.instance.ReduceRemainNoteNum();
             PlayerMgr.Instance.AddNoteNum(noteType);
             isPlayingAnimation = true;
             tweenContainer.PauseAllDoTween();
