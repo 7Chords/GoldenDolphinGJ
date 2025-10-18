@@ -79,7 +79,8 @@ public class BattleMgr : SingletonMono<BattleMgr>
                 instrumentRefObj.instrumentBgPath,
                 instrumentRefObj.instrumentBodyPath,
                 instrumentRefObj.instrumentBodyBgPath,
-                instrumentRefObj.instrumentNamePath);
+                instrumentRefObj.instrumentNamePath,
+                instrumentRefObj.instrumentBodyBgWithChaPath);
             _instrumentInfoList.Add(info);
         }
 

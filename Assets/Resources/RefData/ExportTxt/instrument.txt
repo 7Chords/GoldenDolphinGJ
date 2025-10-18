@@ -1,6 +1,6 @@
-﻿id	instrumentType	effectType	instrumentName	instrumentDesc	health	attack	heal	buff	instrumentIconPath	instrumentBgPath	instrumentIconUnlockPath	instrumentBodyPath	instrumentBodyBgPath	instrumentNamePath
-1001	Harp	Heal	竖琴	竖琴的描述	25	0	10	0	UI/Icon/竖琴解锁@2x	UI/Icon/卡背	UI/Icon/竖琴未解锁@2x	UI/Character/竖琴	UI/Icon/竖琴bg	UI/Icon/竖琴name
-1002	Violin	Attack	小提琴	小提琴的描述	25	8	0	0	UI/Icon/提琴解锁@2x	UI/Icon/卡背	UI/Icon/提琴未解锁@2x	UI/Character/小提琴	UI/Icon/小提琴bg	UI/Icon/小提琴name
-1003	Trumpet	Buff	小号	小号的描述	25	0	0	3	UI/Icon/小号解锁@2x	UI/Icon/卡背	UI/Icon/小号未解锁@2x	UI/Character/小号	UI/Icon/小号bg	UI/Icon/小号name
-1004	Accordion	Attack	手风琴	手风琴的描述	25	9	0	0	UI/Icon/手风琴解锁@2x	UI/Icon/卡背	UI/Icon/手风琴未解锁@2x	UI/Character/手风琴	UI/Icon/手风琴bg	UI/Icon/手风琴name
-1005	Clarinet	Attack	单簧管	单簧管的描述	25	10	0	0	UI/Icon/单簧管解锁@2x	UI/Icon/卡背	UI/Icon/单簧管未解锁@2x	UI/Character/单簧管	UI/Icon/单簧管bg	UI/Icon/单簧管name
+﻿id	instrumentType	effectType	instrumentName	instrumentDesc	health	attack	heal	buff	instrumentIconPath	instrumentBgPath	instrumentIconUnlockPath	instrumentBodyPath	instrumentBodyBgPath	instrumentNamePath	instrumentBodyBgWithChaPath
+1001	Harp	Heal	竖琴	竖琴的描述	25	0	10	0	UI/Icon/竖琴解锁@2x	UI/Icon/卡背	UI/Icon/竖琴未解锁@2x	UI/Character/竖琴	UI/Icon/竖琴bg	UI/Icon/竖琴name	UI/Icon/竖琴bg_cha
+1002	Violin	Attack	小提琴	小提琴的描述	25	8	0	0	UI/Icon/提琴解锁@2x	UI/Icon/卡背	UI/Icon/提琴未解锁@2x	UI/Character/小提琴	UI/Icon/小提琴bg	UI/Icon/小提琴name	UI/Icon/小提琴bg_cha
+1003	Trumpet	Buff	小号	小号的描述	25	0	0	3	UI/Icon/小号解锁@2x	UI/Icon/卡背	UI/Icon/小号未解锁@2x	UI/Character/小号	UI/Icon/小号bg	UI/Icon/小号name	UI/Icon/小号bg_cha
+1004	Accordion	Attack	手风琴	手风琴的描述	25	9	0	0	UI/Icon/手风琴解锁@2x	UI/Icon/卡背	UI/Icon/手风琴未解锁@2x	UI/Character/手风琴	UI/Icon/手风琴bg	UI/Icon/手风琴name	UI/Icon/手风琴bg_cha
+1005	Clarinet	Attack	单簧管	单簧管的描述	25	10	0	0	UI/Icon/单簧管解锁@2x	UI/Icon/卡背	UI/Icon/单簧管未解锁@2x	UI/Character/单簧管	UI/Icon/单簧管bg	UI/Icon/单簧管name	UI/Icon/单簧管bg_cha

@@ -21,11 +21,13 @@ public class InstrumentItem : UIPanelBase,
     #region Mono
 
     public Image instrumentIcon;
+    public Image instrumentCharacter;
     public Image instrumentBack;
     public Image imgHealthBar;
     public Text txtAttack;
-    public Text txtName;
-
+    public Text txtHealth;
+    public Image imgName;
+    public Image imgAttack;
 
     [Space(10)]
 
@@ -126,7 +128,7 @@ public class InstrumentItem : UIPanelBase,
     {
         if (_instrumentInfo == null)
             return;
-        instrumentIcon.sprite = Resources.Load<Sprite>(_instrumentInfo.instrumentBodyPath);
+        instrumentIcon.sprite = Resources.Load<Sprite>(_instrumentInfo.instrumentBodyBgWithChaPath);
         instrumentBack.sprite = Resources.Load<Sprite>(_instrumentInfo.instrumentBgPath);
         imgHealthBar.fillAmount = (float)_instrumentInfo.health / _maxHealth;
 
@@ -144,7 +146,7 @@ public class InstrumentItem : UIPanelBase,
             default:
                 break;
         }
-        txtName.text = _instrumentInfo.instrumentName;
+        imgName.sprite = Resources.Load<Sprite>(_instrumentInfo.instrumentNamePath);
     }
     public void OnPointerEnter(PointerEventData eventData)
     {

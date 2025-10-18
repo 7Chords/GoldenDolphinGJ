@@ -22,8 +22,9 @@ public class InstrumentInfo
     public string instrumentBodyPath;
     public string instrumentBodyBgPath;
     public string instrumentNamePath;
+    public string instrumentBodyBgWithChaPath;
 
-    public InstrumentInfo(EInstrumentType instrumentType, EInstrumentEffectType effectType, string instrumentName, string instrumentDesc, int health, int attack, int heal, int buff, string instrumentIconPath, string instrumentBgPath, string instrumentBodyPath, string instrumentBodyBgPath, string instrumentNamePath)
+    public InstrumentInfo(EInstrumentType instrumentType, EInstrumentEffectType effectType, string instrumentName, string instrumentDesc, int health, int attack, int heal, int buff, string instrumentIconPath, string instrumentBgPath, string instrumentBodyPath, string instrumentBodyBgPath, string instrumentNamePath, string instrumentBodyBgWithChaPath)
     {
         this.instrumentType = instrumentType;
         this.effectType = effectType;
@@ -38,5 +39,6 @@ public class InstrumentInfo
         this.instrumentBodyPath = instrumentBodyPath;
         this.instrumentBodyBgPath = instrumentBodyBgPath;
         this.instrumentNamePath = instrumentNamePath;
+        this.instrumentBodyBgWithChaPath = instrumentBodyBgWithChaPath;
     }
 }
