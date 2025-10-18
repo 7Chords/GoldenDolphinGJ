@@ -101,6 +101,7 @@ public class NoteMgr : SingletonMono<NoteMgr>
             // 4. 实例化UI预制体
             GameObject tempObj = Instantiate(notePrefab, targetCanvas.transform);
             RectTransform noteRect = tempObj.GetComponent<RectTransform>();
+
             if (noteRect != null)
             {
                 // 设置UI位置（叠加Y轴偏移，像素单位）
@@ -109,6 +110,8 @@ public class NoteMgr : SingletonMono<NoteMgr>
                 noteRect.localRotation = Quaternion.identity;
                 noteRect.localScale = Vector3.one;
             }
+            Image image = tempObj.GetComponent<Image>();
+            image.SetNativeSize();
         }
 
 
