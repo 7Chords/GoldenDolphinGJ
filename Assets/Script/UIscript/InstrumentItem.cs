@@ -209,6 +209,8 @@ public class InstrumentItem : UIPanelBase,
 
     public void TakeDamage(int damage)
     {
+        if (_hasDead)
+            return;
         instrumentInfo.health = Mathf.Clamp(instrumentInfo.health - damage, 0, _maxHealth);
         RefreshShow();
         Sequence seq = DOTween.Sequence();

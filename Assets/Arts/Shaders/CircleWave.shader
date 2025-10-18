@@ -95,15 +95,15 @@ Shader "UI/CircleWave"
                     float2 center = float2(0.5, 0.5);
                     float dist = distance(i.uv, center);
 
-                    // 计算当前时间下的圆半径（循环效果）
-                    float currentRadius = _StartRadius + frac(_Time.y * _WaveSpeed) * (_MaxRadius - _StartRadius);
+                    // 计算当前时间下的圆半径（到达最大半径后停止）
+                    float currentRadius = _StartRadius + _Time.y * _WaveSpeed;
+                    currentRadius = clamp(currentRadius, _StartRadius, _MaxRadius);
 
-                    // 创建圆环效果
-                    float circleInner = smoothstep(currentRadius - _BorderWidth - 0.02,
-                                                 currentRadius - _BorderWidth + 0.02, dist);
-                    float circleOuter = smoothstep(currentRadius - 0.02, currentRadius + 0.02, dist);
+                    // 使用step创建硬边缘
+                    float circleInner = step(dist, currentRadius - _BorderWidth);  // 圆圈内部
+                    float circleOuter = step(dist, currentRadius);                 // 圆圈外部边界
 
-                    // 计算边界区域
+                    // 计算边界区域：外部边界减去内部边界
                     float borderArea = circleOuter - circleInner;
 
                     // 混合颜色
@@ -111,7 +111,7 @@ Shader "UI/CircleWave"
                     col = lerp(_BorderColor, col, circleInner);
 
                     // 圆外完全透明
-                    col.a *= (1 - circleOuter);
+                    col.a *= circleOuter;
 
                     // 与UI原始颜色混合
                     col *= i.color;

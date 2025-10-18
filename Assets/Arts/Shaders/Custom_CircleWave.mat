@@ -29,19 +29,19 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _BorderWidth: 0.045
+    - _BorderWidth: 0.008
     - _ColorMask: 15
-    - _MaxRadius: 1.5
-    - _StartRadius: 0.225
+    - _MaxRadius: 0.525
+    - _StartRadius: 0.294
     - _Stencil: 0
-    - _StencilComp: 8
+    - _StencilComp: 7.76
     - _StencilOp: 0
     - _StencilReadMask: 255
     - _StencilWriteMask: 255
-    - _WaveSpeed: 0.5
+    - _WaveSpeed: 1
     m_Colors:
-    - _BorderColor: {r: 0, g: 0, b: 0, a: 0.8}
-    - _CircleColor: {r: 0, g: 0, b: 0, a: 0.5}
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _BorderColor: {r: 0, g: 0, b: 0, a: 1}
+    - _CircleColor: {r: 0.6301887, g: 0.607597, b: 0.607597, a: 1}
+    - _Color: {r: 0.5018867, g: 0.4725311, b: 0.4725311, a: 1}
     - _MainColor: {r: 1, g: 0, b: 0, a: 0.5}
   m_BuildTextureStacks: []
