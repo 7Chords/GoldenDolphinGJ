@@ -10,7 +10,11 @@ public class NoteItemContainer : MonoBehaviour
     [Header("音符UI（按顺序填充：0=高音，1=中音，2=低音）")]
     [Tooltip("请按顺序拖入 High, Middle, Low 的 NoteItem 引用，索引0=高音,1=中音,2=低音")]
     public List<NoteItem> noteItemList = new List<NoteItem>();
-    
+
+    private void Awake()
+    {
+        SetNoteItemInfo();
+    }
     void Start()
     {
         // 音符数量变化就刷新UI显示
@@ -24,7 +28,7 @@ public class NoteItemContainer : MonoBehaviour
     }
 
     // 设置音符UI显示信息
-    private void SetNoteItemInfo()
+    public void SetNoteItemInfo()
     {
         noteItemList[0].SetInfo(PlayerMgr.Instance.GetNoteNum(NoteType.HightNote));
         noteItemList[1].SetInfo(PlayerMgr.Instance.GetNoteNum(NoteType.MiddleNote));

@@ -91,6 +91,7 @@ public class StoreContainerItem : MonoBehaviour, IPointerClickHandler
             PlayerMgr.Instance.RemoveNoteNum(NoteType.LowNote, lowCost);
             PlayerMgr.Instance.RemoveNoteNum(NoteType.HightNote, highNoteCost);
             PlayerMgr.Instance.RemoveNoteNum(NoteType.MiddleNote, middleCost);
+            MsgCenter.SendMsgAct(MsgConst.ON_NOTE_COUNT_CHANGE);
         }
 
         return temp;
