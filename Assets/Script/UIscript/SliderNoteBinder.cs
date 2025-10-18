@@ -18,9 +18,8 @@ public class SliderNoteBinder : MonoBehaviour
     {
         if (slider == null || NoteMgr.instance == null) return;
 
-        float currentTime = NoteMgr.instance.TotalPauseTime; // 你提供的值
+        float currentTime = NoteMgr.instance.TotalTime; // 你提供的值
         float total = Mathf.Max(0.0001f, maxTotalTime);
-
         if (useAnimate)
         {
             slider.AnimateToByTime(currentTime, total, animateDuration);

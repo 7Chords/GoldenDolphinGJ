@@ -1,5 +1,6 @@
 using DG.Tweening;
 using GJFramework;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -14,15 +15,16 @@ public enum NoteType
 
 public class NoteUIScript : MonoBehaviour, IPointerClickHandler
 {
-    public NoteType noteType;// 音符的类别
+    private NoteType noteType;// 音符的类别
     private float existTime;// 存在时间
     [SerializeField] private float maxTime;// 随机时间
     [SerializeField] private float minTime;
-    [SerializeField] private Image noteImage;// 音符对应的图片
+    [SerializeField] private Image noteImage;// 音符对应的图片引用
     [SerializeField] private RectTransform myTransform;// 对应的UI框架
     private bool isPlayingAnimation = false;
     private bool isPaused = false;  
     private TweenContainer tweenContainer;
+    [SerializeField] private List<Sprite> noteSpritList;// 音符对应的图片列表
     private void Awake()
     {
         tweenContainer = new TweenContainer();
@@ -74,7 +76,6 @@ public class NoteUIScript : MonoBehaviour, IPointerClickHandler
             Debug.Log("noteImage is null");
             return;
         }
-        else noteImage.color = GetRandomColor();
         // 初始化的时候获得一个随机的时间
         existTime = Random.Range(maxTime, minTime);
 
@@ -116,18 +117,16 @@ public class NoteUIScript : MonoBehaviour, IPointerClickHandler
         tweenContainer.RegDoTween(seq);
     }
 
-    private Color GetRandomColor()
-    {
-        return new Color(Random.value, Random.value, Random.value, 1f); // RGB 随机 Alpha 为 1
-    }
-
     public NoteType GetRandomEnumAndSetImage()
     {
         // todo: Set Note Image
         int temp = Random.Range(0, 3);
-        if(temp == 0) return NoteType.HightNote;
+        noteImage.sprite = noteSpritList[temp];
+        if (temp == 0) return NoteType.HightNote;
         else if(temp == 1) return NoteType.MiddleNote;
         else return NoteType.LowNote;
+
+
     }
 
 }
