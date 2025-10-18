@@ -21,12 +21,9 @@ namespace GJFramework
 
         public const int ON_INSTRUMENT_START_ATTACK = 1011;
         public const int ON_INSTRUMENT_END_ATTACK = 1012;
-        public const int ON_NOTE_TIME_END = 1013;// 音符收集时间结束
 
-        public const int ON_INSTRUMENT_START_ATTACK = 1014;//乐器开始攻击
-        public const int ON_INSTRUMENT_END_ATTACK = 1015;//乐器结束攻击
-        public const int ON_ENEMY_START_ATTACK = 1016;//敌人开始攻击
-        public const int ON_ENEMY_END_ATTACK = 1017;//敌人结束攻击
+        public const int ON_ENEMY_START_ATTACK = 1013;//敌人开始攻击
+        public const int ON_ENEMY_END_ATTACK = 1014;//敌人结束攻击
 
     }
 }
