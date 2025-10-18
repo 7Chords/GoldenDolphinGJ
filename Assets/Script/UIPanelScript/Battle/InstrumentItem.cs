@@ -1,6 +1,7 @@
 using DG.Tweening;
 using GJFramework;
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -45,12 +46,19 @@ public class InstrumentItem : UIPanelBase,
     [Header("移出震动持续时间")]
     public float exitShakeDuration;
 
+    [Header("已经行动过时的画布Alpha")]
+    public float alreadyActionAlpha;
+    [Header("受伤震动强度")]
+    public float hurtShakeStrength;
+    [Header("受伤震动时间")]
+    public float hurtShakeDuration;
+    [Header("受伤颜色")]
+    public Color hurtColor;
+    [Header("受伤颜色变化时间")]
+    public float hurtColorFadeDuration;
+
     [Header("画布组件")]
     public CanvasGroup canvasGroup;
-    //[Header("选中时的淡出时间")]
-    //public float selectFadeOutDuration;
-    //[Header("取消选中时的淡入时间")]
-    //public float unSelectFadeInDuration;
 
     [Header("攻击指示线预制体")]
     public GameObject attackLinePrefab;
@@ -62,29 +70,37 @@ public class InstrumentItem : UIPanelBase,
 
     private TweenContainer _tweenContainer;
 
-    private bool _hasInited;
-
     private GameObject _attackLineGO;
     private LineRenderer _lineRenderer;
+    private int _maxHealth;
 
+
+    private bool _hasInited;
+    private bool _hasActioned;
+    private bool _hasDead;
     protected override void OnShow()
     {
-        Init();
+
+        MsgCenter.RegisterMsgAct(MsgConst.ON_TURN_CHG, OnTurnChg);
+
+
+        _hasInited = true;
+        _tweenContainer = new TweenContainer();
+        BattleMgr.instance.RegInstrumentItem(this);
     }
 
     protected override void OnHide(Action onHideFinished)
     {
+        MsgCenter.UnregisterMsgAct(MsgConst.ON_TURN_CHG, OnTurnChg);
+
         _tweenContainer?.KillAllDoTween();
         _tweenContainer = null;
-    }
-    public void Init()
-    {
-        _hasInited = true;
-        _tweenContainer = new TweenContainer();
+        BattleMgr.instance.UnregInstrumentItem(this);
     }
     public void SetInfo(InstrumentInfo instrumentInfo)
     {
         _instrumentInfo = instrumentInfo;
+        _maxHealth = _instrumentInfo.health;
         RefreshShow();
     }
 
@@ -100,8 +116,9 @@ public class InstrumentItem : UIPanelBase,
     }
     public void OnPointerEnter(PointerEventData eventData)
     {
-        if (!_hasInited)
+        if (!_hasInited && _hasDead)
             return;
+
         Sequence enterSeq = DOTween.Sequence();
         enterSeq.Append(transform.DOScale(enterBiggerScale, enterBiggerDuration));
         enterSeq.Join(transform.DOShakePosition(enterShakeDuration, enterShakeStrength, fadeOut: true));
@@ -110,10 +127,10 @@ public class InstrumentItem : UIPanelBase,
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        if (!_hasInited)
+        if (!_hasInited && _hasDead)
             return;
-        Sequence exitSeq = DOTween.Sequence();
 
+        Sequence exitSeq = DOTween.Sequence();
         exitSeq.Append(transform.DOScale(exitSmallerScale, exitSmallerDuration));
         exitSeq.Join(transform.DOShakePosition(exitShakeDuration, exitShakeStrength, fadeOut: true));
         _tweenContainer.RegDoTween(exitSeq);
@@ -122,6 +139,10 @@ public class InstrumentItem : UIPanelBase,
 
     public void OnBeginDrag(PointerEventData eventData)
     {
+        if (!_hasInited && _hasDead)
+            return;
+        if (_hasActioned)
+            return;
         // 创建攻击指示线
         _attackLineGO = Instantiate(attackLinePrefab);
         _lineRenderer = _attackLineGO.GetComponent<LineRenderer>();
@@ -132,6 +153,10 @@ public class InstrumentItem : UIPanelBase,
 
     public void OnDrag(PointerEventData eventData)
     {
+        if (!_hasInited && _hasDead)
+            return;
+        if (_hasActioned)
+            return;
         if (_lineRenderer != null)
         {
             UpdateLinePositions(eventData);
@@ -140,14 +165,19 @@ public class InstrumentItem : UIPanelBase,
 
     public void OnEndDrag(PointerEventData eventData)
     {
+        if (!_hasInited && _hasDead)
+            return;
+        if (_hasActioned)
+            return;
         // 这里可以添加释放后的逻辑，比如检测释放目标等
 
         GameObject enemyIconGO = eventData.hovered?.Find(x => x.tag == "EnemyIcon");
-        IDamagable targetDamagable = enemyIconGO.transform.parent.GetComponent<IDamagable>();
-        if (targetDamagable != null)
+        if(enemyIconGO != null)
         {
-            AttackHandler.DealAttack(this, targetDamagable);
-        }    
+            IDamagable targetDamagable = enemyIconGO.transform.parent.GetComponent<IDamagable>();
+            if (targetDamagable != null)
+                AttackHandler.DealAttack(this, new List<IDamagable>() { targetDamagable });
+        }
         // 销毁攻击指示线
         if (_attackLineGO != null)
         {
@@ -168,17 +198,6 @@ public class InstrumentItem : UIPanelBase,
         Vector3 startWorldPos = GetUIPositionWorldPos(transform.position);
         Vector3 endWorldPos;
 
-        //GameObject enemyIconGO = eventData.hovered?.Find(x => x.tag == "EnemyIcon");
-
-        //if (enemyIconGO != null)
-        //{
-        //    endWorldPos = GetMouseWorldPosition(enemyIconGO.transform.position);
-        //}
-        //else
-        //{
-        //    // 获取鼠标位置对应的世界位置（终点）
-        //    endWorldPos = GetMouseWorldPosition(eventData.position);
-        //}
         endWorldPos = GetMouseWorldPosition(eventData.position);
 
         // 设置LineRenderer的位置
@@ -212,15 +231,47 @@ public class InstrumentItem : UIPanelBase,
     #endregion
     public void Attack()
     {
+        _hasActioned = true;
+        canvasGroup.alpha = alreadyActionAlpha;
+        MsgCenter.SendMsgAct(MsgConst.ON_INSTRUMENT_ACTION_OVER);
     }
 
     public void TakeDamage(int damage)
     {
+        instrumentInfo.health = Mathf.Clamp(instrumentInfo.health - damage, 0, _maxHealth);
+        RefreshShow();
+        Sequence seq = DOTween.Sequence();
+        seq.Append(transform.DOShakePosition(hurtShakeDuration, hurtShakeStrength, fadeOut: true));
+        seq.Join(instrumentIcon.DOColor(hurtColor, hurtColorFadeDuration / 2));
+        seq.Append(instrumentIcon.DOColor(Color.white, hurtColorFadeDuration / 2));
+        _tweenContainer.RegDoTween(seq);
 
+        if (instrumentInfo.health == 0)
+            Dead();
     }
 
     public int GetAttackAmount()
     {
         return instrumentInfo.attack;
     }
+    public void Dead()
+    {
+        _hasDead = true;
+    }
+
+
+
+
+
+
+
+    private void OnTurnChg()
+    {
+        if(BattleMgr.instance.curTurn == ETurnType.Player)
+        {
+            _hasActioned = false;
+            canvasGroup.alpha = 1;
+        }
+    }
+
 }

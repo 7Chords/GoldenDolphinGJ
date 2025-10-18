@@ -108,6 +108,11 @@ MonoBehaviour:
   exitSmallerScale: 1
   exitShakeStrength: 5
   exitShakeDuration: 0.15
+  alreadyActionAlpha: 0.5
+  hurtShakeStrength: 5
+  hurtShakeDuration: 0.2
+  hurtColor: {r: 1, g: 0, b: 0, a: 1}
+  hurtColorFadeDuration: 0.2
   canvasGroup: {fileID: 864014791537433532}
   attackLinePrefab: {fileID: 8674712942255598340, guid: 946668219c5d3274d94e87e3642b5bf8, type: 3}
 --- !u!225 &864014791537433532
@@ -417,7 +422,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1

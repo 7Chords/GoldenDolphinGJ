@@ -7,10 +7,15 @@ using UnityEngine;
 /// </summary>
 public static class AttackHandler
 {
-    public static void DealAttack(IDamagable attacker,IDamagable target)
+    public static void DealAttack(IDamagable attacker,List<IDamagable> targetList)
     {
         attacker.Attack();
-        target.TakeDamage(attacker.GetAttackAmount());
+        foreach (var target in targetList)
+        {
+            if (target == null)
+                continue;
+            target.TakeDamage(attacker.GetAttackAmount());
+        }
 
         Debug.Log("Attack");
     }

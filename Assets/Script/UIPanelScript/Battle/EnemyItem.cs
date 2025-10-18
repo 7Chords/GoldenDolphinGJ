@@ -1,6 +1,7 @@
 using DG.Tweening;
 using GJFramework;
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -22,7 +23,11 @@ public class EnemyItem : UIPanelBase,IDamagable
     public Color hurtColor;
     [Header("受伤颜色变化时间")]
     public float hurtColorFadeDuration;
+    [Header("血条变化时间")]
+    public float healthBarChgDuration;
 
+    [Header("切换到敌人回合时攻击前的等待时间")]
+    public float attackWaitDuration;
     #endregion
 
     private EnemyInfo _enemyInfo;
@@ -30,11 +35,14 @@ public class EnemyItem : UIPanelBase,IDamagable
     private int _maxHealth;
     protected override void OnShow()
     {
+        MsgCenter.RegisterMsgAct(MsgConst.ON_TURN_CHG, OnTurnChg);
         _tweenContainer = new TweenContainer();
     }
 
     protected override void OnHide(Action onHideFinished)
     {
+        MsgCenter.UnregisterMsgAct(MsgConst.ON_TURN_CHG, OnTurnChg);
+
         _tweenContainer?.KillAllDoTween();
         _tweenContainer = null;
     }
@@ -53,9 +61,9 @@ public class EnemyItem : UIPanelBase,IDamagable
         imgEnemyBg.sprite = Resources.Load<Sprite>(_enemyInfo.enemyBgPath);
         imgEnemyIcon.sprite = Resources.Load<Sprite>(_enemyInfo.enemyIconPath);
         txtAttack.text = _enemyInfo.enemyAttack.ToString();
-        //txtHealth.text = _enemyInfo.enemyHealth.ToString();
         txtName.text = _enemyInfo.enemyName;
-        imgHealthBar.fillAmount = (float)_enemyInfo.enemyHealth / _maxHealth;
+        Tween healthTween = imgHealthBar.DOFillAmount((float)_enemyInfo.enemyHealth / _maxHealth, healthBarChgDuration);
+        _tweenContainer.RegDoTween(healthTween);
     }
 
     public void Attack()
@@ -65,7 +73,7 @@ public class EnemyItem : UIPanelBase,IDamagable
 
     public void TakeDamage(int damage)
     {
-        _enemyInfo.enemyHealth = Mathf.Clamp(_enemyInfo.enemyHealth - damage, 0, 1);
+        _enemyInfo.enemyHealth = Mathf.Clamp(_enemyInfo.enemyHealth - damage, 0, _maxHealth);
         RefreshShow();
 
         Sequence seq = DOTween.Sequence();
@@ -74,10 +82,32 @@ public class EnemyItem : UIPanelBase,IDamagable
         seq.Append(imgEnemyIcon.DOColor(Color.white, hurtColorFadeDuration / 2));
         _tweenContainer.RegDoTween(seq);
 
+        if (_enemyInfo.enemyHealth == 0)
+            Dead();
     }
 
     public int GetAttackAmount()
     {
         return _enemyInfo.enemyAttack;
+    }
+
+    public void Dead()
+    {
+
+    }
+    private void OnTurnChg()
+    {
+        Sequence seq = DOTween.Sequence();
+        seq.AppendInterval(attackWaitDuration).OnComplete(() =>
+        {
+            List<IDamagable> damagableList = new List<IDamagable>();
+            foreach(var item in BattleMgr.instance.instrumentItemList)
+            {
+                damagableList.Add(item as IDamagable);
+            }
+            AttackHandler.DealAttack(this, damagableList);
+        });
+        _tweenContainer.RegDoTween(seq);
+        
     }
 }

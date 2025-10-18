@@ -352,6 +352,8 @@ MonoBehaviour:
   hurtShakeDuration: 0.2
   hurtColor: {r: 1, g: 0, b: 0, a: 1}
   hurtColorFadeDuration: 0.2
+  healthBarChgDuration: 0.2
+  attackWaitDuration: 1
 --- !u!1 &3726684731815716030
 GameObject:
   m_ObjectHideFlags: 0
