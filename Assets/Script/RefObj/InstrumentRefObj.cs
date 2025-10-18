@@ -18,6 +18,7 @@ public class InstrumentRefObj : SCRefDataCore
     public int health;
     public string instrumentIconPath;
     public string instrumentBgPath;
+    public string instrumentIconUnlockPath;
 
     protected override void _parseFromString()
     {
@@ -29,6 +30,7 @@ public class InstrumentRefObj : SCRefDataCore
         health = getInt("health");
         instrumentIconPath = getString("instrumentIconPath");
         instrumentBgPath = getString("instrumentBgPath");
+        instrumentIconUnlockPath = getString("instrumentIconUnlockPath");
     }
 
     public static string assetPath => "RefData/ExportTxt";

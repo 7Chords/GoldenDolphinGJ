@@ -12,6 +12,7 @@ public class ReachableInstrumentContainer : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //currentBattleLevelId = GameMgr.Instance.curLevel;
         BattleLevelRefObj battleLevelRefObj = SCRefDataMgr.Instance.battleLevelRefList.refDataList
             .Find(x => x.id == currentBattleLevelId);
         if(battleLevelRefObj != null)
@@ -23,6 +24,8 @@ public class ReachableInstrumentContainer : MonoBehaviour
             Debug.LogError("battleLevelRefObj有误");
         }
         SetContainerItemInfo();
+
+        MsgCenter.RegisterMsgAct(MsgConst.ON_NOTE_COUNT_CHANGE, refresh);
     }
 
     private void SetContainerItemInfo()
@@ -37,14 +40,27 @@ public class ReachableInstrumentContainer : MonoBehaviour
             if (instrumentRefObj != null)
             {
                 Sprite tempSprit = ResourceUtils.LoadSprite(instrumentRefObj.instrumentIconPath);
+                Sprite tempSpriteUnlock = ResourceUtils.LoadSprite(instrumentRefObj.instrumentIconUnlockPath);
                 if (tempSprit != null)
-                    instrumentContainerItems[i].SetInfo(tempSprit, curLevelInstrumentIdList[i]);
+                    instrumentContainerItems[i].SetInfo(tempSprit, tempSpriteUnlock, curLevelInstrumentIdList[i]);
                 else Debug.LogError("乐器图片有误");
             }
             else Debug.LogError("instrumentRefObj有误");
         }
     }
 
+    private void refresh()
+    {
+        foreach(var item in instrumentContainerItems)
+        {
+            item.refreshIcon();
+        }
+    }
+
+    private void OnDestroy()
+    {
+        MsgCenter.UnregisterMsgAct(MsgConst.ON_NOTE_COUNT_CHANGE, refresh);
+    }
 }
 
 

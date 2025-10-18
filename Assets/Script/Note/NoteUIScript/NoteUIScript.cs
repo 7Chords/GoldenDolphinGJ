@@ -48,9 +48,8 @@ public class NoteUIScript : MonoBehaviour, IPointerClickHandler
         if (!NoteMgr.instance.IsCurrentPause)
         {
             // 如果有未播放的动画则继续播放
-            if (!isPaused && isPlayingAnimation)
+            if (isPlayingAnimation)
             {
-                isPaused = false;
                 tweenContainer.ResumeAllDoTween();
             }
             existTime -= Time.deltaTime;
@@ -59,11 +58,7 @@ public class NoteUIScript : MonoBehaviour, IPointerClickHandler
                 OnNoteDisappear();
             }
         }
-        else
-        {
-            isPaused = true;
-            tweenContainer.PauseAllDoTween();
-        }
+
     }
     private void Init()
     {
@@ -90,10 +85,11 @@ public class NoteUIScript : MonoBehaviour, IPointerClickHandler
     public void OnPointerClick(PointerEventData eventData)
     {
         // 点击播放的动画和时间到了一样 如果点击了看看是什么类型并且对应加上数量
-        if (!isPlayingAnimation)
+        if (!isPlayingAnimation && NoteMgr.instance.IsCurrentPause)
         {
             PlayerMgr.Instance.AddNoteNum(noteType);
             isPlayingAnimation = true;
+            tweenContainer.PauseAllDoTween();
             OnNoteDisappear();
         }
     }

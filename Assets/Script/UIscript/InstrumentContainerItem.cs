@@ -13,7 +13,7 @@ public class InstrumentContainerItem : MonoBehaviour
     [SerializeField]
     private Image instrumentImage;
     private long currentInstrumentId;
-
+    
     [Header("显隐指示图标（序列化引用）")]
     [SerializeField]
     private Image visibilityImage;
@@ -22,7 +22,7 @@ public class InstrumentContainerItem : MonoBehaviour
     /// 用于在代码中设置显示的图片（Sprite）。
     /// 传入 null 会隐藏图片显示。
     /// </summary>
-    public void SetInfo(Sprite _sprite, long _currentInstrumentId)
+    public void SetInfo(Sprite _sprite, Sprite _sprite2, long _currentInstrumentId)
     {
         if (instrumentImage == null)
         {
@@ -32,9 +32,11 @@ public class InstrumentContainerItem : MonoBehaviour
         currentInstrumentId = _currentInstrumentId;
         instrumentImage.sprite = _sprite;
         instrumentImage.enabled = _sprite != null;
+        visibilityImage.sprite = _sprite2;
+        visibilityImage.enabled = _sprite2 != null;
     }
 
-    private void Start()
+    public void refreshIcon()
     {
         // 需要根据某些条件来设置 visibilityImage 的显隐
         ApplyVisibilityBasedOnCondition();
@@ -59,7 +61,16 @@ public class InstrumentContainerItem : MonoBehaviour
                        PlayerMgr.Instance.GetNoteNum(NoteType.MiddleNote) >= instrumentStoreRefObj.middleNoteNum;
 
 
-        visibilityImage.enabled = visible;
+        if(visible)
+        {
+            instrumentImage.enabled = true;
+            visibilityImage.enabled = false;
+        }
+        else
+        {
+            instrumentImage.enabled = false;
+            visibilityImage.enabled = true;
+        }
     }
 
     /// <summary>
