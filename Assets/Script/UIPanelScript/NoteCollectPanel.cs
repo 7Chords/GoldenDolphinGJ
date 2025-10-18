@@ -5,7 +5,8 @@ using UnityEngine.UI;
 
 public class NoteCollectPanel : UIPanelBase
 {
-    [SerializeField] private GameObject btnGo;
+
+
     protected override void OnShow()
     {
         

@@ -4,10 +4,11 @@ using UnityEngine.UI;
 
 public class PhonographUIScript : MonoBehaviour, IPointerClickHandler
 {
+    bool currentPauseState = false;
     public void OnPointerClick(PointerEventData eventData)
     {
-        // todo:
-        // 打开留声机 暂停动画
-
+        // 打开留声机 暂停时间流逝
+        NoteMgr.instance.SetPauseState(currentPauseState);
+        currentPauseState = !currentPauseState;
     }
 }

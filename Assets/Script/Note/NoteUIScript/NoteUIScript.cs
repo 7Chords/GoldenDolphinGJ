@@ -21,6 +21,7 @@ public class NoteUIScript : MonoBehaviour, IPointerClickHandler
     [SerializeField] private Image noteImage;// 音符对应的图片
     [SerializeField] private RectTransform myTransform;// 对应的UI框架
     private bool isPlayingAnimation = false;
+    private bool isPaused = false;  
     private TweenContainer tweenContainer;
     private void Awake()
     {
@@ -35,11 +36,31 @@ public class NoteUIScript : MonoBehaviour, IPointerClickHandler
 
     private void Update()
     {
-        // 每帧减少时间
-        existTime -= Time.deltaTime;
-        if(existTime <= 1f && !isPlayingAnimation)
+        // 每帧减少时间 如果时间小于1秒并且没有播放动画 则播放消失动画
+        DoInupdate();
+    }
+
+    private void DoInupdate()
+    {
+        // 如果没有暂停则减少时间
+        if (!NoteMgr.instance.IsCurrentPause)
         {
-            OnNoteDisappear();
+            // 如果有未播放的动画则继续播放
+            if (!isPaused && isPlayingAnimation)
+            {
+                isPaused = false;
+                tweenContainer.ResumeAllDoTween();
+            }
+            existTime -= Time.deltaTime;
+            if(existTime <= 1f && !isPlayingAnimation)
+            {
+                OnNoteDisappear();
+            }
+        }
+        else
+        {
+            isPaused = true;
+            tweenContainer.PauseAllDoTween();
         }
     }
     private void Init()
