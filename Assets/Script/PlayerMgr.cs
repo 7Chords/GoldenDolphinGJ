@@ -13,6 +13,7 @@ public class PlayerMgr : SingletonPersistent<PlayerMgr>
     public Dictionary<NoteType, int> noteDic;// 玩家现在有的音符资源
     protected override void Awake()
     {
+        base.Awake();
         // 初始化
         Init();
     }
@@ -37,6 +38,7 @@ public class PlayerMgr : SingletonPersistent<PlayerMgr>
     }
     private void Init()
     {
+        instrumentIdList = new List<long>();
         // 初始化玩家目前有的音符种类数量
         noteDic = new Dictionary<NoteType, int>
         {

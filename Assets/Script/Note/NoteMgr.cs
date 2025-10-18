@@ -23,6 +23,14 @@ public class NoteMgr : SingletonMono<NoteMgr>
     private int remainNoteNum;// 剩余可获得音符的数量
 
     public bool isEnd = false;
+
+    [Header("禁止生成区域（把对应的 UI RectTransform 拖到这里）")]
+    [Tooltip("如果某个区域不希望生成音符，把该区域的 RectTransform 拖到数组里。支持多区域。")]
+    [SerializeField] private RectTransform[] forbiddenZones;
+
+    [Header("生成尝试次数（如果多次随机落入禁止区则放弃本次生成）")]
+    [SerializeField] private int maxSpawnAttempts = 12;
+
     void Start()
     {
         // 赋值
@@ -56,7 +64,7 @@ public class NoteMgr : SingletonMono<NoteMgr>
 
     public void ReduceRemainNoteNum()
     {
-        remainNoteNum --;
+        remainNoteNum--;
     }
 
     private void DoInUpdate()
@@ -112,23 +120,44 @@ public class NoteMgr : SingletonMono<NoteMgr>
         minScreenY = centerY - usableHeight * 0.5f;
         maxScreenY = centerY + usableHeight * 0.5f;
 
-        // 2. 生成屏幕内随机像素坐标
-        float randomScreenX = Random.Range(minScreenX, maxScreenX);
-        float randomScreenY = Random.Range(minScreenY, maxScreenY);
-        Vector2 randomScreenPos = new Vector2(randomScreenX, randomScreenY);
+        // 2. 生成屏幕内随机像素坐标，允许多次尝试避免落在禁止区域
+        Vector2 randomScreenPos = Vector2.zero;
+        bool foundValid = false;
+        int attempts = 0;
+        while (attempts < maxSpawnAttempts)
+        {
+            float randomScreenX = Random.Range(minScreenX, maxScreenX);
+            float randomScreenY = Random.Range(minScreenY, maxScreenY);
+            randomScreenPos = new Vector2(randomScreenX, randomScreenY);
+
+            if (!IsInForbiddenScreenPoint(randomScreenPos))
+            {
+                foundValid = true;
+                break;
+            }
+            attempts++;
+        }
+
+        if (!foundValid)
+        {
+            // 多次尝试仍未找到有效位置，则本次不生成（避免卡死循环或生成在禁区）
+            return;
+        }
 
         // 3. 将屏幕坐标转换为Canvas局部坐标（UI专用定位）
+        // 对于 Overlay 模式 camera 参数传 null；其他模式传 targetCamera
+        Camera camForScreenPoint = (targetCanvas.renderMode == RenderMode.ScreenSpaceOverlay) ? null : targetCamera;
         if (RectTransformUtility.ScreenPointToLocalPointInRectangle(
             canvasRect,
             randomScreenPos,
-            null, // Overlay模式Canvas无需相机
+            camForScreenPoint,
             out Vector2 uiLocalPos))
         {
             // 4. 实例化UI预制体
             GameObject tempObj = Instantiate(notePrefab, targetCanvas.transform);
             RectTransform noteRect = tempObj.GetComponent<RectTransform>();
             Image image = tempObj.GetComponentInChildren<Image>();
-            image.SetNativeSize();
+            if (image != null) image.SetNativeSize();
             if (noteRect != null)
             {
                 // 设置UI位置（叠加Y轴偏移，像素单位）
@@ -141,6 +170,38 @@ public class NoteMgr : SingletonMono<NoteMgr>
 
 
     }
+
+    // 判断屏幕坐标点是否落在任一禁止区域内（禁止区域以 RectTransform 指定）
+    private bool IsInForbiddenScreenPoint(Vector2 screenPoint)
+    {
+        if (forbiddenZones == null || forbiddenZones.Length == 0)
+            return false;
+
+        // 根据 Canvas 渲染模式选择用于 WorldToScreenPoint 的相机
+        Camera camForScreenPoint = (targetCanvas != null && targetCanvas.renderMode == RenderMode.ScreenSpaceOverlay) ? null : targetCamera;
+
+        foreach (var rt in forbiddenZones)
+        {
+            if (rt == null) continue;
+            // 获取世界四个角并转换为屏幕坐标
+            Vector3[] corners = new Vector3[4];
+            rt.GetWorldCorners(corners);
+            float minX = float.MaxValue, maxX = float.MinValue, minY = float.MaxValue, maxY = float.MinValue;
+            for (int i = 0; i < 4; i++)
+            {
+                Vector2 sp = RectTransformUtility.WorldToScreenPoint(camForScreenPoint, corners[i]);
+                if (sp.x < minX) minX = sp.x;
+                if (sp.x > maxX) maxX = sp.x;
+                if (sp.y < minY) minY = sp.y;
+                if (sp.y > maxY) maxY = sp.y;
+            }
+            // 判断点是否在矩形内（包含边界）
+            if (screenPoint.x >= minX && screenPoint.x <= maxX && screenPoint.y >= minY && screenPoint.y <= maxY)
+                return true;
+        }
+        return false;
+    }
+
     // 当前是否暂停 对外暴露接口
     public void SetPauseState(bool isPause)
     {
