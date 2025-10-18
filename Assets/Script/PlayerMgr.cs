@@ -22,7 +22,7 @@ public class PlayerMgr : SingletonPersistent<PlayerMgr>
         noteDic[noteType] ++;
 
         // 数量变更 发送消息
-        MsgCenter.SendMsg(MsgConst.ON_NOTE_COUNT_CHANGE);
+        MsgCenter.SendMsgAct(MsgConst.ON_NOTE_COUNT_CHANGE);
     }
 
     public void RemoveNoteNum(NoteType noteType, int num) 
