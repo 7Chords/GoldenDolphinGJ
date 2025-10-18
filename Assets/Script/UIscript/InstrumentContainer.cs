@@ -61,7 +61,7 @@ public class InstrumentContainer : UIPanelBase
         {
             item.Hide();
         }
-
+        onHideFinished?.Invoke();
     }
 
 }

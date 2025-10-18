@@ -96,6 +96,8 @@ public class InstrumentItem : UIPanelBase,
         _tweenContainer?.KillAllDoTween();
         _tweenContainer = null;
         BattleMgr.instance.UnregInstrumentItem(this);
+
+        onHideFinished?.Invoke();
     }
     public void SetInfo(InstrumentInfo instrumentInfo)
     {

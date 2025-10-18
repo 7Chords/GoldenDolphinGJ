@@ -27,7 +27,7 @@ public class BattlePanel : UIPanelBase
     {
         MsgCenter.UnregisterMsg(MsgConst.ON_BATTLE_START, OnBattleStartStart);
         MsgCenter.UnregisterMsgAct(MsgConst.ON_TURN_CHG, OnTurnChg);
-
+        onHideFinished?.Invoke();
     }
 
     private void OnBattleStartStart(object[] _objs)
