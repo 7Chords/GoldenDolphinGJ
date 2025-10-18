@@ -10,20 +10,26 @@ using UnityEngine;
 public class InstrumentInfo
 {
     public EInstrumentType instrumentType;
+    public EInstrumentEffectType effectType;
     public string instrumentName;
     public string instrumentDesc;
     public int health;
     public int attack;
+    public int heal;
+    public int buff;
     public string instrumentIconPath;
     public string instrumentBgPath;
 
-    public InstrumentInfo(EInstrumentType instrumentType, string instrumentName, string instrumentDesc, int health, int attack, string instrumentIconPath, string instrumentBgPath)
+    public InstrumentInfo(EInstrumentType instrumentType, EInstrumentEffectType effectType, string instrumentName, string instrumentDesc, int health, int attack, int heal, int buff, string instrumentIconPath, string instrumentBgPath)
     {
         this.instrumentType = instrumentType;
+        this.effectType = effectType;
         this.instrumentName = instrumentName;
         this.instrumentDesc = instrumentDesc;
         this.health = health;
         this.attack = attack;
+        this.heal = heal;
+        this.buff = buff;
         this.instrumentIconPath = instrumentIconPath;
         this.instrumentBgPath = instrumentBgPath;
     }

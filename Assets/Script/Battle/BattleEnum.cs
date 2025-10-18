@@ -15,3 +15,10 @@ public enum EEnemyType
 {
     MonsterNote,
 }
+
+public enum EInstrumentEffectType
+{
+    Attack,
+    Heal,
+    Buff,
+}

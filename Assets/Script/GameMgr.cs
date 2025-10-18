@@ -11,7 +11,17 @@ public class GameMgr : SingletonPersistent<GameMgr>
 
 
     private int _curLevel;
-    public int curLevel => _curLevel;
+    public int curLevel
+    {
+        get
+        {
+            return _curLevel;
+        }
+        set
+        {
+            _curLevel = value;
+        }
+    }
 
     [Header("玩家姓名")]
     public string playerName;
@@ -24,7 +34,7 @@ public class GameMgr : SingletonPersistent<GameMgr>
 
     void Start()
     {
-        PanelUIMgr.Instance.OpenPanel(EPanelType.NoteCollectPanel);
+        //PanelUIMgr.Instance.OpenPanel(EPanelType.NoteCollectPanel);
     }
 
 

@@ -35,8 +35,10 @@ public class EnemyItem : UIPanelBase,IDamagable
     private int _maxHealth;
     protected override void OnShow()
     {
+        Debug.Log("EnemyItemShow!!!");
         MsgCenter.RegisterMsgAct(MsgConst.ON_TURN_CHG, OnTurnChg);
         _tweenContainer = new TweenContainer();
+        BattleMgr.instance.RegEnemyItem(this);
     }
 
     protected override void OnHide(Action onHideFinished)
@@ -46,6 +48,7 @@ public class EnemyItem : UIPanelBase,IDamagable
         _tweenContainer?.KillAllDoTween();
         _tweenContainer = null;
         onHideFinished?.Invoke();
+        BattleMgr.instance.UnregEnemyItem();
     }
 
     public void SetInfo(EnemyInfo enemInfo)
@@ -91,15 +94,39 @@ public class EnemyItem : UIPanelBase,IDamagable
     {
         return _enemyInfo.enemyAttack;
     }
+    public void TakeHeal(int healAmount)
+    {
+        _enemyInfo.enemyHealth = Mathf.Clamp(_enemyInfo.enemyHealth + healAmount, 0, _maxHealth);
+        RefreshShow();
+    }
 
+    public int GetHealAmount()
+    {
+        return 0;
+    }
+
+
+    public void TakeBuff(int buffAmount)
+    {
+        _enemyInfo.enemyAttack += buffAmount;
+        RefreshShow();
+
+    }
+    public int GetBuffAmount()
+    {
+        return 0;
+    }
     public void Dead()
     {
-
+        MsgCenter.SendMsgAct(MsgConst.ON_ENEMY_DEAD);
     }
     private void OnTurnChg()
     {
+
         if(BattleMgr.instance.curTurn == ETurnType.Enemy)
         {
+            Debug.Log("EnemyItemOnTurnChg!!!");
+
             Sequence seq = DOTween.Sequence();
             seq.AppendInterval(attackWaitDuration).OnComplete(() =>
             {
@@ -108,7 +135,7 @@ public class EnemyItem : UIPanelBase,IDamagable
                 {
                     damagableList.Add(item as IDamagable);
                 }
-                AttackHandler.DealAttack(this, damagableList);
+                AttackHandler.DealAttack(EInstrumentEffectType.Attack, this, damagableList);
                 MsgCenter.SendMsgAct(MsgConst.ON_ENEMY_ACTION_OVER);
             });
             _tweenContainer.RegDoTween(seq);

@@ -15,15 +15,19 @@ public class BattleMgr : SingletonMono<BattleMgr>
     private List<InstrumentInfo> _instrumentInfoList;//音乐列表信息
 
     private int _instrumentActionCount;
+    private int _instrumentDeadCount;
 
     //比较烂的写法 时间紧迫
     public List<InstrumentItem> instrumentItemList;
+    public EnemyItem enemyItem;
 
     public bool gameStarted;
     private void Start()
     {
         MsgCenter.RegisterMsgAct(MsgConst.ON_INSTRUMENT_ACTION_OVER, OnInstrumentActionOver);
         MsgCenter.RegisterMsgAct(MsgConst.ON_ENEMY_ACTION_OVER, OnEnemyActionOver);
+        MsgCenter.RegisterMsgAct(MsgConst.ON_ENEMY_DEAD, OnEnemyDead);
+        MsgCenter.RegisterMsgAct(MsgConst.ON_INSTRUMENT_DEAD, OnInstrumentDead);
 
         instrumentItemList = new List<InstrumentItem>();
 
@@ -34,7 +38,8 @@ public class BattleMgr : SingletonMono<BattleMgr>
     {
         MsgCenter.UnregisterMsgAct(MsgConst.ON_INSTRUMENT_ACTION_OVER, OnInstrumentActionOver);
         MsgCenter.UnregisterMsgAct(MsgConst.ON_ENEMY_ACTION_OVER, OnEnemyActionOver);
-
+        MsgCenter.UnregisterMsgAct(MsgConst.ON_ENEMY_DEAD, OnEnemyDead);
+        MsgCenter.UnregisterMsgAct(MsgConst.ON_INSTRUMENT_DEAD, OnInstrumentDead);
     }
     public void StartBattle()
     {
@@ -62,10 +67,13 @@ public class BattleMgr : SingletonMono<BattleMgr>
             InstrumentRefObj instrumentRefObj = SCRefDataMgr.Instance.instrumentRefList.refDataList
                 .Find(x => x.id == PlayerMgr.Instance.instrumentIdList[i]);
             InstrumentInfo info = new InstrumentInfo(instrumentRefObj.instrumentType,
+                instrumentRefObj.effectType,
                 instrumentRefObj.instrumentName,
                 instrumentRefObj.instrumentDesc,
                 instrumentRefObj.health,
                 instrumentRefObj.attack,
+                instrumentRefObj.heal,
+                instrumentRefObj.buff,
                 instrumentRefObj.instrumentIconPath,
                 instrumentRefObj.instrumentBgPath);
             _instrumentInfoList.Add(info);
@@ -74,13 +82,19 @@ public class BattleMgr : SingletonMono<BattleMgr>
         MsgCenter.SendMsg(MsgConst.ON_BATTLE_START, _enemyInfo, _instrumentInfoList);
     }
 
-    public void FinishBattle(bool playerWin)
+    private void FinishBattle(bool playerWin)
     {
         gameStarted = false;
         if (playerWin)
+        {
+            GameMgr.Instance.curLevel++;
             PanelUIMgr.Instance.OpenPanel(EPanelType.BattleWinPanel);
+        }
+        else
+        {
 
-        //todo:else
+            //todo:else
+        }
     }
     public void RegInstrumentItem(InstrumentItem item)
     {
@@ -94,9 +108,21 @@ public class BattleMgr : SingletonMono<BattleMgr>
             instrumentItemList.Remove(item);
     }
 
+    public void RegEnemyItem(EnemyItem item)
+    {
+        enemyItem = item;
+    }
+
+    public void UnregEnemyItem()
+    {
+        enemyItem = null;
+    }
 
     private void OnInstrumentActionOver()
     {
+        if (!gameStarted)
+            return;
+
         _instrumentActionCount++;
         if(_instrumentActionCount == _instrumentInfoList.Count)
         {
@@ -105,12 +131,28 @@ public class BattleMgr : SingletonMono<BattleMgr>
             MsgCenter.SendMsgAct(MsgConst.ON_TURN_CHG);
         }
     }
-
     private void OnEnemyActionOver()
     {
+        if (!gameStarted)
+            return;
+
         _instrumentActionCount = 0;
         curTurn = ETurnType.Player;
         turnCount++;
         MsgCenter.SendMsgAct(MsgConst.ON_TURN_CHG);
+    }
+
+    private void OnEnemyDead()
+    {
+        FinishBattle(true);
+    }
+
+    private void OnInstrumentDead()
+    {
+        _instrumentDeadCount++;
+        if(_instrumentDeadCount == _instrumentInfoList.Count)
+        {
+            FinishBattle(false);
+        }
     }
 }
