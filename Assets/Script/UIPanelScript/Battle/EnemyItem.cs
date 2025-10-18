@@ -97,17 +97,22 @@ public class EnemyItem : UIPanelBase,IDamagable
     }
     private void OnTurnChg()
     {
-        Sequence seq = DOTween.Sequence();
-        seq.AppendInterval(attackWaitDuration).OnComplete(() =>
+        if(BattleMgr.instance.curTurn == ETurnType.Enemy)
         {
-            List<IDamagable> damagableList = new List<IDamagable>();
-            foreach(var item in BattleMgr.instance.instrumentItemList)
+            Sequence seq = DOTween.Sequence();
+            seq.AppendInterval(attackWaitDuration).OnComplete(() =>
             {
-                damagableList.Add(item as IDamagable);
-            }
-            AttackHandler.DealAttack(this, damagableList);
-        });
-        _tweenContainer.RegDoTween(seq);
+                List<IDamagable> damagableList = new List<IDamagable>();
+                foreach (var item in BattleMgr.instance.instrumentItemList)
+                {
+                    damagableList.Add(item as IDamagable);
+                }
+                AttackHandler.DealAttack(this, damagableList);
+                MsgCenter.SendMsgAct(MsgConst.ON_ENEMY_ACTION_OVER);
+            });
+            _tweenContainer.RegDoTween(seq);
+        }
+
         
     }
 }
