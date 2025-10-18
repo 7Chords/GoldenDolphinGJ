@@ -22,6 +22,7 @@ public class BattleLosePanel : UIPanelBase
         _tweenContainer.RegDoTween(canvasGroup.DOFade(1, fadeInDuration));
         btnConfirm.onClick.AddListener(() =>
         {
+            SceneLoader.Instance.AddNextScenePanel(EPanelType.LevelSelectPanel);
             SceneLoader.Instance.LoadScene("LevelSelectScene");
         });
     }

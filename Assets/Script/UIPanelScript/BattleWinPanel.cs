@@ -23,6 +23,7 @@ public class BattleWinPanel : UIPanelBase
 
         btnConfirm.onClick.AddListener(() =>
         {
+            SceneLoader.Instance.AddNextScenePanel(EPanelType.LevelSelectPanel);
             SceneLoader.Instance.LoadScene("LevelSelectScene");
         });
     }

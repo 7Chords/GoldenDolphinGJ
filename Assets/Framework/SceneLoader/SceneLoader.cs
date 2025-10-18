@@ -31,7 +31,12 @@ namespace GJFramework
             }
             AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(tragetSceneName, _loadSceneMode);
             if (asyncOperation == null) return;
-
+            PanelUIMgr.Instance.OpenPanelFromList(
+                _nextSceneEPanelTypes,
+                () =>
+                {
+                    _isAllPreLoad = true;
+                });
             asyncOperation.allowSceneActivation = false;
             StartCoroutine(MonitorLoadingProgress(asyncOperation));
         }

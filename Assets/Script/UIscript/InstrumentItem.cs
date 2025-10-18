@@ -140,7 +140,9 @@ public class InstrumentItem : UIPanelBase,
         Tween tween =  imgHealthBar.DOFillAmount((float)_instrumentInfo.health / _maxHealth,0.5f);
         _tweenContainer.RegDoTween(tween);
         instrumentCharacter.sprite = Resources.Load<Sprite>(_instrumentInfo.instrumentBodyPath);
-
+        ////Vector3 scale = instrumentCharacter.GetComponent<RectTransform>().localScale;
+        //float originalHeigth = instrumentCharacter.GetComponent<RectTransform>().rect.height;
+        //instrumentCharacter.SetNativeSize();
         switch (_instrumentInfo.effectType)
         {
             case EInstrumentEffectType.Attack:
