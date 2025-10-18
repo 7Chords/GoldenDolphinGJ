@@ -834,7 +834,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1892852569329210788, guid: 370da565895732d448b734be361872d2, type: 3}
       propertyPath: stroeItemId
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1892852569329210788, guid: 370da565895732d448b734be361872d2, type: 3}
       propertyPath: selectedSprite
@@ -1309,7 +1309,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1892852569329210788, guid: 370da565895732d448b734be361872d2, type: 3}
       propertyPath: stroeItemId
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1892852569329210788, guid: 370da565895732d448b734be361872d2, type: 3}
       propertyPath: selectedSprite
@@ -2097,6 +2097,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: 9d95b406dc6612a44a23843ae4403fe4, type: 3}
+    - target: {fileID: 3335593255490434444, guid: 8c37a66b4bfd0bd4fa18396b043d430d, type: 3}
+      propertyPath: noteType
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3595633911459849146, guid: 8c37a66b4bfd0bd4fa18396b043d430d, type: 3}
       propertyPath: m_Name
       value: NoteContainer
@@ -2252,6 +2256,10 @@ PrefabInstance:
     - target: {fileID: 6461791586231518799, guid: 8c37a66b4bfd0bd4fa18396b043d430d, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 234
+      objectReference: {fileID: 0}
+    - target: {fileID: 7109649009834603048, guid: 8c37a66b4bfd0bd4fa18396b043d430d, type: 3}
+      propertyPath: noteType
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7397255619899130360, guid: 8c37a66b4bfd0bd4fa18396b043d430d, type: 3}
       propertyPath: m_Sprite
