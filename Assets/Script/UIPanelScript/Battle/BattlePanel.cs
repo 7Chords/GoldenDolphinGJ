@@ -19,13 +19,14 @@ public class BattlePanel : UIPanelBase
     protected override void OnShow()
     {
         MsgCenter.RegisterMsg(MsgConst.ON_BATTLE_START, OnBattleStartStart);
-
+        MsgCenter.RegisterMsgAct(MsgConst.ON_TURN_CHG, OnTurnChg);
 
     }
 
     protected override void OnHide(Action onHideFinished)
     {
         MsgCenter.UnregisterMsg(MsgConst.ON_BATTLE_START, OnBattleStartStart);
+        MsgCenter.RegisterMsgAct(MsgConst.ON_TURN_CHG, OnTurnChg);
 
     }
 
@@ -46,4 +47,11 @@ public class BattlePanel : UIPanelBase
         enemyItem.Show();
         enemyItem.SetInfo(enemyInfo);
     }
+
+
+    private void OnTurnChg()
+    {
+        txtTurnCount.text = BattleMgr.instance.turnCount.ToString();
+        txtTurnOwner.text = BattleMgr.instance.curTurn.ToString();
+    }    
 }

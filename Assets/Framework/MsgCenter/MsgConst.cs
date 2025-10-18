@@ -12,5 +12,10 @@ namespace GJFramework
         public const int ON_BATTLE_TURN_CHG = 1004;
 
         public const int ON_NOTE_COUNT_CHANGE = 1005;// 音符的数量变更了
+
+        public const int ON_INSTRUMENT_ACTION_OVER = 1006;//乐器行动结束
+        public const int ON_ENEMY_ACTION_OVER = 1007;//敌人行动结束
+        public const int ON_TURN_CHG = 1008;//回合轮转
+
     }
 }

@@ -14,18 +14,32 @@ public class BattleMgr : SingletonMono<BattleMgr>
     private EnemyInfo _enemyInfo;//敌人信息
     private List<InstrumentInfo> _instrumentInfoList;//音乐列表信息
 
+    private int _instrumentActionCount;
 
+    //比较烂的写法 时间紧迫
+    public List<InstrumentItem> instrumentItemList;
     private void Start()
     {
-        //todo:test
+        MsgCenter.RegisterMsgAct(MsgConst.ON_INSTRUMENT_ACTION_OVER, OnInstrumentActionOver);
+        MsgCenter.RegisterMsgAct(MsgConst.ON_ENEMY_ACTION_OVER, OnEnemyActionOver);
+
+        instrumentItemList = new List<InstrumentItem>();
+
         StartBattle();
+    }
+
+    private void OnDestroy()
+    {
+        MsgCenter.UnregisterMsgAct(MsgConst.ON_INSTRUMENT_ACTION_OVER, OnInstrumentActionOver);
+        MsgCenter.UnregisterMsgAct(MsgConst.ON_ENEMY_ACTION_OVER, OnEnemyActionOver);
+
     }
     public void StartBattle()
     {
         PanelUIMgr.Instance.OpenPanel(EPanelType.BattlePanel);
 
         curTurn = ETurnType.Player;
-        turnCount = 0;
+        turnCount = 1;
 
         BattleLevelRefObj battleLevelRefObj = SCRefDataMgr.Instance.battleLevelRefList.refDataList
             .Find(x => x.level == GameMgr.Instance.curLevel);
@@ -56,5 +70,33 @@ public class BattleMgr : SingletonMono<BattleMgr>
         MsgCenter.SendMsg(MsgConst.ON_BATTLE_START, _enemyInfo, _instrumentInfoList);
     }
 
+    public void RegInstrumentItem(InstrumentItem item)
+    {
+        instrumentItemList?.Add(item);
+    }
+    public void UnregInstrumentItem(InstrumentItem item)
+    {
+        if (instrumentItemList == null || instrumentItemList.Count == 0)
+            return;
+        if (instrumentItemList.Contains(item))
+            instrumentItemList.Remove(item);
+    }
+    private void OnInstrumentActionOver()
+    {
+        _instrumentActionCount++;
+        if(_instrumentActionCount == _instrumentInfoList.Count)
+        {
+            curTurn = ETurnType.Enemy;
+            turnCount++;
+            MsgCenter.SendMsgAct(MsgConst.ON_TURN_CHG);
+        }
+    }
 
+    private void OnEnemyActionOver()
+    {
+        _instrumentActionCount = 0;
+        curTurn = ETurnType.Player;
+        turnCount++;
+        MsgCenter.SendMsgAct(MsgConst.ON_TURN_CHG);
+    }
 }
