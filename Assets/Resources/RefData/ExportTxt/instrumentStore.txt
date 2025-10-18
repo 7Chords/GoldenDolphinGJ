@@ -1,0 +1,4 @@
+﻿id	instrumentId	hightNoteNum	lowNoteNum	middleNoteNum
+1	1001	1	2	1
+2	1002	2	1	1
+3	1003	1	1	2

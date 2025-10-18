@@ -8,11 +8,12 @@ namespace GJFramework
 
         public SCRefDataList<InstrumentRefObj> instrumentRefList = new SCRefDataList<InstrumentRefObj>(InstrumentRefObj.assetPath, InstrumentRefObj.sheetName);
         public SCRefDataList<BattleLevelRefObj> battleLevelRefList = new SCRefDataList<BattleLevelRefObj>(BattleLevelRefObj.assetPath, BattleLevelRefObj.sheetName);
-
+        public SCRefDataList<InstrumentStoreRefObj> instrumentStoreRefList = new SCRefDataList<InstrumentStoreRefObj>(InstrumentStoreRefObj.assetPath, InstrumentStoreRefObj.sheetName);
         public void Init()
         {
             instrumentRefList.readFromTxt();
             battleLevelRefList.readFromTxt();
+            instrumentStoreRefList.readFromTxt();
         }
     }
 }

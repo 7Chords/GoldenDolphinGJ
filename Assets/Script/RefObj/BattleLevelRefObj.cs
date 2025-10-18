@@ -13,6 +13,7 @@ public class BattleLevelRefObj : SCRefDataCore
     public int enemyAttack;
     public string enemyIconPath;
     public string enemyBgPath;
+    public List<long> recommendinstrumentsIdList = new List<long>();// 推荐使用的乐器ID列表
     protected override void _parseFromString()
     {
         id = getLong("id");
@@ -23,7 +24,7 @@ public class BattleLevelRefObj : SCRefDataCore
         enemyAttack = getInt("enemyAttack");
         enemyIconPath = getString("enemyIconPath");
         enemyBgPath = getString("enemyBgPath");
-
+        recommendinstrumentsIdList = getList<long>("recommendinstrumentsIdList");
     }
 
     public static string assetPath => "RefData/ExportTxt";

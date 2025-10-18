@@ -1,3 +1,4 @@
+using GJFramework;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,24 +12,26 @@ public class InstrumentContainerItem : MonoBehaviour
     [Header("乐器图标（序列化引用）")]
     [SerializeField]
     private Image instrumentImage;
+    private long currentInstrumentId;
 
     [Header("显隐指示图标（序列化引用）")]
     [SerializeField]
     private Image visibilityImage;
+
     /// <summary>
     /// 用于在代码中设置显示的图片（Sprite）。
     /// 传入 null 会隐藏图片显示。
     /// </summary>
-    public void SetInfo(Sprite sprite)
+    public void SetInfo(Sprite _sprite, long _currentInstrumentId)
     {
         if (instrumentImage == null)
         {
             Debug.LogWarning("InstrumentContainerItem: instrumentImage 未绑定，请在 Inspector 中设置引用。");
             return;
         }
-
-        instrumentImage.sprite = sprite;
-        instrumentImage.enabled = sprite != null;
+        currentInstrumentId = _currentInstrumentId;
+        instrumentImage.sprite = _sprite;
+        instrumentImage.enabled = _sprite != null;
     }
 
     private void Start()
@@ -40,7 +43,23 @@ public class InstrumentContainerItem : MonoBehaviour
 
     public void ApplyVisibilityBasedOnCondition()
     {
-        //todo: 根据实际条件设置 visible 变量
+        // todo: 根据实际条件设置 visible 变量
+        InstrumentStoreRefObj instrumentStoreRefObj = SCRefDataMgr.Instance.instrumentStoreRefList.refDataList
+            .Find(x => x.instrumentId == currentInstrumentId);
+        
+        if(instrumentStoreRefObj == null)
+        {
+            Debug.LogError("instrumentStoreRefObj is null！");
+            return;
+        }
+
+        // 当前资源足够某个乐器所需要的 则显示指示图标
+        bool visible = PlayerMgr.Instance.GetNoteNum(NoteType.HightNote) >= instrumentStoreRefObj.hightNoteNum &&
+                       PlayerMgr.Instance.GetNoteNum(NoteType.LowNote) >= instrumentStoreRefObj.lowNoteNum &&
+                       PlayerMgr.Instance.GetNoteNum(NoteType.MiddleNote) >= instrumentStoreRefObj.middleNoteNum;
+
+
+        visibilityImage.enabled = visible;
     }
 
     /// <summary>
