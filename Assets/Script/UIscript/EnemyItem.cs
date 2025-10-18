@@ -37,7 +37,6 @@ public class EnemyItem : UIPanelBase,IDamagable
     private bool _flag;
     protected override void OnShow()
     {
-        Debug.Log("EnemyItemShow!!!");
         MsgCenter.RegisterMsgAct(MsgConst.ON_TURN_CHG, OnTurnChg);
         _tweenContainer = new TweenContainer();
         BattleMgr.instance.RegEnemyItem(this);
@@ -65,7 +64,7 @@ public class EnemyItem : UIPanelBase,IDamagable
         if (_enemyInfo == null)
             return;
         imgEnemyBg.sprite = Resources.Load<Sprite>(_enemyInfo.enemyBgPath);
-        imgEnemyIcon.sprite = Resources.Load<Sprite>(_enemyInfo.enemyIconPath);
+        imgEnemyIcon.sprite = Resources.Load<Sprite>(_enemyInfo.enemyBodyPath);
         txtAttack.text = _enemyInfo.enemyAttack.ToString();
         txtName.text = _enemyInfo.enemyName;
         Tween healthTween = imgHealthBar.DOFillAmount((float)_enemyInfo.enemyHealth / _maxHealth, healthBarChgDuration);

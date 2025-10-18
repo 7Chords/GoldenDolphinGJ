@@ -126,7 +126,7 @@ public class InstrumentItem : UIPanelBase,
     {
         if (_instrumentInfo == null)
             return;
-        instrumentIcon.sprite = Resources.Load<Sprite>(_instrumentInfo.instrumentIconPath);
+        instrumentIcon.sprite = Resources.Load<Sprite>(_instrumentInfo.instrumentBodyPath);
         instrumentBack.sprite = Resources.Load<Sprite>(_instrumentInfo.instrumentBgPath);
         imgHealthBar.fillAmount = (float)_instrumentInfo.health / _maxHealth;
 

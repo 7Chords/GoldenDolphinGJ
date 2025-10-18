@@ -199,7 +199,7 @@ MonoBehaviour:
   smallDurationDecSpawnInterval: 0
   longDurationDecSpawnPerAmount: 2
   middleDurationDecSpawnPerAmount: 4
-  smallDurationDecSpawnPerAmount: 5
+  smallDurationDecSpawnPerAmount: 4
   longDurationDecList:
   - {fileID: 8338420837752343906, guid: 1bfd90959671d47409ce42f3d329c28e, type: 3}
   - {fileID: 6758325184049998017, guid: 047ca286bc39fff428c0b33812710600, type: 3}

@@ -103,6 +103,8 @@ public class BattlePanel : UIPanelBase
             }
             hasSpawnPosIdxList.Add(randomPosIdx);
             GameObject decGO = GameObject.Instantiate(longDurationDecList[randomIdx]);
+            decGO.transform.SetParent(transform);
+
             decGO.GetComponent<RectTransform>().localPosition = longDurationDecPosList[randomPosIdx].localPosition;
             decGO.GetComponent<BattleDecoration>().Init();
         }
@@ -119,6 +121,7 @@ public class BattlePanel : UIPanelBase
             }
             hasSpawnPosIdxList.Add(randomPosIdx);
             GameObject decGO = GameObject.Instantiate(middleDurationDecList[randomIdx]);
+            decGO.transform.SetParent(transform);
             decGO.GetComponent<RectTransform>().localPosition = middleDurationDecPosList[randomPosIdx].localPosition;
             decGO.GetComponent<BattleDecoration>().Init();
         }
@@ -135,6 +138,8 @@ public class BattlePanel : UIPanelBase
             }
             hasSpawnPosIdxList.Add(randomPosIdx);
             GameObject decGO = GameObject.Instantiate(smallDurationDecList[randomIdx]);
+            decGO.transform.SetParent(transform);
+
             decGO.GetComponent<RectTransform>().localPosition = smallDurationDecPosList[randomPosIdx].localPosition;
             decGO.GetComponent<BattleDecoration>().Init();
         }

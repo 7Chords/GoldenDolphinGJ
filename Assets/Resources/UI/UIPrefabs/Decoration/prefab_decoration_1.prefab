@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4944792624021274302}
   - component: {fileID: 1495703636729957446}
   - component: {fileID: 1766761140350945322}
+  - component: {fileID: -906234585847456783}
   m_Layer: 5
   m_Name: prefab_decoration_1
   m_TagString: Untagged
@@ -88,7 +89,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0726572cd2a55a2468c0bd84a3dd7778, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  duration: 0
-  fadeInDuration: 0
-  fadeOutDuration: 0
-  canvasGourp: {fileID: 0}
+  duration: 0.5
+  fadeInDuration: 0.15
+  fadeOutDuration: 0.15
+  canvasGourp: {fileID: -906234585847456783}
+--- !u!225 &-906234585847456783
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8782641917851560745}
+  m_Enabled: 1
+  m_Alpha: 0
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
