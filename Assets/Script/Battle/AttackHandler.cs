@@ -7,5 +7,11 @@ using UnityEngine;
 /// </summary>
 public static class AttackHandler
 {
+    public static void DealAttack(IDamagable attacker,IDamagable target)
+    {
+        attacker.Attack();
+        target.TakeDamage(attacker.GetAttackAmount());
 
+        Debug.Log("Attack");
+    }
 }

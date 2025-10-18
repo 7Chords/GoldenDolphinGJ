@@ -348,6 +348,10 @@ MonoBehaviour:
   txtAttack: {fileID: 5634002076126170732}
   txtName: {fileID: 3301921567751621733}
   imgHealthBar: {fileID: 2698253510995482683}
+  hurtShakeStrength: 5
+  hurtShakeDuration: 0.2
+  hurtColor: {r: 1, g: 0, b: 0, a: 1}
+  hurtColorFadeDuration: 0.2
 --- !u!1 &3726684731815716030
 GameObject:
   m_ObjectHideFlags: 0
@@ -828,7 +832,7 @@ GameObject:
   - component: {fileID: 7837799484539797164}
   m_Layer: 5
   m_Name: img_enemy_icon
-  m_TagString: Untagged
+  m_TagString: EnemyIcon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -873,7 +877,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Color: {r: 0, g: 1, b: 0.9671502, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1

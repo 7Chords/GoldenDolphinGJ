@@ -142,6 +142,12 @@ public class InstrumentItem : UIPanelBase,
     {
         // 这里可以添加释放后的逻辑，比如检测释放目标等
 
+        GameObject enemyIconGO = eventData.hovered?.Find(x => x.tag == "EnemyIcon");
+        IDamagable targetDamagable = enemyIconGO.transform.parent.GetComponent<IDamagable>();
+        if (targetDamagable != null)
+        {
+            AttackHandler.DealAttack(this, targetDamagable);
+        }    
         // 销毁攻击指示线
         if (_attackLineGO != null)
         {
@@ -160,11 +166,20 @@ public class InstrumentItem : UIPanelBase,
 
         // 获取UI元素的世界位置（起点）
         Vector3 startWorldPos = GetUIPositionWorldPos(transform.position);
+        Vector3 endWorldPos;
 
+        //GameObject enemyIconGO = eventData.hovered?.Find(x => x.tag == "EnemyIcon");
 
-
-        // 获取鼠标位置对应的世界位置（终点）
-        Vector3 endWorldPos = GetMouseWorldPosition(eventData);
+        //if (enemyIconGO != null)
+        //{
+        //    endWorldPos = GetMouseWorldPosition(enemyIconGO.transform.position);
+        //}
+        //else
+        //{
+        //    // 获取鼠标位置对应的世界位置（终点）
+        //    endWorldPos = GetMouseWorldPosition(eventData.position);
+        //}
+        endWorldPos = GetMouseWorldPosition(eventData.position);
 
         // 设置LineRenderer的位置
         _lineRenderer.positionCount = 2;
@@ -172,6 +187,7 @@ public class InstrumentItem : UIPanelBase,
         _lineRenderer.SetPosition(1, endWorldPos);
     }
 
+    #region Util
     /// <summary>
     /// 获取UI位置对应的世界坐标
     /// </summary>
@@ -185,14 +201,15 @@ public class InstrumentItem : UIPanelBase,
     /// <summary>
     /// 获取鼠标位置对应的世界坐标
     /// </summary>
-    private Vector3 GetMouseWorldPosition(PointerEventData eventData)
+    private Vector3 GetMouseWorldPosition(Vector3 mousePos)
     {
 
-        Vector3 mouseScreenPos = eventData.position;
+        Vector3 mouseScreenPos = mousePos;
 
         return Camera.main.ScreenToWorldPoint(new Vector3(mouseScreenPos.x, mouseScreenPos.y, 10f));
     }
 
+    #endregion
     public void Attack()
     {
     }
@@ -200,5 +217,10 @@ public class InstrumentItem : UIPanelBase,
     public void TakeDamage(int damage)
     {
 
+    }
+
+    public int GetAttackAmount()
+    {
+        return instrumentInfo.attack;
     }
 }
