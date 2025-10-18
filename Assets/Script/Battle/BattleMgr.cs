@@ -131,6 +131,8 @@ public class BattleMgr : SingletonMono<BattleMgr>
         {
             curTurn = ETurnType.Enemy;
             turnCount++;
+            if (!gameStarted)
+                return;
             MsgCenter.SendMsgAct(MsgConst.ON_TURN_CHG);
         }
     }
@@ -148,11 +150,15 @@ public class BattleMgr : SingletonMono<BattleMgr>
 
     private void OnEnemyDead()
     {
+        if (!gameStarted)
+            return;
         FinishBattle(true);
     }
 
     private void OnInstrumentDead()
     {
+        if (!gameStarted)
+            return;
         _instrumentDeadCount++;
         if(_instrumentDeadCount == _instrumentInfoList.Count)
         {

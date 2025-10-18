@@ -77,7 +77,7 @@ public class EnemyItem : UIPanelBase,IDamagable
 
     public void Attack()
     {
-        MsgCenter.SendMsgAct(MsgConst.ON_ENEMY_ACTION_OVER);
+        MsgCenter.SendMsgAct(MsgConst.ON_ENEMY_END_ATTACK);
     }
 
     public void TakeDamage(int damage)
@@ -147,8 +147,8 @@ public class EnemyItem : UIPanelBase,IDamagable
                      damagableList.Add(item as IDamagable);
                  }
                  AttackHandler.DealAttack(EInstrumentEffectType.Attack, this, damagableList);
-                 MsgCenter.SendMsgAct(MsgConst.ON_ENEMY_END_ATTACK);
-                 _flag = false;
+                 MsgCenter.SendMsgAct(MsgConst.ON_ENEMY_ACTION_OVER); 
+                  _flag = false;
              }));
             _tweenContainer.RegDoTween(seq);
         }

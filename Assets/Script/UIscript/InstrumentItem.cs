@@ -204,7 +204,7 @@ public class InstrumentItem : UIPanelBase,
     {
         _hasActioned = true;
         canvasGroup.alpha = alreadyActionAlpha;
-        MsgCenter.SendMsgAct(MsgConst.ON_INSTRUMENT_ACTION_OVER);
+        MsgCenter.SendMsgAct(MsgConst.ON_INSTRUMENT_END_ATTACK);
     }
 
     public void TakeDamage(int damage)
@@ -293,7 +293,7 @@ public class InstrumentItem : UIPanelBase,
              }
              if (damagableList != null)
                  AttackHandler.DealAttack(instrumentInfo.effectType, this, damagableList);
-             MsgCenter.SendMsgAct(MsgConst.ON_INSTRUMENT_END_ATTACK);
+             MsgCenter.SendMsgAct(MsgConst.ON_INSTRUMENT_ACTION_OVER);
          }));
 
 

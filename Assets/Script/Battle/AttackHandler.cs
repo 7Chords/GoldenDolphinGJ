@@ -9,6 +9,8 @@ public static class AttackHandler
 {
     public static void DealAttack(EInstrumentEffectType effectType, IDamagable attacker,List<IDamagable> targetList)
     {
+        if (!BattleMgr.instance.gameStarted)
+            return;
         attacker.Attack();
 
         switch(effectType)
