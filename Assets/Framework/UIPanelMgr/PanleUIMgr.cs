@@ -18,6 +18,7 @@ namespace GJFramework
         NoteCollectPanel,
         BattleWinPanel,
         LevelSelectPanel,
+        BossInfoPanel,
         // 其他面板类型
     }
 

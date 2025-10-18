@@ -33,6 +33,8 @@ public class EnemyItem : UIPanelBase,IDamagable
     private EnemyInfo _enemyInfo;
     private TweenContainer _tweenContainer;
     private int _maxHealth;
+
+    private bool _flag;
     protected override void OnShow()
     {
         Debug.Log("EnemyItemShow!!!");
@@ -72,7 +74,7 @@ public class EnemyItem : UIPanelBase,IDamagable
 
     public void Attack()
     {
-
+        MsgCenter.SendMsgAct(MsgConst.ON_ENEMY_ACTION_OVER);
     }
 
     public void TakeDamage(int damage)
@@ -122,22 +124,35 @@ public class EnemyItem : UIPanelBase,IDamagable
     }
     private void OnTurnChg()
     {
-
-        if(BattleMgr.instance.curTurn == ETurnType.Enemy)
+        if (_flag)
+            return;
+        _flag = true;
+        if (BattleMgr.instance.curTurn == ETurnType.Enemy)
         {
+
             Debug.Log("EnemyItemOnTurnChg!!!");
 
             Sequence seq = DOTween.Sequence();
-            seq.AppendInterval(attackWaitDuration).OnComplete(() =>
-            {
-                List<IDamagable> damagableList = new List<IDamagable>();
-                foreach (var item in BattleMgr.instance.instrumentItemList)
-                {
-                    damagableList.Add(item as IDamagable);
-                }
-                AttackHandler.DealAttack(EInstrumentEffectType.Attack, this, damagableList);
-                MsgCenter.SendMsgAct(MsgConst.ON_ENEMY_ACTION_OVER);
-            });
+            seq.Append(DOVirtual.DelayedCall(attackWaitDuration, () =>
+             {
+                 List<IDamagable> damagableList = new List<IDamagable>();
+                 foreach (var item in BattleMgr.instance.instrumentItemList)
+                 {
+                     damagableList.Add(item as IDamagable);
+                 }
+                 AttackHandler.DealAttack(EInstrumentEffectType.Attack, this, damagableList);
+                 _flag = false;
+             }));
+            //seq.AppendInterval(attackWaitDuration).OnComplete(() =>
+            //{
+            //    List<IDamagable> damagableList = new List<IDamagable>();
+            //    foreach (var item in BattleMgr.instance.instrumentItemList)
+            //    {
+            //        damagableList.Add(item as IDamagable);
+            //    }
+            //    AttackHandler.DealAttack(EInstrumentEffectType.Attack, this, damagableList);
+            //    MsgCenter.SendMsgAct(MsgConst.ON_ENEMY_ACTION_OVER);
+            //});
             _tweenContainer.RegDoTween(seq);
         }
 

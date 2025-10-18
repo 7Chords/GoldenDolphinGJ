@@ -204,6 +204,7 @@ MonoBehaviour:
   curTurn: 0
   turnCount: 0
   instrumentItemList: []
+  enemyItem: {fileID: 0}
   gameStarted: 0
 --- !u!1 &555072884
 GameObject:

@@ -133,9 +133,10 @@ public class BattleMgr : SingletonMono<BattleMgr>
     }
     private void OnEnemyActionOver()
     {
+       
         if (!gameStarted)
             return;
-
+        Debug.Log("OnEnemyActionOver");
         _instrumentActionCount = 0;
         curTurn = ETurnType.Player;
         turnCount++;
