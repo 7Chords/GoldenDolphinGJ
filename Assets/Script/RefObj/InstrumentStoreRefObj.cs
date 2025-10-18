@@ -10,7 +10,8 @@ public class InstrumentStoreRefObj : SCRefDataCore
     public int hightNoteNum;
     public int lowNoteNum;
     public int middleNoteNum;
-
+    public EInstrumentEffectType effectType;
+    public string instrumentName;
     protected override void _parseFromString()
     {
         id = getLong("id");
@@ -18,6 +19,8 @@ public class InstrumentStoreRefObj : SCRefDataCore
         hightNoteNum = getInt("hightNoteNum");
         lowNoteNum = getInt("lowNoteNum");
         middleNoteNum = getInt("middleNoteNum");
+        effectType = (EInstrumentEffectType)getEnum("effectType", typeof(EInstrumentEffectType));
+        instrumentName = getString("instrumentName");
     }
 
     public static string assetPath => "RefData/ExportTxt";

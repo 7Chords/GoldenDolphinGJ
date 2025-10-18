@@ -1,6 +1,7 @@
 using UnityEngine;
 using DG.Tweening;
 using UnityEngine.UI;
+using System.Collections.Generic;
 
 public class SelectorContainerItem : MonoBehaviour
 {
@@ -9,9 +10,18 @@ public class SelectorContainerItem : MonoBehaviour
     [SerializeField] private float overshootScaleFactor = 1.12f; // 放大到的比例（可略大于1用于过冲效果）
     [SerializeField] private float totalDuration = 0.28f;       // 总时长（秒）
     [SerializeField] private Ease ease = Ease.OutBack;          // 放大缓动（建议 OutBack 有弹性效果）
-    public Image curSelectorImage;
+    
+    private bool isSelected = false;
+    public Image preSelectorImage;
     private Vector3 originalScale;
     private Sequence popSequence;
+
+    public bool IsSelected
+    {
+        get => isSelected;
+        set => isSelected = value;
+    }
+
 
     private void Awake()
     {
@@ -20,6 +30,7 @@ public class SelectorContainerItem : MonoBehaviour
 
     private void OnEnable()
     {
+        isSelected = true;
         // 启用时自动播放弹出效果（若不需要自动播放，可移除此行）
         PlayPop();
     }
@@ -58,6 +69,7 @@ public class SelectorContainerItem : MonoBehaviour
         }
         // 确保禁用时恢复原始缩放
         transform.localScale = originalScale;
+        isSelected = false;
     }
 
     private void OnDestroy()
@@ -69,10 +81,9 @@ public class SelectorContainerItem : MonoBehaviour
         }
     }
 
-    public void SetItemInfo()
+    public void SetItemInfo(Sprite _sprite)
     {
-        // 设置物品信息的逻辑
-        //curSelectorImage
+        preSelectorImage.sprite = _sprite;
     }
 
 }
