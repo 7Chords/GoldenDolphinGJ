@@ -97,10 +97,7 @@ public class BattleMgr : SingletonMono<BattleMgr>
             PanelUIMgr.Instance.OpenPanel(EPanelType.BattleWinPanel);
         }
         else
-        {
-
-            //todo:else
-        }
+            PanelUIMgr.Instance.OpenPanel(EPanelType.BattleLosePanel);
     }
     public void RegInstrumentItem(InstrumentItem item)
     {
