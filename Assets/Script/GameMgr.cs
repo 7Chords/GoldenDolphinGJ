@@ -24,7 +24,7 @@ public class GameMgr : SingletonPersistent<GameMgr>
 
     void Start()
     {
-        //PanelUIMgr.Instance.OpenPanel(EPanelType.NoteCollectPanel);
+        PanelUIMgr.Instance.OpenPanel(EPanelType.NoteCollectPanel);
     }
 
 

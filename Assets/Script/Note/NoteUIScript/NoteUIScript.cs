@@ -92,8 +92,6 @@ public class NoteUIScript : MonoBehaviour, IPointerClickHandler
         if (!isPlayingAnimation)
         {
             PlayerMgr.Instance.AddNoteNum(noteType);
-            Debug.Log(noteType);
-            Debug.Log(PlayerMgr.Instance.noteDic[noteType]);
             isPlayingAnimation = true;
             OnNoteDisappear();
         }
