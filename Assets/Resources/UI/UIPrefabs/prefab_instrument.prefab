@@ -95,8 +95,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   panelType: 0
-  instrumentIcon: {fileID: 0}
-  instrumentBack: {fileID: 0}
+  instrumentIcon: {fileID: 3984253411842842193}
+  instrumentBack: {fileID: 3837164378774544113}
   txtHealth: {fileID: 7884588462770427656}
   txtAttack: {fileID: 4274562442579294597}
   txtName: {fileID: 3146803876133421920}
@@ -109,8 +109,7 @@ MonoBehaviour:
   exitShakeStrength: 5
   exitShakeDuration: 0.15
   canvasGroup: {fileID: 864014791537433532}
-  selectFadeOutDuration: 0.25
-  unSelectFadeInDuration: 0.25
+  attackLinePrefab: {fileID: 8674712942255598340, guid: 946668219c5d3274d94e87e3642b5bf8, type: 3}
 --- !u!225 &864014791537433532
 CanvasGroup:
   m_ObjectHideFlags: 0

@@ -1,4 +1,4 @@
 ﻿id	instrumentType	instrumentName	instrumentDesc	attack	health	instrumentIconPath	instrumentBgPath
-1001	Piano	钢琴	钢琴的描述	10	10	null	null
-1002	Violin	小提琴	小提琴的描述	8	8	null	null
-1003	Accordion	手风琴	手风琴的描述	9	9	null	null
+1001	Piano	钢琴	钢琴的描述	10	10	UI/Icon/square	UI/Icon/square
+1002	Violin	小提琴	小提琴的描述	8	8	UI/Icon/square	UI/Icon/square
+1003	Accordion	手风琴	手风琴的描述	9	9	UI/Icon/square	UI/Icon/square
