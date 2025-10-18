@@ -1,0 +1,379 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Microsoft.Agents.CopilotStudio.Client</name>
+    </assembly>
+    <members>
+        <member name="T:Microsoft.Agents.CopilotStudio.Client.ConnectionSettings">
+            <summary>
+            Configuration object for the DirectToEngine client.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Agents.CopilotStudio.Client.ConnectionSettings.#ctor">
+            <summary>
+            Default constructor for the ConnectionSettings class.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Agents.CopilotStudio.Client.ConnectionSettings.#ctor(Microsoft.Extensions.Configuration.IConfigurationSection)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.Agents.CopilotStudio.Client.ConnectionSettings"/> class.
+            </summary>
+            <param name="config">Configuration Section containing DirectToEngine Connection settings</param>
+            <exception cref="T:System.ArgumentException">Thrown when required configuration values are missing</exception>
+        </member>
+        <member name="T:Microsoft.Agents.CopilotStudio.Client.CopilotClient">
+            <summary>
+            This Client is used to connect to DirectToEngine API endpoint for Copilot Studio.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Agents.CopilotStudio.Client.CopilotClient._conversationIdHeaderKey">
+            <summary>
+            Header key for conversation ID. 
+            </summary>
+        </member>
+        <member name="F:Microsoft.Agents.CopilotStudio.Client.CopilotClient._conversationId">
+            <summary>
+            Conversation ID being used for the current conversation.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Agents.CopilotStudio.Client.CopilotClient.s_EventStream">
+            <summary>
+            Content Type for Event Stream
+            </summary>
+        </member>
+        <member name="F:Microsoft.Agents.CopilotStudio.Client.CopilotClient.s_ApplicationJson">
+            <summary>
+            Content Type for Conversation Start
+            </summary>
+        </member>
+        <member name="F:Microsoft.Agents.CopilotStudio.Client.CopilotClient._httpClientFactory">
+            <summary>
+            Http Client Factory to use for connecting to Copilot Studio
+            </summary>
+        </member>
+        <member name="F:Microsoft.Agents.CopilotStudio.Client.CopilotClient._httpClientName">
+            <summary>
+            Http Client name to use from the factory
+            </summary>
+        </member>
+        <member name="F:Microsoft.Agents.CopilotStudio.Client.CopilotClient._logger">
+            <summary>
+            ILogger to log events on for DirectToEngine operations.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Agents.CopilotStudio.Client.CopilotClient._tokenProviderFunction">
+            <summary>
+            Token Provider Function to get the access token for the request.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Agents.CopilotStudio.Client.CopilotClient._islandExperimentalUrlHeaderKey">
+            <summary>
+            Island Header key
+            </summary>
+        </member>
+        <member name="F:Microsoft.Agents.CopilotStudio.Client.CopilotClient._IslandExperimentalUrl">
+            <summary>
+            Island Experimental URL for Copilot Studio
+            </summary>
+        </member>
+        <member name="F:Microsoft.Agents.CopilotStudio.Client.CopilotClient.Settings">
+            <summary>
+            Connection Settings for Copilot Studio
+            </summary>
+        </member>
+        <member name="M:Microsoft.Agents.CopilotStudio.Client.CopilotClient.ScopeFromSettings(Microsoft.Agents.CopilotStudio.Client.ConnectionSettings)">
+            <summary>
+            Returns the Scope URL need to connect to Copilot Studio from the Connection Settings
+            </summary>
+            <param name="settings">Copilot Studio Connection Settings</param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.Agents.CopilotStudio.Client.CopilotClient.ScopeFromCloud(Microsoft.Agents.CopilotStudio.Client.Discovery.PowerPlatformCloud)">
+            <summary>
+            Returns the Scope URL need to connect to Copilot Studio from Power Platform Cloud
+            </summary>
+            <param name="cloud">PowerPlatform Cloud to use</param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.Agents.CopilotStudio.Client.CopilotClient.#ctor(Microsoft.Agents.CopilotStudio.Client.ConnectionSettings,System.Net.Http.IHttpClientFactory,Microsoft.Extensions.Logging.ILogger,System.String)">
+            <summary>
+            Creates a DirectToEngine client for Microsoft Copilot Studio hosted bots. 
+            </summary>
+            <param name="settings">Configuration Settings for Connecting to Copilot Studio</param>
+            <param name="httpClientFactory">Http Client Factory to use when connecting to Copilot Studio</param>
+            <param name="httpClientName">Name of HttpClient to use from the factory</param>
+            <param name="logger">ILogger to log events on for DirectToEngine operations. </param>
+        </member>
+        <member name="M:Microsoft.Agents.CopilotStudio.Client.CopilotClient.#ctor(Microsoft.Agents.CopilotStudio.Client.ConnectionSettings,System.Net.Http.IHttpClientFactory,System.Func{System.String,System.Threading.Tasks.Task{System.String}},Microsoft.Extensions.Logging.ILogger,System.String)">
+            <summary>
+            Creates a DirectToEngine client for Microsoft Copilot Studio hosted Agents. 
+            </summary>
+            <param name="settings">Configuration Settings for Connecting to Copilot Studio</param>
+            <param name="httpClientFactory">Http Client Factory to use when connecting to Copilot Studio</param>
+            <param name="logger">ILogger to log events on for DirectToEngine operations. </param>
+            <param name="httpClientName">Name of HttpClient to use from the factory</param>
+            <param name="tokenProviderFunction">Function pointer for a async function that will accept an URL and return an AccessToken</param>
+        </member>
+        <member name="M:Microsoft.Agents.CopilotStudio.Client.CopilotClient.StartConversationAsync(System.Boolean,System.Threading.CancellationToken)">
+            <summary>
+            Used to start a conversation with MCS. 
+            </summary>
+            <param name="emitStartConversationEvent">Should ask remote bot to emit start event</param>
+            <param name="cancellationToken">Event Cancelation Token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.Agents.CopilotStudio.Client.CopilotClient.AskQuestionAsync(System.String,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Sends a String question to the remote bot and returns the response as an IAsyncEnumerable of IActivity
+            </summary>
+            <param name="question">String Question to send to copilot</param>
+            <param name="conversationId">Conversation ID to reference, Optional. If not set it will pick up the current conversation id</param>
+            <param name="ct">Event Cancelation Token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.Agents.CopilotStudio.Client.CopilotClient.AskQuestionAsync(Microsoft.Agents.Core.Models.IActivity,System.Threading.CancellationToken)">
+            <summary>
+            Sends an activity the remote bot and returns the response as an IAsyncEnumerable of IActivity
+            </summary>
+            <param name="activity" >Activity to send</param>
+            <param name="ct">Event Cancelation Token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.Agents.CopilotStudio.Client.CopilotClient.PostRequestAsync(System.Net.Http.HttpRequestMessage,System.Threading.CancellationToken)">
+            <summary>
+            Posts a request to Copilot Studio and returns the response as an IAsyncEnumerable of IActivity
+            </summary>
+            <param name="req">Request Object to send to Copilot Studio</param>
+            <param name="ct">CancellationToken used to handle interruption request</param>
+            <returns></returns>
+            <exception cref="T:System.ArgumentException"></exception>
+            <exception cref="!:System.HttpRequestException"></exception>
+        </member>
+        <member name="T:Microsoft.Agents.CopilotStudio.Client.Discovery.AgentType">
+            <summary>
+            Agent types that can be connected to by the Copilot Studio Client
+            </summary>
+        </member>
+        <member name="F:Microsoft.Agents.CopilotStudio.Client.Discovery.AgentType.Published">
+            <summary>
+            Copilot Studio Published Copilot
+            </summary>
+        </member>
+        <member name="F:Microsoft.Agents.CopilotStudio.Client.Discovery.AgentType.Prebuilt">
+            <summary>
+            System PreBuilt Copilot
+            </summary>
+        </member>
+        <member name="T:Microsoft.Agents.CopilotStudio.Client.Discovery.PowerPlatformCloud">
+            <summary>
+            This is the Power Platform Cloud you are attempting to connect to.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Agents.CopilotStudio.Client.Discovery.PowerPlatformCloud.Unknown">
+            <summary>
+            Unknown Power Platform Cloud.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Agents.CopilotStudio.Client.Discovery.PowerPlatformCloud.Exp">
+            <summary>
+            Internal Use Only
+            </summary>
+        </member>
+        <member name="F:Microsoft.Agents.CopilotStudio.Client.Discovery.PowerPlatformCloud.Dev">
+            <summary>
+            Internal Use Only
+            </summary>
+        </member>
+        <member name="F:Microsoft.Agents.CopilotStudio.Client.Discovery.PowerPlatformCloud.Test">
+            <summary>
+            Internal Use Only
+            </summary>
+        </member>
+        <member name="F:Microsoft.Agents.CopilotStudio.Client.Discovery.PowerPlatformCloud.Preprod">
+            <summary>
+            Internal Use Only
+            </summary>
+        </member>
+        <member name="F:Microsoft.Agents.CopilotStudio.Client.Discovery.PowerPlatformCloud.FirstRelease">
+            <summary>
+            Environments that have been created in the First Release Cloud.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Agents.CopilotStudio.Client.Discovery.PowerPlatformCloud.Prod">
+            <summary>
+            Environments that have been created in the Production Cloud. This means all Geo's except for the First Release Geo and Sovereign Clouds.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Agents.CopilotStudio.Client.Discovery.PowerPlatformCloud.Gov">
+            <summary>
+            United States GCC Cloud
+            </summary>
+        </member>
+        <member name="F:Microsoft.Agents.CopilotStudio.Client.Discovery.PowerPlatformCloud.High">
+            <summary>
+            United States Gov High Sovereign Cloud
+            </summary>
+        </member>
+        <member name="F:Microsoft.Agents.CopilotStudio.Client.Discovery.PowerPlatformCloud.DoD">
+            <summary>
+            United States DoD Sovereign Cloud
+            </summary>
+        </member>
+        <member name="F:Microsoft.Agents.CopilotStudio.Client.Discovery.PowerPlatformCloud.Mooncake">
+            <summary>
+            China Sovereign Cloud
+            </summary>
+        </member>
+        <member name="F:Microsoft.Agents.CopilotStudio.Client.Discovery.PowerPlatformCloud.Ex">
+            <summary>
+            Restricted Sovereign Cloud
+            </summary>
+        </member>
+        <member name="F:Microsoft.Agents.CopilotStudio.Client.Discovery.PowerPlatformCloud.Rx">
+            <summary>
+            Restricted Sovereign Cloud
+            </summary>
+        </member>
+        <member name="F:Microsoft.Agents.CopilotStudio.Client.Discovery.PowerPlatformCloud.Prv">
+            <summary>
+            Prv is short for Pull Request Validation.
+            The clusters of this category in <see cref="F:Microsoft.Agents.CopilotStudio.Client.Discovery.PowerPlatformCloud.Test"/> is used for deploying validation instance during pull request.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Agents.CopilotStudio.Client.Discovery.PowerPlatformCloud.Local">
+            <summary>
+            Internal Use Only 
+            </summary>
+        </member>
+        <member name="F:Microsoft.Agents.CopilotStudio.Client.Discovery.PowerPlatformCloud.GovFR">
+            <summary>
+            French Government Sovereign Cloud
+            </summary>
+        </member>
+        <member name="F:Microsoft.Agents.CopilotStudio.Client.Discovery.PowerPlatformCloud.Other">
+            <summary>
+            Used to Specify a Custom Cloud PowerPlatform API Base Address
+            </summary>
+        </member>
+        <member name="F:Microsoft.Agents.CopilotStudio.Client.Discovery.PowerPlatformEnvironment.ApiVersion">
+            <summary>
+             The API version to use when connecting to the Power Platform API.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Agents.CopilotStudio.Client.Discovery.PowerPlatformEnvironment.GetCopilotStudioConnectionUrl(Microsoft.Agents.CopilotStudio.Client.ConnectionSettings,System.String,Microsoft.Agents.CopilotStudio.Client.Discovery.AgentType,Microsoft.Agents.CopilotStudio.Client.Discovery.PowerPlatformCloud,System.String,System.String)">
+            <summary>
+            Gets the Power Platform API connection URL for the given settings.
+            </summary>
+            <param name="settings">Configuration Settings to use</param>
+            <param name="conversationId">Optional, Conversation ID to address</param>
+            <param name="agentType">Type of Agent being addressed. <see cref="T:Microsoft.Agents.CopilotStudio.Client.Discovery.AgentType"/></param>
+            <param name="cloud">Power Platform Cloud Hosting Agent <see cref="T:Microsoft.Agents.CopilotStudio.Client.Discovery.PowerPlatformCloud"/></param>
+            <param name="cloudBaseAddress">Power Platform API endpoint to use if Cloud is configured as "other". <see cref="F:Microsoft.Agents.CopilotStudio.Client.Discovery.PowerPlatformCloud.Other"/> </param>
+            <param name="directConnectUrl">DirectConnection URL to a given Copilot Studio agent, if provided all other settings are ignored</param>
+            <returns></returns>
+            <exception cref="T:System.ArgumentException"></exception>
+        </member>
+        <member name="M:Microsoft.Agents.CopilotStudio.Client.Discovery.PowerPlatformEnvironment.GetTokenAudience(Microsoft.Agents.CopilotStudio.Client.ConnectionSettings,Microsoft.Agents.CopilotStudio.Client.Discovery.PowerPlatformCloud,System.String,System.String)">
+            <summary>
+            Returns the Power Platform API Audience.
+            </summary>
+            <param name="settings">Configuration Settings to use</param>
+            <param name="cloud">Power Platform Cloud Hosting Agent <see cref="T:Microsoft.Agents.CopilotStudio.Client.Discovery.PowerPlatformCloud"/></param>
+            <param name="cloudBaseAddress">Power Platform API endpoint to use if Cloud is configured as "other". <see cref="F:Microsoft.Agents.CopilotStudio.Client.Discovery.PowerPlatformCloud.Other"/> </param>
+            <param name="directConnectUrl">DirectConnection URL to a given Copilot Studio agent, if provided all other settings are ignored</param>
+            <returns></returns>
+            <exception cref="T:System.ArgumentException"></exception>
+        </member>
+        <member name="M:Microsoft.Agents.CopilotStudio.Client.Discovery.PowerPlatformEnvironment.CreateUri(System.String,System.String,Microsoft.Agents.CopilotStudio.Client.Discovery.AgentType,System.String)">
+            <summary>
+            Creates the PowerPlatform API connection URL for the given settings.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Agents.CopilotStudio.Client.Discovery.PowerPlatformEnvironment.CreateUri(System.String,System.String)">
+            <summary>
+            Used only when DirectConnectUrl is provided.
+            </summary>
+            <param name="baseaddress"></param>
+            <param name="conversationId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.Agents.CopilotStudio.Client.Discovery.PowerPlatformEnvironment.GetEnvironmentEndpoint(Microsoft.Agents.CopilotStudio.Client.Discovery.PowerPlatformCloud,System.String,System.String)">
+            <summary>
+            Gets the environment endpoint for the Power Platform API.
+            </summary>
+            <param name="cloud"></param>
+            <param name="environmentId"></param>
+            <param name="cloudBaseAddress"></param>
+            <returns></returns>
+            <exception cref="T:System.ArgumentException"></exception>
+        </member>
+        <member name="M:Microsoft.Agents.CopilotStudio.Client.Discovery.PowerPlatformEnvironment.GetEndpointSuffix(Microsoft.Agents.CopilotStudio.Client.Discovery.PowerPlatformCloud,System.String)">
+            <summary>
+            Gets the base Cloud to attach to the Power Platform API end point. 
+            </summary>
+            <param name="category"></param>
+            <param name="cloudBaseAddress"></param>
+            <returns></returns>
+            <exception cref="T:System.ArgumentException"></exception>
+        </member>
+        <member name="M:Microsoft.Agents.CopilotStudio.Client.Discovery.PowerPlatformEnvironment.DecodeCloudFromURI(System.Uri)">
+            <summary>
+             Decode scope from DirectConnect URL.
+            </summary>
+            <param name="hostUri">This is the URL to decode a Cloud from</param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.Agents.CopilotStudio.Client.Discovery.PowerPlatformEnvironment.GetIdSuffixLength(Microsoft.Agents.CopilotStudio.Client.Discovery.PowerPlatformCloud)">
+            <summary>
+            Get Environment ID Suffix Length for the given Power Platform Cloud Category.
+            </summary>
+            <param name="cloud"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Microsoft.Agents.CopilotStudio.Client.ExecuteTurnRequest">
+            <summary>
+            Turn request wrapper for communicating with Copilot Studio Engine.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Agents.CopilotStudio.Client.Interfaces.ICopilotStudioClientConnectionSettings.SchemaName">
+            <summary>
+            Schema name for the Copilot Studio Hosted Copilot. 
+            </summary>
+        </member>
+        <member name="P:Microsoft.Agents.CopilotStudio.Client.Interfaces.ICopilotStudioClientConnectionSettings.CustomPowerPlatformCloud">
+            <summary>
+            if PowerPlatformCloud is set to Other, this is the url for the power platform API endpoint.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Agents.CopilotStudio.Client.Interfaces.ICopilotStudioClientConnectionSettings.EnvironmentId">
+            <summary>
+            Environment ID for the environment that hosts the Agent
+            </summary>
+        </member>
+        <member name="P:Microsoft.Agents.CopilotStudio.Client.Interfaces.ICopilotStudioClientConnectionSettings.Cloud">
+            <summary>
+            Power Platform Cloud where the environment is hosted
+            </summary>
+        </member>
+        <member name="P:Microsoft.Agents.CopilotStudio.Client.Interfaces.ICopilotStudioClientConnectionSettings.CopilotAgentType">
+            <summary>
+            Type of Agent hosted in Copilot Studio
+            </summary>
+        </member>
+        <member name="P:Microsoft.Agents.CopilotStudio.Client.Interfaces.ICopilotStudioClientConnectionSettings.DirectConnectUrl">
+            <summary>
+            URL provided to connect direclty to Copilot Studio endpoint,  When provided all other settings are ignored. 
+            </summary>
+        </member>
+        <member name="P:Microsoft.Agents.CopilotStudio.Client.Interfaces.ICopilotStudioClientConnectionSettings.UseExperimentalEndpoint">
+            <summary>
+            Directs Copilot Studio Client to use the experimental endpoint if available.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Agents.CopilotStudio.Client.Interfaces.ICopilotStudioClientConnectionSettings.EnableDiagnostics">
+            <summary>
+            When enabled, writes out diagnostic information to the logsink.
+            </summary>
+        </member>
+    </members>
+</doc>

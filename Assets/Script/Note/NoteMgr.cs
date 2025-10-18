@@ -1,9 +1,10 @@
+using GJFramework;
 using UnityEngine;
 
 /// <summary>
 /// 管理音符的生成
 /// </summary>
-public class NoteMgr : MonoBehaviour
+public class NoteMgr : SingletonMono<NoteMgr>
 {
     [Header("配置参数")]
     public float yOffset = 0;  // Y轴偏移（控制高度，UI像素单位）
@@ -12,8 +13,11 @@ public class NoteMgr : MonoBehaviour
     [SerializeField] private GameObject notePrefab; // 必须是带RectTransform的UI预制体
     [SerializeField] private Camera targetCamera;   // 正交相机
     [SerializeField] private Canvas targetCanvas;   // UI所属的Canvas（必填）
-
     private RectTransform canvasRect; // Canvas的RectTransform组件
+    private bool isCurrentPause = false;
+    public bool IsCurrentPause { get { return isCurrentPause; } }
+    [SerializeField] private float totalPauseTime;
+    public float TotalPauseTime { get { return totalPauseTime; } }
 
     void Start()
     {
@@ -41,14 +45,29 @@ public class NoteMgr : MonoBehaviour
         // 配置不全时不执行生成逻辑
         if (notePrefab == null || targetCamera == null || targetCanvas == null || canvasRect == null)
             return;
-
-        timeCounter -= Time.deltaTime;
-        if (timeCounter < 0f)
-        {
-            SpawnInViewRandom();
-        }
+        DoInUpdate();
     }
 
+    private void DoInUpdate()
+    {
+        // 生成时检测暂停状态
+        // 暂停时只计时暂停总时长
+        // 非暂停时计时生成间隔
+        if (isCurrentPause)
+        {
+            totalPauseTime -= Time.deltaTime;
+        }
+        // 非暂停状态下计时生成音符
+        else
+        {
+            timeCounter -= Time.deltaTime;
+            if (timeCounter < 0f)
+            {
+                SpawnInViewRandom();
+            }
+        }
+
+    }
     // 随机生成UI音符预制体（仅适配正交相机）
     void SpawnInViewRandom()
     {
@@ -91,7 +110,12 @@ public class NoteMgr : MonoBehaviour
                 noteRect.localScale = Vector3.one;
             }
         }
-    }
 
-   
+
+    }
+    // 当前是否暂停 对外暴露接口
+    public void SetPauseState(bool isPause)
+    {
+        isCurrentPause = isPause;
+    }
 }
