@@ -59,7 +59,8 @@ public class BattleMgr : SingletonMono<BattleMgr>
                 battleLevelRefObj.enemyHealth,
                 battleLevelRefObj.enemyAttack,
                 battleLevelRefObj.enemyIconPath,
-                battleLevelRefObj.enemyBgPath);
+                battleLevelRefObj.enemyBgPath,
+                battleLevelRefObj.enemyBodyPath);
         }
         _instrumentInfoList = new List<InstrumentInfo>();
         for(int i =0;i<PlayerMgr.Instance.instrumentIdList.Count;i++)
@@ -75,7 +76,10 @@ public class BattleMgr : SingletonMono<BattleMgr>
                 instrumentRefObj.heal,
                 instrumentRefObj.buff,
                 instrumentRefObj.instrumentIconPath,
-                instrumentRefObj.instrumentBgPath);
+                instrumentRefObj.instrumentBgPath,
+                instrumentRefObj.instrumentBodyPath,
+                instrumentRefObj.instrumentBodyBgPath,
+                instrumentRefObj.instrumentNamePath);
             _instrumentInfoList.Add(info);
         }
 

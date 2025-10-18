@@ -37,7 +37,6 @@ public class EnemyItem : UIPanelBase,IDamagable
     private bool _flag;
     protected override void OnShow()
     {
-        Debug.Log("EnemyItemShow!!!");
         MsgCenter.RegisterMsgAct(MsgConst.ON_TURN_CHG, OnTurnChg);
         _tweenContainer = new TweenContainer();
         BattleMgr.instance.RegEnemyItem(this);
@@ -65,7 +64,7 @@ public class EnemyItem : UIPanelBase,IDamagable
         if (_enemyInfo == null)
             return;
         imgEnemyBg.sprite = Resources.Load<Sprite>(_enemyInfo.enemyBgPath);
-        imgEnemyIcon.sprite = Resources.Load<Sprite>(_enemyInfo.enemyIconPath);
+        imgEnemyIcon.sprite = Resources.Load<Sprite>(_enemyInfo.enemyBodyPath);
         txtAttack.text = _enemyInfo.enemyAttack.ToString();
         txtName.text = _enemyInfo.enemyName;
         Tween healthTween = imgHealthBar.DOFillAmount((float)_enemyInfo.enemyHealth / _maxHealth, healthBarChgDuration);
@@ -129,9 +128,7 @@ public class EnemyItem : UIPanelBase,IDamagable
         _flag = true;
         if (BattleMgr.instance.curTurn == ETurnType.Enemy)
         {
-
-            Debug.Log("EnemyItemOnTurnChg!!!");
-
+            MsgCenter.SendMsgAct(MsgConst.ON_ENEMY_START_ATTACK);
             Sequence seq = DOTween.Sequence();
             seq.Append(DOVirtual.DelayedCall(attackWaitDuration, () =>
              {
@@ -141,18 +138,9 @@ public class EnemyItem : UIPanelBase,IDamagable
                      damagableList.Add(item as IDamagable);
                  }
                  AttackHandler.DealAttack(EInstrumentEffectType.Attack, this, damagableList);
+                 MsgCenter.SendMsgAct(MsgConst.ON_ENEMY_END_ATTACK);
                  _flag = false;
              }));
-            //seq.AppendInterval(attackWaitDuration).OnComplete(() =>
-            //{
-            //    List<IDamagable> damagableList = new List<IDamagable>();
-            //    foreach (var item in BattleMgr.instance.instrumentItemList)
-            //    {
-            //        damagableList.Add(item as IDamagable);
-            //    }
-            //    AttackHandler.DealAttack(EInstrumentEffectType.Attack, this, damagableList);
-            //    MsgCenter.SendMsgAct(MsgConst.ON_ENEMY_ACTION_OVER);
-            //});
             _tweenContainer.RegDoTween(seq);
         }
 

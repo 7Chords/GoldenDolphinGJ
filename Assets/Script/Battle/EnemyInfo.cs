@@ -10,8 +10,9 @@ public class EnemyInfo
     public int enemyAttack;
     public string enemyIconPath;
     public string enemyBgPath;
+    public string enemyBodyPath;
 
-    public EnemyInfo(EEnemyType enemyType, string enemyName,int enemyHealth, int enemyAttack, string enemyIconPath, string enemyBgPath)
+    public EnemyInfo(EEnemyType enemyType, string enemyName, int enemyHealth, int enemyAttack, string enemyIconPath, string enemyBgPath, string enemyBodyPath)
     {
         this.enemyType = enemyType;
         this.enemyName = enemyName;
@@ -19,5 +20,6 @@ public class EnemyInfo
         this.enemyAttack = enemyAttack;
         this.enemyIconPath = enemyIconPath;
         this.enemyBgPath = enemyBgPath;
+        this.enemyBodyPath = enemyBodyPath;
     }
 }
