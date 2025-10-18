@@ -47,6 +47,11 @@ public class NoteUIScript : MonoBehaviour, IPointerClickHandler
 
     private void DoInupdate()
     {
+        if(NoteMgr.instance.isEnd)
+        {
+            OnNoteDisappear();
+        }
+
         // 如果没有暂停则减少时间
         if (!NoteMgr.instance.IsCurrentPause)
         {
