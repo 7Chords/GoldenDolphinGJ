@@ -6,6 +6,8 @@ public class StorePanel : UIPanelBase
 {
     protected override void OnShow()
     {
+        // 进入就清空已收集的乐器ID列表
+        PlayerMgr.Instance.ClearInstrumentIdList();
     }
 
     protected override void OnHide(Action onHideFinished)
