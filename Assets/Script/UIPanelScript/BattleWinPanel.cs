@@ -21,16 +21,16 @@ public class BattleWinPanel : UIPanelBase
         _tweenContainer = new TweenContainer();
         _tweenContainer.RegDoTween(canvasGroup.DOFade(1, fadeInDuration));
 
-        btnConfirm.onClick.AddListener(() =>
+/*        btnConfirm.onClick.AddListener(() =>
         {
             AudioMgr.Instance.PlayBgm("背景音乐");
             SceneLoader.Instance.AddNextScenePanel(EPanelType.LevelSelectPanel);
             TransitionMgr.Instance.StarTransition("LevelSelectScene", "FadeInAndOutTransition");
-        });
+        });*/
     }
     protected override void OnHide(Action onHideFinished)
     {
-        btnConfirm.onClick.RemoveAllListeners();
+        //btnConfirm.onClick.RemoveAllListeners();
 
         _tweenContainer.RegDoTween(canvasGroup.DOFade(0, fadeOutDuration).OnComplete(() =>
         {

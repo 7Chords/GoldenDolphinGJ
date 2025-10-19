@@ -1,11 +1,10 @@
-using DG.Tweening;
 using GJFramework;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using DG.Tweening;
 
-public class GoToCollectPage : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler, IPointerUpHandler
+public class GoToLevelBtn : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler, IPointerUpHandler
 {
-
     [Tooltip("悬停时目标缩放")]
     [SerializeField] private Vector3 hoverScale = new Vector3(1.1f, 1.1f, 1f);
     [Tooltip("按下时目标缩放（相对于 hoverScale 的比例）")]
@@ -25,6 +24,13 @@ public class GoToCollectPage : MonoBehaviour, IPointerClickHandler, IPointerEnte
     {
         originalScale = transform.localScale;
         pressedScale = new Vector3(hoverScale.x * pressedScaleMultiplier, hoverScale.y * pressedScaleMultiplier, hoverScale.z * pressedScaleMultiplier);
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        AudioMgr.Instance.PlayBgm("背景音乐");
+        SceneLoader.Instance.AddNextScenePanel(EPanelType.LevelSelectPanel);
+        TransitionMgr.Instance.StarTransition("LevelSelectScene", "FadeInAndOutTransition");
     }
 
     public void OnPointerEnter(PointerEventData eventData)
@@ -80,11 +86,4 @@ public class GoToCollectPage : MonoBehaviour, IPointerClickHandler, IPointerEnte
             scaleTween = null;
         }
     }
-    public void OnPointerClick(PointerEventData eventData)
-    {
-        AudioMgr.Instance.PlaySfx("木头按钮");
-        SceneLoader.Instance.AddNextScenePanel(EPanelType.NoteCollectPanel);
-        TransitionMgr.Instance.StarTransition("NoteCollectScene", "FadeInAndOutTransition");
-    }
-
 }

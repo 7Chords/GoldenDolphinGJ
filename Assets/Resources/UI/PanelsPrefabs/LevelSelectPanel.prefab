@@ -580,6 +580,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6ea084424e549b4d81ea47d7b91a163, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hoverScale: {x: 1.1, y: 1.1, z: 1}
+  pressedScaleMultiplier: 0.95
+  scaleDuration: 0.12
+  scaleEase: 6
+  useUnscaledTime: 1
 --- !u!114 &3161159135026241478
 MonoBehaviour:
   m_ObjectHideFlags: 0
