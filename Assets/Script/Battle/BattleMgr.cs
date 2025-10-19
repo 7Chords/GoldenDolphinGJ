@@ -36,6 +36,8 @@ public class BattleMgr : SingletonMono<BattleMgr>
         isPlaying = false;
 
         StartBattle();
+
+        AudioMgr.Instance.PlayBgm("战斗音乐卡门");
     }
 
     private void OnDestroy()

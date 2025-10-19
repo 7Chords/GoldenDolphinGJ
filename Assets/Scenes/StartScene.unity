@@ -200,7 +200,7 @@ MonoBehaviour:
     audioSource: {fileID: 0}
   sfxAudioInfoList: []
   mainVolumeFactor: 1
-  bgmVolumeFactor: 0.1
+  bgmVolumeFactor: 0.5
   sfxVolumeFactor: 1
 --- !u!4 &274880147
 Transform:

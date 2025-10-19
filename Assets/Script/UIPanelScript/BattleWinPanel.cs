@@ -23,6 +23,7 @@ public class BattleWinPanel : UIPanelBase
 
         btnConfirm.onClick.AddListener(() =>
         {
+            AudioMgr.Instance.PlayBgm("背景音乐");
             SceneLoader.Instance.AddNextScenePanel(EPanelType.LevelSelectPanel);
             TransitionMgr.Instance.StarTransition("LevelSelectScene", "FadeInAndOutTransition");
         });
