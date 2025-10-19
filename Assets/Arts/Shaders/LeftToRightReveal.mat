@@ -31,7 +31,7 @@ Material:
     m_Floats:
     - _ColorMask: 15
     - _RevealAmount: 1
-    - _Softness: 0.028
+    - _Softness: 0.015
     - _Stencil: 0
     - _StencilComp: 8
     - _StencilOp: 0
