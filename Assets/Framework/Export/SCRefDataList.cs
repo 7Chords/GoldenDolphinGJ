@@ -31,11 +31,20 @@ namespace GJFramework
                 Debug.LogError(_m_assetPath + "或" + _m_sheetName + "没有信息，导出失败！");
                 return;
             }
+#if UNITY_EDITOR
             using (StreamReader sr = new StreamReader("Assets/Resources/RefData/ExportTxt/" + _m_sheetName + ".txt"))
             {
                 string str = sr.ReadToEnd();
                 parseFromTxt(str);
             }
+
+#else
+            using (StreamReader sr = new StreamReader(Application.streamingAssetsPath+"/" + _m_sheetName + ".txt"))
+            {
+                string str = sr.ReadToEnd();
+                parseFromTxt(str);
+            }      
+#endif
         }
         protected void parseFromTxt(string _string)
         {
