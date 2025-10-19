@@ -11,6 +11,7 @@ public class GoToBattleBtn : MonoBehaviour, IPointerClickHandler
             Debug.Log("Error当前无角色 ,直接返回");
             return;
         }
+        AudioMgr.Instance.PlaySfx("木头按钮");
         SceneLoader.Instance.AddNextScenePanel(EPanelType.BattlePanel);
         TransitionMgr.Instance.StarTransition("BattleScene", "FadeInAndOutTransition");
     }

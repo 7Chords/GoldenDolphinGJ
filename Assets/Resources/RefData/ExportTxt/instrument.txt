@@ -1,6 +1,6 @@
-﻿id	instrumentType	effectType	instrumentName	instrumentDesc	health	attack	heal	buff	instrumentIconPath	instrumentBgPath	instrumentIconUnlockPath	instrumentBodyPath	instrumentBodyBgPath	instrumentNamePath	instrumentBodyBgWithChaPath	instrumentAttackIconPath
-1001	Harp	Heal	竖琴	竖琴的描述	11	0	6	0	UI/Icon/竖琴解锁@2x	UI/Icon/卡背	UI/Icon/竖琴未解锁@2x	UI/Character/竖琴	UI/Icon/竖琴bg	UI/Icon/竖琴name	UI/Icon/竖琴bg_cha	UI/Icon/治疗
-1002	Violin	Attack	小提琴	小提琴的描述	23	11	0	0	UI/Icon/提琴解锁@2x	UI/Icon/卡背	UI/Icon/提琴未解锁@2x	UI/Character/小提琴	UI/Icon/小提琴bg	UI/Icon/小提琴name	UI/Icon/小提琴bg_cha	UI/Icon/攻击
-1003	Trumpet	Buff	小号	小号的描述	39	0	0	9	UI/Icon/小号解锁@2x	UI/Icon/卡背	UI/Icon/小号未解锁@2x	UI/Character/小号	UI/Icon/小号bg	UI/Icon/小号name	UI/Icon/小号bg_cha	UI/Icon/增益
-1004	Accordion	Attack	手风琴	手风琴的描述	31	10	0	0	UI/Icon/手风琴解锁	UI/Icon/卡背	UI/Icon/手风琴未解锁	UI/Character/手风琴	UI/Icon/手风琴bg	UI/Icon/手风琴name	UI/Icon/手风琴bg_cha	UI/Icon/攻击
-1005	Clarinet	Attack	单簧管	单簧管的描述	15	15	0	0	UI/Icon/单簧管解锁	UI/Icon/卡背	UI/Icon/单簧管未解锁	UI/Character/单簧管	UI/Icon/单簧管bg	UI/Icon/单簧管name	UI/Icon/单簧管bg_cha	UI/Icon/攻击
+﻿id	instrumentType	effectType	instrumentName	instrumentDesc	health	attack	heal	buff	instrumentIconPath	instrumentBgPath	instrumentIconUnlockPath	instrumentBodyPath	instrumentBodyBgPath	instrumentNamePath	instrumentBodyBgWithChaPath	instrumentAttackIconPath	instrumentAttackSoundPath	instrumentHurtSoundPath
+1001	Harp	Heal	竖琴	竖琴的描述	11	0	6	0	UI/Icon/竖琴解锁@2x	UI/Icon/卡背	UI/Icon/竖琴未解锁@2x	UI/Character/竖琴	UI/Icon/竖琴bg	UI/Icon/竖琴name	UI/Icon/竖琴bg_cha	UI/Icon/治疗	heal	角色受击2
+1002	Violin	Attack	小提琴	小提琴的描述	23	11	0	0	UI/Icon/提琴解锁@2x	UI/Icon/卡背	UI/Icon/提琴未解锁@2x	UI/Character/小提琴	UI/Icon/小提琴bg	UI/Icon/小提琴name	UI/Icon/小提琴bg_cha	UI/Icon/攻击	角色攻击2cut	角色受击2
+1003	Trumpet	Buff	小号	小号的描述	39	0	0	9	UI/Icon/小号解锁@2x	UI/Icon/卡背	UI/Icon/小号未解锁@2x	UI/Character/小号	UI/Icon/小号bg	UI/Icon/小号name	UI/Icon/小号bg_cha	UI/Icon/增益	heal	角色受击2
+1004	Accordion	Attack	手风琴	手风琴的描述	31	10	0	0	UI/Icon/手风琴解锁	UI/Icon/卡背	UI/Icon/手风琴未解锁	UI/Character/手风琴	UI/Icon/手风琴bg	UI/Icon/手风琴name	UI/Icon/手风琴bg_cha	UI/Icon/攻击	角色攻击2cut	角色受击2
+1005	Clarinet	Attack	单簧管	单簧管的描述	15	15	0	0	UI/Icon/单簧管解锁	UI/Icon/卡背	UI/Icon/单簧管未解锁	UI/Character/单簧管	UI/Icon/单簧管bg	UI/Icon/单簧管name	UI/Icon/单簧管bg_cha	UI/Icon/攻击	角色攻击2cut	角色受击2

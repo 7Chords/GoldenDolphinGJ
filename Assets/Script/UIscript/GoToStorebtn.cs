@@ -9,6 +9,7 @@ public class GoToStorebtn : MonoBehaviour, IPointerClickHandler
     // 去商店按钮点击事件
     public void OnPointerClick(PointerEventData eventData)
     {
+        AudioMgr.Instance.PlaySfx("木头按钮");
         PanelUIMgr.Instance.OpenPanel(EPanelType.StorePanel);
         PanelUIMgr.Instance.ClosePanel(EPanelType.NoteCollectPanel);
         PanelUIMgr.Instance.ClosePanel(EPanelType.ColloctFinishPanel);

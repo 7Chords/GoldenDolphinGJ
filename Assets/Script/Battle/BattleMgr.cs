@@ -85,7 +85,9 @@ public class BattleMgr : SingletonMono<BattleMgr>
                 instrumentRefObj.instrumentBodyBgPath,
                 instrumentRefObj.instrumentNamePath,
                 instrumentRefObj.instrumentBodyBgWithChaPath,
-                instrumentRefObj.instrumentAttackIconPath);
+                instrumentRefObj.instrumentAttackIconPath,
+                instrumentRefObj.instrumentAttackSoundPath,
+                instrumentRefObj.instrumentHurtSoundPath);
             _instrumentInfoList.Add(info);
         }
         _instrumentAliveCount = _instrumentInfoList.Count;
