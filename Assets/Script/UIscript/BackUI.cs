@@ -8,7 +8,7 @@ public class BackUI : MonoBehaviour, IPointerClickHandler
 {
     public void OnPointerClick(PointerEventData eventData)
     {
-        PanelUIMgr.Instance.OpenPanel(EPanelType.LevelSelectPanel);
-        PanelUIMgr.Instance.ClosePanel(EPanelType.StorePanel);
+        SceneLoader.Instance.AddNextScenePanel(EPanelType.LevelSelectPanel);
+        TransitionMgr.Instance.StarTransition("LevelSelectScene", "FadeInAndOutTransition");
     }
 }
