@@ -248,6 +248,7 @@ public class InstrumentItem : UIPanelBase,
     {
         if (BattleMgr.instance.isPlaying || _hasActioned || _hasDead || _isScaling)
             return;
+        AudioMgr.Instance.PlaySfx(_instrumentInfo.instrumentName);
         BattleMgr.instance.isPlaying = true;
         btnClick.enabled = false;
         MsgCenter.SendMsgAct(MsgConst.ON_INSTRUMENT_START_ATTACK);
