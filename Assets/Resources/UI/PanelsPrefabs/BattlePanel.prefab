@@ -654,7 +654,7 @@ MonoBehaviour:
   imgHealthBar: {fileID: 2698253510995482683}
   hurtShakeStrength: 8
   hurtShakeDuration: 0.3
-  hurtColor: {r: 1, g: 0, b: 0, a: 1}
+  hurtColor: {r: 1, g: 0.26444778, b: 0, a: 1}
   hurtColorFadeDuration: 0.2
   healthBarChgDuration: 0.2
   attackWaitDecDuration: 1
