@@ -56,9 +56,9 @@ namespace GJFramework
             sfxAudioInfoList = new List<AudioInfo>();
 
             // 没有存储的设定就使用默认的音量
-            mainVolumeFactor = PlayerPrefs.HasKey("MainVolume") ? PlayerPrefs.GetFloat("MainVolume") : 1;
-            bgmVolumeFactor = PlayerPrefs.HasKey("BgmVolumeFactor") ? PlayerPrefs.GetFloat("BgmVolumeFactor") : 1;
-            sfxVolumeFactor = PlayerPrefs.HasKey("SfxVolumeFactor") ? PlayerPrefs.GetFloat("SfxVolumeFactor") : 1;
+            //mainVolumeFactor = PlayerPrefs.HasKey("MainVolume") ? PlayerPrefs.GetFloat("MainVolume") : 1;
+            //bgmVolumeFactor = PlayerPrefs.HasKey("BgmVolumeFactor") ? PlayerPrefs.GetFloat("BgmVolumeFactor") : 1;
+            //sfxVolumeFactor = PlayerPrefs.HasKey("SfxVolumeFactor") ? PlayerPrefs.GetFloat("SfxVolumeFactor") : 1;
 
             _tweenContainer = new TweenContainer();
         }
@@ -268,7 +268,35 @@ namespace GJFramework
             AudioSource source = sfxGO.AddComponent<AudioSource>();
             source.clip = clip;
             source.loop = loop;
-            source.volume = mainVolumeFactor * sfxVolumeFactor;
+            float dymagicFactor = 1;
+            switch (sfxName) 
+            {
+                case "low":
+                    dymagicFactor = 0.7f;
+                    break;
+                case "黑胶":
+                    dymagicFactor = 1.2f;
+                    break;
+                case "小提琴":
+                    dymagicFactor = 0.7f;
+                    break;
+                case "手风琴":
+                    dymagicFactor = 0.85f;
+                    break;
+                case "小号":
+                    dymagicFactor = 0.85f;
+                    break;
+                case "单簧管":
+                    dymagicFactor = 0.75f;
+                    break;
+                case "怪物攻击cut":
+                    dymagicFactor = 0.6f;
+                    break;
+
+
+            }
+
+            source.volume = mainVolumeFactor * sfxVolumeFactor * dymagicFactor;
             source.Play();
 
             AudioInfo info = new AudioInfo(sfxName, source);

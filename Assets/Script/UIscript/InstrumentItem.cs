@@ -192,6 +192,7 @@ public class InstrumentItem : UIPanelBase,
 
     public void Attack()
     {
+        AudioMgr.Instance.PlaySfx(_instrumentInfo.instrumentAttackSoundPath);
         _hasActioned = true;
         imgDeadMask.gameObject.SetActive(true);
         MsgCenter.SendMsgAct(MsgConst.ON_INSTRUMENT_END_ATTACK);
@@ -200,6 +201,7 @@ public class InstrumentItem : UIPanelBase,
     {
         if (_hasDead)
             return;
+        AudioMgr.Instance.PlaySfx(_instrumentInfo.instrumentHurtSoundPath);
         instrumentInfo.health = Mathf.Clamp(instrumentInfo.health - damage, 0, _maxHealth);
         RefreshShow();
         Sequence seq = DOTween.Sequence();
