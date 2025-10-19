@@ -22,6 +22,7 @@ public class BattleLosePanel : UIPanelBase
         _tweenContainer.RegDoTween(canvasGroup.DOFade(1, fadeInDuration));
         btnConfirm.onClick.AddListener(() =>
         {
+            AudioMgr.Instance.PlayBgm("背景音乐");
             SceneLoader.Instance.AddNextScenePanel(EPanelType.LevelSelectPanel);
             TransitionMgr.Instance.StarTransition("LevelSelectScene", "FadeInAndOutTransition");
         });

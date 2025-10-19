@@ -1143,6 +1143,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: NoteContainer
       objectReference: {fileID: 0}
+    - target: {fileID: 2541239301813638387, guid: 7d46bd1a6f2f8d248968019ee238d95a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3073765487842262552, guid: 7d46bd1a6f2f8d248968019ee238d95a, type: 3}
       propertyPath: m_Sprite
       value: 

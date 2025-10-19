@@ -11,6 +11,11 @@ public class PhonographUIScript : MonoBehaviour, IPointerClickHandler
         AudioMgr.Instance.PlaySfx("黑胶");
         // 打开留声机 暂停时间流逝
         currentPauseState = !currentPauseState;
+        if (currentPauseState)
+            AudioMgr.Instance.PauseBgm();
+        else
+            AudioMgr.Instance.ResumeBgm();
+
         NoteMgr.instance.SetPauseState(currentPauseState);
 
     }

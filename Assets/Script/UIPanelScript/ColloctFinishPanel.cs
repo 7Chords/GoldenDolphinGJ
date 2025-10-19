@@ -33,6 +33,9 @@ public class ColloctFinishPanel : UIPanelBase
                 canvasGroup.blocksRaycasts = true;
                 currentTween = null;
             });
+        AudioMgr.Instance.PlaySfx("鼓掌 胜利音cut");
+        AudioMgr.Instance.ResumeBgm();
+
     }
 
     protected override void OnHide(Action onHideFinished)
