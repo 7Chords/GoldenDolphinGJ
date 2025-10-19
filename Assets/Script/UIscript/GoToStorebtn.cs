@@ -1,12 +1,31 @@
+using DG.Tweening;
 using GJFramework;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class GoToStorebtn : MonoBehaviour, IPointerClickHandler
+public class GoToStorebtn : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler, IPointerUpHandler
 {
-    // 去商店按钮点击事件
+    [Tooltip("悬停时目标缩放")]
+    [SerializeField] private Vector3 hoverScale = new Vector3(1.1f, 1.1f, 1f);
+    [Tooltip("按下时目标缩放（相对于 hoverScale 的比例）")]
+    [SerializeField] private float pressedScaleMultiplier = 0.95f;
+    [Tooltip("缩放过渡时长（秒）")]
+    [SerializeField] private float scaleDuration = 0.12f;
+    [Tooltip("缩放缓动类型")]
+    [SerializeField] private Ease scaleEase = Ease.OutQuad;
+    [Tooltip("是否使用 UnscaledTime（忽略 Time.timeScale）")]
+    [SerializeField] private bool useUnscaledTime = true;
+
+    private Vector3 originalScale;
+    private Vector3 pressedScale;
+    private Tween scaleTween;
+
+    private void Awake()
+    {
+        originalScale = transform.localScale;
+        pressedScale = new Vector3(hoverScale.x * pressedScaleMultiplier, hoverScale.y * pressedScaleMultiplier, hoverScale.z * pressedScaleMultiplier);
+    }
+
     public void OnPointerClick(PointerEventData eventData)
     {
         AudioMgr.Instance.PlaySfx("木头按钮");
@@ -14,5 +33,59 @@ public class GoToStorebtn : MonoBehaviour, IPointerClickHandler
         PanelUIMgr.Instance.OpenPanel(EPanelType.StorePanel);
         PanelUIMgr.Instance.ClosePanel(EPanelType.NoteCollectPanel);
         PanelUIMgr.Instance.ClosePanel(EPanelType.ColloctFinishPanel);
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        StartScale(hoverScale);
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        StartScale(originalScale);
+    }
+
+    public void OnPointerDown(PointerEventData eventData)
+    {
+        StartScale(pressedScale);
+    }
+
+    public void OnPointerUp(PointerEventData eventData)
+    {
+        bool isPointerOver = (eventData.pointerCurrentRaycast.gameObject == gameObject) || (eventData.pointerEnter == gameObject);
+        StartScale(isPointerOver ? hoverScale : originalScale);
+    }
+
+    private void StartScale(Vector3 target)
+    {
+        // 取消现有 tween
+        if (scaleTween != null && scaleTween.IsActive())
+        {
+            scaleTween.Kill();
+            scaleTween = null;
+        }
+
+        // 直接设置（防止非常短时长导致视觉跳变）
+        if (scaleDuration <= 0f)
+        {
+            transform.localScale = target;
+            return;
+        }
+
+        // 创建新的 DOTween 缩放并保存引用
+        scaleTween = transform.DOScale(target, scaleDuration)
+            .SetEase(scaleEase)
+            .SetUpdate(useUnscaledTime) // 使用 unscaled 时间以匹配之前的实现
+            .OnKill(() => scaleTween = null);
+    }
+
+    private void OnDisable()
+    {
+        // 组件失效时确保 tween 被清理
+        if (scaleTween != null && scaleTween.IsActive())
+        {
+            scaleTween.Kill();
+            scaleTween = null;
+        }
     }
 }
