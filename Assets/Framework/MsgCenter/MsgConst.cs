@@ -26,8 +26,7 @@ namespace GJFramework
         public const int ON_ENEMY_END_ATTACK = 1014;//敌人结束攻击
 
         public const int ON_STORE_ITEM_SELECT = 1015; // 选中商品
-
-       
+        public const int ON_STORE_OPEN = 1016; // 商店界面打开
     }
 
     public class ConstVar
