@@ -97,11 +97,15 @@ public class BattleMgr : SingletonMono<BattleMgr>
         gameStarted = false;
         if (playerWin)
         {
+            AudioMgr.Instance.PlaySfx("游戏胜利cut");
             GameMgr.Instance.curLevel++;
             PanelUIMgr.Instance.OpenPanel(EPanelType.BattleWinPanel);
         }
         else
+        {
+            AudioMgr.Instance.PlaySfx("游戏失败cut");
             PanelUIMgr.Instance.OpenPanel(EPanelType.BattleLosePanel);
+        }
     }
     public void RegInstrumentItem(InstrumentItem item)
     {
