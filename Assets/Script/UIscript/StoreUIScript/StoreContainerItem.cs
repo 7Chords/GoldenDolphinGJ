@@ -17,6 +17,7 @@ public class StoreContainerItem : MonoBehaviour, IPointerClickHandler
     private Sequence clickSequence;
     [SerializeField] private long stroeItemId;// 商店商品Id
     TweenContainer tweenContainer = new TweenContainer();
+    public string clipName;
     private void Awake()
     {
         originalScale = transform.localScale;
@@ -37,6 +38,7 @@ public class StoreContainerItem : MonoBehaviour, IPointerClickHandler
         }
         else
         {
+            AudioMgr.Instance.PlaySfx(clipName);
             // 终止已有动画
             if (clickSequence != null && clickSequence.IsActive())
             {

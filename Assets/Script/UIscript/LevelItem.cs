@@ -104,6 +104,7 @@ public class LevelItem : UIPanelBase,
         if (_hasSelected)
             return;
         _hasSelected = true;
+        AudioMgr.Instance.PlaySfx("专辑");
         for (int i = 0; i < fadeCanvasGroup.Count; i++)
         {
             fadeCanvasGroup[i].alpha = 0;
@@ -132,6 +133,7 @@ public class LevelItem : UIPanelBase,
 
     public void CancelSelect()
     {
+        AudioMgr.Instance.PlaySfx("木头按钮");
 
         _tweenContainer.RegDoTween(imgBlackBg.DOFade(0, selectBlackFadeDuration));
 

@@ -9,6 +9,7 @@ public class StartPanel : UIPanelBase
     {
         btnGo.onClick.AddListener(() =>
         {
+            AudioMgr.Instance.PlaySfx("开始游戏");
             SceneLoader.Instance.AddNextScenePanel(EPanelType.LevelSelectPanel);
             TransitionMgr.Instance.StarTransition("LevelSelectScene", "FadeInAndOutTransition");
         });

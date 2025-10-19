@@ -106,6 +106,19 @@ public class NoteUIScript : MonoBehaviour, IPointerClickHandler
         // 点击播放的动画和时间到了一样 如果点击了看看是什么类型并且对应加上数量
         if (!isPlayingAnimation && NoteMgr.instance.IsCurrentPause && isUseful)
         {
+            switch (noteType)
+            {
+                case NoteType.HightNote:
+                    AudioMgr.Instance.PlaySfx("high");
+                    break;
+                case NoteType.MiddleNote:
+                    AudioMgr.Instance.PlaySfx("middle");
+                    break;
+                case NoteType.LowNote:
+                    AudioMgr.Instance.PlaySfx("low");
+                    break;
+            }
+
             NoteMgr.instance.ReduceRemainNoteNum();
             PlayerMgr.Instance.AddNoteNum(noteType);
             isPlayingAnimation = true;

@@ -77,6 +77,8 @@ public class EnemyItem : UIPanelBase,IDamagable
 
     public void Attack()
     {
+        AudioMgr.Instance.PlaySfx("怪物攻击cut");
+
         MsgCenter.SendMsgAct(MsgConst.ON_ENEMY_END_ATTACK);
     }
 
@@ -84,7 +86,7 @@ public class EnemyItem : UIPanelBase,IDamagable
     {
         _enemyInfo.enemyHealth = Mathf.Clamp(_enemyInfo.enemyHealth - damage, 0, _maxHealth);
         RefreshShow();
-        AudioMgr.Instance.PlaySfx("怪物受击");
+        AudioMgr.Instance.PlaySfx("怪物受击cut");
         Sequence seq = DOTween.Sequence();
         seq.Append(transform.DOShakePosition(hurtShakeDuration, hurtShakeStrength, fadeOut: true));
         seq.Join(imgEnemyIcon.DOColor(hurtColor, hurtColorFadeDuration / 2));
