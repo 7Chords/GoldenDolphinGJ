@@ -58,7 +58,9 @@ public class BattlePanel : UIPanelBase
         MsgCenter.UnregisterMsgAct(MsgConst.ON_TURN_CHG, OnTurnChg);
         MsgCenter.UnregisterMsgAct(MsgConst.ON_INSTRUMENT_START_ATTACK, OnEnemyStartAttack);
         MsgCenter.UnregisterMsgAct(MsgConst.ON_INSTRUMENT_END_ATTACK, OnEnemyEndAttack);
+        instrumentContainer.Hide();
         onHideFinished?.Invoke();
+
     }
 
     private void OnBattleStartStart(object[] _objs)
