@@ -11,6 +11,7 @@ public class NoteCollectPanel : UIPanelBase
     {
         PlayerMgr.Instance.ClearInstrumentIdList();
         PlayerMgr.Instance.ResetNoteNum();
+        AudioMgr.Instance.PlayBgm("土耳其");
     }
 
     protected override void OnHide(Action onHideFinished)

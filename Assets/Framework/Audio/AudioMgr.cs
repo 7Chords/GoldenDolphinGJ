@@ -292,6 +292,9 @@ namespace GJFramework
                 case "怪物攻击cut":
                     dymagicFactor = 0.6f;
                     break;
+                case "鼓掌 胜利音cut":
+                    dymagicFactor = 0.2f;
+                    break;
 
 
             }
