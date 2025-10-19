@@ -881,7 +881,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &3409929448858191214
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2121,8 +2121,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 133.63684, y: 0}
-  m_SizeDelta: {x: -267.2738, y: 0}
+  m_AnchoredPosition: {x: 138.29321, y: 0}
+  m_SizeDelta: {x: -276.5867, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6534330708443275116
 CanvasRenderer:
@@ -2281,7 +2281,7 @@ PrefabInstance:
     - target: {fileID: 1743328194109583379, guid: e3646e2f0187d9744b55c4659df58e3b, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: b71bac78cd8f7f642aba83b073500d6a, type: 3}
+      objectReference: {fileID: 21300000, guid: d6c033f30dcb1474a9b1eef9a75403d0, type: 3}
     - target: {fileID: 1786817159046822735, guid: e3646e2f0187d9744b55c4659df58e3b, type: 3}
       propertyPath: m_Name
       value: prefab_level_item
@@ -2321,7 +2321,7 @@ PrefabInstance:
     - target: {fileID: 4145064850267468554, guid: e3646e2f0187d9744b55c4659df58e3b, type: 3}
       propertyPath: selectSprite
       value: 
-      objectReference: {fileID: 1319571803, guid: a4145a9666e89c94a99320e1b3c719c3, type: 3}
+      objectReference: {fileID: 21300000, guid: e240382e693f4c144b838be21a1f3ed3, type: 3}
     - target: {fileID: 4145064850267468554, guid: e3646e2f0187d9744b55c4659df58e3b, type: 3}
       propertyPath: txtEnemyInfo
       value: 
@@ -2332,12 +2332,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4145064850267468554, guid: e3646e2f0187d9744b55c4659df58e3b, type: 3}
       propertyPath: hasSelectScale
-      value: 1.25
+      value: 1.1
       objectReference: {fileID: 0}
     - target: {fileID: 4145064850267468554, guid: e3646e2f0187d9744b55c4659df58e3b, type: 3}
       propertyPath: unselectSprite
       value: 
-      objectReference: {fileID: 21300000, guid: b71bac78cd8f7f642aba83b073500d6a, type: 3}
+      objectReference: {fileID: 21300000, guid: d6c033f30dcb1474a9b1eef9a75403d0, type: 3}
     - target: {fileID: 4145064850267468554, guid: e3646e2f0187d9744b55c4659df58e3b, type: 3}
       propertyPath: btnFadeDuration
       value: 0.5
@@ -2404,11 +2404,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8038596346831321630, guid: e3646e2f0187d9744b55c4659df58e3b, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 664.5283
+      value: 770.1891
       objectReference: {fileID: 0}
     - target: {fileID: 8038596346831321630, guid: e3646e2f0187d9744b55c4659df58e3b, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 428.7859
+      value: 496.9633
       objectReference: {fileID: 0}
     - target: {fileID: 8038596346831321630, guid: e3646e2f0187d9744b55c4659df58e3b, type: 3}
       propertyPath: m_AnchoredPosition.x
