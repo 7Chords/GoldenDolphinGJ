@@ -45,11 +45,11 @@ public class SelectorContainer : MonoBehaviour
     // refresh info
     public void RefreshInfo()
     {
-        selectItemList[0].SetDefault();
+        selectItemList[0].gameObject.SetActive(false);
         selectItemList[0].IsSelected = false;
-        selectItemList[2].SetDefault();
+        selectItemList[2].gameObject.SetActive(false);
         selectItemList[2].IsSelected = false;
-        selectItemList[1].SetDefault();
+        selectItemList[1].gameObject.SetActive(false);
         selectItemList[1].IsSelected = false;
     }
     private void OnDestroy()

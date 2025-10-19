@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class SelectorContainerItem : MonoBehaviour, IPointerClickHandler
+public class SelectorContainerItem : MonoBehaviour
 {
     [Header("DOTween 弹出缩放设置")]
     [SerializeField] private float initialScaleFactor = 0.6f;   // 初始缩放（从多小开始）
@@ -13,18 +13,12 @@ public class SelectorContainerItem : MonoBehaviour, IPointerClickHandler
     [SerializeField] private float totalDuration = 0.28f;       // 总时长（秒）
     [SerializeField] private Ease ease = Ease.OutBack;          // 放大缓动（建议 OutBack 有弹性效果）
 
-    [Header("DOTween 消失动画设置")]
-    [SerializeField] private float disappearDuration = 0.18f;    // 点击时消失动画时长
-    [SerializeField] private Ease disappearEase = Ease.InQuad;   // 消失缓动
-    [SerializeField] private float disappearScaleFactor = 0.6f;  // 缩小到的比例
-    [SerializeField] private bool deactivateAfterDisappear = true;// 动画结束后是否禁用整个物体
     public Sprite DefaultSprite;
     private bool isSelected = false;
     public Image preSelectorImage;
     private Vector3 originalScale;
     private Sequence popSequence;
     private Sequence disappearSequence;
-    private bool isAnimating = false;
 
     public void SetDefault()
     {
@@ -97,7 +91,6 @@ public class SelectorContainerItem : MonoBehaviour, IPointerClickHandler
         // 确保禁用时恢复原始缩放与状态
         transform.localScale = originalScale;
         isSelected = false;
-        isAnimating = false;
     }
 
     private void OnDestroy()
@@ -120,81 +113,8 @@ public class SelectorContainerItem : MonoBehaviour, IPointerClickHandler
         if (preSelectorImage != null)
         {
             var c = preSelectorImage.color;
-            preSelectorImage.color = new Color(c.r, c.g, c.b, 1f);
             preSelectorImage.enabled = true;
         }
     }
 
-    public void OnPointerClick(PointerEventData eventData)
-    {
-        // 还没有图片就不响应点击
-        if (preSelectorImage == null || preSelectorImage.sprite == null) return;
-
-        // 如果正在执行动画，忽略重复点击
-        if (isAnimating) return;
-
-        PlayDisappear();
-    }
-
-    /// <summary>
-    /// 播放消失动画：同时淡出图片和缩小物体，结束后根据设置禁用物体或隐藏图片
-    /// </summary>
-    public void PlayDisappear()
-    {
-        isAnimating = true;
-
-        // 终止可能正在播放的弹出动画
-        if (popSequence != null && popSequence.IsActive())
-        {
-            popSequence.Kill();
-            popSequence = null;
-        }
-        if (disappearSequence != null && disappearSequence.IsActive())
-        {
-            disappearSequence.Kill();
-            disappearSequence = null;
-        }
-
-        disappearSequence = DOTween.Sequence();
-
-        // 缩放（到指定比例）
-        disappearSequence.Join(transform.DOScale(originalScale * disappearScaleFactor, disappearDuration).SetEase(disappearEase));
-        // 图片淡出（如果存在）
-        if (preSelectorImage != null)
-        {
-            disappearSequence.Join(preSelectorImage.DOFade(0f, disappearDuration).SetEase(disappearEase));
-        }
-
-        disappearSequence.OnComplete(() =>
-        {
-            // 动画结束：重置状态或禁用
-            isSelected = false;
-            isAnimating = false;
-
-            if (preSelectorImage != null)
-            {
-                // 隐藏图片资源，避免下一次显示时仍为透明
-                preSelectorImage.enabled = false;
-            }
-
-            if (deactivateAfterDisappear)
-            {
-                gameObject.SetActive(false);
-            }
-            else
-            {
-                // 若不禁用 GameObject，则恢复缩放到原始（但保持图片隐藏）
-                transform.localScale = originalScale;
-            }
-
-            disappearSequence = null;
-            // todo: ryanReturnMaterial
-            ReturnMaterial();
-        });
-        
-    }
-    public void ReturnMaterial()
-    {
-
-    }
 }
