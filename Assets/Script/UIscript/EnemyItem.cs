@@ -59,6 +59,7 @@ public class EnemyItem : UIPanelBase,IDamagable
     {
         _enemyInfo = enemInfo;
         _maxHealth = _enemyInfo.enemyHealth;
+        imgHealthBar.fillAmount = 1;
         RefreshShow();
     }
 
@@ -77,8 +78,6 @@ public class EnemyItem : UIPanelBase,IDamagable
 
     public void Attack()
     {
-        AudioMgr.Instance.PlaySfx("怪物攻击cut");
-
         MsgCenter.SendMsgAct(MsgConst.ON_ENEMY_END_ATTACK);
     }
 
@@ -138,11 +137,13 @@ public class EnemyItem : UIPanelBase,IDamagable
 
             seq.Append(DOVirtual.DelayedCall(attackWaitDecDuration, () =>
             {
+                AudioMgr.Instance.PlaySfx("怪物攻击cut");
                 MsgCenter.SendMsgAct(MsgConst.ON_ENEMY_START_ATTACK);
             }));
 
             seq.Append(DOVirtual.DelayedCall(attackWaitDuration - attackWaitDecDuration, () =>
              {
+
                  List<IDamagable> damagableList = new List<IDamagable>();
                  foreach (var item in BattleMgr.instance.instrumentItemList)
                  {
