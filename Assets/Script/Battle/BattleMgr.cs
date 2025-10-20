@@ -102,7 +102,6 @@ public class BattleMgr : SingletonMono<BattleMgr>
         if (playerWin)
         {
             AudioMgr.Instance.PlaySfx("游戏胜利cut");
-            GameMgr.Instance.curLevel++;
             PanelUIMgr.Instance.OpenPanel(EPanelType.BattleWinPanel);
         }
         else
