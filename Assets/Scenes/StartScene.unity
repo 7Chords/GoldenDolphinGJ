@@ -612,7 +612,7 @@ GameObject:
   - component: {fileID: 995308211}
   - component: {fileID: 995308210}
   m_Layer: 0
-  m_Name: playerMgr
+  m_Name: ---PlayerMgr---
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -995,9 +995,9 @@ SceneRoots:
   m_Roots:
   - {fileID: 715600104}
   - {fileID: 1676054223}
+  - {fileID: 236102275}
   - {fileID: 995308211}
   - {fileID: 2086137888}
-  - {fileID: 236102275}
   - {fileID: 574628073}
   - {fileID: 1645338909}
   - {fileID: 1165822961}

@@ -35,6 +35,7 @@ public class LevelSelectPanel : UIPanelBase
         //    _tweenContainer?.KillAllDoTween();
         //    _tweenContainer = null;
         //}));
+        levelItem?.Hide();
         onHideFinished?.Invoke();
     }
 

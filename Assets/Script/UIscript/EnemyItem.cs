@@ -59,7 +59,6 @@ public class EnemyItem : UIPanelBase,IDamagable
     {
         _enemyInfo = enemInfo;
         _maxHealth = _enemyInfo.enemyHealth;
-        imgHealthBar.fillAmount = 1;
         RefreshShow();
     }
 

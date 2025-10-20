@@ -78,14 +78,15 @@ public class LevelItem : UIPanelBase,
         btnSelect.onClick.RemoveAllListeners();
         btnReturn.onClick.RemoveAllListeners();
         btnStart.onClick.RemoveAllListeners();
-
-    }
-
-    private void OnDestroy()
-    {
         _tweenContainer?.KillAllDoTween();
         _tweenContainer = null;
     }
+
+    //private void OnDestroy()
+    //{
+    //    _tweenContainer?.KillAllDoTween();
+    //    _tweenContainer = null;
+    //}
 
     //public void SetInfo(BattleLevelRefObj levelRefObj)
     //{
@@ -113,6 +114,9 @@ public class LevelItem : UIPanelBase,
         btnReturn.GetComponent<Image>().color = new Color(1, 1, 1, 0);
         fadeMaterial.SetFloat("_RevealAmount", 0f);
         fadeGO.SetActive(true);
+        btnReturn.enabled = false;
+        btnStart.enabled = false;
+        btnStart.GetComponent<GoToCollectPage>().enabled = false;
 
         imgContent.sprite = selectSprite;
         _tweenContainer.RegDoTween(transform.DOScale(Vector3.one * hasSelectScale, hasSelectScaleDuration));
@@ -125,7 +129,12 @@ public class LevelItem : UIPanelBase,
         {
             seq.Append(fadeCanvasGroup[i].DOFade(1f, singleCanvasGroupFadeDuration));
         }
-        seq.Append(btnStart.GetComponent<Image>().DOFade(1, btnFadeDuration));
+        seq.Append(btnStart.GetComponent<Image>().DOFade(1, btnFadeDuration)).OnComplete(() =>
+        {
+            btnReturn.enabled = true;
+            btnStart.enabled = true;
+            btnStart.GetComponent<GoToCollectPage>().enabled = true;
+        });
         seq.Join(btnReturn.GetComponent<Image>().DOFade(1, btnFadeDuration));
 
         _tweenContainer.RegDoTween(seq);
@@ -133,6 +142,10 @@ public class LevelItem : UIPanelBase,
 
     public void CancelSelect()
     {
+        btnReturn.enabled = false;
+        btnStart.enabled = false;
+        btnStart.GetComponent<GoToCollectPage>().enabled = false;
+
         AudioMgr.Instance.PlaySfx("木头按钮");
 
         _tweenContainer.RegDoTween(imgBlackBg.DOFade(0, selectBlackFadeDuration));
@@ -152,6 +165,7 @@ public class LevelItem : UIPanelBase,
         {
             _hasSelected = false;
             imgContent.sprite = unselectSprite;
+            fadeGO.SetActive(fadeGO);
         }));
 
         _tweenContainer.RegDoTween(seq);
