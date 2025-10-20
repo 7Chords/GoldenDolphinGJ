@@ -277,11 +277,11 @@ namespace GJFramework
                 case "黑胶":
                     dymagicFactor = 1.2f;
                     break;
-                case "小提琴":
-                    dymagicFactor = 0.7f;
-                    break;
                 case "手风琴":
                     dymagicFactor = 0.85f;
+                    break;
+                case "小提琴":
+                    dymagicFactor = 1.2f;
                     break;
                 case "小号":
                     dymagicFactor = 0.85f;
@@ -290,12 +290,14 @@ namespace GJFramework
                     dymagicFactor = 0.75f;
                     break;
                 case "怪物攻击cut":
-                    dymagicFactor = 0.6f;
+                    dymagicFactor = 0.5f;
                     break;
                 case "鼓掌 胜利音cut":
                     dymagicFactor = 0.2f;
                     break;
-
+                case "受伤":
+                    dymagicFactor = 0.7f;
+                    break;
 
             }
 

@@ -161,6 +161,7 @@ public class LevelItem : UIPanelBase,
                 seq.Join(fadeCanvasGroup[i].DOFade(0, singleCanvasGroupFadeDuration));
         }
         seq.Append(fadeMaterial.DOFloat(0f, "_RevealAmount", materialFadeDuration));
+
         seq.Append(transform.DOScale(Vector3.one, hasSelectScaleDuration).OnComplete(() =>
         {
             _hasSelected = false;
