@@ -95,9 +95,10 @@ public class InstrumentItem : UIPanelBase,
     private bool _isPlaying;
     private bool _isScaling;
 
-    private Vector3 _originalPosition;
-    private Transform _originalParent;
-    private CanvasGroup _dragCanvasGroup;
+
+    // 拖拽相关变量
+    private GameObject _dragClone;
+    private CanvasGroup _originalCanvasGroup;
     private bool _isDragging = false;
     private Canvas _parentCanvas;
     private Vector2 _dragOffset;
@@ -112,6 +113,10 @@ public class InstrumentItem : UIPanelBase,
         BattleMgr.instance.RegInstrumentItem(this);
 
         btnClick.onClick.AddListener(OnBtnClicked);
+
+        // 获取父级Canvas
+        _parentCanvas = GetComponentInParent<Canvas>();
+        _originalCanvasGroup = canvasGroup;
     }
 
     protected override void OnHide(Action onHideFinished)
@@ -328,18 +333,187 @@ public class InstrumentItem : UIPanelBase,
             return;
         Debug.Log("BeginDrag");
         _isDragging = true;
+        _isDragging = true;
+
+        // 创建拖拽克隆体
+        CreateDragClone();
+
+        // 隐藏原物体的交互（使其"看不见"但保持位置）
+        if (_originalCanvasGroup != null)
+        {
+            _originalCanvasGroup.alpha = 0.3f; // 半透明显示原物体
+            _originalCanvasGroup.blocksRaycasts = false;
+        }
+
+        // 保存点击位置与物体中心的偏移量
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(
+            _parentCanvas.transform as RectTransform,
+            eventData.position,
+            _parentCanvas.worldCamera,
+            out _dragOffset);
+
+        // 更新克隆体位置
+        UpdateDragClonePosition(eventData);
     }
 
     public void OnDrag(PointerEventData eventData)
     {
-        if (!_isDragging)
-            return;
+        if (!_isDragging || _dragClone == null) return;
+
+        // 更新克隆体位置
+        UpdateDragClonePosition(eventData);
     }
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        if (!_isDragging)
-            return;
+        if (!_isDragging) return;
+
         _isDragging = false;
+
+        // 恢复原物体的显示和交互
+        if (_originalCanvasGroup != null)
+        {
+            _originalCanvasGroup.alpha = 1f;
+            _originalCanvasGroup.blocksRaycasts = true;
+        }
+
+        // 检查是否放置在有效区域
+        bool isValidDrop = CheckValidDrop(eventData);
+
+        if (isValidDrop)
+        {
+            // 处理成功的放置
+            OnSuccessfulDrop(eventData);
+        }
+        else
+        {
+            // 放置无效，可以播放回退动画等
+            OnInvalidDrop(eventData);
+        }
+
+        // 清理拖拽克隆体
+        CleanupDragClone();
+
+        // 强制刷新布局（确保原物体位置正确）
+        LayoutRebuilder.ForceRebuildLayoutImmediate(transform.parent.GetComponent<RectTransform>());
+    }
+
+    /// <summary>
+    /// 创建拖拽克隆体
+    /// </summary>
+    private void CreateDragClone()
+    {
+        if (_dragClone != null) return;
+
+        // 创建克隆体
+        _dragClone = Instantiate(gameObject, _parentCanvas.transform);
+
+        // 移除克隆体上不需要的组件
+        var cloneInstrumentItem = _dragClone.GetComponent<InstrumentItem>();
+        if (cloneInstrumentItem != null)
+            Destroy(cloneInstrumentItem);
+
+        var cloneBtn = _dragClone.GetComponent<Button>();
+        if (cloneBtn != null)
+            Destroy(cloneBtn);
+
+        var cloneDragHandlers = _dragClone.GetComponents<IBeginDragHandler>();
+        foreach (var handler in cloneDragHandlers)
+        {
+            if (handler is MonoBehaviour behaviour)
+                Destroy(behaviour);
+        }
+
+        // 设置克隆体的属性
+        var cloneCanvasGroup = _dragClone.GetComponent<CanvasGroup>();
+        if (cloneCanvasGroup == null)
+            cloneCanvasGroup = _dragClone.AddComponent<CanvasGroup>();
+
+        cloneCanvasGroup.alpha = 0.8f;
+        cloneCanvasGroup.blocksRaycasts = false;
+
+        // 设置克隆体的层级，确保显示在最前面
+        _dragClone.transform.SetAsLastSibling();
+
+        // 应用当前缩放（包括悬停效果产生的缩放）
+        _dragClone.transform.localScale = transform.localScale;
+    }
+
+    /// <summary>
+    /// 更新拖拽克隆体位置
+    /// </summary>
+    private void UpdateDragClonePosition(PointerEventData eventData)
+    {
+        if (_dragClone == null) return;
+
+        Vector2 localPointerPosition;
+        if (RectTransformUtility.ScreenPointToLocalPointInRectangle(
+            _parentCanvas.transform as RectTransform,
+            eventData.position,
+            _parentCanvas.worldCamera,
+            out localPointerPosition))
+        {
+            _dragClone.transform.localPosition = localPointerPosition - _dragOffset;
+        }
+    }
+
+    /// <summary>
+    /// 清理拖拽克隆体
+    /// </summary>
+    private void CleanupDragClone()
+    {
+        if (_dragClone != null)
+        {
+            Destroy(_dragClone);
+            _dragClone = null;
+        }
+    }
+
+    /// <summary>
+    /// 检查是否放置在有效区域
+    /// </summary>
+    private bool CheckValidDrop(PointerEventData eventData)
+    {
+        // 这里可以添加你的放置验证逻辑
+        // 例如检查是否放置在某个特定区域上
+
+        List<RaycastResult> results = new List<RaycastResult>();
+        EventSystem.current.RaycastAll(eventData, results);
+
+        foreach (var result in results)
+        {
+            // 检查是否放置在有效的目标上
+            // 例如：if (result.gameObject.GetComponent<DropArea>() != null) return true;
+        }
+
+        // 暂时返回true，表示任何位置都可以放置
+        // 你可以根据实际需求修改这个逻辑
+        return true;
+    }
+
+    /// <summary>
+    /// 成功放置时的处理
+    /// </summary>
+    private void OnSuccessfulDrop(PointerEventData eventData)
+    {
+        // 这里可以处理成功放置后的逻辑
+        // 例如：更新数据、播放音效、移动原物体到新位置等
+
+        // 发送消息通知拖拽结束和放置成功
+        //MsgCenter.SendMsgAct(MsgConst.ON_INSTRUMENT_DRAG_END, this);
+
+        // 可以在这里添加放置成功的视觉效果
+        Debug.Log("放置成功！");
+    }
+
+    /// <summary>
+    /// 无效放置时的处理
+    /// </summary>
+    private void OnInvalidDrop(PointerEventData eventData)
+    {
+        // 这里可以处理无效放置的逻辑
+        // 例如：播放回退动画、显示提示等
+
+        Debug.Log("放置无效，回到原位置");
     }
 }
