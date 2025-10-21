@@ -122,6 +122,7 @@ public class StoreContainerItem : MonoBehaviour, IPointerClickHandler
         temp &= !StoreItemContainer.instance.storeItemList[storeItemId];
         // 且现在乐器列表不能满
         temp &= PlayerMgr.Instance.instrumentIdList.Count < 3;
+
         if (temp)
         {
             // 如果买得起直接加入玩家乐器列表 并且扣除对应音符数量
