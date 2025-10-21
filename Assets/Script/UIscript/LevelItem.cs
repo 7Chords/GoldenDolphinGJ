@@ -113,14 +113,7 @@ public class LevelItem : UIPanelBase,
         _hasSelected = true;
         gameObject.GetComponent<Canvas>().sortingOrder = 3;
 
-        float moveDuration = Vector3.Distance(transformPlayShow.position, transform.position) / moveSpeed;
-        if(moveDuration > 0.01f)
-        {
-            //_tweenContainer.RegDoTween()
-        }
 
-
-        AudioMgr.Instance.PlaySfx("专辑");
         for (int i = 0; i < fadeCanvasGroup.Count; i++)
         {
             fadeCanvasGroup[i].alpha = 0;
@@ -132,12 +125,27 @@ public class LevelItem : UIPanelBase,
         btnReturn.enabled = false;
         btnStart.enabled = false;
         btnStart.GetComponent<GoToCollectPage>().enabled = false;
+        transform.GetComponent<Image>().raycastTarget = false;
 
-        imgContent.sprite = selectSprite;
+
+        float dist = transformPlayShow.position.x - transform.position.x;
+        float moveDuration = dist / moveSpeed;
+        float targetPosX = transform.parent.position.x + dist;
+
+        Sequence seq = DOTween.Sequence();
+        if (Mathf.Abs(moveDuration) > 0.01f)
+        {
+            seq.Append(transform.parent.DOMoveX(targetPosX, Mathf.Abs(moveDuration)).OnComplete(() =>
+            {
+                AudioMgr.Instance.PlaySfx("专辑");
+                imgContent.sprite = selectSprite;
+            }));
+        }
+
+        
         _tweenContainer.RegDoTween(transform.DOScale(Vector3.one * hasSelectScale, hasSelectScaleDuration));
         _tweenContainer.RegDoTween(imgBlackBg.DOFade(1, selectBlackFadeDuration));
 
-        Sequence seq = DOTween.Sequence();
         seq.Append(fadeMaterial.DOFloat(1f, "_RevealAmount", materialFadeDuration));
 
         for(int i =0;i< fadeCanvasGroup.Count;i++)
@@ -183,6 +191,7 @@ public class LevelItem : UIPanelBase,
             imgContent.sprite = unselectSprite;
             fadeGO.SetActive(false);
             gameObject.GetComponent<Canvas>().sortingOrder = 1;
+            transform.GetComponent<Image>().raycastTarget = true;
         }));
 
         _tweenContainer.RegDoTween(seq);
