@@ -1,5 +1,5 @@
 %YAML 1.1
-%TAG !u! tag:unity3d.com,2011:
+%TAG !u! tag:yousandi.cn,2023:
 --- !u!21 &2100000
 Material:
   serializedVersion: 8
@@ -30,7 +30,7 @@ Material:
     m_Ints: []
     m_Floats:
     - _ColorMask: 15
-    - _RevealAmount: 1
+    - _RevealAmount: 0
     - _Softness: 0.015
     - _Stencil: 0
     - _StencilComp: 8

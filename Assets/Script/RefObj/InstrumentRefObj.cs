@@ -29,7 +29,7 @@ public class InstrumentRefObj : SCRefDataCore
     public string instrumentAttackIconPath;
     public string instrumentAttackSoundPath;
     public string instrumentHurtSoundPath;
-
+    public long unlockLevelId;
     protected override void _parseFromString()
     {
         id = getLong("id");
@@ -51,7 +51,7 @@ public class InstrumentRefObj : SCRefDataCore
         instrumentAttackIconPath = getString("instrumentAttackIconPath");
         instrumentAttackSoundPath = getString("instrumentAttackSoundPath");
         instrumentHurtSoundPath = getString("instrumentHurtSoundPath");
-
+        unlockLevelId = getLong("unlockLevelId");
 
     }
 
