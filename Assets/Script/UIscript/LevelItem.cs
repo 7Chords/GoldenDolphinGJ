@@ -59,6 +59,12 @@ public class LevelItem : UIPanelBase,
     [Header("专辑图片")]
     public Image imgContent;
 
+    [Header("播放展开动画时专辑的位置")]
+    public Transform transformPlayShow;
+    [Header("专辑移动速度")]
+    public float moveSpeed;
+
+
     private BattleLevelRefObj _battleLevelRefObj;
     private TweenContainer _tweenContainer;
 
@@ -105,6 +111,15 @@ public class LevelItem : UIPanelBase,
         if (_hasSelected)
             return;
         _hasSelected = true;
+        gameObject.GetComponent<Canvas>().sortingOrder = 3;
+
+        float moveDuration = Vector3.Distance(transformPlayShow.position, transform.position) / moveSpeed;
+        if(moveDuration > 0.01f)
+        {
+            //_tweenContainer.RegDoTween()
+        }
+
+
         AudioMgr.Instance.PlaySfx("专辑");
         for (int i = 0; i < fadeCanvasGroup.Count; i++)
         {
@@ -166,7 +181,8 @@ public class LevelItem : UIPanelBase,
         {
             _hasSelected = false;
             imgContent.sprite = unselectSprite;
-            fadeGO.SetActive(fadeGO);
+            fadeGO.SetActive(false);
+            gameObject.GetComponent<Canvas>().sortingOrder = 1;
         }));
 
         _tweenContainer.RegDoTween(seq);

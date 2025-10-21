@@ -18,12 +18,15 @@ public class LevelSelectPanel : UIPanelBase
 
     private TweenContainer _tweenContainer;
 
-    public LevelItem levelItem;
+    public List<LevelItem> levelItemList;
     protected override void OnShow()
     {
         //_tweenContainer = new TweenContainer();
         //_tweenContainer.RegDoTween(canvasGroup.DOFade(1, fadeInDuration));
-        levelItem?.Show();
+        foreach(var item in levelItemList)
+        {
+            item?.Show();
+        }
     }
 
 
@@ -35,7 +38,10 @@ public class LevelSelectPanel : UIPanelBase
         //    _tweenContainer?.KillAllDoTween();
         //    _tweenContainer = null;
         //}));
-        levelItem?.Hide();
+        foreach (var item in levelItemList)
+        {
+            item?.Hide();
+        }
         onHideFinished?.Invoke();
     }
 
