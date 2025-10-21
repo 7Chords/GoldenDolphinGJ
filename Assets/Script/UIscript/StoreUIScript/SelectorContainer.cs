@@ -13,7 +13,7 @@ public class SelectorContainer : MonoBehaviour
         // 当选中的时候 触发回调
         MsgCenter.RegisterMsg(MsgConst.ON_STORE_ITEM_SELECT, OnSelectedCharacter);
         MsgCenter.RegisterMsgAct(MsgConst.ON_STORE_OPEN, RefreshInfo);
-        MsgCenter.RegisterMsg(MsgConst.ON_SELECTOR_INSTRUMENT_CANCLE, ReturnSelectorItem2Store);
+        MsgCenter.RegisterMsg(MsgConst.ON_SELECTOR_INSTRUMENT_CANCLE_WHILE_DOTWEEN_COMPLETE, ReturnSelectorItem2Store);
 
     }
 
@@ -105,6 +105,6 @@ public class SelectorContainer : MonoBehaviour
         // 反注册
         MsgCenter.UnregisterMsg(MsgConst.ON_STORE_ITEM_SELECT, OnSelectedCharacter);
         MsgCenter.UnregisterMsgAct(MsgConst.ON_STORE_OPEN, RefreshInfo);
-        MsgCenter.UnregisterMsg(MsgConst.ON_SELECTOR_INSTRUMENT_CANCLE, ReturnSelectorItem2Store);
+        MsgCenter.UnregisterMsg(MsgConst.ON_SELECTOR_INSTRUMENT_CANCLE_WHILE_DOTWEEN_COMPLETE, ReturnSelectorItem2Store);
     }
 }

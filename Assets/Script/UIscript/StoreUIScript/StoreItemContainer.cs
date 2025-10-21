@@ -15,7 +15,7 @@ public class StoreItemContainer : SingletonMono<StoreItemContainer>
     {
         Init();
         MsgCenter.RegisterMsg(MsgConst.ON_STORE_ITEM_SELECT, OnStoreItemSelect);
-        MsgCenter.RegisterMsg(MsgConst.ON_SELECTOR_INSTRUMENT_CANCLE, OnSelectorItemCancle);
+        MsgCenter.RegisterMsg(MsgConst.ON_SELECTOR_INSTRUMENT_CANCLE_WHILE_DOTWEEN_COMPLETE, OnSelectorItemCancle);
     }
 
 
@@ -61,6 +61,6 @@ public class StoreItemContainer : SingletonMono<StoreItemContainer>
     private void OnDestroy()
     {
         MsgCenter.UnregisterMsg(MsgConst.ON_STORE_ITEM_SELECT, OnStoreItemSelect);
-        MsgCenter.UnregisterMsg(MsgConst.ON_SELECTOR_INSTRUMENT_CANCLE, OnSelectorItemCancle);
+        MsgCenter.UnregisterMsg(MsgConst.ON_SELECTOR_INSTRUMENT_CANCLE_WHILE_DOTWEEN_COMPLETE, OnSelectorItemCancle);
     }
 }

@@ -19,11 +19,33 @@ public class StoreContainerItem : MonoBehaviour, IPointerClickHandler
     TweenContainer tweenContainer = new TweenContainer();
     public string clipName;
     private bool isBought = false;// 商品是否被选中
+
+    // 缓存原始颜色以便恢复
+    private Color originalImageColor;
+
     private void Awake()
     {
         originalScale = transform.localScale;
+        if (StoreItemImg != null)
+            originalImageColor = StoreItemImg.color;
+        else
+            originalImageColor = Color.white;
     }
 
+    private void Start()
+    {
+        MsgCenter.RegisterMsg(MsgConst.ON_SELECTOR_INSTRUMENT_CANCLE_IMMEDIATE, ResumeColor);
+    }
+
+    private void ResumeColor(object[] objs)
+    {
+        long tempStoreItemId = (long)objs[0];
+        if(tempStoreItemId == storeItemId)
+        {
+            if (StoreItemImg != null)
+                StoreItemImg.color = originalImageColor;
+        }
+    }
     public long StoreItemId
     {
         get => storeItemId;
@@ -45,6 +67,7 @@ public class StoreContainerItem : MonoBehaviour, IPointerClickHandler
             // 一点位移抖动反馈
             // 如果这是UI（RectTransform），DOShakePosition 也可作用在 transform 上
             tweenContainer.RegDoTween(transform.DOShakePosition(0.12f, 20f, 10, 90f, false));
+            // 立即将商品图片置为灰色
         }
         else
         {
@@ -71,7 +94,6 @@ public class StoreContainerItem : MonoBehaviour, IPointerClickHandler
             MsgCenter.SendMsg(MsgConst.ON_STORE_ITEM_SELECT, selectedSprite, storeItemId);
         }
 
-
     }
 
     private void OnDisable()
@@ -83,7 +105,6 @@ public class StoreContainerItem : MonoBehaviour, IPointerClickHandler
             transform.localScale = originalScale;
         }
     }
-
     private bool isCanBuy()
     {
         InstrumentStoreRefObj instrumentStoreRefObj = SCRefDataMgr.Instance.instrumentStoreRefList.refDataList
@@ -99,7 +120,8 @@ public class StoreContainerItem : MonoBehaviour, IPointerClickHandler
 
         // 如果已经包含了该乐器 则不能购买
         temp &= !StoreItemContainer.instance.storeItemList[storeItemId];
-
+        // 且现在乐器列表不能满
+        temp &= PlayerMgr.Instance.instrumentIdList.Count < 3;
         if (temp)
         {
             // 如果买得起直接加入玩家乐器列表 并且扣除对应音符数量
@@ -108,11 +130,17 @@ public class StoreContainerItem : MonoBehaviour, IPointerClickHandler
             PlayerMgr.Instance.RemoveNoteNum(NoteType.HightNote, highNoteCost);
             PlayerMgr.Instance.RemoveNoteNum(NoteType.MiddleNote, middleCost);
             MsgCenter.SendMsgAct(MsgConst.ON_NOTE_COUNT_CHANGE);
+            if (StoreItemImg != null)
+            {
+                var col = StoreItemImg.color;
+                StoreItemImg.color = new Color(0.5f, 0.5f, 0.5f, col.a);
+            }
         }
         return temp;
     }
     private void OnDestroy()
     {
+        MsgCenter.UnregisterMsg(MsgConst.ON_SELECTOR_INSTRUMENT_CANCLE_IMMEDIATE, ResumeColor);
         tweenContainer.KillAllDoTween();
     }
 }
