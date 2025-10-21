@@ -141,6 +141,11 @@ public class LevelItem : UIPanelBase,
                 imgContent.sprite = selectSprite;
             }));
         }
+        else
+        {
+            AudioMgr.Instance.PlaySfx("专辑");
+            imgContent.sprite = selectSprite;
+        }
 
         
         _tweenContainer.RegDoTween(transform.DOScale(Vector3.one * hasSelectScale, hasSelectScaleDuration));
@@ -190,7 +195,7 @@ public class LevelItem : UIPanelBase,
             _hasSelected = false;
             imgContent.sprite = unselectSprite;
             fadeGO.SetActive(false);
-            gameObject.GetComponent<Canvas>().sortingOrder = 1;
+            gameObject.GetComponent<Canvas>().sortingOrder = 2;
             transform.GetComponent<Image>().raycastTarget = true;
         }));
 
