@@ -15,12 +15,24 @@ public class StoreContainerItem : MonoBehaviour, IPointerClickHandler
     [SerializeField] private Sprite selectedSprite;
     private Vector3 originalScale;
     private Sequence clickSequence;
-    [SerializeField] private long stroeItemId;// 商店商品Id
+    [SerializeField] private long storeItemId;// 商店商品Id
     TweenContainer tweenContainer = new TweenContainer();
     public string clipName;
+    private bool isBought = false;// 商品是否被选中
     private void Awake()
     {
         originalScale = transform.localScale;
+    }
+
+    public long StoreItemId
+    {
+        get => storeItemId;
+        set => storeItemId = value;
+    }
+    public bool IsSelected
+    {
+        get => isBought;
+        set => isBought = value;
     }
 
     public void OnPointerClick(PointerEventData eventData)
@@ -28,10 +40,8 @@ public class StoreContainerItem : MonoBehaviour, IPointerClickHandler
 
         if (!isCanBuy())
         {
-            // 购买失败时震动（移动设备）并做短暂位置抖动作为视觉反馈（编辑器也能看到）
-#if UNITY_ANDROID || UNITY_IOS
-            Handheld.Vibrate();
-#endif
+            // 购买失败时震动并做短暂位置抖动作为视觉反馈
+
             // 一点位移抖动反馈
             // 如果这是UI（RectTransform），DOShakePosition 也可作用在 transform 上
             tweenContainer.RegDoTween(transform.DOShakePosition(0.12f, 20f, 10, 90f, false));
@@ -57,7 +67,8 @@ public class StoreContainerItem : MonoBehaviour, IPointerClickHandler
                 transform.localScale = originalScale;
                 clickSequence = null;
             });
-            MsgCenter.SendMsg(MsgConst.ON_STORE_ITEM_SELECT, selectedSprite);
+
+            MsgCenter.SendMsg(MsgConst.ON_STORE_ITEM_SELECT, selectedSprite, storeItemId);
         }
 
 
@@ -76,7 +87,7 @@ public class StoreContainerItem : MonoBehaviour, IPointerClickHandler
     private bool isCanBuy()
     {
         InstrumentStoreRefObj instrumentStoreRefObj = SCRefDataMgr.Instance.instrumentStoreRefList.refDataList
-.Find(x => x.id == stroeItemId);
+.Find(x => x.id == storeItemId);
 
         int highNoteCost = instrumentStoreRefObj.hightNoteNum;
         int middleCost = instrumentStoreRefObj.middleNoteNum;
@@ -86,7 +97,8 @@ public class StoreContainerItem : MonoBehaviour, IPointerClickHandler
                PlayerMgr.Instance.GetNoteNum(NoteType.MiddleNote) >= middleCost &&
                PlayerMgr.Instance.GetNoteNum(NoteType.LowNote) >= lowCost);
 
-        temp &= !PlayerMgr.Instance.instrumentIdList.Contains(instrumentStoreRefObj.instrumentId);
+        // 如果已经包含了该乐器 则不能购买
+        temp &= !StoreItemContainer.instance.storeItemList[storeItemId];
 
         if (temp)
         {
@@ -97,7 +109,6 @@ public class StoreContainerItem : MonoBehaviour, IPointerClickHandler
             PlayerMgr.Instance.RemoveNoteNum(NoteType.MiddleNote, middleCost);
             MsgCenter.SendMsgAct(MsgConst.ON_NOTE_COUNT_CHANGE);
         }
-
         return temp;
     }
     private void OnDestroy()

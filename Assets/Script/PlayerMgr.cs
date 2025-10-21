@@ -17,6 +17,7 @@ public class PlayerMgr : SingletonPersistent<PlayerMgr>
         // 初始化
         Init();
     }
+
     
     public void SetAllNoteNum2Nine()
     {
@@ -25,6 +26,15 @@ public class PlayerMgr : SingletonPersistent<PlayerMgr>
         noteDic[NoteType.HightNote] = 9;
         MsgCenter.SendMsgAct(MsgConst.ON_NOTE_COUNT_CHANGE);
         NoteMgr.instance.isEnd = true;
+    }
+
+    // 添加对应种类音符数量的方法
+    public void AddHMLNoteNum(int numH, int numM, int numL)
+    {
+        noteDic[NoteType.LowNote] += numL;
+        noteDic[NoteType.MiddleNote] += numM;
+        noteDic[NoteType.HightNote] += numH;
+        MsgCenter.SendMsgAct(MsgConst.ON_NOTE_COUNT_CHANGE);
     }
 
     // 对外公开资源增减的方法

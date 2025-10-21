@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class SelectorContainerItem : MonoBehaviour
+public class SelectorContainerItem : MonoBehaviour, IPointerClickHandler
 {
     [Header("DOTween 弹出缩放设置")]
     [SerializeField] private float initialScaleFactor = 0.6f;   // 初始缩放（从多小开始）
@@ -19,7 +19,12 @@ public class SelectorContainerItem : MonoBehaviour
     private Vector3 originalScale;
     private Sequence popSequence;
     private Sequence disappearSequence;
-
+    private long storeItemId;// 商店商品Id
+    public long StoreItemId
+    {
+        get => storeItemId;
+        set => storeItemId = value;
+    }
     public void SetDefault()
     {
         preSelectorImage.sprite = DefaultSprite;
@@ -107,7 +112,7 @@ public class SelectorContainerItem : MonoBehaviour
         }
     }
 
-    public void SetItemInfo(Sprite _sprite, int index)
+    public void SetItemInfo(Sprite _sprite, long _storeItemId)
     {
         preSelectorImage.sprite = _sprite;
         if (preSelectorImage != null)
@@ -115,6 +120,65 @@ public class SelectorContainerItem : MonoBehaviour
             var c = preSelectorImage.color;
             preSelectorImage.enabled = true;
         }
+        // 用于回调告诉回传了什么商品Id
+        storeItemId = _storeItemId;
     }
 
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        // 停掉已有动画
+        if (popSequence != null && popSequence.IsActive())
+        {
+            popSequence.Kill();
+            popSequence = null;
+        }
+        if (disappearSequence != null && disappearSequence.IsActive())
+        {
+            disappearSequence.Kill();
+            disappearSequence = null;
+        }
+
+        // 确保图片可见并重置 alpha
+        if (preSelectorImage != null)
+        {
+            preSelectorImage.DOKill();
+            preSelectorImage.enabled = true;
+            var col = preSelectorImage.color;
+            preSelectorImage.color = new Color(col.r, col.g, col.b, 1f);
+        }
+        float growDuration = Mathf.Max(0.05f, totalDuration * 0.6f);
+        float shrinkDuration = Mathf.Max(0.05f, totalDuration * 0.6f);
+
+        popSequence = DOTween.Sequence();
+        // 缓慢变大（平滑出力）
+        popSequence.Append(transform.DOScale(originalScale * overshootScaleFactor, growDuration).SetEase(Ease.OutCubic));
+        // 缓慢变小（平滑收力）
+        popSequence.Append(transform.DOScale(originalScale * initialScaleFactor, shrinkDuration).SetEase(Ease.InCubic));
+
+        // 图片在整个过程中平滑淡出（根据需要可改为只在缩小时淡出）
+        if (preSelectorImage != null)
+        {
+            preSelectorImage.DOKill();
+            preSelectorImage.enabled = true;
+            var col = preSelectorImage.color;
+            preSelectorImage.color = new Color(col.r, col.g, col.b, 1f);
+
+            popSequence.Join(preSelectorImage.DOFade(0f, growDuration + shrinkDuration).SetEase(Ease.InOutQuad));
+        }
+
+        popSequence.OnComplete(() =>
+        {
+            MsgCenter.SendMsg(MsgConst.ON_SELECTOR_INSTRUMENT_CANCLE, storeItemId);
+            // 动画结束后禁用图片并恢复 alpha，避免下次复用时出现问题
+            if (preSelectorImage != null)
+            {
+                var c = preSelectorImage.color;
+                preSelectorImage.color = new Color(c.r, c.g, c.b, 1f);
+                gameObject.SetActive(false);
+            }
+            // 恢复缩放以防下次显示继承缩小状态
+            transform.localScale = originalScale;
+            popSequence = null;
+        });
+    }
 }

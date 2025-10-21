@@ -1,0 +1,66 @@
+using GJFramework;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class StoreItemContainer : SingletonMono<StoreItemContainer>
+{
+    // 由于字典不能序列化，这里用列表初始化商品购买状态
+    [SerializeField] private List<StoreContainerItem> initStoreItemContainer;
+    // 商品id -> 是否购买
+    public Dictionary<long, bool> storeItemList;
+    // Start is called before the first frame update
+
+    private void Start()
+    {
+        Init();
+        MsgCenter.RegisterMsg(MsgConst.ON_STORE_ITEM_SELECT, OnStoreItemSelect);
+        MsgCenter.RegisterMsg(MsgConst.ON_SELECTOR_INSTRUMENT_CANCLE, OnSelectorItemCancle);
+    }
+
+
+    // 维护商品购买状态
+    public void SetStoreItemState(long storeId, bool isBuy)
+    {
+        if(storeItemList == null)
+            storeItemList = new Dictionary<long, bool>();
+
+        storeItemList[storeId] = isBuy;
+    }
+
+    public void Init()
+    {
+        storeItemList = new Dictionary<long, bool>();
+        foreach (var item in initStoreItemContainer)
+        {
+            storeItemList[item.StoreItemId] = false;
+        }
+    }
+    public void OnStoreItemSelect(object[] _objs)
+    {
+        if (_objs.Length <= 0 || _objs == null)
+        {
+            Debug.Log("error");
+            return;
+        }
+        long storeItemId = (long)_objs[1];
+        SetStoreItemState(storeItemId, true);
+    }
+
+    public void OnSelectorItemCancle(object[] _objs)
+    {
+        if (_objs.Length <= 0 || _objs == null)
+        {
+            Debug.Log("error");
+            return;
+        }
+        long storeItemId = (long)_objs[0];
+        SetStoreItemState(storeItemId, false);
+    }
+
+    private void OnDestroy()
+    {
+        MsgCenter.UnregisterMsg(MsgConst.ON_STORE_ITEM_SELECT, OnStoreItemSelect);
+        MsgCenter.UnregisterMsg(MsgConst.ON_SELECTOR_INSTRUMENT_CANCLE, OnSelectorItemCancle);
+    }
+}

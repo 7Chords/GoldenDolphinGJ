@@ -27,6 +27,9 @@ namespace GJFramework
 
         public const int ON_STORE_ITEM_SELECT = 1015; // 选中商品
         public const int ON_STORE_OPEN = 1016; // 商店界面打开
+
+
+        public const int ON_SELECTOR_INSTRUMENT_CANCLE = 2001; // 回退乐器选择
     }
 
     public class ConstVar
