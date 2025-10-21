@@ -12,7 +12,10 @@ using UnityEngine.UI;
 public class InstrumentItem : UIPanelBase, 
     IPointerEnterHandler, 
     IPointerExitHandler,
-    IDamagable
+    IDamagable,
+    IBeginDragHandler,
+    IDragHandler,
+    IEndDragHandler
 {
 
     #region Mono
@@ -82,8 +85,8 @@ public class InstrumentItem : UIPanelBase,
     public InstrumentInfo instrumentInfo => _instrumentInfo;
 
     private TweenContainer _tweenContainer;
-    private int _maxHealth;
 
+    private int _maxHealth;
     private int _extraAttack;
 
     private bool _hasInited;
@@ -91,6 +94,13 @@ public class InstrumentItem : UIPanelBase,
     private bool _hasDead;
     private bool _isPlaying;
     private bool _isScaling;
+
+    private Vector3 _originalPosition;
+    private Transform _originalParent;
+    private CanvasGroup _dragCanvasGroup;
+    private bool _isDragging = false;
+    private Canvas _parentCanvas;
+    private Vector2 _dragOffset;
     protected override void OnShow()
     {
 
@@ -310,5 +320,26 @@ public class InstrumentItem : UIPanelBase,
             _hasActioned = false;
             imgDeadMask.gameObject.SetActive(false);
         }
+    }
+
+    public void OnBeginDrag(PointerEventData eventData)
+    {
+        if (_hasDead || _hasActioned || BattleMgr.instance.isPlaying)
+            return;
+        Debug.Log("BeginDrag");
+        _isDragging = true;
+    }
+
+    public void OnDrag(PointerEventData eventData)
+    {
+        if (!_isDragging)
+            return;
+    }
+
+    public void OnEndDrag(PointerEventData eventData)
+    {
+        if (!_isDragging)
+            return;
+        _isDragging = false;
     }
 }
