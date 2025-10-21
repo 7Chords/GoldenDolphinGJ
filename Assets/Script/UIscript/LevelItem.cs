@@ -59,6 +59,12 @@ public class LevelItem : UIPanelBase,
     [Header("专辑图片")]
     public Image imgContent;
 
+    [Header("播放展开动画时专辑的位置")]
+    public Transform transformPlayShow;
+    [Header("专辑移动速度")]
+    public float moveSpeed;
+
+
     private BattleLevelRefObj _battleLevelRefObj;
     private TweenContainer _tweenContainer;
 
@@ -105,7 +111,9 @@ public class LevelItem : UIPanelBase,
         if (_hasSelected)
             return;
         _hasSelected = true;
-        AudioMgr.Instance.PlaySfx("专辑");
+        gameObject.GetComponent<Canvas>().sortingOrder = 3;
+
+
         for (int i = 0; i < fadeCanvasGroup.Count; i++)
         {
             fadeCanvasGroup[i].alpha = 0;
@@ -117,12 +125,32 @@ public class LevelItem : UIPanelBase,
         btnReturn.enabled = false;
         btnStart.enabled = false;
         btnStart.GetComponent<GoToCollectPage>().enabled = false;
+        transform.GetComponent<Image>().raycastTarget = false;
 
-        imgContent.sprite = selectSprite;
+
+        float dist = transformPlayShow.position.x - transform.position.x;
+        float moveDuration = dist / moveSpeed;
+        float targetPosX = transform.parent.position.x + dist;
+
+        Sequence seq = DOTween.Sequence();
+        if (Mathf.Abs(moveDuration) > 0.01f)
+        {
+            seq.Append(transform.parent.DOMoveX(targetPosX, Mathf.Abs(moveDuration)).OnComplete(() =>
+            {
+                AudioMgr.Instance.PlaySfx("专辑");
+                imgContent.sprite = selectSprite;
+            }));
+        }
+        else
+        {
+            AudioMgr.Instance.PlaySfx("专辑");
+            imgContent.sprite = selectSprite;
+        }
+
+        
         _tweenContainer.RegDoTween(transform.DOScale(Vector3.one * hasSelectScale, hasSelectScaleDuration));
         _tweenContainer.RegDoTween(imgBlackBg.DOFade(1, selectBlackFadeDuration));
 
-        Sequence seq = DOTween.Sequence();
         seq.Append(fadeMaterial.DOFloat(1f, "_RevealAmount", materialFadeDuration));
 
         for(int i =0;i< fadeCanvasGroup.Count;i++)
@@ -166,7 +194,9 @@ public class LevelItem : UIPanelBase,
         {
             _hasSelected = false;
             imgContent.sprite = unselectSprite;
-            fadeGO.SetActive(fadeGO);
+            fadeGO.SetActive(false);
+            gameObject.GetComponent<Canvas>().sortingOrder = 2;
+            transform.GetComponent<Image>().raycastTarget = true;
         }));
 
         _tweenContainer.RegDoTween(seq);
