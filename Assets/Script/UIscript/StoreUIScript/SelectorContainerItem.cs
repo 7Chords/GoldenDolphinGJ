@@ -126,6 +126,7 @@ public class SelectorContainerItem : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
+        MsgCenter.SendMsg(MsgConst.ON_SELECTOR_INSTRUMENT_CANCLE_IMMEDIATE, storeItemId);
         // 停掉已有动画
         if (popSequence != null && popSequence.IsActive())
         {
@@ -140,7 +141,7 @@ public class SelectorContainerItem : MonoBehaviour, IPointerClickHandler
 
         // 确保图片可见并重置 alpha
         if (preSelectorImage != null)
-        {
+        {   
             preSelectorImage.DOKill();
             preSelectorImage.enabled = true;
             var col = preSelectorImage.color;
@@ -168,7 +169,7 @@ public class SelectorContainerItem : MonoBehaviour, IPointerClickHandler
 
         popSequence.OnComplete(() =>
         {
-            MsgCenter.SendMsg(MsgConst.ON_SELECTOR_INSTRUMENT_CANCLE, storeItemId);
+            MsgCenter.SendMsg(MsgConst.ON_SELECTOR_INSTRUMENT_CANCLE_WHILE_DOTWEEN_COMPLETE, storeItemId);
             // 动画结束后禁用图片并恢复 alpha，避免下次复用时出现问题
             if (preSelectorImage != null)
             {
