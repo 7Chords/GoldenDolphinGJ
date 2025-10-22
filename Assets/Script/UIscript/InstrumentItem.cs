@@ -76,8 +76,6 @@ public class InstrumentItem : UIPanelBase,
     [Header("画布组件")]
     public CanvasGroup canvasGroup;
 
-    [Header("攻击指示线预制体")]
-    public GameObject attackLinePrefab;
 
     #endregion
 
@@ -221,6 +219,7 @@ public class InstrumentItem : UIPanelBase,
         RefreshShow();
         Sequence seq = DOTween.Sequence();
         seq.Append(transform.DOShakePosition(hurtShakeDuration, hurtShakeStrength, fadeOut: true));
+
         seq.Join(instrumentIcon.DOColor(hurtColor, hurtColorFadeDuration / 2));
         seq.Append(instrumentIcon.DOColor(Color.white, hurtColorFadeDuration / 2));
         _tweenContainer.RegDoTween(seq);
@@ -333,7 +332,6 @@ public class InstrumentItem : UIPanelBase,
             return;
         Debug.Log("BeginDrag");
         _isDragging = true;
-        _isDragging = true;
 
         // 创建拖拽克隆体
         CreateDragClone();
@@ -341,7 +339,7 @@ public class InstrumentItem : UIPanelBase,
         // 隐藏原物体的交互（使其"看不见"但保持位置）
         if (_originalCanvasGroup != null)
         {
-            _originalCanvasGroup.alpha = 0.3f; // 半透明显示原物体
+            _originalCanvasGroup.alpha = 0f;
             _originalCanvasGroup.blocksRaycasts = false;
         }
 
@@ -407,6 +405,10 @@ public class InstrumentItem : UIPanelBase,
 
         // 创建克隆体
         _dragClone = Instantiate(gameObject, _parentCanvas.transform);
+        _dragClone.GetComponent<RectTransform>().sizeDelta = new Vector2
+            (gameObject.GetComponent<RectTransform>().rect.width,
+            gameObject.GetComponent<RectTransform>().rect.height);
+
 
         // 移除克隆体上不需要的组件
         var cloneInstrumentItem = _dragClone.GetComponent<InstrumentItem>();
@@ -453,7 +455,7 @@ public class InstrumentItem : UIPanelBase,
             _parentCanvas.worldCamera,
             out localPointerPosition))
         {
-            _dragClone.transform.localPosition = localPointerPosition - _dragOffset;
+            _dragClone.transform.localPosition = localPointerPosition;
         }
     }
 
@@ -480,8 +482,18 @@ public class InstrumentItem : UIPanelBase,
         List<RaycastResult> results = new List<RaycastResult>();
         EventSystem.current.RaycastAll(eventData, results);
 
+        GameObject go = results.Find(x => x.gameObject.GetComponent<InstrumentItem>() != null).gameObject;
+
+        if(go != null)
+        {
+            Debug.Log(go.name);
+            //go.GetComponent<InstrumentItem>();
+        }
+
         foreach (var result in results)
         {
+
+
             // 检查是否放置在有效的目标上
             // 例如：if (result.gameObject.GetComponent<DropArea>() != null) return true;
         }

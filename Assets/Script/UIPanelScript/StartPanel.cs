@@ -6,6 +6,8 @@ using UnityEngine.Video;
 public class StartPanel : UIPanelBase
 {
     public Button btnGo;
+    public Button btnExitGame;
+    public Button btnSetting;
 
     private VideoPlayer _videoPlayer;
     protected override void OnShow()
@@ -21,11 +23,24 @@ public class StartPanel : UIPanelBase
 
             _videoPlayer.loopPointReached += EndWithVideoPlay;
         });
+        btnExitGame.onClick.AddListener(() =>
+        {
 
+        });
+        btnSetting.onClick.AddListener(() =>
+        {
 
-        //SceneLoader.Instance.AddNextScenePanel(EPanelType.LevelSelectPanel);
-        //TransitionMgr.Instance.StarTransition("LevelSelectScene", "FadeInAndOutTransition");
+        });
     }
+    protected override void OnHide(Action onHideFinished)
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          {
+        btnGo.onClick.RemoveAllListeners();
+        btnExitGame.onClick.RemoveAllListeners();
+        btnSetting.onClick.RemoveAllListeners();
+
+        onHideFinished?.Invoke();
+    }
+
 
     public void EndWithVideoPlay(VideoPlayer source)
     {
@@ -33,11 +48,5 @@ public class StartPanel : UIPanelBase
 
         SceneLoader.Instance.AddNextScenePanel(EPanelType.LevelSelectPanel);
         TransitionMgr.Instance.StarTransition("LevelSelectScene", "FadeInAndOutTransition");
-    }
-    protected override void OnHide(Action onHideFinished)
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          {
-        btnGo.onClick.RemoveAllListeners();
-
-        onHideFinished?.Invoke();
     }
 }
