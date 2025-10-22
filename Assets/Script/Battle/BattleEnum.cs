@@ -39,3 +39,11 @@ public enum EBattleDecorationType
     MiddleFreq,
     LowFreq,
 }
+
+public enum EInstrumentRoleTypeList
+{
+    Support, // 辅助
+    Healer,  // 治疗
+    Buffer,  // 增益
+    DamageDealer // 输出
+}

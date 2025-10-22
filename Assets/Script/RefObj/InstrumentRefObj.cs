@@ -33,6 +33,7 @@ public class InstrumentRefObj : SCRefDataCore
     public bool hasTogetherSkill;
     public int canUseSkillPoint;
     public List<long> canTogetherIdList;
+    public List<EInstrumentRoleTypeList> instrumentRoleTypeList;
     protected override void _parseFromString()
     {
         id = getLong("id");
@@ -58,6 +59,7 @@ public class InstrumentRefObj : SCRefDataCore
         hasTogetherSkill = getBool("hasTogetherSkill");
         canUseSkillPoint = getInt("canUseSkillPoint");
         canTogetherIdList = getList<long>("canTogetherIdList");
+        instrumentRoleTypeList = getList<EInstrumentRoleTypeList>("instrumentRoleTypeList");
     }
 
     public static string assetPath => "RefData/ExportTxt";
