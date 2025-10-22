@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using System.Collections.Generic;
 using GJFramework;
 
-public class StoreContainerItem : MonoBehaviour, IPointerClickHandler
+public class StoreContainerItem : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 {
     [Header("DOTween 点击缩放设置")]
     [SerializeField] private float clickScale = 1.15f;    // 放大目标比例
@@ -142,6 +142,16 @@ public class StoreContainerItem : MonoBehaviour, IPointerClickHandler
             MsgCenter.SendMsg(MsgConst.ON_STORE_ITEM_SELECT, selectedSprite, storeItemId);
         }
 
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        
     }
 
     private void OnDisable()
