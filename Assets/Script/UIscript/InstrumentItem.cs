@@ -92,7 +92,6 @@ public class InstrumentItem : UIPanelBase,
     private bool _hasInited;
     private bool _hasActioned;
     private bool _hasDead;
-    private bool _isPlaying;
     private bool _isScaling;
 
 
@@ -374,32 +373,16 @@ public class InstrumentItem : UIPanelBase,
 
         _isDragging = false;
 
-        // 恢复原物体的显示和交互
-        if (_originalCanvasGroup != null)
-        {
-            _originalCanvasGroup.alpha = 1f;
-            _originalCanvasGroup.blocksRaycasts = true;
-        }
-
         // 检查是否放置在有效区域
-        bool isValidDrop = CheckValidDrop(eventData);
+        InstrumentItem item = CheckIsValidInstrument(eventData);
 
-        if (isValidDrop)
-        {
-            // 处理成功的放置
-            OnSuccessfulDrop(eventData);
-        }
+        if (item != null)
+            OnSuccessfulUseTogetherSkill(item);
         else
-        {
-            // 放置无效，可以播放回退动画等
-            OnInvalidDrop(eventData);
-        }
+            OnInvalidDrop();
 
-        // 清理拖拽克隆体
-        CleanupDragClone();
-
-        //恢复射线交互
-        instrumentBack.raycastTarget = true;
+        ////恢复射线交互
+        //instrumentBack.raycastTarget = true;
 
         // 强制刷新布局（确保原物体位置正确）
         LayoutRebuilder.ForceRebuildLayoutImmediate(transform.parent.GetComponent<RectTransform>());
@@ -483,45 +466,84 @@ public class InstrumentItem : UIPanelBase,
     /// <summary>
     /// 检查是否放置在有效区域
     /// </summary>
-    private bool CheckValidDrop(PointerEventData eventData)
+    private InstrumentItem CheckIsValidInstrument(PointerEventData eventData)
     {
         List<RaycastResult> results = new List<RaycastResult>();
         EventSystem.current.RaycastAll(eventData, results);
 
         GameObject go = results.Find(x => x.gameObject.GetComponent<InstrumentItem>() != null).gameObject;
-
-        if (go != null)
+        if (go == null)
+            return null;
+        InstrumentItem item = go.GetComponent<InstrumentItem>();
+        if (item != null)
         {
-            Debug.Log(go.name);
-            return true;
+            //if (canUseTogetherSkill(item.instrumentInfo.refObj.id) && item.canUseTogetherSkill(_instrumentInfo.refObj.id))
+            //    return true;
+            //return false;
+
+            //todo:test
+            return item;
         }
-        return false;
+        return null;
     }
 
     /// <summary>
     /// 成功放置时的处理
     /// </summary>
-    private void OnSuccessfulDrop(PointerEventData eventData)
+    private void OnSuccessfulUseTogetherSkill(InstrumentItem item)
     {
 
-        // 这里可以处理成功放置后的逻辑
-        // 例如：更新数据、播放音效、移动原物体到新位置等
+        EnterTogetherSkill();
+        item.EnterTogetherSkill();
 
-        // 发送消息通知拖拽结束和放置成功
-        //MsgCenter.SendMsgAct(MsgConst.ON_INSTRUMENT_DRAG_END, this);
 
-        // 可以在这里添加放置成功的视觉效果
+        Sequence seq = DOTween.Sequence();
+        seq.Append(_dragClone.GetComponent<CanvasGroup>().DOFade(0, 0.25f).OnComplete(()=> 
+        {
+            CleanupDragClone();
+        }));
+        seq.Join(_originalCanvasGroup.DOFade(1, 0.25f));
+
+        seq.Append(transform.DORotate(new Vector3(0, 360, 0), 0.5f, RotateMode.FastBeyond360)
+            .SetEase(Ease.InOutQuad));
+
+        seq.Join(item.transform.DORotate(new Vector3(0, 360, 0), 0.5f, RotateMode.FastBeyond360)
+            .SetEase(Ease.InOutQuad));
+
         Debug.Log("放置成功！");
     }
 
     /// <summary>
     /// 无效放置时的处理
     /// </summary>
-    private void OnInvalidDrop(PointerEventData eventData)
+    private void OnInvalidDrop()
     {
-        // 这里可以处理无效放置的逻辑
-        // 例如：播放回退动画、显示提示等
+        CleanupDragClone();
+        // 恢复原物体的显示和交互
+        if (_originalCanvasGroup != null)
+        {
+            _originalCanvasGroup.alpha = 1f;
+            _originalCanvasGroup.blocksRaycasts = true;
+        }
+    }
 
-        Debug.Log("放置无效，回到原位置");
+    public bool canUseTogetherSkill(long anotherId)
+    {
+        return _instrumentInfo.refObj.hasTogetherSkill
+            && _instrumentInfo.skillPoint == _maxSkillPoint
+            && _instrumentInfo.refObj.canTogetherIdList.Contains(anotherId);
+    }
+
+
+    public void EnterTogetherSkill()
+    {
+        _hasActioned = true;
+        instrumentBack.raycastTarget = false;
+        _originalCanvasGroup.blocksRaycasts = false;
+    }
+
+    public void ExitTogetherSkill()
+    {
+
     }
 }
