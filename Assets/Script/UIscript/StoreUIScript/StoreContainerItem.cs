@@ -95,10 +95,10 @@ public class StoreContainerItem : MonoBehaviour, IPointerClickHandler
                 StoreItemImg.color = new Color(0.5f, 0.5f, 0.5f, col.a);
             }
             // 如果这个商品是 selector-> 商店的
-            else 
+            else
             {
                 // 考虑是否还在列表里 不在列表里才恢复颜色 否则保持灰色
-                if (!StoreItemContainer.instance.storeItemList[storeItemId])
+                if (curSelectStoreItem == -1 || !StoreItemContainer.instance.storeItemList[storeItemId])
                     StoreItemImg.color = originalImageColor;
             }
         }
