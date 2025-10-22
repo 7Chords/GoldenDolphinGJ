@@ -22,6 +22,7 @@ namespace GJFramework
         ColloctFinishPanel,
         BattleLosePanel,
         StartPanel,
+        SettingPanel,
         // 其他面板类型
     }
 
