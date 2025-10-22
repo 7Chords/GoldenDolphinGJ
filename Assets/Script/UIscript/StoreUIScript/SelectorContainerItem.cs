@@ -126,6 +126,10 @@ public class SelectorContainerItem : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
+        if (preSelectorImage.raycastTarget == false) return;
+
+        preSelectorImage.raycastTarget = false;
+
         MsgCenter.SendMsg(MsgConst.ON_SELECTOR_INSTRUMENT_CANCLE_IMMEDIATE, storeItemId);
         // 停掉已有动画
         if (popSequence != null && popSequence.IsActive())
@@ -180,6 +184,7 @@ public class SelectorContainerItem : MonoBehaviour, IPointerClickHandler
             // 恢复缩放以防下次显示继承缩小状态
             transform.localScale = originalScale;
             popSequence = null;
+            preSelectorImage.raycastTarget = true;
         });
     }
 }
