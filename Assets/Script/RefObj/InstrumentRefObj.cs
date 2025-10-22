@@ -1,5 +1,5 @@
 using GJFramework;
-
+using System.Collections.Generic;
 public class InstrumentRefObj : SCRefDataCore
 {
     public InstrumentRefObj()
@@ -30,6 +30,9 @@ public class InstrumentRefObj : SCRefDataCore
     public string instrumentAttackSoundPath;
     public string instrumentHurtSoundPath;
     public long unlockLevelId;
+    public bool hasTogetherSkill;
+    public int canUseSkillPoint;
+    public List<long> canTogetherIdList;
     protected override void _parseFromString()
     {
         id = getLong("id");
@@ -52,7 +55,9 @@ public class InstrumentRefObj : SCRefDataCore
         instrumentAttackSoundPath = getString("instrumentAttackSoundPath");
         instrumentHurtSoundPath = getString("instrumentHurtSoundPath");
         unlockLevelId = getLong("unlockLevelId");
-
+        hasTogetherSkill = getBool("hasTogetherSkill");
+        canUseSkillPoint = getInt("canUseSkillPoint");
+        canTogetherIdList = getList<long>("canTogetherIdList");
     }
 
     public static string assetPath => "RefData/ExportTxt";

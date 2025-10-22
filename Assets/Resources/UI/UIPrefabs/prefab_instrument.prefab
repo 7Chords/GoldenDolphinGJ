@@ -1,12 +1,12 @@
 %YAML 1.1
-%TAG !u! tag:unity3d.com,2011:
+%TAG !u! tag:yousandi.cn,2023:
 --- !u!1 &876812057154255614
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
+  serializedVersion: 7
   m_Component:
   - component: {fileID: 819066539378801662}
   - component: {fileID: 6563127433908509366}
@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 864014791537433532}
   - component: {fileID: 115593997075392288}
   m_Layer: 5
+  m_HasEditorInfo: 1
   m_Name: prefab_instrument
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -125,7 +126,6 @@ MonoBehaviour:
   clickKeepDuration: 1
   clickSmallerDuration: 0.1
   canvasGroup: {fileID: 864014791537433532}
-  attackLinePrefab: {fileID: 8674712942255598340, guid: 946668219c5d3274d94e87e3642b5bf8, type: 3}
 --- !u!225 &864014791537433532
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -188,12 +188,13 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
+  serializedVersion: 7
   m_Component:
   - component: {fileID: 7506056475969300633}
   - component: {fileID: 4933380947232789260}
   - component: {fileID: 7754452151739702191}
   m_Layer: 5
+  m_HasEditorInfo: 1
   m_Name: img_health_holder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -264,12 +265,13 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
+  serializedVersion: 7
   m_Component:
   - component: {fileID: 8378021705426829045}
   - component: {fileID: 6519046362090364088}
   - component: {fileID: 3392691917055794579}
   m_Layer: 5
+  m_HasEditorInfo: 1
   m_Name: img_bottom
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -345,13 +347,14 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
+  serializedVersion: 7
   m_Component:
   - component: {fileID: 4933340149453898363}
   - component: {fileID: 1148593145243478752}
   - component: {fileID: 4349719133663240171}
   - component: {fileID: 2360716460519289942}
   m_Layer: 5
+  m_HasEditorInfo: 1
   m_Name: img_cha
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -444,12 +447,13 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
+  serializedVersion: 7
   m_Component:
   - component: {fileID: 7030774277958584037}
   - component: {fileID: 9016168434017021174}
   - component: {fileID: 4274562442579294597}
   m_Layer: 5
+  m_HasEditorInfo: 1
   m_Name: txt_attack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -523,12 +527,13 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
+  serializedVersion: 7
   m_Component:
   - component: {fileID: 4099787823325263539}
   - component: {fileID: 4041613429467549333}
   - component: {fileID: 4382463359131089331}
   m_Layer: 5
+  m_HasEditorInfo: 1
   m_Name: img_mask
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -598,12 +603,13 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
+  serializedVersion: 7
   m_Component:
   - component: {fileID: 4947044941583540513}
   - component: {fileID: 7385135560093998900}
   - component: {fileID: 1307164889875870470}
   m_Layer: 5
+  m_HasEditorInfo: 1
   m_Name: txt_healte_title
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -677,12 +683,13 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
+  serializedVersion: 7
   m_Component:
   - component: {fileID: 409718411285527342}
   - component: {fileID: 8322852286781076537}
   - component: {fileID: 1013648705458109383}
   m_Layer: 5
+  m_HasEditorInfo: 1
   m_Name: img_attack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -752,12 +759,13 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
+  serializedVersion: 7
   m_Component:
   - component: {fileID: 6890498255137803200}
   - component: {fileID: 7460199946389113787}
   - component: {fileID: 7884588462770427656}
   m_Layer: 5
+  m_HasEditorInfo: 1
   m_Name: txt_health
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -831,12 +839,13 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
+  serializedVersion: 7
   m_Component:
   - component: {fileID: 3937928103938801092}
   - component: {fileID: 4599215427762176727}
   - component: {fileID: 6756919982457111053}
   m_Layer: 5
+  m_HasEditorInfo: 1
   m_Name: img_name
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -906,12 +915,13 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
+  serializedVersion: 7
   m_Component:
   - component: {fileID: 3495202482304950257}
   - component: {fileID: 1309317447497655451}
   - component: {fileID: 3984253411842842193}
   m_Layer: 5
+  m_HasEditorInfo: 1
   m_Name: img_cha_bg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -981,13 +991,14 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
+  serializedVersion: 7
   m_Component:
   - component: {fileID: 8463453497816060410}
   - component: {fileID: 8583432896647387086}
   - component: {fileID: 4783284338302494900}
   - component: {fileID: 2209078819055906055}
   m_Layer: 5
+  m_HasEditorInfo: 1
   m_Name: img_health_bar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1070,12 +1081,13 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
+  serializedVersion: 7
   m_Component:
   - component: {fileID: 7320951362024218379}
   - component: {fileID: 4828116638387032379}
   - component: {fileID: 2409667772842683120}
   m_Layer: 5
+  m_HasEditorInfo: 1
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}

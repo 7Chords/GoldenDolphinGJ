@@ -11,10 +11,16 @@ public class BattleLevelRefObj : SCRefDataCore
     public string enemyName;
     public int enemyHealth;
     public int enemyAttack;
+    public int enemyBuff;
+    public int enemyHeal;
+
     public string enemyIconPath;
     public string enemyBgPath;
     public List<long> recommendinstrumentsIdList = new List<long>();// 推荐使用的乐器ID列表
     public string enemyBodyPath;
+    public List<EEnemyActionType> enemyActionTypeList;
+
+    public string bgmName;
     protected override void _parseFromString()
     {
         id = getLong("id");
@@ -23,10 +29,14 @@ public class BattleLevelRefObj : SCRefDataCore
         enemyName = getString("enemyName");
         enemyHealth = getInt("enemyHealth");
         enemyAttack = getInt("enemyAttack");
+        enemyBuff = getInt("enemyBuff");
+        enemyHeal = getInt("enemyHeal");
         enemyIconPath = getString("enemyIconPath");
         enemyBgPath = getString("enemyBgPath");
         recommendinstrumentsIdList = getList<long>("recommendinstrumentsIdList");
         enemyBodyPath = getString("enemyBodyPath");
+        enemyActionTypeList = getList<EEnemyActionType>("enemyActionTypeList");
+        bgmName = getString("bgmName");
     }
 
     public static string assetPath => "RefData/ExportTxt";
