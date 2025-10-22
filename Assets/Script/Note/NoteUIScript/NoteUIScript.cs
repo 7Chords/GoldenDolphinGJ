@@ -119,7 +119,6 @@ public class NoteUIScript : MonoBehaviour, IPointerClickHandler
                     break;
             }
 
-            NoteMgr.instance.ReduceRemainNoteNum();
             PlayerMgr.Instance.AddNoteNum(noteType);
             isPlayingAnimation = true;
             tweenContainer.PauseAllDoTween();

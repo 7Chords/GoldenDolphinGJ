@@ -17,11 +17,11 @@ public class NoteMgr : SingletonMono<NoteMgr>
     private RectTransform canvasRect; // Canvas的RectTransform组件
     private bool isCurrentPause = false;
     public bool isBack = false;
-    public bool IsCurrentPause { get { return isCurrentPause; } }
+    public bool IsCurrentPause { get { return isCurrentPause; } }// 获取当前是否暂停
     [SerializeField] private float totalTime;
     public float TotalTime { get { return totalTime; } }
 
-    private int remainNoteNum;// 剩余可获得音符的数量
+    //private int remainNoteNum;// 剩余可获得音符的数量
 
     public bool isEnd = false;
 
@@ -35,7 +35,7 @@ public class NoteMgr : SingletonMono<NoteMgr>
     void Start()
     {
         // 赋值
-        remainNoteNum = ConstVar.MAX_NOTE_NUM;
+        //remainNoteNum = ConstVar.MAX_NOTE_NUM;
         // 自动获取必要组件，避免配置遗漏
         if (targetCamera == null)
             targetCamera = Camera.main;
@@ -63,21 +63,20 @@ public class NoteMgr : SingletonMono<NoteMgr>
         DoInUpdate();
     }
 
-    public void ReduceRemainNoteNum()
+    /*public void ReduceRemainNoteNum()
     {
         remainNoteNum--;
-    }
+    }*/
 
     private void DoInUpdate()
     {
         // 生成时检测暂停状态
         // 一旦进入就开始减少总收集时间
         // 非暂停时计时生成间隔
-        if (remainNoteNum <= 0 || (totalTime < 0f && !isEnd))
+        if (totalTime < 0f && !isEnd)
         {
             isEnd = true;
             PanelUIMgr.Instance.OpenPanel(EPanelType.ColloctFinishPanel);
-            remainNoteNum = ConstVar.MAX_NOTE_NUM;
         }
         totalTime -= Time.deltaTime;
         // 非暂停状态下计时生成音符
