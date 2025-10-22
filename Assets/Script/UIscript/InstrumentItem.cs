@@ -134,6 +134,7 @@ public class InstrumentItem : UIPanelBase,
     {
         _instrumentInfo = instrumentInfo;
         _maxHealth = _instrumentInfo.health;
+        _maxSkillPoint = _instrumentInfo.refObj.canUseSkillPoint;
         RefreshShow();
     }
 
@@ -344,6 +345,9 @@ public class InstrumentItem : UIPanelBase,
             _originalCanvasGroup.alpha = 0f;
             _originalCanvasGroup.blocksRaycasts = false;
         }
+        //关闭射线交互
+        instrumentBack.raycastTarget = false;
+
 
         // 保存点击位置与物体中心的偏移量
         RectTransformUtility.ScreenPointToLocalPointInRectangle(
@@ -393,6 +397,9 @@ public class InstrumentItem : UIPanelBase,
 
         // 清理拖拽克隆体
         CleanupDragClone();
+
+        //恢复射线交互
+        instrumentBack.raycastTarget = true;
 
         // 强制刷新布局（确保原物体位置正确）
         LayoutRebuilder.ForceRebuildLayoutImmediate(transform.parent.GetComponent<RectTransform>());
@@ -484,7 +491,10 @@ public class InstrumentItem : UIPanelBase,
         GameObject go = results.Find(x => x.gameObject.GetComponent<InstrumentItem>() != null).gameObject;
 
         if (go != null)
+        {
+            Debug.Log(go.name);
             return true;
+        }
         return false;
     }
 

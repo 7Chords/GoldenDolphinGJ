@@ -13,15 +13,17 @@ public class InstrumentInfo
     public int attack;
     public int heal;
     public int buff;
+    public int skillPoint;
 
     public InstrumentRefObj refObj;
 
     public InstrumentInfo(InstrumentRefObj refObj)
     {
         this.refObj = refObj;
-        health = refObj.heal;
+        health = refObj.health;
         attack = refObj.attack;
         heal = refObj.heal;
         buff = refObj.buff;
+        skillPoint = 0;
     }
 }
