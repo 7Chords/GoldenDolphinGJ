@@ -22,17 +22,7 @@ public class SelectorContainer : MonoBehaviour
     /// </summary>
     /// <param name="_index"></param>
     /// <param name="_sprite"></param>
-  /*  public void changeSelectItemListItem(int _index, Sprite _sprite)
-    {
-        if (_index < 0 || _index >= selectItemList.Count)
-        {
-            Debug.Log("error");
-            return;
-        }
-        // 如果该位置没有被选中 才设置该位置
-        if (!selectItemList[_index].gameObject.activeInHierarchy)
-            selectItemList[_index].SetItemInfo(_sprite);
-    }*/
+
     private void OnSelectedCharacter(object[] _objs)
     {
         if (_objs.Length <= 0 || _objs == null)
