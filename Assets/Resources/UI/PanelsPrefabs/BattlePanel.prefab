@@ -1,15 +1,16 @@
 %YAML 1.1
-%TAG !u! tag:unity3d.com,2011:
+%TAG !u! tag:yousandi.cn,2023:
 --- !u!1 &331643666067596421
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
+  serializedVersion: 7
   m_Component:
   - component: {fileID: 5492549108897155355}
   m_Layer: 5
+  m_HasEditorInfo: 1
   m_Name: small_duration_pos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -41,7 +42,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
+  serializedVersion: 7
   m_Component:
   - component: {fileID: 835781654211363063}
   - component: {fileID: 174887082368610719}
@@ -50,6 +51,7 @@ GameObject:
   - component: {fileID: 1324579533539404990}
   - component: {fileID: 6938774756629668040}
   m_Layer: 0
+  m_HasEditorInfo: 1
   m_Name: Back
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -171,10 +173,11 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
+  serializedVersion: 7
   m_Component:
   - component: {fileID: 1336522299168820749}
   m_Layer: 5
+  m_HasEditorInfo: 1
   m_Name: middle_duration_pos_1 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -206,13 +209,14 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
+  serializedVersion: 7
   m_Component:
   - component: {fileID: 5944446871024550416}
   - component: {fileID: 6240835006784927232}
   - component: {fileID: 3760610530605302414}
   - component: {fileID: 4735896350035064111}
   m_Layer: 5
+  m_HasEditorInfo: 1
   m_Name: BattlePanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -354,10 +358,11 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
+  serializedVersion: 7
   m_Component:
   - component: {fileID: 5908776705855363949}
   m_Layer: 5
+  m_HasEditorInfo: 1
   m_Name: small_duration_pos (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -389,12 +394,13 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
+  serializedVersion: 7
   m_Component:
   - component: {fileID: 5281870089240245795}
   - component: {fileID: 8136458801102090879}
   - component: {fileID: 218852513242538358}
   m_Layer: 5
+  m_HasEditorInfo: 1
   m_Name: img_enemy_bg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -466,10 +472,11 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
+  serializedVersion: 7
   m_Component:
   - component: {fileID: 9172855613191150236}
   m_Layer: 5
+  m_HasEditorInfo: 1
   m_Name: small_duration_pos (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -501,12 +508,13 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
+  serializedVersion: 7
   m_Component:
   - component: {fileID: 3797143362328123276}
   - component: {fileID: 536344862693700264}
   - component: {fileID: 4372815271575002364}
   m_Layer: 5
+  m_HasEditorInfo: 1
   m_Name: mask_playing
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -576,10 +584,11 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
+  serializedVersion: 7
   m_Component:
   - component: {fileID: 73614372632151797}
   m_Layer: 5
+  m_HasEditorInfo: 1
   m_Name: long_duration_pos_1 (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -611,12 +620,13 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
+  serializedVersion: 7
   m_Component:
   - component: {fileID: 6157706495028450572}
   - component: {fileID: 8576488558013676408}
   - component: {fileID: 2698253510995482683}
   m_Layer: 5
+  m_HasEditorInfo: 1
   m_Name: img_enemy_bar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -686,13 +696,14 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
+  serializedVersion: 7
   m_Component:
   - component: {fileID: 6448436638841266784}
   - component: {fileID: 2778955634125455547}
   - component: {fileID: 6638619651691257609}
   - component: {fileID: 5548694563712344356}
   m_Layer: 5
+  m_HasEditorInfo: 1
   m_Name: prefab_enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -714,7 +725,6 @@ RectTransform:
   - {fileID: 4807794410889565968}
   - {fileID: 9213489293665886696}
   - {fileID: 3942216721715354882}
-  - {fileID: 687833226014403768}
   - {fileID: 1278520982704522883}
   - {fileID: 8780245052379513216}
   - {fileID: 5281870089240245795}
@@ -796,12 +806,13 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
+  serializedVersion: 7
   m_Component:
   - component: {fileID: 6861155651280516261}
   - component: {fileID: 1571746991186782329}
   - component: {fileID: 9001219047150606892}
   m_Layer: 5
+  m_HasEditorInfo: 1
   m_Name: img_bg_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -871,10 +882,11 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
+  serializedVersion: 7
   m_Component:
   - component: {fileID: 7810362933874784731}
   m_Layer: 5
+  m_HasEditorInfo: 1
   m_Name: middle_duration_pos_1 (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -906,12 +918,13 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
+  serializedVersion: 7
   m_Component:
   - component: {fileID: 7672802060259640536}
   - component: {fileID: 2783530081131682169}
   - component: {fileID: 6564661735524818222}
   m_Layer: 5
+  m_HasEditorInfo: 1
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -981,12 +994,13 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
+  serializedVersion: 7
   m_Component:
   - component: {fileID: 3942216721715354882}
   - component: {fileID: 1451943117570511708}
   - component: {fileID: 467087581222943406}
   m_Layer: 5
+  m_HasEditorInfo: 1
   m_Name: txt_health
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1060,10 +1074,11 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
+  serializedVersion: 7
   m_Component:
   - component: {fileID: 8019391149778232676}
   m_Layer: 5
+  m_HasEditorInfo: 1
   m_Name: long_duration_pos_1 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1095,18 +1110,19 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
+  serializedVersion: 7
   m_Component:
   - component: {fileID: 7052573887222265190}
   - component: {fileID: 1832586922367825183}
   - component: {fileID: 3474004966995954041}
   m_Layer: 5
+  m_HasEditorInfo: 1
   m_Name: txt_turn_count
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &7052573887222265190
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1123,7 +1139,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 44, y: 342}
   m_SizeDelta: {x: 225.4106, y: 104.4624}
   m_Pivot: {x: 1, y: 0.5}
 --- !u!222 &1832586922367825183
@@ -1147,7 +1163,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.74509805, g: 0.7058824, b: 0.49803925, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1155,12 +1171,12 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 14
+    m_Font: {fileID: 12800000, guid: 7b0e8be3e0c73554b9cca8f9bc1a686e, type: 3}
+    m_FontSize: 100
     m_FontStyle: 0
-    m_BestFit: 1
-    m_MinSize: 10
-    m_MaxSize: 40
+    m_BestFit: 0
+    m_MinSize: 0
+    m_MaxSize: 100
     m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
@@ -1174,10 +1190,11 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
+  serializedVersion: 7
   m_Component:
   - component: {fileID: 652582947121419673}
   m_Layer: 5
+  m_HasEditorInfo: 1
   m_Name: long_duration_pos_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1209,10 +1226,11 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
+  serializedVersion: 7
   m_Component:
   - component: {fileID: 3064261240782297379}
   m_Layer: 5
+  m_HasEditorInfo: 1
   m_Name: long_duration_pos_1 (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1244,10 +1262,11 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
+  serializedVersion: 7
   m_Component:
   - component: {fileID: 5804968215321080908}
   m_Layer: 5
+  m_HasEditorInfo: 1
   m_Name: small_duration_pos (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1279,10 +1298,11 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
+  serializedVersion: 7
   m_Component:
   - component: {fileID: 3653656721063482120}
   m_Layer: 5
+  m_HasEditorInfo: 1
   m_Name: small_duration_pos (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1314,12 +1334,13 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
+  serializedVersion: 7
   m_Component:
   - component: {fileID: 8780245052379513216}
   - component: {fileID: 692368747308573976}
   - component: {fileID: 2348573043605139822}
   m_Layer: 5
+  m_HasEditorInfo: 1
   m_Name: img_enemy_bg_top
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1389,10 +1410,11 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
+  serializedVersion: 7
   m_Component:
   - component: {fileID: 6673963837022664238}
   m_Layer: 5
+  m_HasEditorInfo: 1
   m_Name: small_duration_pos (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1424,12 +1446,13 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
+  serializedVersion: 7
   m_Component:
   - component: {fileID: 2073182448400006298}
   - component: {fileID: 172194766665102677}
   - component: {fileID: 7804857702847925638}
   m_Layer: 5
+  m_HasEditorInfo: 1
   m_Name: parent_decoration
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1516,13 +1539,14 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
+  serializedVersion: 7
   m_Component:
   - component: {fileID: 8001106809511903527}
   - component: {fileID: 1567570176789092609}
   - component: {fileID: 2164843172123527226}
   m_Layer: 5
-  m_Name: Image (1)
+  m_HasEditorInfo: 1
+  m_Name: image_action_type
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1591,12 +1615,13 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
+  serializedVersion: 7
   m_Component:
   - component: {fileID: 4404432435624213150}
   - component: {fileID: 7197869022103581306}
   - component: {fileID: 1902145062733253891}
   m_Layer: 5
+  m_HasEditorInfo: 1
   m_Name: img_bg_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1666,10 +1691,11 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
+  serializedVersion: 7
   m_Component:
   - component: {fileID: 7598038245785247829}
   m_Layer: 5
+  m_HasEditorInfo: 1
   m_Name: middle_duration_pos_1 (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1701,10 +1727,11 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
+  serializedVersion: 7
   m_Component:
   - component: {fileID: 719724297077008135}
   m_Layer: 5
+  m_HasEditorInfo: 1
   m_Name: pos_enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1736,7 +1763,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
+  serializedVersion: 7
   m_Component:
   - component: {fileID: 1617935592391813483}
   - component: {fileID: 1890728888014207499}
@@ -1744,6 +1771,7 @@ GameObject:
   - component: {fileID: 3299155520773436519}
   - component: {fileID: 5229045199183192916}
   m_Layer: 5
+  m_HasEditorInfo: 1
   m_Name: instrument_banner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1852,10 +1880,11 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
+  serializedVersion: 7
   m_Component:
   - component: {fileID: 5740522603963680257}
   m_Layer: 5
+  m_HasEditorInfo: 1
   m_Name: small_duration_pos (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1881,97 +1910,19 @@ RectTransform:
   m_AnchoredPosition: {x: -470, y: 27}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 1, y: 0}
---- !u!1 &6495272289312725441
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 687833226014403768}
-  - component: {fileID: 7922209994475758019}
-  - component: {fileID: 7790018557278825252}
-  m_Layer: 5
-  m_Name: txt_health
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!224 &687833226014403768
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6495272289312725441}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 6448436638841266784}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 0}
-  m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: 0, y: 61}
-  m_SizeDelta: {x: 229.26758, y: 71.667}
-  m_Pivot: {x: 1, y: 0}
---- !u!222 &7922209994475758019
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6495272289312725441}
-  m_CullTransparentMesh: 1
---- !u!114 &7790018557278825252
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6495272289312725441}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 14
-    m_FontStyle: 0
-    m_BestFit: 1
-    m_MinSize: 10
-    m_MaxSize: 40
-    m_Alignment: 4
-    m_AlignByGeometry: 0
-    m_RichText: 1
-    m_HorizontalOverflow: 0
-    m_VerticalOverflow: 0
-    m_LineSpacing: 1
-  m_Text: New Text
 --- !u!1 &6754766368317579949
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
+  serializedVersion: 7
   m_Component:
   - component: {fileID: 1278520982704522883}
   - component: {fileID: 8400421034174156784}
   - component: {fileID: 3301921567751621733}
   m_Layer: 5
+  m_HasEditorInfo: 1
   m_Name: txt_name
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2045,12 +1996,13 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
+  serializedVersion: 7
   m_Component:
   - component: {fileID: 9213489293665886696}
   - component: {fileID: 7356924298618021691}
   - component: {fileID: 5634002076126170732}
   m_Layer: 5
+  m_HasEditorInfo: 1
   m_Name: txt_attack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2124,10 +2076,11 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
+  serializedVersion: 7
   m_Component:
   - component: {fileID: 6473603241428930030}
   m_Layer: 5
+  m_HasEditorInfo: 1
   m_Name: middle_duration_pos_1 (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2159,10 +2112,11 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
+  serializedVersion: 7
   m_Component:
   - component: {fileID: 7230358826493287634}
   m_Layer: 5
+  m_HasEditorInfo: 1
   m_Name: middle_duration_pos_1 (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2194,12 +2148,13 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
+  serializedVersion: 7
   m_Component:
   - component: {fileID: 4807794410889565968}
   - component: {fileID: 3068110227193852715}
   - component: {fileID: 7837799484539797164}
   m_Layer: 5
+  m_HasEditorInfo: 1
   m_Name: img_enemy_icon
   m_TagString: EnemyIcon
   m_Icon: {fileID: 0}
@@ -2269,12 +2224,13 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
+  serializedVersion: 7
   m_Component:
   - component: {fileID: 5344519629052029700}
   - component: {fileID: 4515299309573859342}
   - component: {fileID: 2263327873701157847}
   m_Layer: 5
+  m_HasEditorInfo: 1
   m_Name: Image (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2344,12 +2300,13 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
+  serializedVersion: 7
   m_Component:
   - component: {fileID: 183502991674522053}
   - component: {fileID: 8251723139396295696}
   - component: {fileID: 1240653100242606489}
   m_Layer: 5
+  m_HasEditorInfo: 1
   m_Name: txt_turn_owner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2423,10 +2380,11 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
+  serializedVersion: 7
   m_Component:
   - component: {fileID: 5829403006006951547}
   m_Layer: 5
+  m_HasEditorInfo: 1
   m_Name: middle_duration_pos_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}

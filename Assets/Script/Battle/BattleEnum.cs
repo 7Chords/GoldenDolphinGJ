@@ -25,6 +25,14 @@ public enum EInstrumentEffectType
     Buff,
 }
 
+public enum EEnemyActionType
+{
+    Attack,
+    Heal,
+    Buff,
+}
+
+
 public enum EBattleDecorationType
 {
     HighFreq,

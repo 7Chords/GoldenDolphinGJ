@@ -110,7 +110,6 @@ public class EnemyItem : UIPanelBase,IDamagable
         return 0;
     }
 
-
     public void TakeBuff(int buffAmount)
     {
         _enemyInfo.enemyAttack += buffAmount;
