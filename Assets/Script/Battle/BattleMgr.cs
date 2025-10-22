@@ -36,8 +36,6 @@ public class BattleMgr : SingletonMono<BattleMgr>
         isPlaying = false;
 
         StartBattle();
-
-        AudioMgr.Instance.PlayBgm("战斗音乐卡门");
     }
 
     private void OnDestroy()
@@ -89,11 +87,16 @@ public class BattleMgr : SingletonMono<BattleMgr>
                 instrumentRefObj.instrumentBodyBgWithChaPath,
                 instrumentRefObj.instrumentAttackIconPath,
                 instrumentRefObj.instrumentAttackSoundPath,
-                instrumentRefObj.instrumentHurtSoundPath);
+                instrumentRefObj.instrumentHurtSoundPath,
+                instrumentRefObj.hasTogetherSkill,
+                instrumentRefObj.canUseSkillPoint,
+                instrumentRefObj.canTogetherIdList);
             _instrumentInfoList.Add(info);
         }
         _instrumentAliveCount = _instrumentInfoList.Count;
         MsgCenter.SendMsg(MsgConst.ON_BATTLE_START, _enemyInfo, _instrumentInfoList);
+
+        AudioMgr.Instance.PlayBgm(battleLevelRefObj.bgmName);
     }
 
     private void FinishBattle(bool playerWin)

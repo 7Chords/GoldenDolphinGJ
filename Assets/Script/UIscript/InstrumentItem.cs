@@ -476,31 +476,14 @@ public class InstrumentItem : UIPanelBase,
     /// </summary>
     private bool CheckValidDrop(PointerEventData eventData)
     {
-        // 这里可以添加你的放置验证逻辑
-        // 例如检查是否放置在某个特定区域上
-
         List<RaycastResult> results = new List<RaycastResult>();
         EventSystem.current.RaycastAll(eventData, results);
 
         GameObject go = results.Find(x => x.gameObject.GetComponent<InstrumentItem>() != null).gameObject;
 
-        if(go != null)
-        {
-            Debug.Log(go.name);
-            //go.GetComponent<InstrumentItem>();
-        }
-
-        foreach (var result in results)
-        {
-
-
-            // 检查是否放置在有效的目标上
-            // 例如：if (result.gameObject.GetComponent<DropArea>() != null) return true;
-        }
-
-        // 暂时返回true，表示任何位置都可以放置
-        // 你可以根据实际需求修改这个逻辑
-        return true;
+        if (go != null)
+            return true;
+        return false;
     }
 
     /// <summary>
@@ -508,6 +491,7 @@ public class InstrumentItem : UIPanelBase,
     /// </summary>
     private void OnSuccessfulDrop(PointerEventData eventData)
     {
+
         // 这里可以处理成功放置后的逻辑
         // 例如：更新数据、播放音效、移动原物体到新位置等
 
