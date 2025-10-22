@@ -57,9 +57,37 @@ public class StoreContainerItem : MonoBehaviour, IPointerClickHandler
         set => isBought = value;
     }
 
+    public void SetGrayState()
+    {
+        if (StoreItemImg == null) return;
+
+        // 如果 originalImageColor 是默认的透明值，回退为当前图片颜色，避免把图片设为完全透明
+        if (originalImageColor.a == 0f)
+            originalImageColor = StoreItemImg.color;
+
+        InstrumentStoreRefObj instrumentStoreRefObj = SCRefDataMgr.Instance.instrumentStoreRefList.refDataList
+            .Find(x => x.id == storeItemId);
+
+        int highNoteCost = instrumentStoreRefObj.hightNoteNum;
+        int middleCost = instrumentStoreRefObj.middleNoteNum;
+        int lowCost = instrumentStoreRefObj.lowNoteNum;
+
+        bool temp = (PlayerMgr.Instance.GetNoteNum(NoteType.HightNote) >= highNoteCost &&
+               PlayerMgr.Instance.GetNoteNum(NoteType.MiddleNote) >= middleCost &&
+               PlayerMgr.Instance.GetNoteNum(NoteType.LowNote) >= lowCost);
+        if (!temp)
+        {
+            var col = StoreItemImg.color;
+            StoreItemImg.color = new Color(0.5f, 0.5f, 0.5f, col.a);
+        }
+        else
+        {
+            StoreItemImg.color = originalImageColor;
+        }
+        }
+
     public void OnPointerClick(PointerEventData eventData)
     {
-
         if (!isCanBuy())
         {
             // 购买失败时震动并做短暂位置抖动作为视觉反馈
@@ -67,7 +95,6 @@ public class StoreContainerItem : MonoBehaviour, IPointerClickHandler
             // 一点位移抖动反馈
             // 如果这是UI（RectTransform），DOShakePosition 也可作用在 transform 上
             tweenContainer.RegDoTween(transform.DOShakePosition(0.12f, 20f, 10, 90f, false));
-            // 立即将商品图片置为灰色
         }
         else
         {
@@ -90,7 +117,7 @@ public class StoreContainerItem : MonoBehaviour, IPointerClickHandler
                 transform.localScale = originalScale;
                 clickSequence = null;
             });
-
+            // 如果资源更改了 就立即判断是否设置为灰色
             MsgCenter.SendMsg(MsgConst.ON_STORE_ITEM_SELECT, selectedSprite, storeItemId);
         }
 
