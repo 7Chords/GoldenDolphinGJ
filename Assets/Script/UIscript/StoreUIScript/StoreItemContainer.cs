@@ -15,11 +15,11 @@ public class StoreItemContainer : SingletonMono<StoreItemContainer>
         SetAllChildItemGrayState();
     }
     // 将所有子商品设置是否为灰色状态
-    private void SetAllChildItemGrayState()
+    private void SetAllChildItemGrayState(long curSelectorStoreItemId = -1)
     {
         foreach (var item in initStoreItemContainer)
         {
-            item.SetGrayState();
+            item.SetGrayState(curSelectorStoreItemId, true);
         }
     }
     private void Start()
@@ -56,7 +56,7 @@ public class StoreItemContainer : SingletonMono<StoreItemContainer>
         }
         long storeItemId = (long)_objs[1];
         SetStoreItemState(storeItemId, true);
-        SetAllChildItemGrayState();
+        SetAllChildItemGrayState(storeItemId);
     }
 
     public void OnSelectorItemCancle(object[] _objs)

@@ -38,7 +38,6 @@ public class StoreContainerItem : MonoBehaviour, IPointerClickHandler
     private void Start()
     {
         MsgCenter.RegisterMsg(MsgConst.ON_SELECTOR_INSTRUMENT_CANCLE_WHILE_DOTWEEN_COMPLETE, ResumeColor);
-        Debug.Log($"storeItemId:{storeItemId}");
         InstrumentStoreRefObj instrumentStoreRefObj = SCRefDataMgr.Instance.instrumentStoreRefList.refDataList
    .Find(x => x.id == storeItemId);
         if (instrumentStoreRefObj == null) Debug.Log(storeItemId);
@@ -55,7 +54,7 @@ public class StoreContainerItem : MonoBehaviour, IPointerClickHandler
             if (StoreItemImg != null)
                 StoreItemImg.color = originalImageColor;
         }
-        SetGrayState();
+        SetGrayState(tempStoreItemId);
     }
     public long StoreItemId
     {
@@ -68,7 +67,7 @@ public class StoreContainerItem : MonoBehaviour, IPointerClickHandler
         set => isBought = value;
     }
 
-    public void SetGrayState()
+    public void SetGrayState(long curSelectStoreItem, bool isSelect = false)
     {
         if (StoreItemImg == null) return;
 
@@ -80,16 +79,33 @@ public class StoreContainerItem : MonoBehaviour, IPointerClickHandler
                PlayerMgr.Instance.GetNoteNum(NoteType.MiddleNote) >= middleCost &&
                PlayerMgr.Instance.GetNoteNum(NoteType.LowNote) >= lowCost);
 
+        // 如果资源返回了也不够 就设置灰色
         if (!temp)
         {
             var col = StoreItemImg.color;
             StoreItemImg.color = new Color(0.5f, 0.5f, 0.5f, col.a);
         }
+        // 反之变亮
         else
         {
-            StoreItemImg.color = originalImageColor;
+            // 如果这个商品是从商店->selector的 即使是够的也设置为灰色
+            if (isSelect && curSelectStoreItem == storeItemId)
+            {
+                var col = StoreItemImg.color;
+                StoreItemImg.color = new Color(0.5f, 0.5f, 0.5f, col.a);
+            }
+            // 如果这个商品是 selector-> 商店的
+            else 
+            {
+                // 考虑是否还在列表里 不在列表里才恢复颜色 否则保持灰色
+                if (!StoreItemContainer.instance.storeItemList[storeItemId])
+                    StoreItemImg.color = originalImageColor;
+            }
         }
-        }
+            
+
+
+    }
 
     public void OnPointerClick(PointerEventData eventData)
     {
