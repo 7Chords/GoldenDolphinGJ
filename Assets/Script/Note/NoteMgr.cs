@@ -95,7 +95,7 @@ public class NoteMgr : SingletonMono<NoteMgr>
     void SpawnInViewRandom()
     {
         // 复位计时器
-        timeCounter = 0.5f;
+        timeCounter = 0.2f;
 
         // 正交相机参数计算
         float orthoSize = targetCamera.orthographicSize;
