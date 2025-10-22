@@ -71,26 +71,7 @@ public class BattleMgr : SingletonMono<BattleMgr>
         {
             InstrumentRefObj instrumentRefObj = SCRefDataMgr.Instance.instrumentRefList.refDataList
                 .Find(x => x.id == PlayerMgr.Instance.instrumentIdList[i]);
-            InstrumentInfo info = new InstrumentInfo(instrumentRefObj.instrumentType,
-                instrumentRefObj.effectType,
-                instrumentRefObj.instrumentName,
-                instrumentRefObj.instrumentDesc,
-                instrumentRefObj.health,
-                instrumentRefObj.attack,
-                instrumentRefObj.heal,
-                instrumentRefObj.buff,
-                instrumentRefObj.instrumentIconPath,
-                instrumentRefObj.instrumentBgPath,
-                instrumentRefObj.instrumentBodyPath,
-                instrumentRefObj.instrumentBodyBgPath,
-                instrumentRefObj.instrumentNamePath,
-                instrumentRefObj.instrumentBodyBgWithChaPath,
-                instrumentRefObj.instrumentAttackIconPath,
-                instrumentRefObj.instrumentAttackSoundPath,
-                instrumentRefObj.instrumentHurtSoundPath,
-                instrumentRefObj.hasTogetherSkill,
-                instrumentRefObj.canUseSkillPoint,
-                instrumentRefObj.canTogetherIdList);
+            InstrumentInfo info = new InstrumentInfo(instrumentRefObj);
             _instrumentInfoList.Add(info);
         }
         _instrumentAliveCount = _instrumentInfoList.Count;

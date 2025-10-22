@@ -86,6 +86,8 @@ public class InstrumentItem : UIPanelBase,
 
     private int _maxHealth;
     private int _extraAttack;
+    private int _maxSkillPoint;
+
 
     private bool _hasInited;
     private bool _hasActioned;
@@ -139,16 +141,16 @@ public class InstrumentItem : UIPanelBase,
     {
         if (_instrumentInfo == null)
             return;
-        instrumentIcon.sprite = Resources.Load<Sprite>(_instrumentInfo.instrumentBodyBgWithChaPath);
-        instrumentBack.sprite = Resources.Load<Sprite>(_instrumentInfo.instrumentBgPath);
-        imgName.sprite = Resources.Load<Sprite>(_instrumentInfo.instrumentNamePath);
+        instrumentIcon.sprite = Resources.Load<Sprite>(_instrumentInfo.refObj.instrumentBodyBgWithChaPath);
+        instrumentBack.sprite = Resources.Load<Sprite>(_instrumentInfo.refObj.instrumentBgPath);
+        imgName.sprite = Resources.Load<Sprite>(_instrumentInfo.refObj.instrumentNamePath);
         imgName.SetNativeSize();
-        imgAttack.sprite = Resources.Load<Sprite>(_instrumentInfo.instrumentAttackIconPath);
+        imgAttack.sprite = Resources.Load<Sprite>(_instrumentInfo.refObj.instrumentAttackIconPath);
         txtHealth.text = _instrumentInfo.health.ToString() + "/" + _maxHealth.ToString();
         Tween tween =  imgHealthBar.DOFillAmount((float)_instrumentInfo.health / _maxHealth,0.5f);
         _tweenContainer.RegDoTween(tween);
-        instrumentCharacter.sprite = Resources.Load<Sprite>(_instrumentInfo.instrumentBodyPath);
-        switch (_instrumentInfo.effectType)
+        instrumentCharacter.sprite = Resources.Load<Sprite>(_instrumentInfo.refObj.instrumentBodyPath);
+        switch (_instrumentInfo.refObj.effectType)
         {
             case EInstrumentEffectType.Attack:
                 {
@@ -205,7 +207,7 @@ public class InstrumentItem : UIPanelBase,
 
     public void Attack()
     {
-        AudioMgr.Instance.PlaySfx(_instrumentInfo.instrumentAttackSoundPath);
+        AudioMgr.Instance.PlaySfx(_instrumentInfo.refObj.instrumentAttackSoundPath);
         _hasActioned = true;
         imgDeadMask.gameObject.SetActive(true);
         MsgCenter.SendMsgAct(MsgConst.ON_INSTRUMENT_END_ATTACK);
@@ -214,7 +216,7 @@ public class InstrumentItem : UIPanelBase,
     {
         if (_hasDead)
             return;
-        AudioMgr.Instance.PlaySfx(_instrumentInfo.instrumentHurtSoundPath);
+        AudioMgr.Instance.PlaySfx(_instrumentInfo.refObj.instrumentHurtSoundPath);
         instrumentInfo.health = Mathf.Clamp(instrumentInfo.health - damage, 0, _maxHealth);
         RefreshShow();
         Sequence seq = DOTween.Sequence();
@@ -262,12 +264,12 @@ public class InstrumentItem : UIPanelBase,
     {
         if (BattleMgr.instance.isPlaying || _hasActioned || _hasDead || _isScaling)
             return;
-        AudioMgr.Instance.PlaySfx(_instrumentInfo.instrumentName);
+        AudioMgr.Instance.PlaySfx(_instrumentInfo.refObj.instrumentName);
         BattleMgr.instance.isPlaying = true;
         btnClick.enabled = false;
         MsgCenter.SendMsgAct(MsgConst.ON_INSTRUMENT_START_ATTACK);
         instrumentCharacter.gameObject.SetActive(true);
-        instrumentIcon.sprite = Resources.Load<Sprite>(_instrumentInfo.instrumentBodyBgPath);
+        instrumentIcon.sprite = Resources.Load<Sprite>(_instrumentInfo.refObj.instrumentBodyBgPath);
         Sequence seq = DOTween.Sequence();
         seq.Append(instrumentCharacter.transform.DOScale(clickBiggerScale, clickBiggerDuration));
 
@@ -277,7 +279,7 @@ public class InstrumentItem : UIPanelBase,
          {
              List<IDamagable> damagableList = new List<IDamagable>();
 
-             switch (instrumentInfo.effectType)
+             switch (instrumentInfo.refObj.effectType)
              {
                  case EInstrumentEffectType.Attack:
                      damagableList.Add(BattleMgr.instance.enemyItem);
@@ -298,7 +300,7 @@ public class InstrumentItem : UIPanelBase,
                      break;
              }
              if (damagableList != null)
-                 AttackHandler.DealAttack(instrumentInfo.effectType, this, damagableList);
+                 AttackHandler.DealAttack(instrumentInfo.refObj.effectType, this, damagableList);
              MsgCenter.SendMsgAct(MsgConst.ON_INSTRUMENT_ACTION_OVER);
          }));
 
@@ -308,7 +310,7 @@ public class InstrumentItem : UIPanelBase,
             BattleMgr.instance.isPlaying = false;
             btnClick.enabled = true;
             instrumentCharacter.gameObject.SetActive(false);
-            instrumentIcon.sprite = Resources.Load<Sprite>(_instrumentInfo.instrumentBodyBgWithChaPath);
+            instrumentIcon.sprite = Resources.Load<Sprite>(_instrumentInfo.refObj.instrumentBodyBgWithChaPath);
             OnPointerExit(null);
         });
 
