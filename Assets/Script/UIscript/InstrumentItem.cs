@@ -207,6 +207,9 @@ public class InstrumentItem : UIPanelBase,
 
     public void Attack()
     {
+
+
+        _instrumentInfo.skillPoint = Mathf.Min(_instrumentInfo.skillPoint + 1, _maxSkillPoint);
         AudioMgr.Instance.PlaySfx(_instrumentInfo.refObj.instrumentAttackSoundPath);
         _hasActioned = true;
         imgDeadMask.gameObject.SetActive(true);
@@ -381,9 +384,6 @@ public class InstrumentItem : UIPanelBase,
         else
             OnInvalidDrop();
 
-        ////恢复射线交互
-        //instrumentBack.raycastTarget = true;
-
         // 强制刷新布局（确保原物体位置正确）
         LayoutRebuilder.ForceRebuildLayoutImmediate(transform.parent.GetComponent<RectTransform>());
     }
@@ -477,12 +477,10 @@ public class InstrumentItem : UIPanelBase,
         InstrumentItem item = go.GetComponent<InstrumentItem>();
         if (item != null)
         {
-            //if (canUseTogetherSkill(item.instrumentInfo.refObj.id) && item.canUseTogetherSkill(_instrumentInfo.refObj.id))
-            //    return true;
-            //return false;
-
-            //todo:test
-            return item;
+            if (canUseTogetherSkill(item.instrumentInfo.refObj.id) 
+                && item.canUseTogetherSkill(_instrumentInfo.refObj.id))
+                return item;
+            return null;
         }
         return null;
     }
@@ -510,7 +508,15 @@ public class InstrumentItem : UIPanelBase,
         seq.Join(item.transform.DORotate(new Vector3(0, 360, 0), 0.5f, RotateMode.FastBeyond360)
             .SetEase(Ease.InOutQuad));
 
-        Debug.Log("放置成功！");
+        seq.AppendInterval(2f).OnComplete(() =>
+        {
+            ExitTogetherSkill();
+            item.ExitTogetherSkill();
+        });
+
+        
+
+        Debug.Log("合击成功！");
     }
 
     /// <summary>
@@ -544,6 +550,10 @@ public class InstrumentItem : UIPanelBase,
 
     public void ExitTogetherSkill()
     {
-
+        _instrumentInfo.skillPoint = 0;
+        MsgCenter.SendMsgAct(MsgConst.ON_INSTRUMENT_ACTION_OVER);
+        instrumentBack.raycastTarget = true;
+        _originalCanvasGroup.blocksRaycasts = true;
+        imgDeadMask.gameObject.SetActive(true);
     }
 }

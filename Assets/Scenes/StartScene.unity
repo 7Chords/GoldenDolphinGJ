@@ -1,15 +1,17 @@
 %YAML 1.1
-%TAG !u! tag:unity3d.com,2011:
+%TAG !u! tag:yousandi.cn,2023:
 --- !u!29 &1
 OcclusionCullingSettings:
   m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_OcclusionBakeSettings:
-    smallestOccluder: 5
-    smallestHole: 0.25
-    backfaceThreshold: 100
-  m_SceneGUID: 00000000000000000000000000000000
+  serializedVersion: 3
   m_OcclusionCullingData: {fileID: 0}
+  m_SceneGUID: 00000000000000000000000000000000
+  m_OcclusionEnabled: 0
+  m_DisplayOccluded: 0
+  m_SceneDepthBufferWidth: 512
+  m_SceneDepthBufferHeight: 512
+  m_ShadowDepthBufferWidth: 512
+  m_ShadowDepthBufferHeight: 512
 --- !u!104 &2
 RenderSettings:
   m_ObjectHideFlags: 0
@@ -71,7 +73,7 @@ LightmapSettings:
     m_FinalGatherRayCount: 256
     m_ReflectionCompression: 2
     m_MixedBakeMode: 2
-    m_BakeBackend: 1
+    m_BakeBackend: 2
     m_PVRSampling: 1
     m_PVRDirectSampleCount: 32
     m_PVRSampleCount: 512
@@ -128,11 +130,12 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
+  serializedVersion: 7
   m_Component:
   - component: {fileID: 236102275}
   - component: {fileID: 236102274}
   m_Layer: 0
+  m_HasEditorInfo: 1
   m_Name: ---SceneManager---
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -172,11 +175,12 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
+  serializedVersion: 7
   m_Component:
   - component: {fileID: 274880147}
   - component: {fileID: 274880146}
   m_Layer: 0
+  m_HasEditorInfo: 1
   m_Name: AudioMgr
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -223,12 +227,13 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
+  serializedVersion: 7
   m_Component:
   - component: {fileID: 475779000}
   - component: {fileID: 475779002}
   - component: {fileID: 475779001}
   m_Layer: 5
+  m_HasEditorInfo: 1
   m_Name: mask
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -298,12 +303,13 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
+  serializedVersion: 7
   m_Component:
   - component: {fileID: 499427576}
   - component: {fileID: 499427578}
   - component: {fileID: 499427577}
   m_Layer: 5
+  m_HasEditorInfo: 1
   m_Name: VideoRawImg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -370,13 +376,14 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
+  serializedVersion: 7
   m_Component:
   - component: {fileID: 574628073}
   - component: {fileID: 574628072}
   - component: {fileID: 574628071}
   - component: {fileID: 574628070}
   m_Layer: 5
+  m_HasEditorInfo: 1
   m_Name: TransitionRoot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -471,12 +478,13 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
+  serializedVersion: 7
   m_Component:
   - component: {fileID: 715600104}
   - component: {fileID: 715600106}
   - component: {fileID: 715600105}
   m_Layer: 0
+  m_HasEditorInfo: 1
   m_Name: EventSystem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -539,11 +547,12 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
+  serializedVersion: 7
   m_Component:
   - component: {fileID: 721603795}
   - component: {fileID: 721603796}
   m_Layer: 0
+  m_HasEditorInfo: 1
   m_Name: VideoPlayer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -607,11 +616,12 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
+  serializedVersion: 7
   m_Component:
   - component: {fileID: 995308211}
   - component: {fileID: 995308210}
   m_Layer: 0
+  m_HasEditorInfo: 1
   m_Name: ---PlayerMgr---
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -652,13 +662,14 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
+  serializedVersion: 7
   m_Component:
   - component: {fileID: 1165822961}
   - component: {fileID: 1165822960}
   - component: {fileID: 1165822959}
   - component: {fileID: 1165822958}
   m_Layer: 5
+  m_HasEditorInfo: 1
   m_Name: VideoCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -755,13 +766,14 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
+  serializedVersion: 7
   m_Component:
   - component: {fileID: 1645338909}
   - component: {fileID: 1645338908}
   - component: {fileID: 1645338907}
   - component: {fileID: 1645338906}
   m_Layer: 5
+  m_HasEditorInfo: 1
   m_Name: UIRoot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -856,11 +868,12 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
+  serializedVersion: 7
   m_Component:
   - component: {fileID: 1676054223}
   - component: {fileID: 1676054222}
   m_Layer: 0
+  m_HasEditorInfo: 1
   m_Name: ---GameMgr---
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -903,12 +916,13 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
+  serializedVersion: 7
   m_Component:
   - component: {fileID: 2086137888}
   - component: {fileID: 2086137887}
   - component: {fileID: 2086137886}
   m_Layer: 0
+  m_HasEditorInfo: 1
   m_Name: Main Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
@@ -969,6 +983,8 @@ Camera:
   m_TargetEye: 3
   m_HDR: 1
   m_AllowMSAA: 1
+  m_enableGDRP: 1
+  m_backfaceCulling: 0
   m_AllowDynamicResolution: 0
   m_ForceIntoRT: 0
   m_OcclusionCulling: 1
