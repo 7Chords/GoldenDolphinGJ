@@ -11,6 +11,9 @@ public class BattleLevelRefObj : SCRefDataCore
     public string enemyName;
     public int enemyHealth;
     public int enemyAttack;
+    public int enemyBuff;
+    public int enemyHeal;
+
     public string enemyIconPath;
     public string enemyBgPath;
     public List<long> recommendinstrumentsIdList = new List<long>();// 推荐使用的乐器ID列表
@@ -24,6 +27,8 @@ public class BattleLevelRefObj : SCRefDataCore
         enemyName = getString("enemyName");
         enemyHealth = getInt("enemyHealth");
         enemyAttack = getInt("enemyAttack");
+        enemyBuff = getInt("enemyBuff");
+        enemyHeal = getInt("enemyHeal");
         enemyIconPath = getString("enemyIconPath");
         enemyBgPath = getString("enemyBgPath");
         recommendinstrumentsIdList = getList<long>("recommendinstrumentsIdList");
