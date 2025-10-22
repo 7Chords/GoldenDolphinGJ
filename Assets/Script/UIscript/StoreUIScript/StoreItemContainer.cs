@@ -10,7 +10,18 @@ public class StoreItemContainer : SingletonMono<StoreItemContainer>
     // 商品id -> 是否购买
     public Dictionary<long, bool> storeItemList;
     // Start is called before the first frame update
-
+    private void OnEnable()
+    {
+        SetAllChildItemGrayState();
+    }
+    // 将所有子商品设置是否为灰色状态
+    private void SetAllChildItemGrayState()
+    {
+        foreach (var item in initStoreItemContainer)
+        {
+            item.SetGrayState();
+        }
+    }
     private void Start()
     {
         Init();
@@ -45,6 +56,7 @@ public class StoreItemContainer : SingletonMono<StoreItemContainer>
         }
         long storeItemId = (long)_objs[1];
         SetStoreItemState(storeItemId, true);
+        SetAllChildItemGrayState();
     }
 
     public void OnSelectorItemCancle(object[] _objs)
