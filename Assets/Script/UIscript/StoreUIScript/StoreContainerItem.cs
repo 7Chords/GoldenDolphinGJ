@@ -15,11 +15,13 @@ public class StoreContainerItem : MonoBehaviour, IPointerClickHandler
     [SerializeField] private Sprite selectedSprite;
     private Vector3 originalScale;
     private Sequence clickSequence;
-    [SerializeField] private long storeItemId;// 商店商品Id
+    public long storeItemId;// 商店商品Id
     TweenContainer tweenContainer = new TweenContainer();
     public string clipName;
     private bool isBought = false;// 商品是否被选中
-
+    int highNoteCost;
+    int middleCost;
+    int lowCost;
     // 缓存原始颜色以便恢复
     private Color originalImageColor;
 
@@ -30,11 +32,19 @@ public class StoreContainerItem : MonoBehaviour, IPointerClickHandler
             originalImageColor = StoreItemImg.color;
         else
             originalImageColor = Color.white;
+
     }
 
     private void Start()
     {
-        MsgCenter.RegisterMsg(MsgConst.ON_SELECTOR_INSTRUMENT_CANCLE_IMMEDIATE, ResumeColor);
+        MsgCenter.RegisterMsg(MsgConst.ON_SELECTOR_INSTRUMENT_CANCLE_WHILE_DOTWEEN_COMPLETE, ResumeColor);
+        Debug.Log($"storeItemId:{storeItemId}");
+        InstrumentStoreRefObj instrumentStoreRefObj = SCRefDataMgr.Instance.instrumentStoreRefList.refDataList
+   .Find(x => x.id == storeItemId);
+        if (instrumentStoreRefObj == null) Debug.Log(storeItemId);
+        highNoteCost = instrumentStoreRefObj.hightNoteNum;
+        middleCost = instrumentStoreRefObj.middleNoteNum;
+        lowCost = instrumentStoreRefObj.lowNoteNum;
     }
 
     private void ResumeColor(object[] objs)
@@ -45,6 +55,7 @@ public class StoreContainerItem : MonoBehaviour, IPointerClickHandler
             if (StoreItemImg != null)
                 StoreItemImg.color = originalImageColor;
         }
+        SetGrayState();
     }
     public long StoreItemId
     {
@@ -65,16 +76,10 @@ public class StoreContainerItem : MonoBehaviour, IPointerClickHandler
         if (originalImageColor.a == 0f)
             originalImageColor = StoreItemImg.color;
 
-        InstrumentStoreRefObj instrumentStoreRefObj = SCRefDataMgr.Instance.instrumentStoreRefList.refDataList
-            .Find(x => x.id == storeItemId);
-
-        int highNoteCost = instrumentStoreRefObj.hightNoteNum;
-        int middleCost = instrumentStoreRefObj.middleNoteNum;
-        int lowCost = instrumentStoreRefObj.lowNoteNum;
-
         bool temp = (PlayerMgr.Instance.GetNoteNum(NoteType.HightNote) >= highNoteCost &&
                PlayerMgr.Instance.GetNoteNum(NoteType.MiddleNote) >= middleCost &&
                PlayerMgr.Instance.GetNoteNum(NoteType.LowNote) >= lowCost);
+
         if (!temp)
         {
             var col = StoreItemImg.color;
@@ -137,9 +142,6 @@ public class StoreContainerItem : MonoBehaviour, IPointerClickHandler
         InstrumentStoreRefObj instrumentStoreRefObj = SCRefDataMgr.Instance.instrumentStoreRefList.refDataList
 .Find(x => x.id == storeItemId);
 
-        int highNoteCost = instrumentStoreRefObj.hightNoteNum;
-        int middleCost = instrumentStoreRefObj.middleNoteNum;
-        int lowCost = instrumentStoreRefObj.lowNoteNum;
 
         bool temp = (PlayerMgr.Instance.GetNoteNum(NoteType.HightNote) >= highNoteCost &&
                PlayerMgr.Instance.GetNoteNum(NoteType.MiddleNote) >= middleCost &&
@@ -168,7 +170,7 @@ public class StoreContainerItem : MonoBehaviour, IPointerClickHandler
     }
     private void OnDestroy()
     {
-        MsgCenter.UnregisterMsg(MsgConst.ON_SELECTOR_INSTRUMENT_CANCLE_IMMEDIATE, ResumeColor);
+        MsgCenter.UnregisterMsg(MsgConst.ON_SELECTOR_INSTRUMENT_CANCLE_WHILE_DOTWEEN_COMPLETE, ResumeColor);
         tweenContainer.KillAllDoTween();
     }
 }
