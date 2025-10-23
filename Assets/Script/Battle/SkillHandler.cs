@@ -44,13 +44,16 @@ public static class SkillHandler
         switch(skillRefObj.skillName)
         {
             case "反伤":
-                (sender as InstrumentItem).BounceAttack();
-                int damage = (int)objs[0];
-                EnemyItem enemyItem = BattleMgr.instance.enemyItem;
-                if(enemyItem != null)
+                (sender as InstrumentItem).BounceAttack(
+                ()=> 
                 {
-                    enemyItem.TakeDamage(damage / 2);
-                }
+                    int damage = (int)objs[0];
+                    EnemyItem enemyItem = BattleMgr.instance.enemyItem;
+                    if (enemyItem != null)
+                    {
+                        enemyItem.TakeDamage(damage / 2);
+                    }
+                });
                 break;
             default:
                 break;

@@ -642,13 +642,18 @@ public class InstrumentItem : UIPanelBase,
 
 
 
-    public void BounceAttack()
+    public void BounceAttack(Action logicAction)
     {
+        //todo
+
         BattleMgr.instance.isPlaying = true;
         btnClick.enabled = false;
         instrumentCharacter.gameObject.SetActive(true);
         instrumentIcon.sprite = Resources.Load<Sprite>(_instrumentInfo.refObj.instrumentBodyBgPath);
         Sequence seq = DOTween.Sequence();
+
+        seq.AppendInterval(0.5f);
+
         seq.Append(instrumentCharacter.transform.DOScale(clickBiggerScale, clickBiggerDuration));
 
 
@@ -659,6 +664,7 @@ public class InstrumentItem : UIPanelBase,
             btnClick.enabled = true;
             instrumentCharacter.gameObject.SetActive(false);
             instrumentIcon.sprite = Resources.Load<Sprite>(_instrumentInfo.refObj.instrumentBodyBgWithChaPath);
+            logicAction?.Invoke();
             OnPointerExit(null);
         });
 
