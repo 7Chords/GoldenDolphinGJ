@@ -1,0 +1,6 @@
+﻿id	skillName	skillDesc	skillType	skillUserList
+1001	合击1	合击1的描述	Together	1001;1002
+1002	合击2	合击2的描述	Together	1002;1003
+1003	合击3	合击3的描述	Together	1004;1002
+1004	合击4	合击4的描述	Together	1003;1001
+1005	反伤	反伤的描述	Passive	1001

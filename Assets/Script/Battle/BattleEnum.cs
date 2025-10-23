@@ -47,3 +47,10 @@ public enum EInstrumentRoleTypeList
     Buffer,  // 增益
     DamageDealer // 输出
 }
+
+public enum ESkillType
+{
+    Single,//个人
+    Together,//合击
+    Passive,//被动
+}
