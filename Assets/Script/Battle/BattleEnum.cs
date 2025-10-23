@@ -5,6 +5,8 @@ public enum EInstrumentType
     Trumpet,// 小号
     Accordion,//手风琴
     Clarinet,//单簧管
+    Flute,//长笛
+    Triangle,//三角铁
 }
 
 public enum ETurnType 
@@ -20,9 +22,11 @@ public enum EEnemyType
 
 public enum EInstrumentEffectType
 {
+    None,
     Attack,
     Heal,
     Buff,
+    CopyLast,
 }
 
 public enum EEnemyActionType
@@ -46,4 +50,21 @@ public enum EInstrumentRoleTypeList
     Healer,  // 治疗
     Buffer,  // 增益
     DamageDealer // 输出
+}
+
+public enum ESkillType
+{
+    Single,//个人
+    Together,//合击
+    Passive,//被动
+}
+
+public enum EPassiveSkillTriggerType
+{
+    None,
+    Together,
+    Hurt,
+    TurnStart,
+    TurnEnd,
+    Attack,
 }

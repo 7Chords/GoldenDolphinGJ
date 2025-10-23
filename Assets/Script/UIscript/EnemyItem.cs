@@ -147,7 +147,7 @@ public class EnemyItem : UIPanelBase,IDamagable
                  {
                      damagableList.Add(item as IDamagable);
                  }
-                 AttackHandler.DealAttack(EInstrumentEffectType.Attack, this, damagableList);
+                 AttackHandler.EnemyDealAttack(EInstrumentEffectType.Attack, this, damagableList);
                  MsgCenter.SendMsgAct(MsgConst.ON_ENEMY_ACTION_OVER); 
                   _flag = false;
              }));
