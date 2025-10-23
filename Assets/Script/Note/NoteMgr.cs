@@ -1,4 +1,5 @@
 using GJFramework;
+using NPOI.SS.Formula.Functions;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,17 +10,24 @@ public class NoteMgr : SingletonMono<NoteMgr>
 {
     [Header("配置参数")]
     public float yOffset = 0;  // Y轴偏移（控制高度，UI像素单位）
-    public float timeCounter = 2f; // 生成间隔（秒）
+    [SerializeField]private float spawnNoteIntervalTime = 0.2f; // 生成间隔（秒）
+    private float timeCounter = 0f;
     public float margin = 50f; // UI与屏幕边缘的留白（像素）
     [SerializeField] private GameObject notePrefab; // 必须是带RectTransform的UI预制体
     [SerializeField] private Camera targetCamera;   // 正交相机
     [SerializeField] private Canvas targetCanvas;   // UI所属的Canvas（必填）
     private RectTransform canvasRect; // Canvas的RectTransform组件
-    private bool isCurrentPause = false;
+    private bool isCurrentPause = true;
     public bool isBack = false;
+    private bool isStart = false;
     public bool IsCurrentPause { get { return isCurrentPause; } }// 获取当前是否暂停
     [SerializeField] private float totalTime;
     public float TotalTime { get { return totalTime; } }
+    public bool IsStart
+    {
+        get => isStart;
+        set => isStart = value;
+    }
 
     //private int remainNoteNum;// 剩余可获得音符的数量
 
@@ -78,7 +86,8 @@ public class NoteMgr : SingletonMono<NoteMgr>
             isEnd = true;
             PanelUIMgr.Instance.OpenPanel(EPanelType.ColloctFinishPanel);
         }
-        totalTime -= Time.deltaTime;
+
+        if(isStart) totalTime -= Time.deltaTime;
         // 非暂停状态下计时生成音符
 
         if (!isCurrentPause && !isEnd)
@@ -95,7 +104,7 @@ public class NoteMgr : SingletonMono<NoteMgr>
     void SpawnInViewRandom()
     {
         // 复位计时器
-        timeCounter = 0.2f;
+        timeCounter = spawnNoteIntervalTime;
 
         // 正交相机参数计算
         float orthoSize = targetCamera.orthographicSize;

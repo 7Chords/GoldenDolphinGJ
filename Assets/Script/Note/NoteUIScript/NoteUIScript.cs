@@ -54,8 +54,8 @@ public class NoteUIScript : MonoBehaviour, IPointerClickHandler
             OnNoteDisappear();
         }
 
-        // 如果没有暂停则减少时间
-        if (!NoteMgr.instance.IsCurrentPause)
+        // 如果没有暂停 且已经开始收集了 则减少时间
+        if (!NoteMgr.instance.IsCurrentPause && NoteMgr.instance.IsStart)
         {
             // 如果有未播放的动画则继续播放
             if (isPlayingAnimation)

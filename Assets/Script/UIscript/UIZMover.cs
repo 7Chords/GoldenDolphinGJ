@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 /// <summary>
@@ -30,7 +31,7 @@ public class UIZMover : MonoBehaviour
     {
         if (target == null) return;
         if (NoteMgr.instance != null && NoteMgr.instance.IsCurrentPause) return;
-
+        if (!NoteMgr.instance.IsStart) return;
         float deltaAngle = speed * Time.deltaTime;
         // 正确旋转方式：使用 Rotate（避免直接修改 Quaternion 分量）
         if (useLocal)
