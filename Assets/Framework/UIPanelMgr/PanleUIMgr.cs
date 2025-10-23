@@ -23,6 +23,7 @@ namespace GJFramework
         BattleLosePanel,
         StartPanel,
         SettingPanel,
+        StoreItemInfoPanel,// 商店物品信息面板
         // 其他面板类型
     }
 

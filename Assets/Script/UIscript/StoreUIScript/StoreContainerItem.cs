@@ -24,6 +24,12 @@ public class StoreContainerItem : MonoBehaviour, IPointerClickHandler, IPointerE
     int lowCost;
     // 缓存原始颜色以便恢复
     private Color originalImageColor;
+    private InstrumentStoreRefObj instrumentStoreRefObj = null;
+
+    // 悬停显示配置
+    [SerializeField] private float hoverDelay = 0.4f; // 悬停延迟
+    [SerializeField] private float hoverFadeDuration = 0.2f; // 淡入时长
+    private Tween hoverDelayTween;
 
     private void Awake()
     {
@@ -38,7 +44,7 @@ public class StoreContainerItem : MonoBehaviour, IPointerClickHandler, IPointerE
     private void Start()
     {
         MsgCenter.RegisterMsg(MsgConst.ON_SELECTOR_INSTRUMENT_CANCLE_WHILE_DOTWEEN_COMPLETE, ResumeColor);
-        InstrumentStoreRefObj instrumentStoreRefObj = SCRefDataMgr.Instance.instrumentStoreRefList.refDataList
+        instrumentStoreRefObj = SCRefDataMgr.Instance.instrumentStoreRefList.refDataList
    .Find(x => x.id == storeItemId);
         if (instrumentStoreRefObj == null) Debug.Log(storeItemId);
         highNoteCost = instrumentStoreRefObj.hightNoteNum;
@@ -102,9 +108,6 @@ public class StoreContainerItem : MonoBehaviour, IPointerClickHandler, IPointerE
                     StoreItemImg.color = originalImageColor;
             }
         }
-            
-
-
     }
 
     public void OnPointerClick(PointerEventData eventData)
@@ -146,16 +149,41 @@ public class StoreContainerItem : MonoBehaviour, IPointerClickHandler, IPointerE
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        
+        // 取消已有延迟
+        hoverDelayTween?.Kill();
+
+        // 延迟显示
+        hoverDelayTween = DOVirtual.DelayedCall(hoverDelay, () =>
+        {
+            PanelUIMgr.Instance.OpenPanel(EPanelType.StoreItemInfoPanel);
+            var panel = PanelUIMgr.Instance.GetCachedPanel(EPanelType.StoreItemInfoPanel) as StoreItemInfoPanel;
+            if (panel != null && instrumentStoreRefObj != null)
+            {
+                // 传入淡入时长，由 panel 负责淡入
+                panel.ShowInfo(instrumentStoreRefObj.instrumentId, eventData.position, GetComponent<RectTransform>(), hoverFadeDuration);
+            }
+        }, true);
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        
+        // 取消未到时的延迟显示
+        hoverDelayTween?.Kill();
+        hoverDelayTween = null;
+
+        // 隐藏面板 不淡出
+        var panel = PanelUIMgr.Instance.GetCachedPanel(EPanelType.StoreItemInfoPanel) as StoreItemInfoPanel;
+        if (panel != null)
+        {
+            panel.HideInfo();
+        }
     }
 
     private void OnDisable()
     {
+        hoverDelayTween?.Kill();
+        hoverDelayTween = null;
+
         if (clickSequence != null && clickSequence.IsActive())
         {
             clickSequence.Kill();
