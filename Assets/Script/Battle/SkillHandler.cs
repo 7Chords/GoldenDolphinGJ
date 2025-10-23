@@ -37,9 +37,24 @@ public static class SkillHandler
 
     }
 
-    public static void DealPassiveSkill(IDamagable sender, SkillRefObj skillRefObj)
+    public static void DealPassiveSkill(IDamagable sender, SkillRefObj skillRefObj, params object[] objs)
     {
-
+        if (sender == null || skillRefObj == null)
+            return;
+        switch(skillRefObj.skillName)
+        {
+            case "反伤":
+                (sender as InstrumentItem).BounceAttack();
+                int damage = (int)objs[0];
+                EnemyItem enemyItem = BattleMgr.instance.enemyItem;
+                if(enemyItem != null)
+                {
+                    enemyItem.TakeDamage(damage / 2);
+                }
+                break;
+            default:
+                break;
+        }
     }
 
 
