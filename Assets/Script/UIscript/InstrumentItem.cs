@@ -305,7 +305,7 @@ public class InstrumentItem : UIPanelBase,
                      break;
              }
              if (damagableList != null)
-                 AttackHandler.DealAttack(instrumentInfo.refObj.effectType, this, damagableList);
+                 AttackHandler.InstrumentDealAttack(instrumentInfo.refObj.effectType, this, damagableList);
              MsgCenter.SendMsgAct(MsgConst.ON_INSTRUMENT_ACTION_OVER);
          }));
 
