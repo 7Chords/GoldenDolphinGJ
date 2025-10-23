@@ -87,7 +87,7 @@ public class InstrumentItem : UIPanelBase,
     private int _maxHealth;
     private int _extraAttack;
     private int _maxSkillPoint;
-
+    public int maxSkillPoint => _maxSkillPoint;
 
     private bool _hasInited;
     private bool _hasActioned;
@@ -105,7 +105,7 @@ public class InstrumentItem : UIPanelBase,
     {
 
         MsgCenter.RegisterMsgAct(MsgConst.ON_TURN_CHG, OnTurnChg);
-
+        MsgCenter.RegisterMsgAct(MsgConst.ON_INSTRUMENT_END_ATTACK, OnInstrumentActionOver);
 
         _hasInited = true;
         _tweenContainer = new TweenContainer();
@@ -121,6 +121,8 @@ public class InstrumentItem : UIPanelBase,
     protected override void OnHide(Action onHideFinished)
     {
         MsgCenter.UnregisterMsgAct(MsgConst.ON_TURN_CHG, OnTurnChg);
+        MsgCenter.UnregisterMsgAct(MsgConst.ON_INSTRUMENT_END_ATTACK, OnInstrumentActionOver);
+
 
         _tweenContainer?.KillAllDoTween();
         _tweenContainer = null;
@@ -207,13 +209,10 @@ public class InstrumentItem : UIPanelBase,
 
     public void Attack()
     {
-
-
         _instrumentInfo.skillPoint = Mathf.Min(_instrumentInfo.skillPoint + 1, _maxSkillPoint);
         AudioMgr.Instance.PlaySfx(_instrumentInfo.refObj.instrumentAttackSoundPath);
         _hasActioned = true;
         imgDeadMask.gameObject.SetActive(true);
-        MsgCenter.SendMsgAct(MsgConst.ON_INSTRUMENT_END_ATTACK);
     }
     public void TakeDamage(int damage)
     {
@@ -259,6 +258,7 @@ public class InstrumentItem : UIPanelBase,
     }
     public void Dead()
     {
+        transform.localScale = Vector3.one * exitSmallerScale;
         _hasDead = true;
         imgDeadMask.gameObject.SetActive(true);
         MsgCenter.SendMsgAct(MsgConst.ON_INSTRUMENT_DEAD);
@@ -267,16 +267,16 @@ public class InstrumentItem : UIPanelBase,
     {
         if (BattleMgr.instance.isPlaying || _hasActioned || _hasDead || _isScaling)
             return;
+
+        MsgCenter.SendMsgAct(MsgConst.ON_INSTRUMENT_START_ATTACK);
+
         AudioMgr.Instance.PlaySfx(_instrumentInfo.refObj.instrumentName);
         BattleMgr.instance.isPlaying = true;
         btnClick.enabled = false;
-        MsgCenter.SendMsgAct(MsgConst.ON_INSTRUMENT_START_ATTACK);
         instrumentCharacter.gameObject.SetActive(true);
         instrumentIcon.sprite = Resources.Load<Sprite>(_instrumentInfo.refObj.instrumentBodyBgPath);
         Sequence seq = DOTween.Sequence();
         seq.Append(instrumentCharacter.transform.DOScale(clickBiggerScale, clickBiggerDuration));
-
-
 
         seq.Append(DOVirtual.DelayedCall(clickKeepDuration, () =>
          {
@@ -315,13 +315,13 @@ public class InstrumentItem : UIPanelBase,
             instrumentCharacter.gameObject.SetActive(false);
             instrumentIcon.sprite = Resources.Load<Sprite>(_instrumentInfo.refObj.instrumentBodyBgWithChaPath);
             OnPointerExit(null);
+            MsgCenter.SendMsgAct(MsgConst.ON_INSTRUMENT_END_ATTACK);
         });
 
         _tweenContainer.RegDoTween(seq);
     }
     private void OnTurnChg()
     {
-
         if (_hasDead)
             return;
         if(BattleMgr.instance.curTurn == ETurnType.Player)
@@ -329,6 +329,13 @@ public class InstrumentItem : UIPanelBase,
             _hasActioned = false;
             imgDeadMask.gameObject.SetActive(false);
         }
+    }
+
+    private void OnInstrumentActionOver()
+    {
+
+        if (IsMouseOverThisUI())
+            OnPointerEnter(null);
     }
 
     public void OnBeginDrag(PointerEventData eventData)
@@ -477,7 +484,7 @@ public class InstrumentItem : UIPanelBase,
         InstrumentItem item = go.GetComponent<InstrumentItem>();
         if (item != null)
         {
-            if (canUseTogetherSkill(item.instrumentInfo.refObj.id))
+            if (canUseTogetherSkill(item))
                 return item;
             return null;
         }
@@ -532,36 +539,71 @@ public class InstrumentItem : UIPanelBase,
         }
     }
 
-    public bool canUseTogetherSkill(long anotherId)
+    public bool canUseTogetherSkill(InstrumentItem anotherItem)
     {
         bool flag = false;
         for(int i =0;i<_instrumentInfo.skillRefList.Count;i++)
         {
-            if (_instrumentInfo.skillRefList[i].skillUserList.Contains(anotherId))
+            if (_instrumentInfo.skillRefList[i].skillUserList.Contains(anotherItem.instrumentInfo.refObj.id))
             {
                 flag = true;
                 break;
             }
         }
-        return _instrumentInfo.refObj.hasTogetherSkill
+        return flag
+            && _instrumentInfo.refObj.hasTogetherSkill
             && _instrumentInfo.skillPoint == _maxSkillPoint
-            && flag;
+            && anotherItem.instrumentInfo.skillPoint == anotherItem.maxSkillPoint
+            && !anotherItem._hasActioned;
     }
 
 
     public void EnterTogetherSkill()
     {
+        transform.localScale = Vector3.one * enterBiggerScale;
+        //OnPointerExit(null);
         _hasActioned = true;
         instrumentBack.raycastTarget = false;
         _originalCanvasGroup.blocksRaycasts = false;
+        BattleMgr.instance.isPlaying = true;
+
     }
 
     public void ExitTogetherSkill()
     {
+        transform.localScale = Vector3.one * exitSmallerScale;
         _instrumentInfo.skillPoint = 0;
         MsgCenter.SendMsgAct(MsgConst.ON_INSTRUMENT_ACTION_OVER);
         instrumentBack.raycastTarget = true;
         _originalCanvasGroup.blocksRaycasts = true;
         imgDeadMask.gameObject.SetActive(true);
+        BattleMgr.instance.isPlaying = false;
+    }
+
+
+
+    private bool IsMouseOverThisUI()
+    {
+        if (EventSystem.current == null || !gameObject.activeInHierarchy)
+            return false;
+
+        PointerEventData pointerEventData = new PointerEventData(EventSystem.current)
+        {
+            position = Input.mousePosition
+        };
+
+        List<RaycastResult> results = new List<RaycastResult>();
+        EventSystem.current.RaycastAll(pointerEventData, results);
+
+        // 检查是否命中当前物体或其子物体
+        foreach (var result in results)
+        {
+            if (result.gameObject == gameObject || result.gameObject.transform.IsChildOf(transform))
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 }
