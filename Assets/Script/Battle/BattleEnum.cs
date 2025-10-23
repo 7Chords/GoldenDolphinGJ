@@ -59,6 +59,7 @@ public enum ESkillType
     Passive,//被动
 }
 
+//被动技能触发时机类型
 public enum EPassiveSkillTriggerType
 {
     None,

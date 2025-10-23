@@ -231,7 +231,7 @@ public class InstrumentItem : UIPanelBase,
         if (instrumentInfo.health == 0)
             Dead();
         else
-            CheckPassiveSkill();
+            CheckPassiveSkill(EPassiveSkillTriggerType.Hurt,new object[] { damage });
     }
     public int GetAttackAmount()
     {
@@ -597,8 +597,6 @@ public class InstrumentItem : UIPanelBase,
         BattleMgr.instance.isPlaying = false;
     }
 
-
-
     private bool IsMouseOverThisUI()
     {
         if (EventSystem.current == null || !gameObject.activeInHierarchy)
@@ -624,11 +622,46 @@ public class InstrumentItem : UIPanelBase,
         return false;
     }
 
-    private void CheckPassiveSkill()
+    //检测被动技能触发
+    private void CheckPassiveSkill(EPassiveSkillTriggerType triggerType,params object[] objs)
     {
         for(int i =0;i<_instrumentInfo.skillRefList.Count;i++)
         {
-            //if (_instrumentInfo.skillRefList[i].skillType == ESkillType.Passive)
+            if (_instrumentInfo.skillRefList[i].skillType != ESkillType.Passive)
+                continue;
+            if (_instrumentInfo.skillRefList[i].passiveSkillTriggerType == triggerType)
+            {
+                SkillHandler.DealPassiveSkill(this, _instrumentInfo.skillRefList[i], objs);
+            }
+
         }
+    }
+
+
+
+
+
+
+    public void BounceAttack()
+    {
+        BattleMgr.instance.isPlaying = true;
+        btnClick.enabled = false;
+        instrumentCharacter.gameObject.SetActive(true);
+        instrumentIcon.sprite = Resources.Load<Sprite>(_instrumentInfo.refObj.instrumentBodyBgPath);
+        Sequence seq = DOTween.Sequence();
+        seq.Append(instrumentCharacter.transform.DOScale(clickBiggerScale, clickBiggerDuration));
+
+
+
+        seq.Append(instrumentCharacter.transform.DOScale(Vector3.one, clickSmallerDuration)).OnComplete(() =>
+        {
+            BattleMgr.instance.isPlaying = false;
+            btnClick.enabled = true;
+            instrumentCharacter.gameObject.SetActive(false);
+            instrumentIcon.sprite = Resources.Load<Sprite>(_instrumentInfo.refObj.instrumentBodyBgWithChaPath);
+            OnPointerExit(null);
+        });
+
+        _tweenContainer.RegDoTween(seq);
     }
 }
