@@ -494,11 +494,24 @@ public class InstrumentItem : UIPanelBase,
     /// <summary>
     /// 成功放置时的处理
     /// </summary>
-    private void OnSuccessfulUseTogetherSkill(InstrumentItem item)
+    private void OnSuccessfulUseTogetherSkill(InstrumentItem anotherItem)
     {
 
+        SkillRefObj skillRefObj = null;
+        for (int i = 0; i < _instrumentInfo.skillRefList.Count; i++)
+        {
+            if (_instrumentInfo.skillRefList[i].skillUserList.Contains(anotherItem.instrumentInfo.refObj.id))
+            {
+                skillRefObj = _instrumentInfo.skillRefList[i];
+                break;
+            }
+        }
+        if (skillRefObj == null)
+            return;
+
+
         EnterTogetherSkill();
-        item.EnterTogetherSkill();
+        anotherItem.EnterTogetherSkill();
 
 
         Sequence seq = DOTween.Sequence();
@@ -511,18 +524,19 @@ public class InstrumentItem : UIPanelBase,
         seq.Append(transform.DORotate(new Vector3(0, 360, 0), 0.5f, RotateMode.FastBeyond360)
             .SetEase(Ease.InOutQuad));
 
-        seq.Join(item.transform.DORotate(new Vector3(0, 360, 0), 0.5f, RotateMode.FastBeyond360)
+        seq.Join(anotherItem.transform.DORotate(new Vector3(0, 360, 0), 0.5f, RotateMode.FastBeyond360)
             .SetEase(Ease.InOutQuad));
 
         seq.AppendInterval(2f).OnComplete(() =>
         {
+            List<IDamagable> senderList = new List<IDamagable>();
+            senderList.Add(this);
+            senderList.Add(anotherItem);
+            SkillHandler.DealTogetherSkill(senderList, skillRefObj);
+
             ExitTogetherSkill();
-            item.ExitTogetherSkill();
+            anotherItem.ExitTogetherSkill();
         });
-
-        
-
-        Debug.Log("合击成功！");
     }
 
     /// <summary>
@@ -561,7 +575,6 @@ public class InstrumentItem : UIPanelBase,
     public void EnterTogetherSkill()
     {
         transform.localScale = Vector3.one * enterBiggerScale;
-        //OnPointerExit(null);
         _hasActioned = true;
         instrumentBack.raycastTarget = false;
         _originalCanvasGroup.blocksRaycasts = false;
