@@ -32,12 +32,12 @@ public static class SkillHandler
         }
     }
 
-    public static void DealSingleSkill()
+    public static void DealSingleSkill(IDamagable sender, SkillRefObj skillRefObj)
     {
 
     }
 
-    public static void DealPassiveSkill()
+    public static void DealPassiveSkill(IDamagable sender, SkillRefObj skillRefObj)
     {
 
     }

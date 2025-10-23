@@ -5,6 +5,8 @@ public enum EInstrumentType
     Trumpet,// 小号
     Accordion,//手风琴
     Clarinet,//单簧管
+    Flute,//长笛
+    Triangle,//三角铁
 }
 
 public enum ETurnType 
@@ -23,6 +25,7 @@ public enum EInstrumentEffectType
     Attack,
     Heal,
     Buff,
+    Special,
 }
 
 public enum EEnemyActionType
