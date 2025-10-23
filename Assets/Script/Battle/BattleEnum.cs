@@ -58,3 +58,13 @@ public enum ESkillType
     Together,//合击
     Passive,//被动
 }
+
+public enum EPassiveSkillTriggerType
+{
+    None,
+    Together,
+    Hurt,
+    TurnStart,
+    TurnEnd,
+    Attack,
+}

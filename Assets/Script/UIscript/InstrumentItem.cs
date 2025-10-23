@@ -230,6 +230,8 @@ public class InstrumentItem : UIPanelBase,
 
         if (instrumentInfo.health == 0)
             Dead();
+        else
+            CheckPassiveSkill();
     }
     public int GetAttackAmount()
     {
@@ -620,5 +622,13 @@ public class InstrumentItem : UIPanelBase,
         }
 
         return false;
+    }
+
+    private void CheckPassiveSkill()
+    {
+        for(int i =0;i<_instrumentInfo.skillRefList.Count;i++)
+        {
+            //if (_instrumentInfo.skillRefList[i].skillType == ESkillType.Passive)
+        }
     }
 }

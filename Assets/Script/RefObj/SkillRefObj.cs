@@ -17,6 +17,7 @@ public class SkillRefObj : SCRefDataCore
     public string skillDesc;
     public ESkillType skillType;
     public List<long> skillUserList;
+    public EPassiveSkillTriggerType passiveSkillTriggerType;
     protected override void _parseFromString()
     {
         id = getLong("id");
@@ -24,6 +25,8 @@ public class SkillRefObj : SCRefDataCore
         skillDesc = getString("skillDesc");
         skillType = (ESkillType)getEnum("skillType",typeof(ESkillType));
         skillUserList = getList<long>("skillUserList");
+        passiveSkillTriggerType = (EPassiveSkillTriggerType)getEnum("passiveSkillTriggerType", typeof(EPassiveSkillTriggerType));
+
     }
 
     public static string assetPath => "RefData/ExportTxt";
