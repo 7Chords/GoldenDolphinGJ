@@ -32,7 +32,7 @@ public class InstrumentRefObj : SCRefDataCore
     public long unlockLevelId;
     public bool hasTogetherSkill;
     public int canUseSkillPoint;
-    public List<long> canTogetherIdList;
+    public List<long> skillIdList;
     public List<EInstrumentRoleTypeList> instrumentRoleTypeList;
     protected override void _parseFromString()
     {
@@ -58,7 +58,7 @@ public class InstrumentRefObj : SCRefDataCore
         unlockLevelId = getLong("unlockLevelId");
         hasTogetherSkill = getBool("hasTogetherSkill");
         canUseSkillPoint = getInt("canUseSkillPoint");
-        canTogetherIdList = getList<long>("canTogetherIdList");
+        skillIdList = getList<long>("skillIdList");
         instrumentRoleTypeList = getList<EInstrumentRoleTypeList>("instrumentRoleTypeList");
     }
 

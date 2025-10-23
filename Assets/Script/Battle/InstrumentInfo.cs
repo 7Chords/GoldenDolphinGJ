@@ -1,3 +1,4 @@
+using GJFramework;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,7 +17,7 @@ public class InstrumentInfo
     public int skillPoint;
 
     public InstrumentRefObj refObj;
-
+    public List<SkillRefObj> skillRefList;
     public InstrumentInfo(InstrumentRefObj refObj)
     {
         this.refObj = refObj;
@@ -25,5 +26,15 @@ public class InstrumentInfo
         heal = refObj.heal;
         buff = refObj.buff;
         skillPoint = 0;
+
+        skillRefList = new List<SkillRefObj>();
+        SkillRefObj tmpRefObj = null;
+        for (int i = 0; i < refObj.skillIdList.Count; i++)
+        {
+            tmpRefObj = SCRefDataMgr.Instance.skillRefList.refDataList.Find(x => x.id ==
+                refObj.skillIdList[i]);
+            if (tmpRefObj != null)
+                skillRefList.Add(tmpRefObj);
+        }
     }
 }

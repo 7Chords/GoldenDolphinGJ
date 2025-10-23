@@ -477,8 +477,7 @@ public class InstrumentItem : UIPanelBase,
         InstrumentItem item = go.GetComponent<InstrumentItem>();
         if (item != null)
         {
-            if (canUseTogetherSkill(item.instrumentInfo.refObj.id) 
-                && item.canUseTogetherSkill(_instrumentInfo.refObj.id))
+            if (canUseTogetherSkill(item.instrumentInfo.refObj.id))
                 return item;
             return null;
         }
@@ -535,9 +534,18 @@ public class InstrumentItem : UIPanelBase,
 
     public bool canUseTogetherSkill(long anotherId)
     {
+        bool flag = false;
+        for(int i =0;i<_instrumentInfo.skillRefList.Count;i++)
+        {
+            if (_instrumentInfo.skillRefList[i].skillUserList.Contains(anotherId))
+            {
+                flag = true;
+                break;
+            }
+        }
         return _instrumentInfo.refObj.hasTogetherSkill
             && _instrumentInfo.skillPoint == _maxSkillPoint
-            && _instrumentInfo.refObj.canTogetherIdList.Contains(anotherId);
+            && flag;
     }
 
 
