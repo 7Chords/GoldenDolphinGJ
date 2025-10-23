@@ -22,10 +22,11 @@ public enum EEnemyType
 
 public enum EInstrumentEffectType
 {
+    None,
     Attack,
     Heal,
     Buff,
-    Special,
+    CopyLast,
 }
 
 public enum EEnemyActionType

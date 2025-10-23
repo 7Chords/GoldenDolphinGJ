@@ -157,7 +157,7 @@ public class InstrumentItem : UIPanelBase,
             case EInstrumentEffectType.Attack:
                 {
                     if (_extraAttack > 0)
-                        txtAttack.text = (_instrumentInfo.attack - _extraAttack).ToString() + "<color=#00FF00>+" + _extraAttack.ToString() + "</color>";
+                        txtAttack.text = (_instrumentInfo.attack - _extraAttack).ToString() + "<color=#0000FF>+" + _extraAttack.ToString() + "</color>";
                     else
                         txtAttack.text = _instrumentInfo.attack.ToString();
                 }
@@ -298,6 +298,8 @@ public class InstrumentItem : UIPanelBase,
                      {
                          damagableList.Add(item);
                      }
+                     break;
+                 case EInstrumentEffectType.CopyLast://不需要对目标赋值
                      break;
                  default:
                      break;
