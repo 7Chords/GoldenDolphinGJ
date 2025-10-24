@@ -1,5 +1,6 @@
 using GJFramework;
 using System;
+using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Video;
 
@@ -8,7 +9,6 @@ public class StartPanel : UIPanelBase
     public Button btnGo;
     public Button btnExitGame;
     public Button btnSetting;
-
     private VideoPlayer _videoPlayer;
     protected override void OnShow()
     {
