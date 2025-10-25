@@ -24,6 +24,7 @@ namespace GJFramework
         StartPanel,
         SettingPanel,
         StoreItemInfoPanel,// 商店物品信息面板
+        GuidePanel,
         // 其他面板类型
     }
 

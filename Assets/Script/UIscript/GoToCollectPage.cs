@@ -84,6 +84,8 @@ public class GoToCollectPage : MonoBehaviour, IPointerClickHandler, IPointerEnte
     {
         AudioMgr.Instance.PlaySfx("木头按钮");
         SceneLoader.Instance.AddNextScenePanel(EPanelType.NoteCollectPanel);
+        // 如果是第一关，则添加引导面板
+        if(GameMgr.Instance.curLevel == 1) SceneLoader.Instance.AddNextScenePanel(EPanelType.GuidePanel);
         TransitionMgr.Instance.StarTransition("NoteCollectScene", "FadeInAndOutTransition");
     }
 
