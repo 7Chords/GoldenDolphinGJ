@@ -1,17 +1,19 @@
 %YAML 1.1
-%TAG !u! tag:unity3d.com,2011:
+%TAG !u! tag:yousandi.cn,2023:
 --- !u!1 &6864717804961296603
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
+  serializedVersion: 7
   m_Component:
   - component: {fileID: 6324558911601165178}
   - component: {fileID: 5354698494832281390}
   - component: {fileID: 7188396393124774275}
+  - component: {fileID: 2370350488372749165}
   m_Layer: 5
+  m_HasEditorInfo: 1
   m_Name: CharactorPicture
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -75,17 +77,34 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &2370350488372749165
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6864717804961296603}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 551100f6e6f37c14da5070f125af4c06, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  curShowImage: {fileID: 7188396393124774275}
+  itemSprites:
+  - {fileID: 21300000, guid: e163a5afeeed5ae40beb460aec1959d3, type: 3}
+  - {fileID: 0}
 --- !u!1 &7909902618775760308
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
+  serializedVersion: 7
   m_Component:
   - component: {fileID: 4760823605660644551}
   - component: {fileID: 1892852569329210788}
   m_Layer: 5
+  m_HasEditorInfo: 1
   m_Name: StoreContainerItem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -129,4 +148,8 @@ MonoBehaviour:
   ease: 27
   StoreItemImg: {fileID: 7188396393124774275}
   selectedSprite: {fileID: 0}
-  stroeItemId: 0
+  storeItemPictureSelector: {fileID: 2370350488372749165}
+  storeItemId: 0
+  clipName: 
+  hoverDelay: 0.4
+  hoverFadeDuration: 0.2

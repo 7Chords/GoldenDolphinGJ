@@ -13,6 +13,7 @@ public class StoreContainerItem : MonoBehaviour, IPointerClickHandler, IPointerE
     [SerializeField] private Ease ease = Ease.OutBack;    // 缓动类型
     [SerializeField] private Image StoreItemImg;
     [SerializeField] private Sprite selectedSprite;
+    [SerializeField] private StoreItemPictureSelector storeItemPictureSelector;
     private Vector3 originalScale;
     private Sequence clickSequence;
     public long storeItemId;// 商店商品Id
@@ -22,6 +23,7 @@ public class StoreContainerItem : MonoBehaviour, IPointerClickHandler, IPointerE
     int highNoteCost;
     int middleCost;
     int lowCost;
+    bool isLock = false;
     // 缓存原始颜色以便恢复
     private Color originalImageColor;
     private InstrumentStoreRefObj instrumentStoreRefObj = null;
@@ -30,6 +32,7 @@ public class StoreContainerItem : MonoBehaviour, IPointerClickHandler, IPointerE
     [SerializeField] private float hoverDelay = 0.4f; // 悬停延迟
     [SerializeField] private float hoverFadeDuration = 0.2f; // 淡入时长
     private Tween hoverDelayTween;
+    public InstrumentStoreRefObj InstrumentStoreRefObj => instrumentStoreRefObj;
 
     private void Awake()
     {
@@ -41,7 +44,15 @@ public class StoreContainerItem : MonoBehaviour, IPointerClickHandler, IPointerE
 
     }
 
-    private void Start()
+    public void SetInfo(long unlockLvId)
+    { 
+        if (storeItemPictureSelector != null)
+        {
+            isLock = storeItemPictureSelector.SetInfo(unlockLvId);
+        }
+    }
+
+    public void Init()
     {
         MsgCenter.RegisterMsg(MsgConst.ON_SELECTOR_INSTRUMENT_CANCLE_WHILE_DOTWEEN_COMPLETE, ResumeColor);
         instrumentStoreRefObj = SCRefDataMgr.Instance.instrumentStoreRefList.refDataList
@@ -50,6 +61,9 @@ public class StoreContainerItem : MonoBehaviour, IPointerClickHandler, IPointerE
         highNoteCost = instrumentStoreRefObj.hightNoteNum;
         middleCost = instrumentStoreRefObj.middleNoteNum;
         lowCost = instrumentStoreRefObj.lowNoteNum;
+    }
+    private void Start()
+    {
     }
 
     private void ResumeColor(object[] objs)
@@ -112,6 +126,9 @@ public class StoreContainerItem : MonoBehaviour, IPointerClickHandler, IPointerE
 
     public void OnPointerClick(PointerEventData eventData)
     {
+        // 如果是锁定状态 则不响应点击
+        if (!isLock) return;
+
         if (!isCanBuy())
         {
             // 购买失败时震动并做短暂位置抖动作为视觉反馈
@@ -149,6 +166,8 @@ public class StoreContainerItem : MonoBehaviour, IPointerClickHandler, IPointerE
 
     public void OnPointerEnter(PointerEventData eventData)
     {
+        // 如果是锁定状态 则不响应
+        if (!isLock) return;
         // 取消已有延迟
         hoverDelayTween?.Kill();
 
@@ -167,6 +186,8 @@ public class StoreContainerItem : MonoBehaviour, IPointerClickHandler, IPointerE
 
     public void OnPointerExit(PointerEventData eventData)
     {
+        // 如果是锁定状态 则不响应
+        if (!isLock) return;
         // 取消未到时的延迟显示
         hoverDelayTween?.Kill();
         hoverDelayTween = null;

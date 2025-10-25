@@ -12,6 +12,7 @@ public class StoreItemContainer : SingletonMono<StoreItemContainer>
     // Start is called before the first frame update
     private void OnEnable()
     {
+        Init();
         SetAllChildItemGrayState();
     }
     // 将所有子商品设置是否为灰色状态
@@ -19,16 +20,30 @@ public class StoreItemContainer : SingletonMono<StoreItemContainer>
     {
         foreach (var item in initStoreItemContainer)
         {
+            InstrumentRefObj tempInstrumentRefObj = item.InstrumentStoreRefObj == null ? null :
+                SCRefDataMgr.Instance.instrumentRefList.refDataList
+                .Find(x => x.id == item.InstrumentStoreRefObj.instrumentId);
+
+            if(tempInstrumentRefObj == null)
+            {
+                Debug.Log("tempInstrumentRefObj is null");
+                return;
+            }
+            item.SetInfo(tempInstrumentRefObj.unlockLevelId);
+
             item.SetGrayState(curSelectorStoreItemId, true);
         }
     }
     private void Start()
     {
-        Init();
         MsgCenter.RegisterMsg(MsgConst.ON_STORE_ITEM_SELECT, OnStoreItemSelect);
         MsgCenter.RegisterMsg(MsgConst.ON_SELECTOR_INSTRUMENT_CANCLE_WHILE_DOTWEEN_COMPLETE, OnSelectorItemCancle);
     }
 
+    public void SetChildInfo()
+    {
+
+    }    
 
     // 维护商品购买状态
     public void SetStoreItemState(long storeId, bool isBuy)
@@ -45,6 +60,7 @@ public class StoreItemContainer : SingletonMono<StoreItemContainer>
         foreach (var item in initStoreItemContainer)
         {
             storeItemList[item.StoreItemId] = false;
+            item.Init();
         }
     }
     public void OnStoreItemSelect(object[] _objs)
