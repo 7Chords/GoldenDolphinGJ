@@ -64,6 +64,9 @@ public class LevelItem : UIPanelBase,
     [Header("专辑移动速度")]
     public float moveSpeed;
 
+    [Header("专辑所属关卡")]
+    public int level;
+
 
     private BattleLevelRefObj _battleLevelRefObj;
     private TweenContainer _tweenContainer;
@@ -88,26 +91,11 @@ public class LevelItem : UIPanelBase,
         _tweenContainer = null;
     }
 
-    //private void OnDestroy()
-    //{
-    //    _tweenContainer?.KillAllDoTween();
-    //    _tweenContainer = null;
-    //}
-
-    //public void SetInfo(BattleLevelRefObj levelRefObj)
-    //{
-    //    _battleLevelRefObj = levelRefObj;
-    //    RefreshShow();
-    //}
-
-    //private void RefreshShow()
-    //{
-    //    if (_battleLevelRefObj == null)
-    //        return;
-    //}
-
     private void OnSelectBtnClicked()
     {
+        if (level > GameMgr.Instance.curLevel)
+            return;
+
         if (_hasSelected)
             return;
         _hasSelected = true;

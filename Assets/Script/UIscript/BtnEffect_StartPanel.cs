@@ -47,6 +47,8 @@ public class BtnEffect_StartPanel : MonoBehaviour,
 
     public void OnPointerEnter(PointerEventData eventData)
     {
+
+        AudioMgr.Instance.PlaySfx("鼠标悬停");
         imgBtn.sprite = selectSprite;
 
         // 创建新的高亮对象
