@@ -14,6 +14,17 @@ public class StoreContainerItem : MonoBehaviour, IPointerClickHandler, IPointerE
     [SerializeField] private Image StoreItemImg;
     [SerializeField] private Sprite selectedSprite;
     [SerializeField] private StoreItemPictureSelector storeItemPictureSelector;
+    [Tooltip("缩放过渡时长（秒）")]
+    [SerializeField] private float scaleDuration = 0.12f;
+    [Tooltip("缩放缓动类型")]
+    [SerializeField] private Ease scaleEase = Ease.OutQuad;
+    [Tooltip("是否使用 UnscaledTime（忽略 Time.timeScale）")]
+    [SerializeField] private bool useUnscaledTime = true;
+    [Tooltip("悬停时目标缩放")]
+    private Vector3 hoverScale = new Vector3(1.05f, 1.05f, 1.0f);
+    [Tooltip("按下时目标缩放（相对于 hoverScale 的比例）")]
+    [SerializeField] private float pressedScaleMultiplier = 0.95f;
+    private Tween scaleTween;
     private Vector3 originalScale;
     private Sequence clickSequence;
     public long storeItemId;// 商店商品Id
@@ -170,6 +181,9 @@ public class StoreContainerItem : MonoBehaviour, IPointerClickHandler, IPointerE
         if (!isLock) return;
         // 取消已有延迟
         hoverDelayTween?.Kill();
+        // 开始缩放 到 hover 大小
+        StartScale(hoverScale);
+
 
         // 延迟显示
         hoverDelayTween = DOVirtual.DelayedCall(hoverDelay, () =>
@@ -191,7 +205,7 @@ public class StoreContainerItem : MonoBehaviour, IPointerClickHandler, IPointerE
         // 取消未到时的延迟显示
         hoverDelayTween?.Kill();
         hoverDelayTween = null;
-
+        StartScale(originalScale);
         // 隐藏面板 不淡出
         var panel = PanelUIMgr.Instance.GetCachedPanel(EPanelType.StoreItemInfoPanel) as StoreItemInfoPanel;
         if (panel != null)
@@ -211,6 +225,14 @@ public class StoreContainerItem : MonoBehaviour, IPointerClickHandler, IPointerE
             clickSequence = null;
             transform.localScale = originalScale;
         }
+
+        // 组件失效时确保 tween 被清理
+        if (scaleTween != null && scaleTween.IsActive())
+        {
+            scaleTween.Kill();
+            scaleTween = null;
+        }
+
     }
     private bool isCanBuy()
     {
@@ -247,5 +269,28 @@ public class StoreContainerItem : MonoBehaviour, IPointerClickHandler, IPointerE
     {
         MsgCenter.UnregisterMsg(MsgConst.ON_SELECTOR_INSTRUMENT_CANCLE_WHILE_DOTWEEN_COMPLETE, ResumeColor);
         tweenContainer.KillAllDoTween();
+    }
+
+    private void StartScale(Vector3 target)
+    {
+        // 取消现有 tween
+        if (scaleTween != null && scaleTween.IsActive())
+        {
+            scaleTween.Kill();
+            scaleTween = null;
+        }
+
+        // 直接设置
+        if (scaleDuration <= 0f)
+        {
+            transform.localScale = target;
+            return;
+        }
+
+        // 创建新的 DOTween 缩放并保存引用
+        scaleTween = transform.DOScale(target, scaleDuration)
+            .SetEase(scaleEase)
+            .SetUpdate(useUnscaledTime) // 使用 unscaled 时间以匹配之前的实现
+            .OnKill(() => scaleTween = null);
     }
 }
