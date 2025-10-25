@@ -86,7 +86,6 @@ public class LevelItem : UIPanelBase,
     {
         btnSelect.onClick.RemoveAllListeners();
         btnReturn.onClick.RemoveAllListeners();
-        btnStart.onClick.RemoveAllListeners();
         _tweenContainer?.KillAllDoTween();
         _tweenContainer = null;
     }
@@ -158,6 +157,8 @@ public class LevelItem : UIPanelBase,
 
     public void CancelSelect()
     {
+        if (!_hasSelected)
+            return;
         btnReturn.enabled = false;
         btnStart.enabled = false;
         btnStart.GetComponent<GoToCollectPage>().enabled = false;

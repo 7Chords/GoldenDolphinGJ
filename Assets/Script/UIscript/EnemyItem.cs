@@ -139,18 +139,37 @@ public class EnemyItem : UIPanelBase,IDamagable
                 MsgCenter.SendMsgAct(MsgConst.ON_ENEMY_START_ATTACK);
             }));
 
+
+            float extraTime = 0;
+
+            List<IDamagable> damagableList = new List<IDamagable>();
+            foreach (var item in BattleMgr.instance.instrumentItemList)
+            {
+                damagableList.Add(item as IDamagable);
+            }
+            foreach (var item in damagableList)
+            {
+                if((item as InstrumentItem).instrumentInfo.skillRefList.
+                    Find(x=>x.passiveSkillTriggerType == EPassiveSkillTriggerType.Hurt) != null)
+                {
+                    extraTime += 1.5f;
+                }
+            }
+
             seq.Append(DOVirtual.DelayedCall(attackWaitDuration - attackWaitDecDuration, () =>
              {
 
-                 List<IDamagable> damagableList = new List<IDamagable>();
-                 foreach (var item in BattleMgr.instance.instrumentItemList)
-                 {
-                     damagableList.Add(item as IDamagable);
-                 }
                  AttackHandler.EnemyDealAttack(EInstrumentEffectType.Attack, this, damagableList);
-                 MsgCenter.SendMsgAct(MsgConst.ON_ENEMY_ACTION_OVER); 
-                  _flag = false;
+                 //MsgCenter.SendMsgAct(MsgConst.ON_ENEMY_ACTION_OVER); 
+                 // _flag = false;
              }));
+
+            seq.Append(DOVirtual.DelayedCall(extraTime, () =>
+            {
+                MsgCenter.SendMsgAct(MsgConst.ON_ENEMY_ACTION_OVER);
+                _flag = false;
+            }));
+
             _tweenContainer.RegDoTween(seq);
         }
 
