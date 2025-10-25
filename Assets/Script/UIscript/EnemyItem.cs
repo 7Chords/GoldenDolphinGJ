@@ -140,7 +140,7 @@ public class EnemyItem : UIPanelBase,IDamagable
             }));
 
 
-            float extraTime = 0;
+            float extraTime = 0.1f;
 
             List<IDamagable> damagableList = new List<IDamagable>();
             foreach (var item in BattleMgr.instance.instrumentItemList)
