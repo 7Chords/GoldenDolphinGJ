@@ -16,6 +16,9 @@ public class LevelSelectPanel : UIPanelBase
     [Header("淡出时间")]
     public float fadeOutDuration;
 
+
+    public Button btnReturn;
+
     private TweenContainer _tweenContainer;
 
     public List<LevelItem> levelItemList;
@@ -27,6 +30,11 @@ public class LevelSelectPanel : UIPanelBase
         {
             item?.Show();
         }
+        btnReturn.onClick.AddListener(() =>
+        {
+            SceneLoader.Instance.AddNextScenePanel(EPanelType.StartPanel);
+            TransitionMgr.Instance.StarTransition("StartScene", "FadeInAndOutTransition");
+        });
     }
 
 
@@ -38,6 +46,7 @@ public class LevelSelectPanel : UIPanelBase
         //    _tweenContainer?.KillAllDoTween();
         //    _tweenContainer = null;
         //}));
+        btnReturn.onClick.RemoveAllListeners();
         foreach (var item in levelItemList)
         {
             item?.Hide();
