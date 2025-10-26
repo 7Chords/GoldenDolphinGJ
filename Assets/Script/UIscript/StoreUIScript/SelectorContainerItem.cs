@@ -134,7 +134,6 @@ public class SelectorContainerItem : MonoBehaviour, IPointerClickHandler
 
         preSelectorImage.raycastTarget = false;
 
-        MsgCenter.SendMsg(MsgConst.ON_SELECTOR_INSTRUMENT_CANCLE_IMMEDIATE, storeItemId);
         // 停掉已有动画
         if (popSequence != null && popSequence.IsActive())
         {
@@ -177,6 +176,8 @@ public class SelectorContainerItem : MonoBehaviour, IPointerClickHandler
 
         popSequence.OnComplete(() =>
         {
+
+            MsgCenter.SendMsg(MsgConst.ON_SELECTOR_INSTRUMENT_CANCLE_BEFORE_COMPLETE, storeItemId);
             MsgCenter.SendMsg(MsgConst.ON_SELECTOR_INSTRUMENT_CANCLE_WHILE_DOTWEEN_COMPLETE, storeItemId);
             // 动画结束后禁用图片并恢复 alpha，避免下次复用时出现问题
             if (preSelectorImage != null)
