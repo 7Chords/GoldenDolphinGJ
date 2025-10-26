@@ -34,7 +34,8 @@ public class LevelDescItem : MonoBehaviour
         imgBg.sprite = Resources.Load<Sprite>(levelRefObj.levelPreviewBgPath);
         imgPoint.sprite = Resources.Load<Sprite>(levelRefObj.levelPreviewPointDecPath);
         imgEnemyName.sprite = Resources.Load<Sprite>(levelRefObj.levelEnemyNameImgPath);
-        txtEnemyHealth.text = levelRefObj.enemyHeal.ToString();
+        imgEnemyName.SetNativeSize();
+        txtEnemyHealth.text = levelRefObj.enemyHealth.ToString();
         txtEnemyAttack.text = levelRefObj.enemyAttack.ToString();
 
 

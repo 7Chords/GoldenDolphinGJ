@@ -1,7 +1,9 @@
+using DG.Tweening;
 using GJFramework;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 
@@ -17,7 +19,9 @@ public struct InstrumentCost
     }
 }
 
-public class InstrumentDescItem : MonoBehaviour
+public class InstrumentDescItem : MonoBehaviour,
+    IPointerEnterHandler,
+    IPointerExitHandler
 {
     public Image imgHead;
     public Image imgProp;
@@ -28,10 +32,30 @@ public class InstrumentDescItem : MonoBehaviour
     public Image imgChg_2;
     public Text txtChg_1;
     public Text txtChg_2;
-    
+    public Button btnItem;
+    [Header("移入放大持续时间")]
+    public float enterBiggerDuration;
+    [Header("移入放大缩放")]
+    public float enterBiggerScale;
+    [Header("移出缩小持续时间")]
+    public float exitSmallerDuration;
+    [Header("移出缩小缩放")]
+    public float exitSmallerScale;
+    private TweenContainer _tweenContainer;
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        _tweenContainer?.RegDoTween(transform.DOScale(enterBiggerScale, enterBiggerDuration));
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        _tweenContainer?.RegDoTween(transform.DOScale(exitSmallerScale, exitSmallerDuration));
+    }
 
     public void SetInfo(InstrumentRefObj instrumentRefObj)
     {
+        _tweenContainer = new TweenContainer();
+
         imgHead.sprite = Resources.Load<Sprite>(instrumentRefObj.instrumentPreviewIconPath);
         imgProp.sprite = Resources.Load<Sprite>(instrumentRefObj.instrumentAttackIconPath);
         txtHealth.text = instrumentRefObj.health.ToString();
@@ -81,6 +105,10 @@ public class InstrumentDescItem : MonoBehaviour
 
             }
         }
+        btnItem.onClick.AddListener(() =>
+        {
+            goChgCheck.SetActive(!goChgCheck.activeInHierarchy);
+        });
     }
 
     private Sprite GetNoteSprite(ENoteType noteType)
@@ -97,6 +125,12 @@ public class InstrumentDescItem : MonoBehaviour
                 return null;
         }
 
+    }
+
+    private void OnDestroy()
+    {
+        _tweenContainer?.KillAllDoTween();
+        _tweenContainer = null;
     }
 
 }
