@@ -10,7 +10,7 @@ public class GuideUIScript : MonoBehaviour, IPointerClickHandler
 
     private GameObject curGuideUI;
 
-    private void Start()
+    private void OnEnable()
     {
         Init();
     }
