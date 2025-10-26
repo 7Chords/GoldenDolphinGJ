@@ -19,13 +19,17 @@ public static class SkillHandler
 
         switch(skillRefObj.skillName)
         {
-            case "合击1":
+            case "小号和小提琴的合击":
                 break;
-            case "合击2":
+            case "小号和手风琴的合击":
                 break;
-            case "合击3":
+            case "小号和单簧管的合击":
                 break;
-            case "合击4":
+            case "长笛和小提琴的合击":
+                break;
+            case "长笛和手风琴的合击":
+                break;
+            case "长笛和单簧管的合击":
                 break;
             default:
                 break;
