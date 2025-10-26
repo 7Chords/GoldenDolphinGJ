@@ -436,8 +436,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   panelType: 10
   btnGo: {fileID: 2193777296410112073}
-  btnExitGame: {fileID: 2030032791597438991}
-  btnSetting: {fileID: 168835803509654184}
+  btnExitGame: {fileID: 168835803509654184}
+  btnSetting: {fileID: 2030032791597438991}
 --- !u!1 &5545290160263601282
 GameObject:
   m_ObjectHideFlags: 0

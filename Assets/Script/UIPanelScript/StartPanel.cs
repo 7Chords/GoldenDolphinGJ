@@ -25,11 +25,11 @@ public class StartPanel : UIPanelBase
         });
         btnExitGame.onClick.AddListener(() =>
         {
-
+            Application.Quit();
         });
         btnSetting.onClick.AddListener(() =>
         {
-
+            PanelUIMgr.Instance.OpenPanel(EPanelType.SettingPanel);
         });
     }
     protected override void OnHide(Action onHideFinished)
