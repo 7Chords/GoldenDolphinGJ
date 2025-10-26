@@ -12,8 +12,6 @@ public class StoreItemPictureSelector : MonoBehaviour
 
     public bool SetInfo(long unlockLevelId)
     {
-        Debug.Log(unlockLevelId);
-        Debug.Log(GameMgr.Instance.curLevel);
         bool isLock = unlockLevelId <= GameMgr.Instance.curLevel;
 
         if (isLock)
