@@ -34,6 +34,7 @@ public class InstrumentRefObj : SCRefDataCore
     public int canUseSkillPoint;
     public List<long> skillIdList;
     public List<EInstrumentRoleTypeList> instrumentRoleTypeList;
+    public string instrumentPreviewIconPath;
     protected override void _parseFromString()
     {
         id = getLong("id");
@@ -60,6 +61,7 @@ public class InstrumentRefObj : SCRefDataCore
         canUseSkillPoint = getInt("canUseSkillPoint");
         skillIdList = getList<long>("skillIdList");
         instrumentRoleTypeList = getList<EInstrumentRoleTypeList>("instrumentRoleTypeList");
+        instrumentPreviewIconPath = getString("instrumentPreviewIconPath");
     }
 
     public static string assetPath => "RefData/ExportTxt";
