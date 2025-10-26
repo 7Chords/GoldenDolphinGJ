@@ -1,12 +1,12 @@
 %YAML 1.1
-%TAG !u! tag:unity3d.com,2011:
+%TAG !u! tag:yousandi.cn,2023:
 --- !u!1 &1786817159046822735
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
+  serializedVersion: 7
   m_Component:
   - component: {fileID: 1255004969278815380}
   - component: {fileID: 3560070128580114699}
@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 2760632203674556194}
   - component: {fileID: 1185139118079287969}
   m_Layer: 5
+  m_HasEditorInfo: 1
   m_Name: prefab_level_item
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,10 +95,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   panelType: 0
-  imgContent: {fileID: 1655668287764040087}
-  levelDescGO: {fileID: 4954704141021564697}
-  txtEnemyInfo: {fileID: 8249307042836695136}
-  txtRecommond: {fileID: 4956609479727042857}
   btnSelect: {fileID: 1185139118079287969}
   canvasGroup: {fileID: 2760632203674556194}
   fadeInDuration: 0.25
@@ -105,8 +102,26 @@ MonoBehaviour:
   selectBiggerScale: 1.2
   selectBiggerDuration: 0.25
   unselecSmallerDuration: 0.25
-  descFadeInDuration: 0
-  descFadeOutDuration: 0
+  hasSelectScale: 0
+  hasSelectScaleDuration: 0
+  imgBlackBg: {fileID: 0}
+  selectBlackFadeDuration: 0
+  fadeMaterial: {fileID: 0}
+  materialFadeDuration: 0
+  fadeGO: {fileID: 0}
+  fadeCanvasGroup: []
+  singleCanvasGroupFadeDuration: 0
+  canvasFadeInterval: 0
+  btnStart: {fileID: 0}
+  btnReturn: {fileID: 0}
+  btnFadeDuration: 0
+  selectSprite: {fileID: 0}
+  unselectSprite: {fileID: 0}
+  unlockSprite: {fileID: 0}
+  imgContent: {fileID: 1655668287764040087}
+  transformPlayShow: {fileID: 0}
+  moveSpeed: 0
+  level: 0
 --- !u!225 &2760632203674556194
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -169,12 +184,13 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
+  serializedVersion: 7
   m_Component:
   - component: {fileID: 6026819309139225062}
   - component: {fileID: 4395738670743947537}
   - component: {fileID: 4956609479727042857}
   m_Layer: 5
+  m_HasEditorInfo: 1
   m_Name: txt_recommond
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -248,12 +264,13 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
+  serializedVersion: 7
   m_Component:
   - component: {fileID: 8038596346831321630}
   - component: {fileID: 6634376172589297572}
   - component: {fileID: 1743328194109583379}
   m_Layer: 5
+  m_HasEditorInfo: 1
   m_Name: img_bg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -300,7 +317,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.035848916, g: 0.74350476, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -323,13 +340,14 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
+  serializedVersion: 7
   m_Component:
   - component: {fileID: 5783936717350652543}
   - component: {fileID: 1169894118772772377}
   - component: {fileID: 6605314826783434350}
   - component: {fileID: 7419157484757188714}
   m_Layer: 5
+  m_HasEditorInfo: 1
   m_Name: go_desc
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -424,12 +442,13 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
+  serializedVersion: 7
   m_Component:
   - component: {fileID: 7855546555504894651}
   - component: {fileID: 1700009653636189383}
   - component: {fileID: 1655668287764040087}
   m_Layer: 5
+  m_HasEditorInfo: 1
   m_Name: img_content
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -499,12 +518,13 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
+  serializedVersion: 7
   m_Component:
   - component: {fileID: 5900914005703274754}
   - component: {fileID: 8350402255882349399}
   - component: {fileID: 8249307042836695136}
   m_Layer: 5
+  m_HasEditorInfo: 1
   m_Name: txt_enemy_info
   m_TagString: Untagged
   m_Icon: {fileID: 0}

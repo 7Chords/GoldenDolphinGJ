@@ -157,7 +157,7 @@ public class InstrumentItem : UIPanelBase,
             case EInstrumentEffectType.Attack:
                 {
                     if (_extraAttack > 0)
-                        txtAttack.text = (_instrumentInfo.attack - _extraAttack).ToString() + "<color=#0000FF>+" + _extraAttack.ToString() + "</color>";
+                        txtAttack.text = (_instrumentInfo.attack - _extraAttack).ToString() + "<color=#09BEFF>+" + _extraAttack.ToString() + "</color>";
                     else
                         txtAttack.text = _instrumentInfo.attack.ToString();
                 }
@@ -213,6 +213,7 @@ public class InstrumentItem : UIPanelBase,
         AudioMgr.Instance.PlaySfx(_instrumentInfo.refObj.instrumentAttackSoundPath);
         _hasActioned = true;
         imgDeadMask.gameObject.SetActive(true);
+        Debug.Log(_instrumentInfo.refObj.instrumentName + ":" + _instrumentInfo.skillPoint);
     }
     public void TakeDamage(int damage)
     {
@@ -346,7 +347,6 @@ public class InstrumentItem : UIPanelBase,
     {
         if (_hasDead || _hasActioned || BattleMgr.instance.isPlaying)
             return;
-        Debug.Log("BeginDrag");
         _isDragging = true;
 
         // 创建拖拽克隆体
@@ -389,7 +389,6 @@ public class InstrumentItem : UIPanelBase,
 
         // 检查是否放置在有效区域
         InstrumentItem item = CheckIsValidInstrument(eventData);
-
         if (item != null)
             OnSuccessfulUseTogetherSkill(item);
         else
@@ -483,6 +482,7 @@ public class InstrumentItem : UIPanelBase,
         EventSystem.current.RaycastAll(eventData, results);
 
         GameObject go = results.Find(x => x.gameObject.GetComponent<InstrumentItem>() != null).gameObject;
+        Debug.Log("go" +":"+ go);
         if (go == null)
             return null;
         InstrumentItem item = go.GetComponent<InstrumentItem>();
@@ -568,6 +568,8 @@ public class InstrumentItem : UIPanelBase,
                 break;
             }
         }
+        Debug.Log("flag" + ":" + flag);
+
         return flag
             && _instrumentInfo.refObj.hasTogetherSkill
             && _instrumentInfo.skillPoint == _maxSkillPoint
@@ -595,6 +597,8 @@ public class InstrumentItem : UIPanelBase,
         _originalCanvasGroup.blocksRaycasts = true;
         imgDeadMask.gameObject.SetActive(true);
         BattleMgr.instance.isPlaying = false;
+        Debug.Log(_instrumentInfo.refObj.instrumentName + ":" + _instrumentInfo.skillPoint);
+
     }
 
     private bool IsMouseOverThisUI()

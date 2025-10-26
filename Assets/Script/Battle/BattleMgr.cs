@@ -93,6 +93,7 @@ public class BattleMgr : SingletonMono<BattleMgr>
             AudioMgr.Instance.PlaySfx("游戏失败cut");
             PanelUIMgr.Instance.OpenPanel(EPanelType.BattleLosePanel);
         }
+        SkillHandler.bounceRate = 0.2f;
     }
     public void RegInstrumentItem(InstrumentItem item)
     {
