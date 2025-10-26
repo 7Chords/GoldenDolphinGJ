@@ -37,13 +37,6 @@ public enum EEnemyActionType
 }
 
 
-public enum EBattleDecorationType
-{
-    HighFreq,
-    MiddleFreq,
-    LowFreq,
-}
-
 public enum EInstrumentRoleTypeList
 {
     Support, // 辅助
@@ -68,4 +61,11 @@ public enum EPassiveSkillTriggerType
     TurnStart,
     TurnEnd,
     Attack,
+}
+
+public enum ENoteType
+{
+    High,
+    Low,
+    Middle,
 }
