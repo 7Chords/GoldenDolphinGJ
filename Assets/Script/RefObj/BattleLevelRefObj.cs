@@ -16,7 +16,7 @@ public class BattleLevelRefObj : SCRefDataCore
 
     public string enemyIconPath;
     public string enemyBgPath;
-    public List<long> recommendinstrumentsIdList = new List<long>();// 推荐使用的乐器ID列表
+    public List<long> recommendinstrumentsIdList;
     public string enemyBodyPath;
     public List<EEnemyActionType> enemyActionTypeList;
     public string bgmName;

@@ -96,12 +96,12 @@ public class InstrumentDescItem : MonoBehaviour,
             if (i == 0)
             {
                 imgChg_1.sprite = GetNoteSprite(costList[i].noteType);
-                txtChg_1.text = costList[i].amount.ToString();
+                txtChg_1.text = "×" + costList[i].amount.ToString();
             }
             else if(i == 1)
             {
                 imgChg_2.sprite = GetNoteSprite(costList[i].noteType);
-                txtChg_2.text = costList[i].amount.ToString();
+                txtChg_2.text = "×" + costList[i].amount.ToString();
 
             }
         }

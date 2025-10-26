@@ -17,18 +17,19 @@ public class LevelDescItem : MonoBehaviour
     public Transform instrumentSVTransform;
     public GameObject instrumentDescItemPrefab;
 
-    public List<GameObject> itemList;
+    private List<GameObject> _itemList;
+    public List<RecommendItem> recommendItemList;
     public void SetInfo(BattleLevelRefObj levelRefObj)
     {
-        if (itemList == null)
-            itemList = new List<GameObject>();
+        if (_itemList == null)
+            _itemList = new List<GameObject>();
         else
         {
-            foreach(var go in itemList)
+            foreach(var go in _itemList)
             {
                 Destroy(go);
             }
-            itemList.Clear();
+            _itemList.Clear();
         }    
 
         imgBg.sprite = Resources.Load<Sprite>(levelRefObj.levelPreviewBgPath);
@@ -53,7 +54,15 @@ public class LevelDescItem : MonoBehaviour
             GameObject instruemntItem = GameObject.Instantiate(instrumentDescItemPrefab);
             instruemntItem.transform.SetParent(instrumentSVTransform);
             instruemntItem.GetComponent<InstrumentDescItem>().SetInfo(resRefList[i]);
-            itemList.Add(instruemntItem);
+            _itemList.Add(instruemntItem);
+        }
+
+        if(recommendItemList!= null)
+        {
+            foreach(var item in recommendItemList)
+            {
+                item.SetInfo(levelRefObj);
+            }
         }
     }
 }
