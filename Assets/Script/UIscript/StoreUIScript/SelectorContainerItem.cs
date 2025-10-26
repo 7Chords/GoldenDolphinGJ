@@ -12,7 +12,7 @@ public class SelectorContainerItem : MonoBehaviour, IPointerClickHandler
     [SerializeField] private float overshootScaleFactor = 1.12f; // 放大到的比例（可略大于1用于过冲效果）
     [SerializeField] private float totalDuration = 0.28f;       // 总时长（秒）
     [SerializeField] private Ease ease = Ease.OutBack;          // 放大缓动（建议 OutBack 有弹性效果）
-
+    [SerializeField] private GameObject parentGameObject;
     public Sprite DefaultSprite;
     private bool isSelected = false;
     public Image preSelectorImage;
@@ -20,6 +20,10 @@ public class SelectorContainerItem : MonoBehaviour, IPointerClickHandler
     private Sequence popSequence;
     private Sequence disappearSequence;
     private long storeItemId;// 商店商品Id
+    public GameObject ParentGameObject
+    {
+        get => parentGameObject;
+    }
     public long StoreItemId
     {
         get => storeItemId;

@@ -14,7 +14,7 @@ public class SelectorContainer : MonoBehaviour
         MsgCenter.RegisterMsg(MsgConst.ON_STORE_ITEM_SELECT, OnSelectedCharacter);
         MsgCenter.RegisterMsgAct(MsgConst.ON_STORE_OPEN, RefreshInfo);
         MsgCenter.RegisterMsg(MsgConst.ON_SELECTOR_INSTRUMENT_CANCLE_WHILE_DOTWEEN_COMPLETE, ReturnSelectorItem2Store);
-
+        Init();
     }
 
     /// <summary>
@@ -22,6 +22,15 @@ public class SelectorContainer : MonoBehaviour
     /// </summary>
     /// <param name="_index"></param>
     /// <param name="_sprite"></param>
+
+    public void Init()
+    {
+        // 引导关卡 做一下特判
+        bool isFirstLevel = GameMgr.Instance.curLevel == 1;
+        selectItemList[2].ParentGameObject.SetActive(!isFirstLevel);
+        selectItemList[2].IsSelected = isFirstLevel;
+
+    }
 
     private void OnSelectedCharacter(object[] _objs)
     {
@@ -35,6 +44,7 @@ public class SelectorContainer : MonoBehaviour
         long storeItemId = (long)_objs[1];
         // 逻辑是 如果第一个位置没有被选中 就设置第一个位置
         // 同时设置 图片和商品Id 
+        // 新增 如果是第一关 则最大只能选择两个乐器
         if (!selectItemList[0].IsSelected)
         {
             selectItemList[0].SetItemInfo(sprite, storeItemId);
@@ -45,7 +55,7 @@ public class SelectorContainer : MonoBehaviour
             selectItemList[1].SetItemInfo(sprite, storeItemId);
             selectItemList[1].gameObject.SetActive(true);
         }
-        else if(!selectItemList[2].IsSelected)
+        else if(!selectItemList[2].IsSelected && GameMgr.Instance.curLevel != 1)
         {
             selectItemList[2].SetItemInfo(sprite, storeItemId);
             selectItemList[2].gameObject.SetActive(true);

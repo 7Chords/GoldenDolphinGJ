@@ -1,18 +1,19 @@
 %YAML 1.1
-%TAG !u! tag:unity3d.com,2011:
+%TAG !u! tag:yousandi.cn,2023:
 --- !u!1 &4309881697490534938
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
+  serializedVersion: 7
   m_Component:
   - component: {fileID: 7553306092151734653}
   - component: {fileID: 7152050929511862093}
   - component: {fileID: 2341814017360777835}
   - component: {fileID: 4400991816552747546}
   m_Layer: 5
+  m_HasEditorInfo: 1
   m_Name: PreSelectedImg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -92,6 +93,8 @@ MonoBehaviour:
   overshootScaleFactor: 1.12
   totalDuration: 0.28
   ease: 27
+  parentGameObject: {fileID: 7819314755320389297}
+  DefaultSprite: {fileID: 0}
   preSelectorImage: {fileID: 2341814017360777835}
 --- !u!1 &4511235612928822056
 GameObject:
@@ -99,12 +102,13 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
+  serializedVersion: 7
   m_Component:
   - component: {fileID: 2292667989019736938}
   - component: {fileID: 6845846926988913482}
   - component: {fileID: 7099656142350665855}
   m_Layer: 5
+  m_HasEditorInfo: 1
   m_Name: DefaultImg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -174,10 +178,11 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
+  serializedVersion: 7
   m_Component:
   - component: {fileID: 7918321448134896376}
   m_Layer: 5
+  m_HasEditorInfo: 1
   m_Name: selectStoreContainerItem
   m_TagString: Untagged
   m_Icon: {fileID: 0}

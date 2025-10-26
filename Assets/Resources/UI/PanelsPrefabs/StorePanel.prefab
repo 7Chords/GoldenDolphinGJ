@@ -1846,9 +1846,17 @@ PrefabInstance:
       propertyPath: DefaultSprite
       value: 
       objectReference: {fileID: 21300000, guid: 20de9027f933f32418e73f3b1a70e80a, type: 3}
+    - target: {fileID: 4511235612928822056, guid: dddf7c778b60a16408939834b88a9e94, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7819314755320389297, guid: dddf7c778b60a16408939834b88a9e94, type: 3}
       propertyPath: m_Name
       value: selectStoreContainerItem (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7819314755320389297, guid: dddf7c778b60a16408939834b88a9e94, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7918321448134896376, guid: dddf7c778b60a16408939834b88a9e94, type: 3}
       propertyPath: m_Pivot.x

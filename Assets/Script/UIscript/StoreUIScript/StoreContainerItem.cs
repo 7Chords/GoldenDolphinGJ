@@ -247,7 +247,8 @@ public class StoreContainerItem : MonoBehaviour, IPointerClickHandler, IPointerE
         // 如果已经包含了该乐器 则不能购买
         temp &= !StoreItemContainer.instance.storeItemList[storeItemId];
         // 且现在乐器列表不能满
-        temp &= PlayerMgr.Instance.instrumentIdList.Count < 3;
+        temp &= PlayerMgr.Instance.instrumentIdList.Count < PlayerMgr.Instance.GetCurrentMaxInstrumentNum();
+        // 还要判断当前乐器是否已满
 
         if (temp)
         {

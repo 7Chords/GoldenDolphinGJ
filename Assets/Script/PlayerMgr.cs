@@ -18,7 +18,14 @@ public class PlayerMgr : SingletonPersistent<PlayerMgr>
         Init();
     }
 
-    
+    public int GetCurrentMaxInstrumentNum()
+    {
+        // 引导关卡 最大只能选择两个乐器
+        if (GameMgr.Instance.curLevel == 1)
+            return 2;
+        else
+            return 3;
+    }
     public void SetAllNoteNum2Nine()
     {
         noteDic[NoteType.LowNote] = 9;
