@@ -16,8 +16,21 @@ public class LevelDescItem : MonoBehaviour
 
     public Transform instrumentSVTransform;
     public GameObject instrumentDescItemPrefab;
+
+    public List<GameObject> itemList;
     public void SetInfo(BattleLevelRefObj levelRefObj)
     {
+        if (itemList == null)
+            itemList = new List<GameObject>();
+        else
+        {
+            foreach(var go in itemList)
+            {
+                Destroy(go);
+            }
+            itemList.Clear();
+        }    
+
         imgBg.sprite = Resources.Load<Sprite>(levelRefObj.levelPreviewBgPath);
         imgPoint.sprite = Resources.Load<Sprite>(levelRefObj.levelPreviewPointDecPath);
         imgEnemyName.sprite = Resources.Load<Sprite>(levelRefObj.levelEnemyNameImgPath);
@@ -39,6 +52,7 @@ public class LevelDescItem : MonoBehaviour
             GameObject instruemntItem = GameObject.Instantiate(instrumentDescItemPrefab);
             instruemntItem.transform.SetParent(instrumentSVTransform);
             instruemntItem.GetComponent<InstrumentDescItem>().SetInfo(resRefList[i]);
+            itemList.Add(instruemntItem);
         }
     }
 }
