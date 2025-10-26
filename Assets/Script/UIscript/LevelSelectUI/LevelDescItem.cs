@@ -59,9 +59,9 @@ public class LevelDescItem : MonoBehaviour
 
         if(recommendItemList!= null)
         {
-            foreach(var item in recommendItemList)
+            for(int i =0;i< recommendItemList.Count;i++)
             {
-                item.SetInfo(levelRefObj);
+                recommendItemList[i].SetInfo(levelRefObj, i);
             }
         }
     }
