@@ -23,6 +23,7 @@ public class BattleLevelRefObj : SCRefDataCore
 
     public string levelPreviewBgPath;
     public string levelPreviewPointDecPath;
+    public string levelEnemyNameImgPath;
     protected override void _parseFromString()
     {
         id = getLong("id");
@@ -41,7 +42,7 @@ public class BattleLevelRefObj : SCRefDataCore
         bgmName = getString("bgmName");
         levelPreviewBgPath = getString("levelPreviewBgPath");
         levelPreviewPointDecPath = getString("levelPreviewPointDecPath");
-
+        levelEnemyNameImgPath = getString("levelEnemyNameImgPath");
     }
 
     public static string assetPath => "RefData/ExportTxt";
