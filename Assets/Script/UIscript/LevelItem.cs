@@ -56,6 +56,8 @@ public class LevelItem : UIPanelBase,
     public Sprite selectSprite;
     [Header("未选中后的替换图片")]
     public Sprite unselectSprite;
+    [Header("未解锁的图片")]
+    public Sprite unlockSprite;
     [Header("专辑图片")]
     public Image imgContent;
 
@@ -79,7 +81,10 @@ public class LevelItem : UIPanelBase,
         btnSelect.onClick.AddListener(OnSelectBtnClicked);
         btnReturn.onClick.AddListener(CancelSelect);
 
-
+        if (level > GameMgr.Instance.curLevel)
+            imgContent.sprite = unlockSprite;
+        else
+            imgContent.sprite = unselectSprite;
     }
 
     protected override void OnHide(Action onHideFinished)
