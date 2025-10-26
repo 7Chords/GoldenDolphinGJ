@@ -1,3 +1,4 @@
-﻿id	level	enemyType	enemyName	enemyHealth	enemyAttack	enemyBuff	enemyHeal	enemyIconPath	enemyBgPath	recommendinstrumentsIdList	enemyBodyPath	enemyActionTypeList	bgmName
-1001	1	MonsterNote	音符怪物	120	8	0	0	UI/Icon/square	UI/Icon/square	1001;1002;1003	UI/Character/boss	Attack	战斗音乐卡门
-1002	2	MonsterNote	音符怪物	120	8	0	0	UI/Icon/square	UI/Icon/square	1001;1002;1003	UI/Character/boss	Attack;Buff	战斗音乐卡门
+﻿id	level	enemyType	enemyName	enemyHealth	enemyAttack	enemyBuff	enemyHeal	enemyIconPath	enemyBgPath	recommendinstrumentsIdList	enemyBodyPath	enemyActionTypeList	bgmName	levelPreviewBgPath	levelPreviewPointDecPath
+1001	1	MonsterNote	音符怪物	120	8	0	0	UI/Icon/square	UI/Icon/square	1001;1002;1003	UI/Character/boss	Attack	战斗音乐卡门	圆底框_橙色	装饰点_绿色
+1002	2	MonsterNote	音符怪物	120	8	0	0	UI/Icon/square	UI/Icon/square	1001;1002;1003	UI/Character/boss	Attack	战斗音乐卡门	圆底框_绿色	装饰点_紫色
+1003	3	MonsterNote	音符怪物	120	5	0	0	UI/Icon/square	UI/Icon/square	1001;1002;1003	UI/Character/boss	Attack;Buff	战斗音乐卡门	圆底框_紫色	装饰点_蓝色

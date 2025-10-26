@@ -19,8 +19,10 @@ public class BattleLevelRefObj : SCRefDataCore
     public List<long> recommendinstrumentsIdList = new List<long>();// 推荐使用的乐器ID列表
     public string enemyBodyPath;
     public List<EEnemyActionType> enemyActionTypeList;
-
     public string bgmName;
+
+    public string levelPreviewBgPath;
+    public string levelPreviewPointDecPath;
     protected override void _parseFromString()
     {
         id = getLong("id");
@@ -37,6 +39,9 @@ public class BattleLevelRefObj : SCRefDataCore
         enemyBodyPath = getString("enemyBodyPath");
         enemyActionTypeList = getList<EEnemyActionType>("enemyActionTypeList");
         bgmName = getString("bgmName");
+        levelPreviewBgPath = getString("levelPreviewBgPath");
+        levelPreviewPointDecPath = getString("levelPreviewPointDecPath");
+
     }
 
     public static string assetPath => "RefData/ExportTxt";
