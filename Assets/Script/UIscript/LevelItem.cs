@@ -109,6 +109,9 @@ public class LevelItem : UIPanelBase,
         btnReturn.GetComponent<Image>().color = new Color(1, 1, 1, 0);
         fadeMaterial.SetFloat("_RevealAmount", 0f);
         fadeGO.SetActive(true);
+
+        BattleLevelRefObj levelRefObj = SCRefDataMgr.Instance.battleLevelRefList.refDataList.Find(x => x.level == level);
+        fadeGO.GetComponent<LevelDescItem>().SetInfo(levelRefObj);
         btnReturn.enabled = false;
         btnStart.enabled = false;
         btnStart.GetComponent<GoToCollectPage>().enabled = false;
