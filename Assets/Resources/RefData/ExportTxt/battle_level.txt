@@ -1,4 +1,4 @@
 ﻿id	level	enemyType	enemyName	enemyHealth	enemyAttack	enemyBuff	enemyHeal	recommendinstrumentsIdList	enemyActionTypeList	bgmName	collectPageSkinId	enemyResId
-1001	1	MonsterNote	音符怪物	120	8	0	0	1002;1004;1002;1005	Attack	战斗音乐卡门	1001	1001
-1002	2	MonsterNote	音符怪物	120	8	0	0	1001;1002;1003;1001;1003;1005	Attack	战斗音乐卡门	1002	1002
-1003	3	MonsterNote	音符怪物	120	5	0	0	1001;1006;1007;1003;1005;1007	Attack;Buff	战斗音乐卡门	1003	1003
+1001	1	MonsterNote	变异八分音符	60	5	0	0	1002;1004;1002;1005	Attack	战斗音乐卡门	1001	1001
+1002	2	MonsterNote	变异十六分音符	120	8	0	0	1001;1002;1003;1001;1003;1005	Attack	战斗音乐卡门	1002	1002
+1003	3	MonsterNote	变异升号音符	120	7	0	0	1001;1006;1007;1003;1005;1007	Attack;Buff	战斗音乐卡门	1003	1003

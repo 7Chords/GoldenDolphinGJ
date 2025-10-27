@@ -92,6 +92,7 @@ public class BattleMgr : SingletonMono<BattleMgr>
             PanelUIMgr.Instance.OpenPanel(EPanelType.BattleLosePanel);
         }
         SkillHandler.bounceRate = 0.2f;
+        EnemyContinueEffectHandler.UnregContinueEffect();
     }
     public void RegInstrumentItem(InstrumentItem item)
     {
