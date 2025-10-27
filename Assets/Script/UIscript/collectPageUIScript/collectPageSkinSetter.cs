@@ -13,10 +13,13 @@ public class collectPageSkinSetter : MonoBehaviour
     [SerializeField] private Image SliderBackGroundImage;
     [SerializeField] private Image ProgressBar;
     [SerializeField] private Image SliderTank;
-    [SerializeField] private Image line;
+    //[SerializeField] private Image line;
     [SerializeField] private Image backBtnImage;
     [SerializeField] private Image exchangeConditions;
-    [SerializeField] private Image group;
+    //[SerializeField] private Image group;
+    [SerializeField] private Image inArrow;
+    [SerializeField] private Image outArrow;
+    [SerializeField] private Image exchangeBackground;
     public void SetCollectPageSkinInfo(CollectPageSkinRefObj skinRefObj)
     {
         if (collectIcon == null || charactorBackGround == null || phonograph == null)
@@ -37,7 +40,10 @@ public class collectPageSkinSetter : MonoBehaviour
         SliderTank.sprite = Resources.Load<Sprite>(path + skinRefObj.SliderTank);
         //line.sprite = Resources.Load<Sprite>(path + skinRefObj.line);
         backBtnImage.sprite = Resources.Load<Sprite>(path + skinRefObj.backBtnImage);
-        //exchangeConditions.sprite = Resources.Load<Sprite>( path + skinRefObj.exchangeConditions);
+        exchangeConditions.sprite = Resources.Load<Sprite>( path + skinRefObj.exchangeConditions);
+        inArrow.sprite = Resources.Load<Sprite>(path + skinRefObj.inArrow);
+        outArrow.sprite = Resources.Load<Sprite>(path + skinRefObj.outArrow);
+        exchangeBackground.sprite = Resources.Load<Sprite>(path + skinRefObj.exchangeBackground);
         //group.sprite = Resources.Load<Sprite>(path + skinRefObj.group);
     }
 }
