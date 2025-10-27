@@ -18,6 +18,9 @@ public class CollectPageSkinRefObj : SCRefDataCore
     public string exchangeConditions;
     public string group;
     public string noteCollectBackGround;
+    public string inArrow;
+    public string outArrow;
+    public string exchangeBackground;
     protected override void _parseFromString()
     {
         id = getLong("id");
@@ -33,6 +36,9 @@ public class CollectPageSkinRefObj : SCRefDataCore
         exchangeConditions = getString("exchangeConditions");
         group = getString("group");
         noteCollectBackGround = getString("noteCollectBackGround");
+        inArrow = getString("inArrow");
+        outArrow = getString("outArrow");
+        exchangeBackground = getString("exchangeBackground");
     }
 
     public static string assetPath => "RefData/ExportTxt";
