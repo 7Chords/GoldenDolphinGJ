@@ -68,6 +68,7 @@ public class EnemyItem : UIPanelBase,IDamagable
         if (_enemyInfo == null)
             return;
         imgEnemyIcon.sprite = Resources.Load<Sprite>(_enemyInfo.enemyResRefObj.enemyBodyPath);
+        imgEnemyIcon.SetNativeSize();
         txtAttack.text = _enemyInfo.enemyAttack.ToString();
         txtName.text = _enemyInfo.enemyName;
         txtHealth.text = _enemyInfo.enemyHealth + "/" + _maxHealth;
