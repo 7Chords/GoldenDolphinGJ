@@ -10,13 +10,14 @@ namespace GJFramework
         public SCRefDataList<BattleLevelRefObj> battleLevelRefList = new SCRefDataList<BattleLevelRefObj>(BattleLevelRefObj.assetPath, BattleLevelRefObj.sheetName);
         public SCRefDataList<InstrumentStoreRefObj> instrumentStoreRefList = new SCRefDataList<InstrumentStoreRefObj>(InstrumentStoreRefObj.assetPath, InstrumentStoreRefObj.sheetName);
         public SCRefDataList<SkillRefObj> skillRefList = new SCRefDataList<SkillRefObj>(SkillRefObj.assetPath, SkillRefObj.sheetName);
-
+        public SCRefDataList<CollectPageSkinRefObj> collectPageSkinRefList = new SCRefDataList<CollectPageSkinRefObj>(CollectPageSkinRefObj.assetPath, CollectPageSkinRefObj.sheetName);
         public void Init()
         {
             instrumentRefList.readFromTxt();
             battleLevelRefList.readFromTxt();
             instrumentStoreRefList.readFromTxt();
             skillRefList.readFromTxt();
+            collectPageSkinRefList.readFromTxt();
         }
     }
 }
