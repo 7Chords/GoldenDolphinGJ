@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class CollectPageSkinRefObj : SCRefDataCore
 {
-    long id;
+    public long id;
     public string collectIcon;
     public string charactorBackGround;
     public string phonograph;
@@ -17,7 +17,7 @@ public class CollectPageSkinRefObj : SCRefDataCore
     public string backBtnImage;
     public string exchangeConditions;
     public string group;
-
+    public string noteCollectBackGround;
     protected override void _parseFromString()
     {
         id = getLong("id");
@@ -32,6 +32,7 @@ public class CollectPageSkinRefObj : SCRefDataCore
         backBtnImage = getString("backBtnImage");
         exchangeConditions = getString("exchangeConditions");
         group = getString("group");
+        noteCollectBackGround = getString("noteCollectBackGround");
     }
 
     public static string assetPath => "RefData/ExportTxt";
