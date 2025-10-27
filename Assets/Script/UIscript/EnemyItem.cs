@@ -13,6 +13,8 @@ public class EnemyItem : UIPanelBase,IDamagable
     public Text txtHealth;
     public Text txtName;
     public Image imgHealthBar;
+    public Image imgHealthHolder;
+    public Image imgHead;
 
     [Header("受伤震动强度")]
     public float hurtShakeStrength;

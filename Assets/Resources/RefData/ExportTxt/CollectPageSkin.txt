@@ -1,4 +1,4 @@
-﻿id	collectIcon	charactorBackGround	phonograph	phonographBackGround	SliderBackGroundImage	ProgressBar	SliderTank	line	backBtnImage	exchangeConditions	group
-1001	Level1/音符收集	Level1/角色底框	Level1/碟片	Level1/唱片底	Level1/时间底图	Level1/时间条	Level1/时间槽	Level1/直线	Level1/返回	Level1/兑换条件	Level1/组
-1002	Level2/音符收集	Level2/角色底框	Level2/碟片	Level2/唱片底	Level2/时间底图	Level2/时间条	Level2/时间槽	Level2/直线	Level2/返回	Level2/兑换条件	Level1/组
-1003	Level3/音符收集	Level3/角色底框	Level3/碟片	Level3/唱片底	Level3/时间底图	Level3/时间条	Level3/时间槽	Level3/直线	Level3/返回	Level3/兑换条件	Level1/组
+﻿id	collectIcon	charactorBackGround	phonograph	phonographBackGround	SliderBackGroundImage	ProgressBar	SliderTank	line	backBtnImage	exchangeConditions	group	noteCollectBackGround
+1001	Level1/音符收集	Level1/角色底框	Level1/碟片	Level1/唱片底	Level1/时间底图	Level1/时间条	Level1/时间槽	Level1/直线	Level1/返回	Level1/兑换条件	Level1/组	Level1/底框
+1002	Level2/音符收集	Level2/角色底框	Level2/碟片	Level2/唱片底	Level2/时间底图	Level2/时间条	Level2/时间槽	Level2/直线	Level2/返回	Level2/兑换条件	Level2/组	Level2/底框
+1003	Level3/音符收集	Level3/角色底框	Level3/碟片	Level3/唱片底	Level3/时间底图	Level3/时间条	Level3/时间槽	Level3/直线	Level3/返回	Level3/兑换条件	Level3/组	Level3/底框
