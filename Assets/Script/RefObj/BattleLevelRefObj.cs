@@ -24,6 +24,9 @@ public class BattleLevelRefObj : SCRefDataCore
     public string levelPreviewBgPath;
     public string levelPreviewPointDecPath;
     public string levelEnemyNameImgPath;
+
+    public long collectPageSkinId;// 换皮id
+
     protected override void _parseFromString()
     {
         id = getLong("id");
@@ -43,6 +46,7 @@ public class BattleLevelRefObj : SCRefDataCore
         levelPreviewBgPath = getString("levelPreviewBgPath");
         levelPreviewPointDecPath = getString("levelPreviewPointDecPath");
         levelEnemyNameImgPath = getString("levelEnemyNameImgPath");
+        collectPageSkinId = getLong("collectPageSkinId");
     }
 
     public static string assetPath => "RefData/ExportTxt";
