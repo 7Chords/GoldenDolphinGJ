@@ -201,6 +201,7 @@ public class EnemyItem : UIPanelBase,IDamagable
             seq.Append(DOVirtual.DelayedCall(attackWaitDuration - attackWaitDecDuration, () =>
              {
                  AttackHandler.EnemyDealAttack(EInstrumentEffectType.Attack, this, damagableList);
+                 EnemyContinueEffectHandler.TickContinueEffect();
              }));
 
             seq.Append(DOVirtual.DelayedCall(extraTime, () =>

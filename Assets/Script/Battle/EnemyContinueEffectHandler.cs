@@ -45,8 +45,8 @@ public static class EnemyContinueEffectHandler
                     BattleMgr.instance.enemyItem.TakeBuff(curContinueEffectInfo.amount);
                     break;
             }
+            effectCounter = 0;
         }
-        effectCounter = 0;
     }
 
     public static void UnregContinueEffect()
