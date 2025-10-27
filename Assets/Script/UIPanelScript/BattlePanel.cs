@@ -8,6 +8,16 @@ using Random = UnityEngine.Random;
 
 public class BattlePanel : UIPanelBase
 {
+    [Header("关卡背景")]
+    public Image imgLevelBg;
+    [Header("关卡顶部背景")]
+    public Image imgLevelTopBg;
+    [Header("关卡底部背景")]
+    public Image imgLevelBottomBg;
+    [Header("关卡星星")]
+    public Image imgStar;
+    [Header("关卡退出按钮图片")]
+    public Image imgExit;
     [Header("敌人item")]
     public EnemyItem enemyItem;
     [Header("乐器Conatiner")]
@@ -42,6 +52,9 @@ public class BattlePanel : UIPanelBase
     public List<GameObject> middleDurationDecList;
     [Header("短持续时间装饰物列表")]
     public List<GameObject> smallDurationDecList;
+
+
+    private EnemyInfo _enemyInfo;
     protected override void OnShow()
     {
         MsgCenter.RegisterMsg(MsgConst.ON_BATTLE_START, OnBattleStartStart);
@@ -70,6 +83,7 @@ public class BattlePanel : UIPanelBase
 
         EnemyInfo enemyInfo = _objs[0] as EnemyInfo;
         List<InstrumentInfo> instrumentInfoList = _objs[1] as List<InstrumentInfo>;
+        _enemyInfo = enemyInfo;
 
         txtTurnCount.text = BattleMgr.instance.turnCount.ToString();
         txtTurnOwner.text = BattleMgr.instance.curTurn.ToString();
@@ -79,6 +93,20 @@ public class BattlePanel : UIPanelBase
 
         enemyItem.Show();
         enemyItem.SetInfo(enemyInfo);
+
+        RefreshShow();
+    }
+
+    private void RefreshShow()
+    {
+        if (_enemyInfo == null)
+            return;
+        imgLevelBg.sprite = Resources.Load<Sprite>(_enemyInfo.enemyResRefObj.levelBgPath);
+        imgLevelTopBg.sprite = Resources.Load<Sprite>(_enemyInfo.enemyResRefObj.levelTopBgPath);
+        imgLevelBottomBg.sprite = Resources.Load<Sprite>(_enemyInfo.enemyResRefObj.levelBottomBgPath);
+        imgStar.sprite = Resources.Load<Sprite>(_enemyInfo.enemyResRefObj.levelStarPath);
+        imgExit.sprite = Resources.Load<Sprite>(_enemyInfo.enemyResRefObj.levelExitBtnPath);
+
     }
 
 

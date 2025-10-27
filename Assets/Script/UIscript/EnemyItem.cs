@@ -71,6 +71,9 @@ public class EnemyItem : UIPanelBase,IDamagable
         txtAttack.text = _enemyInfo.enemyAttack.ToString();
         txtName.text = _enemyInfo.enemyName;
         txtHealth.text = _enemyInfo.enemyHealth + "/" + _maxHealth;
+        imgHealthBar.sprite = Resources.Load<Sprite>(_enemyInfo.enemyResRefObj.levelEnemyHealthBarPath);
+        imgHealthHolder.sprite = Resources.Load<Sprite>(_enemyInfo.enemyResRefObj.levelEnemyHealthHolderPath);
+        imgHead.sprite = Resources.Load<Sprite>(_enemyInfo.enemyResRefObj.levelEnemyHeadPath);
         Tween healthTween = imgHealthBar.DOFillAmount((float)_enemyInfo.enemyHealth / _maxHealth, healthBarChgDuration);
         _tweenContainer.RegDoTween(healthTween);
     }
