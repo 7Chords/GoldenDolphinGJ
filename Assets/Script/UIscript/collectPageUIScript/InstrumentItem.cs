@@ -92,6 +92,7 @@ public class InstrumentItem : UIPanelBase,
     private bool _hasInited;
     private bool _hasActioned;
     private bool _hasDead;
+    public bool hasDead => _hasDead;
     private bool _isScaling;
 
 

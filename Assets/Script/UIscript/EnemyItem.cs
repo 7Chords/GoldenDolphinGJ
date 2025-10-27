@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using Random = UnityEngine.Random;
 public class EnemyItem : UIPanelBase,IDamagable
 {
     #region Mono
@@ -39,6 +39,8 @@ public class EnemyItem : UIPanelBase,IDamagable
     private TweenContainer _tweenContainer;
     private int _maxHealth;
     private bool _flag;
+
+    private bool _isSecondStage;//是否处于第二阶段
     protected override void OnShow()
     {
         MsgCenter.RegisterMsgAct(MsgConst.ON_TURN_CHG, OnTurnChg);
@@ -61,6 +63,17 @@ public class EnemyItem : UIPanelBase,IDamagable
         _enemyInfo = enemInfo;
         _maxHealth = _enemyInfo.enemyHealth;
         RefreshShow();
+        switch(_enemyInfo.enemyName)
+        {
+            case "变异十六分音符":
+                EnemyContinueEffectHandler.RegContinueEffect(EEnemyActionType.Heal, 3, (int)(_maxHealth * 0.2f));
+                break;
+            case "变异升号音符":
+                EnemyContinueEffectHandler.RegContinueEffect(EEnemyActionType.Heal, 3, (int)(_maxHealth * 0.2f));
+                break;
+            default:
+                break;
+        }
     }
 
     private void RefreshShow()
@@ -68,7 +81,6 @@ public class EnemyItem : UIPanelBase,IDamagable
         if (_enemyInfo == null)
             return;
         imgEnemyIcon.sprite = Resources.Load<Sprite>(_enemyInfo.enemyResRefObj.enemyBodyPath);
-        imgEnemyIcon.SetNativeSize();
         txtAttack.text = _enemyInfo.enemyAttack.ToString();
         txtName.text = _enemyInfo.enemyName;
         txtHealth.text = _enemyInfo.enemyHealth + "/" + _maxHealth;
@@ -126,7 +138,18 @@ public class EnemyItem : UIPanelBase,IDamagable
     }
     public void Dead()
     {
-        MsgCenter.SendMsgAct(MsgConst.ON_ENEMY_DEAD);
+        if(_enemyInfo.enemyName == "变异升号音符" && !_isSecondStage)
+        {
+            _isSecondStage = true;
+            _enemyInfo.enemyHealth = _maxHealth;
+            RefreshShow();
+            EnemyContinueEffectHandler.RegContinueEffect(EEnemyActionType.Buff, 1, 2);
+
+        }
+        else
+        {
+            MsgCenter.SendMsgAct(MsgConst.ON_ENEMY_DEAD);
+        }
     }
     private void OnTurnChg()
     {
@@ -147,10 +170,25 @@ public class EnemyItem : UIPanelBase,IDamagable
             float extraTime = 0.1f;
 
             List<IDamagable> damagableList = new List<IDamagable>();
-            foreach (var item in BattleMgr.instance.instrumentItemList)
+
+
+            if(_enemyInfo.enemyName == "变异升号音符" && _isSecondStage)
             {
-                damagableList.Add(item as IDamagable);
+                InstrumentItem item = BattleMgr.instance.instrumentItemList[Random.Range(0, BattleMgr.instance.instrumentItemList.Count)];
+                while(item.hasDead)
+                {
+                    item = BattleMgr.instance.instrumentItemList[Random.Range(0, BattleMgr.instance.instrumentItemList.Count)];
+                }
+                damagableList.Add(item);
             }
+            else
+            {
+                foreach (var item in BattleMgr.instance.instrumentItemList)
+                {
+                    damagableList.Add(item as IDamagable);
+                }
+            }
+
             foreach (var item in damagableList)
             {
                 if((item as InstrumentItem).instrumentInfo.skillRefList.
@@ -162,10 +200,7 @@ public class EnemyItem : UIPanelBase,IDamagable
 
             seq.Append(DOVirtual.DelayedCall(attackWaitDuration - attackWaitDecDuration, () =>
              {
-
                  AttackHandler.EnemyDealAttack(EInstrumentEffectType.Attack, this, damagableList);
-                 //MsgCenter.SendMsgAct(MsgConst.ON_ENEMY_ACTION_OVER); 
-                 // _flag = false;
              }));
 
             seq.Append(DOVirtual.DelayedCall(extraTime, () =>
