@@ -787,7 +787,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   panelType: 0
-  imgEnemyBg: {fileID: 6638619651691257609}
   imgEnemyIcon: {fileID: 7837799484539797164}
   txtAttack: {fileID: 5634002076126170732}
   txtHealth: {fileID: 467087581222943406}
@@ -813,7 +812,7 @@ GameObject:
   - component: {fileID: 9001219047150606892}
   m_Layer: 5
   m_HasEditorInfo: 1
-  m_Name: img_bg_2
+  m_Name: img_bottom_bg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

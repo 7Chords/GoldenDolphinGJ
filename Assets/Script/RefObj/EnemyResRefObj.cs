@@ -17,6 +17,7 @@ public class EnemyResRefObj : SCRefDataCore
     public string levelEnemyHealthBarPath;
     public string levelEnemyHeadPath;
     public string levelExitBtnPath;
+    public string levelStarPath;
     protected override void _parseFromString()
     {
         id = getLong("id");
@@ -31,7 +32,7 @@ public class EnemyResRefObj : SCRefDataCore
         levelEnemyHealthBarPath = getString("levelEnemyHealthBarPath");
         levelEnemyHeadPath = getString("levelEnemyHeadPath");
         levelExitBtnPath = getString("levelExitBtnPath");
-
+        levelStarPath = getString("levelStarPath");
 
     }
     public static string assetPath => "RefData/ExportTxt";
