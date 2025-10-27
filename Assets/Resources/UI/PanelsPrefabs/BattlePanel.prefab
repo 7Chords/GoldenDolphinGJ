@@ -52,7 +52,7 @@ GameObject:
   - component: {fileID: 6938774756629668040}
   m_Layer: 0
   m_HasEditorInfo: 1
-  m_Name: Back
+  m_Name: btn_exit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -239,6 +239,7 @@ RectTransform:
   - {fileID: 4404432435624213150}
   - {fileID: 3797143362328123276}
   - {fileID: 8780245052379513216}
+  - {fileID: 1873532470508331355}
   - {fileID: 6448436638841266784}
   - {fileID: 6861155651280516261}
   - {fileID: 2073182448400006298}
@@ -305,6 +306,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   panelType: 3
+  imgLevelBg: {fileID: 1902145062733253891}
+  imgLevelTopBg: {fileID: 2348573043605139822}
+  imgLevelBottomBg: {fileID: 9001219047150606892}
+  imgStar: {fileID: 2365378883167759159}
+  imgExit: {fileID: 3849956756915616807}
   enemyItem: {fileID: 5548694563712344356}
   instrumentContainer: {fileID: 5229045199183192916}
   txtTurnCount: {fileID: 3474004966995954041}
@@ -792,6 +798,8 @@ MonoBehaviour:
   txtHealth: {fileID: 467087581222943406}
   txtName: {fileID: 3301921567751621733}
   imgHealthBar: {fileID: 2698253510995482683}
+  imgHealthHolder: {fileID: 0}
+  imgHead: {fileID: 0}
   hurtShakeStrength: 8
   hurtShakeDuration: 0.3
   hurtColor: {r: 1, g: 0.26444778, b: 0, a: 1}
@@ -1393,7 +1401,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 8306597382e75e84aa7a77ccef28f318, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f5faa098a9365aa4585c717e024f4635, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2141,6 +2149,82 @@ RectTransform:
   m_AnchoredPosition: {x: -682, y: 102}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 1, y: 0}
+--- !u!1 &8485455671302511974
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 7
+  m_Component:
+  - component: {fileID: 1873532470508331355}
+  - component: {fileID: 7335352754375212485}
+  - component: {fileID: 2365378883167759159}
+  m_Layer: 5
+  m_HasEditorInfo: 1
+  m_Name: img_star
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1873532470508331355
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8485455671302511974}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5944446871024550416}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 1, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: -45, y: -32}
+  m_SizeDelta: {x: 60, y: 95}
+  m_Pivot: {x: 1, y: 1}
+--- !u!222 &7335352754375212485
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8485455671302511974}
+  m_CullTransparentMesh: 1
+--- !u!114 &2365378883167759159
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8485455671302511974}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: 8a01a8a79b5ef784ea868c04fc216c2e, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
 --- !u!1 &8488900915686226022
 GameObject:
   m_ObjectHideFlags: 0
