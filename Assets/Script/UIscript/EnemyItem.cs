@@ -164,6 +164,7 @@ public class EnemyItem : UIPanelBase,IDamagable
             {
                 AudioMgr.Instance.PlaySfx("怪物攻击cut");
                 MsgCenter.SendMsgAct(MsgConst.ON_ENEMY_START_ATTACK);
+                EnemyContinueEffectHandler.TickContinueEffect();
             }));
 
 
@@ -201,7 +202,6 @@ public class EnemyItem : UIPanelBase,IDamagable
             seq.Append(DOVirtual.DelayedCall(attackWaitDuration - attackWaitDecDuration, () =>
              {
                  AttackHandler.EnemyDealAttack(EInstrumentEffectType.Attack, this, damagableList);
-                 EnemyContinueEffectHandler.TickContinueEffect();
              }));
 
             seq.Append(DOVirtual.DelayedCall(extraTime, () =>
