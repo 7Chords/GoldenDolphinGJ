@@ -11,6 +11,8 @@ namespace GJFramework
         public SCRefDataList<InstrumentStoreRefObj> instrumentStoreRefList = new SCRefDataList<InstrumentStoreRefObj>(InstrumentStoreRefObj.assetPath, InstrumentStoreRefObj.sheetName);
         public SCRefDataList<SkillRefObj> skillRefList = new SCRefDataList<SkillRefObj>(SkillRefObj.assetPath, SkillRefObj.sheetName);
         public SCRefDataList<CollectPageSkinRefObj> collectPageSkinRefList = new SCRefDataList<CollectPageSkinRefObj>(CollectPageSkinRefObj.assetPath, CollectPageSkinRefObj.sheetName);
+        public SCRefDataList<EnemyResRefObj> enemyResRefList = new SCRefDataList<EnemyResRefObj>(EnemyResRefObj.assetPath, EnemyResRefObj.sheetName);
+
         public void Init()
         {
             instrumentRefList.readFromTxt();
@@ -18,6 +20,7 @@ namespace GJFramework
             instrumentStoreRefList.readFromTxt();
             skillRefList.readFromTxt();
             collectPageSkinRefList.readFromTxt();
+            enemyResRefList.readFromTxt();
         }
     }
 }

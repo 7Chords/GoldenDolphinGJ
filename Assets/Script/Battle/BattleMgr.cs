@@ -62,9 +62,7 @@ public class BattleMgr : SingletonMono<BattleMgr>
                 battleLevelRefObj.enemyName,
                 battleLevelRefObj.enemyHealth,
                 battleLevelRefObj.enemyAttack,
-                battleLevelRefObj.enemyIconPath,
-                battleLevelRefObj.enemyBgPath,
-                battleLevelRefObj.enemyBodyPath);
+                battleLevelRefObj.enemyResId);
         }
         _instrumentInfoList = new List<InstrumentInfo>();
         for(int i =0;i<PlayerMgr.Instance.instrumentIdList.Count;i++)

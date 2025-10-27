@@ -8,7 +8,6 @@ using UnityEngine.UI;
 public class EnemyItem : UIPanelBase,IDamagable
 {
     #region Mono
-    public Image imgEnemyBg;
     public Image imgEnemyIcon;
     public Text txtAttack;
     public Text txtHealth;
@@ -66,8 +65,7 @@ public class EnemyItem : UIPanelBase,IDamagable
     {
         if (_enemyInfo == null)
             return;
-        imgEnemyBg.sprite = Resources.Load<Sprite>(_enemyInfo.enemyBgPath);
-        imgEnemyIcon.sprite = Resources.Load<Sprite>(_enemyInfo.enemyBodyPath);
+        imgEnemyIcon.sprite = Resources.Load<Sprite>(_enemyInfo.enemyResRefObj.enemyBodyPath);
         txtAttack.text = _enemyInfo.enemyAttack.ToString();
         txtName.text = _enemyInfo.enemyName;
         txtHealth.text = _enemyInfo.enemyHealth + "/" + _maxHealth;

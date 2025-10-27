@@ -30,11 +30,11 @@ public class LevelDescItem : MonoBehaviour
                 Destroy(go);
             }
             _itemList.Clear();
-        }    
-
-        imgBg.sprite = Resources.Load<Sprite>(levelRefObj.levelPreviewBgPath);
-        imgPoint.sprite = Resources.Load<Sprite>(levelRefObj.levelPreviewPointDecPath);
-        imgEnemyName.sprite = Resources.Load<Sprite>(levelRefObj.levelEnemyNameImgPath);
+        }
+        EnemyResRefObj enemyResRefObj = SCRefDataMgr.Instance.enemyResRefList.refDataList.Find(x => x.id == levelRefObj.enemyResId);
+        imgBg.sprite = Resources.Load<Sprite>(enemyResRefObj.levelPreviewBgPath);
+        imgPoint.sprite = Resources.Load<Sprite>(enemyResRefObj.levelPreviewPointDecPath);
+        imgEnemyName.sprite = Resources.Load<Sprite>(enemyResRefObj.levelEnemyNameImgPath);
         imgEnemyName.SetNativeSize();
         txtEnemyHealth.text = levelRefObj.enemyHealth.ToString();
         txtEnemyAttack.text = levelRefObj.enemyAttack.ToString();

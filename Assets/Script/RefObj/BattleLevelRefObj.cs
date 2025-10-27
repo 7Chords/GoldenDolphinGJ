@@ -14,19 +14,12 @@ public class BattleLevelRefObj : SCRefDataCore
     public int enemyBuff;
     public int enemyHeal;
 
-    public string enemyIconPath;
-    public string enemyBgPath;
     public List<long> recommendinstrumentsIdList;
-    public string enemyBodyPath;
     public List<EEnemyActionType> enemyActionTypeList;
     public string bgmName;
 
-    public string levelPreviewBgPath;
-    public string levelPreviewPointDecPath;
-    public string levelEnemyNameImgPath;
-
     public long collectPageSkinId;// 换皮id
-
+    public long enemyResId;
     protected override void _parseFromString()
     {
         id = getLong("id");
@@ -37,16 +30,11 @@ public class BattleLevelRefObj : SCRefDataCore
         enemyAttack = getInt("enemyAttack");
         enemyBuff = getInt("enemyBuff");
         enemyHeal = getInt("enemyHeal");
-        enemyIconPath = getString("enemyIconPath");
-        enemyBgPath = getString("enemyBgPath");
         recommendinstrumentsIdList = getList<long>("recommendinstrumentsIdList");
-        enemyBodyPath = getString("enemyBodyPath");
         enemyActionTypeList = getList<EEnemyActionType>("enemyActionTypeList");
         bgmName = getString("bgmName");
-        levelPreviewBgPath = getString("levelPreviewBgPath");
-        levelPreviewPointDecPath = getString("levelPreviewPointDecPath");
-        levelEnemyNameImgPath = getString("levelEnemyNameImgPath");
         collectPageSkinId = getLong("collectPageSkinId");
+        enemyResId = getLong("enemyResId");
     }
 
     public static string assetPath => "RefData/ExportTxt";

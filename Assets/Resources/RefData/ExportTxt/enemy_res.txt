@@ -1,0 +1,4 @@
+﻿id	enemyBodyPath	levelPreviewBgPath	levelPreviewPointDecPath	levelEnemyNameImgPath	levelBgPath	levelBottomBgPath	levelTopBgPath	levelEnemyHealthHolderPath	levelEnemyHealthBarPath	levelEnemyHeadPath	levelExitBtnPath
+1001	UI/Character/boss	UI/Icon/圆底框_橙色	UI/Icon/装饰点_绿色	UI/Icon/变异四分音符	1	2	3	4	5	6	7
+1002	UI/Character/boss	UI/Icon/圆底框_绿色	UI/Icon/装饰点_紫色	UI/Icon/变异十六分音符	2	3	4	5	6	7	8
+1003	UI/Character/boss	UI/Icon/圆底框_紫色	UI/Icon/装饰点_蓝色	UI/Icon/变异升号音符	3	4	5	6	7	8	9
