@@ -20,6 +20,7 @@ public class BattleLevelRefObj : SCRefDataCore
     public long enemyResId;
     public string enemyDesc;
     public long resultSkinId;
+    public string StorePageSkinId;
     protected override void _parseFromString()
     {
         id = getLong("id");
@@ -37,7 +38,7 @@ public class BattleLevelRefObj : SCRefDataCore
         enemyResId = getLong("enemyResId");
         enemyDesc = getString("enemyDesc");
         resultSkinId = getLong("resultSkinId");
-
+        StorePageSkinId = getString("StorePageSkinId");
     }
 
     public static string assetPath => "RefData/ExportTxt";
