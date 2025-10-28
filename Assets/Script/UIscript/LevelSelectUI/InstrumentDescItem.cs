@@ -33,6 +33,12 @@ public class InstrumentDescItem : MonoBehaviour,
     public Text txtChg_1;
     public Text txtChg_2;
     public Button btnItem;
+
+
+    public List<GameObject> goIsCopyShowList;
+    public List<GameObject> goNotCopyShowList;
+    public GameObject goBounceShow;
+
     [Header("移入放大持续时间")]
     public float enterBiggerDuration;
     [Header("移入放大缩放")]
@@ -55,6 +61,33 @@ public class InstrumentDescItem : MonoBehaviour,
     public void SetInfo(InstrumentRefObj instrumentRefObj)
     {
         _tweenContainer = new TweenContainer();
+
+        if(instrumentRefObj.effectType == EInstrumentEffectType.CopyLast)
+        {
+            foreach(var go in goIsCopyShowList)
+            {
+                go.SetActive(true);
+            }
+            foreach (var go in goNotCopyShowList)
+            {
+                go.SetActive(false);
+            }
+        }
+        else
+        {
+            foreach (var go in goIsCopyShowList)
+            {
+                go.SetActive(false);
+            }
+            foreach (var go in goNotCopyShowList)
+            {
+                go.SetActive(true);
+            }
+        }
+        if(instrumentRefObj.instrumentName == "长笛")
+            goBounceShow.SetActive(true);
+        else
+            goBounceShow.SetActive(false);
 
         imgHead.sprite = Resources.Load<Sprite>(instrumentRefObj.instrumentPreviewIconPath);
         imgProp.sprite = Resources.Load<Sprite>(instrumentRefObj.instrumentAttackIconPath);
