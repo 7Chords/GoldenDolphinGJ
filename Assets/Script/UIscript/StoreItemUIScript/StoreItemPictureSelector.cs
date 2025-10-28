@@ -8,7 +8,7 @@ public class StoreItemPictureSelector : MonoBehaviour
     [SerializeField] private Image curShowImage;
     [SerializeField] private Sprite[] itemSprites;
     [SerializeField] private GameObject[] unlockShowGo;// 解锁展示的文字
-
+    [SerializeField] private GameObject lockShowGo;
     // 如果当前关卡小于解锁关卡，则显示锁定图片
 
     public bool SetInfo(long unlockLevelId)
@@ -16,7 +16,13 @@ public class StoreItemPictureSelector : MonoBehaviour
         bool isUnLock = unlockLevelId <= GameMgr.Instance.curLevel;
         // 真就是解锁状态 
         if (isUnLock)
+        {
             curShowImage.sprite = itemSprites[1]; // 解锁图片
+            curShowImage.gameObject.SetActive(true);
+            lockShowGo.SetActive(false);
+        }
+
+           
         else
             DoOnLock();
 
@@ -30,7 +36,8 @@ public class StoreItemPictureSelector : MonoBehaviour
         {
             go.SetActive(false);
         }
-        curShowImage.sprite = itemSprites[0]; // 锁定图片
+        curShowImage.gameObject.SetActive(false);
+        lockShowGo.SetActive(true);
     }
 
 }

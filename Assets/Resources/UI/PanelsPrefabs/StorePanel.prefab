@@ -996,6 +996,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1560993408562666939}
     m_Modifications:
+    - target: {fileID: 1254236772895248443, guid: 370da565895732d448b734be361872d2, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 0cf7d5b5c9124a34e867bd95ffb86147, type: 3}
     - target: {fileID: 1892852569329210788, guid: 370da565895732d448b734be361872d2, type: 3}
       propertyPath: clipName
       value: "\u5C0F\u63D0\u7434"
@@ -1023,7 +1027,7 @@ PrefabInstance:
     - target: {fileID: 2370350488372749165, guid: 370da565895732d448b734be361872d2, type: 3}
       propertyPath: itemSprites.Array.data[0]
       value: 
-      objectReference: {fileID: 21300000, guid: a252bc99a65df7540a61710fabda5a48, type: 3}
+      objectReference: {fileID: 21300000, guid: 0cf7d5b5c9124a34e867bd95ffb86147, type: 3}
     - target: {fileID: 2370350488372749165, guid: 370da565895732d448b734be361872d2, type: 3}
       propertyPath: itemSprites.Array.data[1]
       value: 
@@ -1243,7 +1247,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4760823605660644551, guid: 370da565895732d448b734be361872d2, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -142
+      value: -148.3
       objectReference: {fileID: 0}
     - target: {fileID: 4760823605660644551, guid: 370da565895732d448b734be361872d2, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -1438,7 +1442,7 @@ PrefabInstance:
     - target: {fileID: 2370350488372749165, guid: 370da565895732d448b734be361872d2, type: 3}
       propertyPath: itemSprites.Array.data[0]
       value: 
-      objectReference: {fileID: 21300000, guid: 779508b7a548e4f4ab4a87be15116759, type: 3}
+      objectReference: {fileID: 21300000, guid: 6d99908f85c6e1e4fadf897aaaa9fadb, type: 3}
     - target: {fileID: 2370350488372749165, guid: 370da565895732d448b734be361872d2, type: 3}
       propertyPath: itemSprites.Array.data[1]
       value: 
@@ -1568,6 +1572,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1560993408562666939}
     m_Modifications:
+    - target: {fileID: 1254236772895248443, guid: 370da565895732d448b734be361872d2, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 123f31dc84cd10c43ae783e69a6672fe, type: 3}
     - target: {fileID: 1892852569329210788, guid: 370da565895732d448b734be361872d2, type: 3}
       propertyPath: clipName
       value: "\u5C0F\u63D0\u7434"
@@ -1595,7 +1603,7 @@ PrefabInstance:
     - target: {fileID: 2370350488372749165, guid: 370da565895732d448b734be361872d2, type: 3}
       propertyPath: itemSprites.Array.data[0]
       value: 
-      objectReference: {fileID: 21300000, guid: 512f942498aaa4e43b9c92d0259fe816, type: 3}
+      objectReference: {fileID: 21300000, guid: 123f31dc84cd10c43ae783e69a6672fe, type: 3}
     - target: {fileID: 2370350488372749165, guid: 370da565895732d448b734be361872d2, type: 3}
       propertyPath: itemSprites.Array.data[1]
       value: 
@@ -2148,6 +2156,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1560993408562666939}
     m_Modifications:
+    - target: {fileID: 1254236772895248443, guid: 370da565895732d448b734be361872d2, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 51348cc7960619248a22713571de30b8, type: 3}
     - target: {fileID: 1892852569329210788, guid: 370da565895732d448b734be361872d2, type: 3}
       propertyPath: clipName
       value: "\u5C0F\u63D0\u7434"
@@ -2175,7 +2187,7 @@ PrefabInstance:
     - target: {fileID: 2370350488372749165, guid: 370da565895732d448b734be361872d2, type: 3}
       propertyPath: itemSprites.Array.data[0]
       value: 
-      objectReference: {fileID: 21300000, guid: 50dcd9d1bc876cf40bc894d76910a330, type: 3}
+      objectReference: {fileID: 21300000, guid: 51348cc7960619248a22713571de30b8, type: 3}
     - target: {fileID: 2370350488372749165, guid: 370da565895732d448b734be361872d2, type: 3}
       propertyPath: itemSprites.Array.data[1]
       value: 
