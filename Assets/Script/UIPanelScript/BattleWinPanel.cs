@@ -1,6 +1,7 @@
 using DG.Tweening;
 using GJFramework;
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -17,6 +18,9 @@ public class BattleWinPanel : UIPanelBase
     public Image imgBg;
     public GameObject goNoLastTile;
     public GameObject goLastTile;
+
+    public List<GameObject> goLevelOneUnlockList;
+    public List<GameObject> goLevelTwoUnlockList;
 
     protected override void OnShow()
     {
@@ -38,7 +42,10 @@ public class BattleWinPanel : UIPanelBase
             if (resultRefObj != null)
                 imgBg.sprite = Resources.Load<Sprite>(resultRefObj.winBgPath);
         }
-        if(GameMgr.Instance.curLevel == 3)//临时的写法
+
+
+        //以下是临时的写法
+        if (GameMgr.Instance.curLevel == 3)
         {
             goLastTile.SetActive(true);
             goNoLastTile.SetActive(false);
@@ -49,7 +56,32 @@ public class BattleWinPanel : UIPanelBase
             goNoLastTile.SetActive(true);
         }
 
+        if(GameMgr.Instance.curLevel == 2)
+        {
+            foreach (var go in goLevelTwoUnlockList)
+                go.SetActive(true);
+            foreach (var go in goLevelOneUnlockList)
+                go.SetActive(false);
+        }
+        else if (GameMgr.Instance.curLevel == 1)
+        {
+            foreach (var go in goLevelTwoUnlockList)
+                go.SetActive(false);
+            foreach (var go in goLevelOneUnlockList)
+                go.SetActive(true);
+        }
+        else
+        {
+            foreach (var go in goLevelTwoUnlockList)
+                go.SetActive(false);
+            foreach (var go in goLevelOneUnlockList)
+                go.SetActive(false);
+        }
+
+        GameMgr.Instance.curLevel = Mathf.Clamp(GameMgr.Instance.curLevel + 1, 1, 3);
     }
+
+
     protected override void OnHide(Action onHideFinished)
     {
         //btnConfirm.onClick.RemoveAllListeners();
