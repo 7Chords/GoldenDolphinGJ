@@ -14,22 +14,24 @@ public class BattleLosePanel : UIPanelBase
     public float fadeInDuration;
     public float fadeOutDuration;
     public Button btnConfirm;
+    public Image imgBg;
 
     protected override void OnShow()
     {
         canvasGroup.alpha = 0;
         _tweenContainer = new TweenContainer();
         _tweenContainer.RegDoTween(canvasGroup.DOFade(1, fadeInDuration));
-/*        btnConfirm.onClick.AddListener(() =>
+        BattleLevelRefObj levelRefObj = SCRefDataMgr.Instance.battleLevelRefList.refDataList
+            .Find(x => x.level == GameMgr.Instance.curLevel);
+        if(levelRefObj != null)
         {
-            AudioMgr.Instance.PlayBgm("背景音乐");
-            SceneLoader.Instance.AddNextScenePanel(EPanelType.LevelSelectPanel);
-            TransitionMgr.Instance.StarTransition("LevelSelectScene", "FadeInAndOutTransition");
-        });*/
+            ResultResRefObj resultRefObj = SCRefDataMgr.Instance.resultResRefList.refDataList.Find(x => x.id == levelRefObj.resultSkinId);
+            if (resultRefObj != null)
+                imgBg.sprite = Resources.Load<Sprite>(resultRefObj.loseBgPath);
+        }
     }
     protected override void OnHide(Action onHideFinished)
     {
-        //btnConfirm.onClick.RemoveAllListeners();
         _tweenContainer.RegDoTween(canvasGroup.DOFade(0, fadeOutDuration).OnComplete(() =>
         {
             onHideFinished?.Invoke();
