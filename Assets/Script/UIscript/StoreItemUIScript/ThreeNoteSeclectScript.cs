@@ -7,12 +7,17 @@ public class ThreeNoteSeclectScript : MonoBehaviour
 {
     [SerializeField] private Sprite[] noteSprites;
     [SerializeField] private Image noteImage;
-
+    [SerializeField] private Text noteNumText;
 
     public void SetNoteImageInfo(int index)
     {
         if(index < 0 || index >= noteSprites.Length)
             return;
         noteImage.sprite = noteSprites[index];
+    }
+
+    public void SetNoteNumText(int num)
+    {
+        noteNumText.text = 'X' + num.ToString();
     }
 }

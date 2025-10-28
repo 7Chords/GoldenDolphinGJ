@@ -4,6 +4,7 @@ using DG.Tweening;
 using UnityEngine.UI;
 using System.Collections.Generic;
 using GJFramework;
+using System;
 
 public class StoreContainerItem : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 {
@@ -27,6 +28,8 @@ public class StoreContainerItem : MonoBehaviour, IPointerClickHandler, IPointerE
     private Vector3 hoverScale = new Vector3(1.05f, 1.05f, 1.0f);
     [Tooltip("按下时目标缩放（相对于 hoverScale 的比例）")]
     [SerializeField] private float pressedScaleMultiplier = 0.95f;
+    [SerializeField] private ThreeNoteSeclectScript threeNoteSeclectScript1;
+    [SerializeField] private ThreeNoteSeclectScript threeNoteSeclectScript2;
     private Tween scaleTween;
     private Vector3 originalScale;
     private Sequence clickSequence;
@@ -100,8 +103,42 @@ public class StoreContainerItem : MonoBehaviour, IPointerClickHandler, IPointerE
         {
             isLock = storeItemPictureSelector.SetInfo(unlockLvId);
         }
+        SetThreeNoteSelectInfo();
     }
 
+    private void SetThreeNoteSelectInfo()
+    {
+        // 对应 高 中 低 音符标志位
+        List<bool> index = new List<bool> { false, false, false };
+
+        if(highNoteCost > 0) index[0] = true;
+        if(middleCost > 0) index[1] = true;
+        if(lowCost > 0) index[2] = true;
+
+        if (index[1] && index[0])
+        {
+            threeNoteSeclectScript1.SetNoteImageInfo(0);
+            threeNoteSeclectScript1.SetNoteNumText(highNoteCost);
+            threeNoteSeclectScript2.SetNoteImageInfo(1);
+            threeNoteSeclectScript2.SetNoteNumText(middleCost);
+        }
+        if (index[1] && index[2])
+        {
+            threeNoteSeclectScript1.SetNoteImageInfo(1);
+            threeNoteSeclectScript2.SetNoteNumText(middleCost);
+            threeNoteSeclectScript2.SetNoteImageInfo(2);
+            threeNoteSeclectScript2.SetNoteNumText(lowCost);
+        }
+        if (index[0] && index[2])
+        {
+            threeNoteSeclectScript1.SetNoteImageInfo(0);
+            threeNoteSeclectScript2.SetNoteNumText(highNoteCost);
+            threeNoteSeclectScript2.SetNoteImageInfo(2);
+            threeNoteSeclectScript2.SetNoteNumText(lowCost);
+        }
+
+
+    }
     public void Init()
     {
         MsgCenter.RegisterMsg(MsgConst.ON_SELECTOR_INSTRUMENT_CANCLE_WHILE_DOTWEEN_COMPLETE, ResumeColor);
