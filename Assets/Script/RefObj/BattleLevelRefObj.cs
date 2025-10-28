@@ -19,6 +19,7 @@ public class BattleLevelRefObj : SCRefDataCore
     public long collectPageSkinId;// 换皮id
     public long enemyResId;
     public string enemyDesc;
+    public long resultSkinId;
     protected override void _parseFromString()
     {
         id = getLong("id");
@@ -35,6 +36,7 @@ public class BattleLevelRefObj : SCRefDataCore
         collectPageSkinId = getLong("collectPageSkinId");
         enemyResId = getLong("enemyResId");
         enemyDesc = getString("enemyDesc");
+        resultSkinId = getLong("resultSkinId");
 
     }
 
