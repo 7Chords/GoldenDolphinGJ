@@ -18,6 +18,7 @@ public class InstrumentInfo
 
     public InstrumentRefObj refObj;
     public List<SkillRefObj> skillRefList;
+    public InstrumentResRefObj resRefObj;
     public InstrumentInfo(InstrumentRefObj refObj)
     {
         this.refObj = refObj;
@@ -36,5 +37,7 @@ public class InstrumentInfo
             if (tmpRefObj != null)
                 skillRefList.Add(tmpRefObj);
         }
+        resRefObj = SCRefDataMgr.Instance.instrumentResRefList.refDataList.
+            Find(x => x.id == refObj.skillIdList[GameMgr.Instance.curLevel - 1]);
     }
 }

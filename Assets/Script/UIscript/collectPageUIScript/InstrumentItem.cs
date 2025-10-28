@@ -30,6 +30,9 @@ public class InstrumentItem : UIPanelBase,
     public Image imgAttack;
     public Image imgDeadMask;
 
+    public List<GameObject> goIsCopyShowList;
+    public List<GameObject> goNotCopyShowList;
+
     [Space(10)]
 
     [Header("移入放大持续时间")]
@@ -144,8 +147,23 @@ public class InstrumentItem : UIPanelBase,
     {
         if (_instrumentInfo == null)
             return;
-        instrumentIcon.sprite = Resources.Load<Sprite>(_instrumentInfo.refObj.instrumentBodyBgWithChaPath);
-        instrumentBack.sprite = Resources.Load<Sprite>(_instrumentInfo.refObj.instrumentBgPath);
+        if(instrumentInfo.refObj.effectType == EInstrumentEffectType.CopyLast)
+        {
+            foreach (var go in goIsCopyShowList)
+                go.SetActive(true);
+            foreach (var go in goNotCopyShowList)
+                go.SetActive(false);
+        }
+        else
+        {
+            foreach (var go in goIsCopyShowList)
+                go.SetActive(false);
+            foreach (var go in goNotCopyShowList)
+                go.SetActive(true);
+        }
+
+        instrumentIcon.sprite = Resources.Load<Sprite>(instrumentInfo.resRefObj.instrumentBodyBgWithChaPath);
+        instrumentBack.sprite = Resources.Load<Sprite>(instrumentInfo.resRefObj.instrumentBgPath);
         imgName.sprite = Resources.Load<Sprite>(_instrumentInfo.refObj.instrumentNamePath);
         imgName.SetNativeSize();
         imgAttack.sprite = Resources.Load<Sprite>(_instrumentInfo.refObj.instrumentAttackIconPath);
@@ -278,7 +296,7 @@ public class InstrumentItem : UIPanelBase,
         BattleMgr.instance.isPlaying = true;
         btnClick.enabled = false;
         instrumentCharacter.gameObject.SetActive(true);
-        instrumentIcon.sprite = Resources.Load<Sprite>(_instrumentInfo.refObj.instrumentBodyBgPath);
+        instrumentIcon.sprite = Resources.Load<Sprite>(instrumentInfo.resRefObj.instrumentBodyBgPath);
         Sequence seq = DOTween.Sequence();
         seq.Append(instrumentCharacter.transform.DOScale(clickBiggerScale, clickBiggerDuration));
 
@@ -319,7 +337,7 @@ public class InstrumentItem : UIPanelBase,
             BattleMgr.instance.isPlaying = false;
             btnClick.enabled = true;
             instrumentCharacter.gameObject.SetActive(false);
-            instrumentIcon.sprite = Resources.Load<Sprite>(_instrumentInfo.refObj.instrumentBodyBgWithChaPath);
+            instrumentIcon.sprite = Resources.Load<Sprite>(instrumentInfo.resRefObj.instrumentBodyBgWithChaPath);
             OnPointerExit(null);
             MsgCenter.SendMsgAct(MsgConst.ON_INSTRUMENT_END_ATTACK);
         });
@@ -659,7 +677,7 @@ public class InstrumentItem : UIPanelBase,
         seq.Append(DOVirtual.DelayedCall(0.5f, ()=> 
         {
             instrumentCharacter.gameObject.SetActive(true);
-            instrumentIcon.sprite = Resources.Load<Sprite>(_instrumentInfo.refObj.instrumentBodyBgPath);
+            instrumentIcon.sprite = Resources.Load<Sprite>(instrumentInfo.resRefObj.instrumentBodyBgPath);
         }));
         seq.Append(instrumentCharacter.transform.DOScale(clickBiggerScale, clickBiggerDuration));
         seq.Append(instrumentCharacter.transform.DOScale(Vector3.one, clickSmallerDuration)).OnComplete(() =>
@@ -667,7 +685,7 @@ public class InstrumentItem : UIPanelBase,
             BattleMgr.instance.isPlaying = false;
             btnClick.enabled = true;
             instrumentCharacter.gameObject.SetActive(false);
-            instrumentIcon.sprite = Resources.Load<Sprite>(_instrumentInfo.refObj.instrumentBodyBgWithChaPath);
+            instrumentIcon.sprite = Resources.Load<Sprite>(instrumentInfo.resRefObj.instrumentBodyBgWithChaPath);
             logicAction?.Invoke();
             OnPointerExit(null);
         });
