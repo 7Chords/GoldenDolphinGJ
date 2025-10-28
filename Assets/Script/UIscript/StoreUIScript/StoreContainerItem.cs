@@ -12,7 +12,10 @@ public class StoreContainerItem : MonoBehaviour, IPointerClickHandler, IPointerE
     [SerializeField] private float totalDuration = 0.22f; // 放大+缩小总时长（秒）
     [SerializeField] private Ease ease = Ease.OutBack;    // 缓动类型
     [SerializeField] private Image StoreItemImg;
+    [SerializeField] private List<Image> StoreItemImgs;
     [SerializeField] private Sprite selectedSprite;
+    [SerializeField] private Text NoteNumText1;
+    [SerializeField] private Text NoteNumText2;
     [SerializeField] private StoreItemPictureSelector storeItemPictureSelector;
     [Tooltip("缩放过渡时长（秒）")]
     [SerializeField] private float scaleDuration = 0.12f;
@@ -39,6 +42,11 @@ public class StoreContainerItem : MonoBehaviour, IPointerClickHandler, IPointerE
     private Color originalImageColor;
     private InstrumentStoreRefObj instrumentStoreRefObj = null;
 
+    // 缓存每个 Image 的原始颜色
+    private Dictionary<Image, Color> originalImageColors = new Dictionary<Image, Color>();
+    // 缓存 NoteNumText 的原始颜色
+    private Dictionary<Text, Color> originalTextColors = new Dictionary<Text, Color>();
+
     // 悬停显示配置
     [SerializeField] private float hoverDelay = 0.4f; // 悬停延迟
     [SerializeField] private float hoverFadeDuration = 0.2f; // 淡入时长
@@ -48,11 +56,42 @@ public class StoreContainerItem : MonoBehaviour, IPointerClickHandler, IPointerE
     private void Awake()
     {
         originalScale = transform.localScale;
-        if (StoreItemImg != null)
-            originalImageColor = StoreItemImg.color;
-        else
-            originalImageColor = Color.white;
 
+        // 初始化原始颜色缓存：优先使用 StoreItemImgs 列表
+        originalImageColors.Clear();
+        if (StoreItemImgs != null && StoreItemImgs.Count > 0)
+        {
+            foreach (var img in StoreItemImgs)
+            {
+                if (img != null && !originalImageColors.ContainsKey(img))
+                    originalImageColors[img] = img.color;
+            }
+            // 同步 originalImageColor 为第一个可用图像的颜色，保持兼容旧逻辑
+            foreach (var kv in originalImageColors)
+            {
+                originalImageColor = kv.Value;
+                break;
+            }
+        }
+        else
+        {
+            if (StoreItemImg != null)
+            {
+                originalImageColor = StoreItemImg.color;
+                originalImageColors[StoreItemImg] = originalImageColor;
+            }
+            else
+            {
+                originalImageColor = Color.white;
+            }
+        }
+
+        // 缓存文本原始颜色
+        originalTextColors.Clear();
+        if (NoteNumText1 != null && !originalTextColors.ContainsKey(NoteNumText1))
+            originalTextColors[NoteNumText1] = NoteNumText1.color;
+        if (NoteNumText2 != null && !originalTextColors.ContainsKey(NoteNumText2))
+            originalTextColors[NoteNumText2] = NoteNumText2.color;
     }
 
     public void SetInfo(long unlockLvId)
@@ -82,8 +121,8 @@ public class StoreContainerItem : MonoBehaviour, IPointerClickHandler, IPointerE
         long tempStoreItemId = (long)objs[0];
         if(tempStoreItemId == storeItemId)
         {
-            if (StoreItemImg != null)
-                StoreItemImg.color = originalImageColor;
+            // 恢复所有缓存的图像和文本颜色
+            RestoreAllImagesColor();
         }
         SetGrayState(tempStoreItemId);
     }
@@ -100,37 +139,40 @@ public class StoreContainerItem : MonoBehaviour, IPointerClickHandler, IPointerE
 
     public void SetGrayState(long curSelectStoreItem, bool isSelect = false)
     {
-        if (StoreItemImg == null) return;
+        // 如果没有任何 image，可以直接返回
+        if ((StoreItemImgs == null || StoreItemImgs.Count == 0) && StoreItemImg == null) return;
 
         // 如果 originalImageColor 是默认的透明值，回退为当前图片颜色，避免把图片设为完全透明
         if (originalImageColor.a == 0f)
-            originalImageColor = StoreItemImg.color;
+        {
+            if (StoreItemImg != null) originalImageColor = StoreItemImg.color;
+            else if (StoreItemImgs != null && StoreItemImgs.Count > 0)
+            {
+                foreach (var i in StoreItemImgs) { if (i != null) { originalImageColor = i.color; break; } }
+            }
+        }
 
         bool temp = (PlayerMgr.Instance.GetNoteNum(NoteType.HightNote) >= highNoteCost &&
                PlayerMgr.Instance.GetNoteNum(NoteType.MiddleNote) >= middleCost &&
                PlayerMgr.Instance.GetNoteNum(NoteType.LowNote) >= lowCost);
 
-        // 如果资源返回了也不够 就设置灰色
+        // 如果资源不够 就设置灰色
         if (!temp)
         {
-            var col = StoreItemImg.color;
-            StoreItemImg.color = new Color(0.5f, 0.5f, 0.5f, col.a);
+            SetAllImagesToGray();
         }
-        // 反之变亮
         else
         {
             // 如果这个商品是从商店->selector的 即使是够的也设置为灰色
             if (isSelect && curSelectStoreItem == storeItemId)
             {
-                var col = StoreItemImg.color;
-                StoreItemImg.color = new Color(0.5f, 0.5f, 0.5f, col.a);
+                SetAllImagesToGray();
             }
-            // 如果这个商品是 selector-> 商店的
             else
             {
                 // 考虑是否还在列表里 不在列表里才恢复颜色 否则保持灰色
                 if (curSelectStoreItem == -1 || !StoreItemContainer.instance.storeItemList[storeItemId])
-                    StoreItemImg.color = originalImageColor;
+                    RestoreAllImagesColor();
             }
         }
     }
@@ -258,11 +300,9 @@ public class StoreContainerItem : MonoBehaviour, IPointerClickHandler, IPointerE
             PlayerMgr.Instance.RemoveNoteNum(NoteType.HightNote, highNoteCost);
             PlayerMgr.Instance.RemoveNoteNum(NoteType.MiddleNote, middleCost);
             MsgCenter.SendMsgAct(MsgConst.ON_NOTE_COUNT_CHANGE);
-            if (StoreItemImg != null)
-            {
-                var col = StoreItemImg.color;
-                StoreItemImg.color = new Color(0.5f, 0.5f, 0.5f, col.a);
-            }
+
+            // 购买成功后把所有 image/text 设置为灰色
+            SetAllImagesToGray();
         }
         return temp;
     }
@@ -293,5 +333,60 @@ public class StoreContainerItem : MonoBehaviour, IPointerClickHandler, IPointerE
             .SetEase(scaleEase)
             .SetUpdate(useUnscaledTime) // 使用 unscaled 时间以匹配之前的实现
             .OnKill(() => scaleTween = null);
+    }
+
+    // 将所有目标 Image 和指定 Text 置灰
+    private void SetAllImagesToGray()
+    {
+        if (StoreItemImgs != null && StoreItemImgs.Count > 0)
+        {
+            foreach (var img in StoreItemImgs)
+            {
+                if (img == null) continue;
+                Color ori = originalImageColors.ContainsKey(img) ? originalImageColors[img] : img.color;
+                img.color = new Color(0.5f, 0.5f, 0.5f, ori.a);
+            }
+        }
+        else if (StoreItemImg != null)
+        {
+            var col = StoreItemImg.color;
+            StoreItemImg.color = new Color(0.5f, 0.5f, 0.5f, col.a);
+        }
+
+        // 对文本也做同样处理（保留原始 alpha）
+        if (NoteNumText1 != null)
+        {
+            Color ori = originalTextColors.ContainsKey(NoteNumText1) ? originalTextColors[NoteNumText1] : NoteNumText1.color;
+            NoteNumText1.color = new Color(0.5f, 0.5f, 0.5f, ori.a);
+        }
+        if (NoteNumText2 != null)
+        {
+            Color ori = originalTextColors.ContainsKey(NoteNumText2) ? originalTextColors[NoteNumText2] : NoteNumText2.color;
+            NoteNumText2.color = new Color(0.5f, 0.5f, 0.5f, ori.a);
+        }
+    }
+
+    // 恢复所有目标 Image 和指定 Text 的原始颜色
+    private void RestoreAllImagesColor()
+    {
+        if (StoreItemImgs != null && StoreItemImgs.Count > 0)
+        {
+            foreach (var img in StoreItemImgs)
+            {
+                if (img == null) continue;
+                if (originalImageColors.ContainsKey(img))
+                    img.color = originalImageColors[img];
+            }
+        }
+        else if (StoreItemImg != null)
+        {
+            StoreItemImg.color = originalImageColor;
+        }
+
+        // 恢复文本颜色
+        if (NoteNumText1 != null && originalTextColors.ContainsKey(NoteNumText1))
+            NoteNumText1.color = originalTextColors[NoteNumText1];
+        if (NoteNumText2 != null && originalTextColors.ContainsKey(NoteNumText2))
+            NoteNumText2.color = originalTextColors[NoteNumText2];
     }
 }
