@@ -9,12 +9,19 @@ public class SideBarPanel : UIPanelBase
 {
     public Button btnClose;
     public Transform itemParentTransform;
+
+    public GameObject sideBarItemPrefab;
     protected override void OnShow()
     {
         btnClose.onClick.AddListener(() =>
         {
 
         });
+    }
+
+    public void SetInfo()
+    {
+
     }
 
     protected override void OnHide(Action onHideFinished)

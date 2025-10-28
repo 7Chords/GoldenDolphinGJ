@@ -29,6 +29,31 @@ public class SideBarItem : MonoBehaviour
         if (instrumentRefObj == null)
             return;
         imgHead.sprite = Resources.Load<Sprite>(instrumentRefObj.instrumentIconPath);
-        
+        //临时不好的写法
+        int noteCount_1 = 0;
+        int noteCount_2 = 0;
+        if(_storeRefObj.hightNoteNum == 0)
+        {
+            noteCount_1 = _storeRefObj.middleNoteNum;
+            noteCount_2 = _storeRefObj.lowNoteNum;
+            imgNote_1.sprite = Resources.Load<Sprite>("UI/Icon/中音符");
+            imgNote_2.sprite = Resources.Load<Sprite>("UI/Icon/低音符");
+        }
+        else if(_storeRefObj.middleNoteNum == 0)
+        {
+            noteCount_1 = _storeRefObj.hightNoteNum;
+            noteCount_2 = _storeRefObj.lowNoteNum;
+            imgNote_1.sprite = Resources.Load<Sprite>("UI/Icon/高音符");
+            imgNote_2.sprite = Resources.Load<Sprite>("UI/Icon/低音符");
+        }
+        else
+        {
+            noteCount_1 = _storeRefObj.hightNoteNum;
+            noteCount_2 = _storeRefObj.middleNoteNum;
+            imgNote_1.sprite = Resources.Load<Sprite>("UI/Icon/高音符");
+            imgNote_2.sprite = Resources.Load<Sprite>("UI/Icon/中音符");
+        }
+        txtNote_1.text = "×" + noteCount_1.ToString();
+        txtNote_2.text = "×" + noteCount_2.ToString();
     }
 }
