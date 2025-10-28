@@ -10,7 +10,7 @@ public class storeSkinSetter : MonoBehaviour
     [SerializeField] private Image storeText;
     [SerializeField] private Image NoteBackGround;
     [SerializeField] private Image selectContainerBackground;
-    public void SetCollectPageSkinInfo(StorePageSkinRefObj storePageSkinRefObj)
+    public void SetStorePageSkinInfo(StorePageSkinRefObj storePageSkinRefObj)
     {
         if (storeBackGround == null || backBtn == null || storeText == null)
         {
