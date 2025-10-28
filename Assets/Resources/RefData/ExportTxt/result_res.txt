@@ -1,0 +1,4 @@
+﻿id	loseBgPath	winBgPath
+1001	UI/Icon/战斗失败_橙色	UI/Icon/战斗胜利背景_橙色
+1002	UI/Icon/战斗失败_绿色	UI/Icon/战斗胜利背景_绿色
+1003	UI/Icon/战斗失败_紫色	UI/Icon/战斗胜利背景_紫色
