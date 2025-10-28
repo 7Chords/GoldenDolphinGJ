@@ -144,7 +144,6 @@ public class StoreContainerItem : MonoBehaviour, IPointerClickHandler, IPointerE
         MsgCenter.RegisterMsg(MsgConst.ON_SELECTOR_INSTRUMENT_CANCLE_WHILE_DOTWEEN_COMPLETE, ResumeColor);
         instrumentStoreRefObj = SCRefDataMgr.Instance.instrumentStoreRefList.refDataList
    .Find(x => x.id == storeItemId);
-        if (instrumentStoreRefObj == null) Debug.Log(storeItemId);
         highNoteCost = instrumentStoreRefObj.hightNoteNum;
         middleCost = instrumentStoreRefObj.middleNoteNum;
         lowCost = instrumentStoreRefObj.lowNoteNum;
