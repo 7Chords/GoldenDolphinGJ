@@ -23,6 +23,8 @@ public class SideBarPanel : UIPanelBase
     public CanvasGroup canvasGroup;
 
     private List<GameObject> itemList;
+
+    private bool hasShow;
     protected override void OnShow()
     {
         btnClose.onClick.AddListener(() =>
@@ -37,6 +39,7 @@ public class SideBarPanel : UIPanelBase
 
 
         SetInfo();
+        hasShow = true;
     }
 
     public void SetInfo()
@@ -61,6 +64,9 @@ public class SideBarPanel : UIPanelBase
 
     protected override void OnHide(Action onHideFinished)
     {
+        if (!hasShow)
+            return;
+        hasShow = false;
         btnClose.onClick.RemoveAllListeners();
         _tweenContainer.RegDoTween(canvasGroup.DOFade(0, fadeOutDuration).OnComplete(() =>
         {
