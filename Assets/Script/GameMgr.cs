@@ -9,8 +9,20 @@ public class GameMgr : SingletonPersistent<GameMgr>
     public Transform UIRoot;
     public Transform TransitionRoot;
 
-
+    private int playerMaxLevel;
     private int _curLevel;
+
+    public int PlayerMaxLevel
+    {
+        get
+        {
+            return playerMaxLevel;
+        }
+        set
+        {
+            playerMaxLevel = value;
+        }
+    }
     public int curLevel
     {
         get
@@ -41,7 +53,7 @@ public class GameMgr : SingletonPersistent<GameMgr>
 
     private void GameInit()
     {
-        _curLevel = 1;
+        _curLevel = 3;
         SCRefDataMgr.Instance.Init();
 
         if (UIRoot != null) PanelUIMgr.Instance.panelRoot = UIRoot;
