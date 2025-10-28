@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class StorePanel : UIPanelBase
 {
+    [SerializeField] private storeSkinSetter skinSetter;
     protected override void OnShow()
     {
         AudioMgr.Instance.PlayBgm("背景音乐");
