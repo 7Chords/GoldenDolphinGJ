@@ -107,7 +107,8 @@ MonoBehaviour:
   panelType: 4
   SkipBtnForEditor: {fileID: 5110174566411618047}
   skinSetter: {fileID: 7961837245004704062}
-  btnOpenSideBar: {fileID: 0}
+  btnOpenSideBar: {fileID: 2297667065930865282}
+  panelSideBar: {fileID: 9092302595748240616}
 --- !u!223 &3793914168724006019
 Canvas:
   m_ObjectHideFlags: 0
@@ -569,7 +570,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &8616640800006461246
 RectTransform:
   m_ObjectHideFlags: 0
@@ -758,6 +759,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6867517866960056741}
   - component: {fileID: 9092302595748240616}
+  - component: {fileID: 3646460460126394251}
   m_Layer: 5
   m_HasEditorInfo: 1
   m_Name: SideBarPanel
@@ -765,7 +767,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &6867517866960056741
 RectTransform:
   m_ObjectHideFlags: 0
@@ -801,7 +803,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   panelType: 0
   btnClose: {fileID: 6067808922281760526}
+  btnOpen: {fileID: 2297667065930865282}
   itemParentTransform: {fileID: 1391518440357876396}
+  sideBarItemPrefab: {fileID: 8714738840409909754, guid: b2b21c077f276c540b4ff7ec94eb911a, type: 3}
+  fadeInDuration: 0.5
+  fadeOutDuration: 0.25
+  canvasGroup: {fileID: 3646460460126394251}
+--- !u!225 &3646460460126394251
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5064173732792096391}
+  m_Enabled: 1
+  m_Alpha: 0
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &5157038525734895062
 GameObject:
   m_ObjectHideFlags: 0
@@ -1252,7 +1271,7 @@ GameObject:
   - component: {fileID: 5110174566411618047}
   m_Layer: 5
   m_HasEditorInfo: 1
-  m_Name: Button (Legacy)
+  m_Name: CheatBtn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2232,6 +2251,10 @@ PrefabInstance:
     - target: {fileID: 6705139457469648484, guid: f0b9c55324b04544a9948a625facbe9b, type: 3}
       propertyPath: m_Name
       value: InstrumentContainer
+      objectReference: {fileID: 0}
+    - target: {fileID: 6705139457469648484, guid: f0b9c55324b04544a9948a625facbe9b, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6889865557646704492, guid: f0b9c55324b04544a9948a625facbe9b, type: 3}
       propertyPath: m_AnchoredPosition.x
