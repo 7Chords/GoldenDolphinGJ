@@ -15,6 +15,7 @@ public class EnemyItem : UIPanelBase,IDamagable
     public Image imgHealthBar;
     public Image imgHealthHolder;
     public Image imgHead;
+    public Text txtEnemyDesc;
 
     [Header("受伤震动强度")]
     public float hurtShakeStrength;
@@ -87,6 +88,7 @@ public class EnemyItem : UIPanelBase,IDamagable
         imgHealthBar.sprite = Resources.Load<Sprite>(_enemyInfo.enemyResRefObj.levelEnemyHealthBarPath);
         imgHealthHolder.sprite = Resources.Load<Sprite>(_enemyInfo.enemyResRefObj.levelEnemyHealthHolderPath);
         imgHead.sprite = Resources.Load<Sprite>(_enemyInfo.enemyResRefObj.levelEnemyHeadPath);
+        txtEnemyDesc.text = _enemyInfo.enemyDesc;
         Tween healthTween = imgHealthBar.DOFillAmount((float)_enemyInfo.enemyHealth / _maxHealth, healthBarChgDuration);
         _tweenContainer.RegDoTween(healthTween);
     }

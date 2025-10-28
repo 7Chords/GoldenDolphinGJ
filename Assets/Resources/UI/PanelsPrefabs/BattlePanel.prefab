@@ -202,8 +202,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 437.2, y: -31}
-  m_SizeDelta: {x: 532.7254, y: 30}
+  m_AnchoredPosition: {x: 405, y: -44}
+  m_SizeDelta: {x: 958.1605, y: 30}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &7852416441496655698
 CanvasRenderer:
@@ -881,6 +881,7 @@ MonoBehaviour:
   imgHealthBar: {fileID: 2698253510995482683}
   imgHealthHolder: {fileID: 218852513242538358}
   imgHead: {fileID: 2263327873701157847}
+  txtEnemyDesc: {fileID: 2343590840936939456}
   hurtShakeStrength: 8
   hurtShakeDuration: 0.3
   hurtColor: {r: 1, g: 0.26444778, b: 0, a: 1}
@@ -2033,7 +2034,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -501, y: -10.799988}
+  m_AnchoredPosition: {x: -501, y: -2}
   m_SizeDelta: {x: 352.4378, y: 58.8869}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!222 &8400421034174156784
@@ -2077,7 +2078,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u53D8\u5F02\u97F3\u7B26"
+  m_Text: "\u53D8\u5F02\u97F3\u7B26\u53D8\u5F02\u97F3\u7B26"
 --- !u!1 &6855866658809292725
 GameObject:
   m_ObjectHideFlags: 0

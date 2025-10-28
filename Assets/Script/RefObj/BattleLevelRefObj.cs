@@ -13,13 +13,12 @@ public class BattleLevelRefObj : SCRefDataCore
     public int enemyAttack;
     public int enemyBuff;
     public int enemyHeal;
-
     public List<long> recommendinstrumentsIdList;
     public List<EEnemyActionType> enemyActionTypeList;
     public string bgmName;
-
     public long collectPageSkinId;// 换皮id
     public long enemyResId;
+    public string enemyDesc;
     protected override void _parseFromString()
     {
         id = getLong("id");
@@ -35,6 +34,8 @@ public class BattleLevelRefObj : SCRefDataCore
         bgmName = getString("bgmName");
         collectPageSkinId = getLong("collectPageSkinId");
         enemyResId = getLong("enemyResId");
+        enemyDesc = getString("enemyDesc");
+
     }
 
     public static string assetPath => "RefData/ExportTxt";
