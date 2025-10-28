@@ -640,7 +640,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   panelType: 0
-  skinSetter: {fileID: 0}
+  skinSetter: {fileID: 3081850535486233066}
 --- !u!114 &3892649052932842656
 MonoBehaviour:
   m_ObjectHideFlags: 0
