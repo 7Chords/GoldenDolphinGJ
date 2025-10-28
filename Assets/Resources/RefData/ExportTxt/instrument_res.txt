@@ -1,0 +1,8 @@
+﻿id	instrumentBgPath	instrumentBodyBgPath	instrumentBodyBgWithChaPath	instrumentHealthHolderPath
+1001	UI/Icon/竖琴bg	UI/Icon/竖琴bg_cha	1
+1002	UI/Icon/小提琴bg	UI/Icon/小提琴bg_cha	2
+1003	UI/Icon/小号bg	UI/Icon/小号bg_cha	3
+1004	UI/Icon/手风琴bg	UI/Icon/手风琴bg_cha	4
+1005	UI/Icon/单簧管bg	UI/Icon/单簧管bg_cha	5
+1006	UI/Icon/长笛bg	UI/Icon/长笛bg_cha	6
+1007	UI/Icon/三角铁bg	UI/Icon/三角铁bg_cha	7
