@@ -8,6 +8,8 @@ public class NoteCollectPanel : UIPanelBase
     [Header("开发者模式专用")]
     public Button SkipBtnForEditor;
     [SerializeField] private collectPageSkinSetter skinSetter;
+
+    public Button btnOpenSideBar;
     protected override void OnShow()
     {
         SkipBtnForEditor.gameObject.SetActive(Application.isEditor);
@@ -22,6 +24,11 @@ public class NoteCollectPanel : UIPanelBase
             PanelUIMgr.Instance.ClosePanel(EPanelType.ColloctFinishPanel);
         });
 #endif
+        btnOpenSideBar.onClick.AddListener(() =>
+        {
+
+        });
+
         PlayerMgr.Instance.ClearInstrumentIdList();
         PlayerMgr.Instance.ResetNoteNum();
         AudioMgr.Instance.PlayBgm("土耳其");
@@ -43,6 +50,7 @@ public class NoteCollectPanel : UIPanelBase
     }
     protected override void OnHide(Action onHideFinished)
     {
+        btnOpenSideBar.onClick.RemoveAllListeners();
         onHideFinished?.Invoke();
     }
 }
