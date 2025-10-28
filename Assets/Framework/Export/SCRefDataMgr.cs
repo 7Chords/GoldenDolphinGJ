@@ -14,7 +14,7 @@ namespace GJFramework
         public SCRefDataList<EnemyResRefObj> enemyResRefList = new SCRefDataList<EnemyResRefObj>(EnemyResRefObj.assetPath, EnemyResRefObj.sheetName);
         public SCRefDataList<ResultResRefObj> resultResRefList = new SCRefDataList<ResultResRefObj>(ResultResRefObj.assetPath, ResultResRefObj.sheetName);
         public SCRefDataList<InstrumentResRefObj> instrumentResRefList = new SCRefDataList<InstrumentResRefObj>(InstrumentResRefObj.assetPath, InstrumentResRefObj.sheetName);
-
+        public SCRefDataList<StorePageSkinRefObj> storePageSkinRefList = new SCRefDataList<StorePageSkinRefObj>(StorePageSkinRefObj.assetPath, StorePageSkinRefObj.sheetName);
         public void Init()
         {
             instrumentRefList.readFromTxt();
@@ -25,6 +25,7 @@ namespace GJFramework
             enemyResRefList.readFromTxt();
             resultResRefList.readFromTxt();
             instrumentResRefList.readFromTxt();
+            storePageSkinRefList.readFromTxt();
         }
     }
 }
