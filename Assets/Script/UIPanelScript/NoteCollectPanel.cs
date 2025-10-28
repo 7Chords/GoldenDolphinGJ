@@ -10,6 +10,7 @@ public class NoteCollectPanel : UIPanelBase
     [SerializeField] private collectPageSkinSetter skinSetter;
 
     public Button btnOpenSideBar;
+    public SideBarPanel panelSideBar;
     protected override void OnShow()
     {
         SkipBtnForEditor.gameObject.SetActive(Application.isEditor);
@@ -26,7 +27,7 @@ public class NoteCollectPanel : UIPanelBase
 #endif
         btnOpenSideBar.onClick.AddListener(() =>
         {
-
+            panelSideBar.Show();
         });
 
         PlayerMgr.Instance.ClearInstrumentIdList();
@@ -51,6 +52,7 @@ public class NoteCollectPanel : UIPanelBase
     protected override void OnHide(Action onHideFinished)
     {
         btnOpenSideBar.onClick.RemoveAllListeners();
+        panelSideBar?.Hide();
         onHideFinished?.Invoke();
     }
 }
