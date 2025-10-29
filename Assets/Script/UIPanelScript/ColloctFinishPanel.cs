@@ -2,12 +2,14 @@ using GJFramework;
 using System;
 using UnityEngine;
 using DG.Tweening;
+using UnityEngine.UI;
 
 public class ColloctFinishPanel : UIPanelBase
 {
     [SerializeField] private float fadeDuration = 1f;
     [SerializeField] private Ease fadeEase = Ease.OutQuad;
-
+    [SerializeField] private Image collectFinishImage;
+    [SerializeField] private Sprite[] finishSprites;
     private CanvasGroup canvasGroup;
     private Tween currentTween;
 
@@ -19,6 +21,7 @@ public class ColloctFinishPanel : UIPanelBase
 
     protected override void OnShow()
     {
+        SetFinishImage();
         // 终止任何残留 Tween，开始淡入
         currentTween?.Kill();
         canvasGroup.alpha = 0f;
@@ -52,6 +55,10 @@ public class ColloctFinishPanel : UIPanelBase
                 currentTween = null;
                 onHideFinished?.Invoke();
             });
+    }
+    public void SetFinishImage()
+    {
+        collectFinishImage.sprite = finishSprites[GameMgr.Instance.curLevel - 1];
     }
 
     private void OnDestroy()

@@ -10,7 +10,7 @@ public class NoteItem : MonoBehaviour
     // 设置信息
     public void SetInfo(int _noteNumText)
     {
-        noteNumText.text = "X " + _noteNumText.ToString();
+        noteNumText.text = "X" + _noteNumText.ToString();
     }
 
 
