@@ -81,7 +81,7 @@ public class LevelItem : UIPanelBase,
         btnSelect.onClick.AddListener(OnSelectBtnClicked);
         btnReturn.onClick.AddListener(CancelSelect);
 
-        if (level > GameMgr.Instance.curLevel)
+        if (level > GameMgr.Instance.PlayerMaxLevel)
             imgContent.sprite = unlockSprite;
         else
             imgContent.sprite = unselectSprite;
