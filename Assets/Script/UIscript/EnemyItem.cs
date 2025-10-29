@@ -17,6 +17,9 @@ public class EnemyItem : UIPanelBase,IDamagable
     public Image imgHead;
     public Text txtEnemyDesc;
 
+    public List<Color> levelColorList;
+
+
     [Header("受伤震动强度")]
     public float hurtShakeStrength;
     [Header("受伤震动时间")]
@@ -82,13 +85,13 @@ public class EnemyItem : UIPanelBase,IDamagable
         if (_enemyInfo == null)
             return;
         imgEnemyIcon.sprite = Resources.Load<Sprite>(_enemyInfo.enemyResRefObj.enemyBodyPath);
-        txtAttack.text = _enemyInfo.enemyAttack.ToString();
-        txtName.text = _enemyInfo.enemyName;
-        txtHealth.text = _enemyInfo.enemyHealth + "/" + _maxHealth;
+        txtAttack.text = AddColorForRichText(_enemyInfo.enemyAttack.ToString(), levelColorList[GameMgr.Instance.curLevel - 1]);
+        txtName.text = AddColorForRichText(_enemyInfo.enemyName, levelColorList[GameMgr.Instance.curLevel - 1]);
+        txtHealth.text = AddColorForRichText(_enemyInfo.enemyHealth + "/" + _maxHealth, levelColorList[GameMgr.Instance.curLevel - 1]);
         imgHealthBar.sprite = Resources.Load<Sprite>(_enemyInfo.enemyResRefObj.levelEnemyHealthBarPath);
         imgHealthHolder.sprite = Resources.Load<Sprite>(_enemyInfo.enemyResRefObj.levelEnemyHealthHolderPath);
         imgHead.sprite = Resources.Load<Sprite>(_enemyInfo.enemyResRefObj.levelEnemyHeadPath);
-        txtEnemyDesc.text = _enemyInfo.enemyDesc;
+        txtEnemyDesc.text = AddColorForRichText(_enemyInfo.enemyDesc, levelColorList[GameMgr.Instance.curLevel - 1]);
         Tween healthTween = imgHealthBar.DOFillAmount((float)_enemyInfo.enemyHealth / _maxHealth, healthBarChgDuration);
         _tweenContainer.RegDoTween(healthTween);
     }
@@ -216,5 +219,21 @@ public class EnemyItem : UIPanelBase,IDamagable
         }
 
         
+    }
+
+    private string ColorToString(Color color)
+    {
+        int r = Mathf.RoundToInt(color.r * 255.0f);
+        int g = Mathf.RoundToInt(color.g * 255.0f);
+        int b = Mathf.RoundToInt(color.b * 255.0f);
+        int a = Mathf.RoundToInt(color.a * 255.0f);
+        string hex = string.Format("{0:X2}{1:X2}{2:X2}{3:X2}", r, g, b, a);
+        return hex;
+    }
+
+    public string AddColorForRichText(string txt, Color color)
+    {
+        string richTextColor = "#" + ColorToString(color);
+        return string.Format("<color={0}>{1}</color>", richTextColor, txt);
     }
 }
