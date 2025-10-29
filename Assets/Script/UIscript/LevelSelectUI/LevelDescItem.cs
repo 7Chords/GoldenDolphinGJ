@@ -38,7 +38,17 @@ public class LevelDescItem : MonoBehaviour
         imgEnemyName.SetNativeSize();
         txtEnemyHealth.text = levelRefObj.enemyHealth.ToString();
         txtEnemyAttack.text = levelRefObj.enemyAttack.ToString();
-        txtEnemyDesc.text = levelRefObj.enemyDesc;
+        if(levelRefObj.level == 3)
+        {
+            string str = "";
+            string[] descArr = levelRefObj.enemyDesc.Split(";");
+            str += descArr[0] + descArr[1];
+            txtEnemyDesc.text = str;
+        }
+        else
+        {
+            txtEnemyDesc.text = levelRefObj.enemyDesc;
+        }
 
         List<InstrumentRefObj> instrumentRefList = SCRefDataMgr.Instance.instrumentRefList.refDataList;
         List<InstrumentRefObj> resRefList = new List<InstrumentRefObj>();
