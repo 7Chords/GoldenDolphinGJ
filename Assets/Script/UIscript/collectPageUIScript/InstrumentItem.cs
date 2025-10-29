@@ -33,6 +33,10 @@ public class InstrumentItem : UIPanelBase,
     public List<GameObject> goIsCopyShowList;
     public List<GameObject> goNotCopyShowList;
 
+
+    public Transform skillStarParentTransform;
+    public GameObject skillStarPrefab;
+
     [Space(10)]
 
     [Header("移入放大持续时间")]
@@ -106,6 +110,8 @@ public class InstrumentItem : UIPanelBase,
     private bool _isDragging = false;
     private Canvas _parentCanvas;
     private Vector2 _dragOffset;
+
+    private List<SkillStarItem> skillStarItemList;
     protected override void OnShow()
     {
 
@@ -141,6 +147,21 @@ public class InstrumentItem : UIPanelBase,
         _instrumentInfo = instrumentInfo;
         _maxHealth = _instrumentInfo.health;
         _maxSkillPoint = _instrumentInfo.refObj.canUseSkillPoint;
+
+
+
+        //必须自己支持合击 且场上有能和他合击的 才生成星星
+        skillStarItemList = new List<SkillStarItem>();
+        if (instrumentInfo.refObj.hasTogetherSkill)
+        {
+            for(int i =0;i< instrumentInfo.refObj.canUseSkillPoint;i++)
+            {
+                GameObject skillPointGO = GameObject.Instantiate(skillStarPrefab);
+                skillPointGO.transform.SetParent(skillStarParentTransform);
+                skillStarItemList.Add(skillPointGO.GetComponent<SkillStarItem>());
+            }
+        }
+
         RefreshShow();
     }
 
@@ -172,6 +193,9 @@ public class InstrumentItem : UIPanelBase,
         Tween tween =  imgHealthBar.DOFillAmount((float)_instrumentInfo.health / _maxHealth,0.5f);
         _tweenContainer.RegDoTween(tween);
         instrumentCharacter.sprite = Resources.Load<Sprite>(_instrumentInfo.refObj.instrumentBodyPath);
+
+        
+
         switch (_instrumentInfo.refObj.effectType)
         {
             case EInstrumentEffectType.Attack:
@@ -192,6 +216,20 @@ public class InstrumentItem : UIPanelBase,
                 break;
         }
     }
+
+    private void RefreshSkillStar()
+    {
+        if (skillStarItemList == null)
+            return;
+        for(int i =0;i<skillStarItemList.Count;i++)
+        {
+            if (i < instrumentInfo.skillPoint)
+                skillStarItemList[i].SetState(true);
+            else
+                skillStarItemList[i].SetState(false);
+        }
+    }
+
     public void OnPointerEnter(PointerEventData eventData)
     {
         if (!_hasInited || _hasDead || BattleMgr.instance.isPlaying)
@@ -234,6 +272,7 @@ public class InstrumentItem : UIPanelBase,
         _hasActioned = true;
         imgDeadMask.gameObject.SetActive(true);
         Debug.Log(_instrumentInfo.refObj.instrumentName + ":" + _instrumentInfo.skillPoint);
+        RefreshSkillStar();
     }
     public void TakeDamage(int damage)
     {
@@ -630,6 +669,7 @@ public class InstrumentItem : UIPanelBase,
                 imgDeadMask.gameObject.SetActive(true);
                 BattleMgr.instance.isPlaying = false;
                 Debug.Log(_instrumentInfo.refObj.instrumentName + ":" + _instrumentInfo.skillPoint);
+                RefreshSkillStar();
             }));
 
     }
@@ -674,10 +714,6 @@ public class InstrumentItem : UIPanelBase,
         }
     }
 
-
-
-
-
     //反击
     public void BounceAttack(Action logicAction)
     {
@@ -708,4 +744,13 @@ public class InstrumentItem : UIPanelBase,
 
         _tweenContainer.RegDoTween(seq);
     }
+
+
+    //public bool HasTogetherTargetInTeam()
+    //{
+    //    for(int i =0;i<BattleMgr.instance.instrumentItemList.Count;i++)
+    //    {
+
+    //    }
+    //}
 }
