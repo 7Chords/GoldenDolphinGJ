@@ -22,9 +22,14 @@ public class SettingPanel : UIPanelBase
 
     protected override void OnShow()
     {
+        btnClose.enabled = false;
         _tweenContainer = new TweenContainer();
         canvasGroup.alpha = 0;
-        _tweenContainer.RegDoTween(canvasGroup.DOFade(1, fadeInDuration));
+        _tweenContainer.RegDoTween(canvasGroup.DOFade(1, fadeInDuration)
+            .OnComplete(()=> 
+            {
+                btnClose.enabled = true;
+            }));
         sldBgm.value = AudioMgr.Instance.bgmVolumeFactor;
         sldSfx.value = AudioMgr.Instance.sfxVolumeFactor;
 
@@ -55,6 +60,9 @@ public class SettingPanel : UIPanelBase
 
     protected override void OnHide(Action onHideFinished)
     {
+        btnClose.onClick.RemoveAllListeners();
+        sldBgm.onValueChanged.RemoveAllListeners();
+        sldSfx.onValueChanged.RemoveAllListeners();
         canvasGroup.alpha = 1;
         _tweenContainer.RegDoTween(canvasGroup.DOFade(0, fadeOutDuration)
             .OnComplete(() =>
@@ -62,9 +70,6 @@ public class SettingPanel : UIPanelBase
                 onHideFinished?.Invoke();
             }));
 
-        btnClose.onClick.RemoveAllListeners();
-        sldBgm.onValueChanged.RemoveAllListeners();
-        sldSfx.onValueChanged.RemoveAllListeners();
     }
 
     private void OnDestroy()
