@@ -1,12 +1,12 @@
 %YAML 1.1
-%TAG !u! tag:unity3d.com,2011:
+%TAG !u! tag:yousandi.cn,2023:
 --- !u!1 &403220080310379988
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
+  serializedVersion: 7
   m_Component:
   - component: {fileID: 9039620024789839946}
   - component: {fileID: 249442051724864838}
@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 8668708602960094906}
   - component: {fileID: 4862677541643659204}
   m_Layer: 5
+  m_HasEditorInfo: 1
   m_Name: ColloctFinishPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -95,6 +96,11 @@ MonoBehaviour:
   panelType: 0
   fadeDuration: 1.5
   fadeEase: 6
+  collectFinishImage: {fileID: 3263437505050687043}
+  finishSprites:
+  - {fileID: 21300000, guid: 8d7d7208cdf3e5e4681e524ff4cb8d22, type: 3}
+  - {fileID: 21300000, guid: a72c6baaf4c73914f8da5f5fb25be8fb, type: 3}
+  - {fileID: 21300000, guid: a1288b7f7faba61409c73899534edc43, type: 3}
 --- !u!225 &8668708602960094906
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -136,7 +142,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
+  serializedVersion: 7
   m_Component:
   - component: {fileID: 6783506731954331685}
   - component: {fileID: 2410910145203139323}
@@ -145,6 +151,7 @@ GameObject:
   - component: {fileID: 5149856501552683028}
   - component: {fileID: 3642608143792227923}
   m_Layer: 5
+  m_HasEditorInfo: 1
   m_Name: GoStoreBtn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -260,19 +267,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7d11e260682fd447a02612eca43fb31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hoverScale: {x: 1.1, y: 1.1, z: 1}
+  pressedScaleMultiplier: 0.95
+  scaleDuration: 0.12
+  scaleEase: 6
+  useUnscaledTime: 1
 --- !u!1 &5991445084935844666
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
+  serializedVersion: 7
   m_Component:
   - component: {fileID: 5865938397995277143}
   - component: {fileID: 3031102427873689666}
   - component: {fileID: 3263437505050687043}
   - component: {fileID: 5178204547040857409}
   m_Layer: 5
+  m_HasEditorInfo: 1
   m_Name: CollectFinish
   m_TagString: Untagged
   m_Icon: {fileID: 0}
