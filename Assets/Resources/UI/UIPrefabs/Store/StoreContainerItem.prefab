@@ -441,6 +441,11 @@ MonoBehaviour:
   - {fileID: 4315264674702502549}
   - {fileID: 2755492513931583246}
   lockShowGo: {fileID: 1740945836930105261}
+  backGroundImage: {fileID: 2654629442523813901}
+  backGroundSprites:
+  - {fileID: 21300000, guid: a25ffbd6a91c9d048b5ad65532164955, type: 3}
+  - {fileID: 21300000, guid: d758aa9fc61227b40a32493a869addc6, type: 3}
+  - {fileID: 21300000, guid: bdd648dadf60bd848bf8581b7566af11, type: 3}
 --- !u!1 &7909902618775760308
 GameObject:
   m_ObjectHideFlags: 0
