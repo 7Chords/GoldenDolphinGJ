@@ -3,10 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.U2D;
+using UnityEngine.UI;
 
 public class SelectorContainer : MonoBehaviour
 {
     [SerializeField] private List<SelectorContainerItem> selectItemList;
+    [SerializeField] private Sprite[] sprites;
+    [SerializeField] private Image[] images;
     // Start is called before the first frame update
     void Start()
     {
@@ -26,6 +29,7 @@ public class SelectorContainer : MonoBehaviour
     public void Init()
     {
         // 引导关卡 做一下特判
+        SetSelectBackGroundSkin();
         bool isFirstLevel = GameMgr.Instance.curLevel == 1;
         selectItemList[2].ParentGameObject.SetActive(!isFirstLevel);
         selectItemList[2].IsSelected = isFirstLevel;
@@ -106,5 +110,14 @@ public class SelectorContainer : MonoBehaviour
         MsgCenter.UnregisterMsg(MsgConst.ON_STORE_ITEM_SELECT, OnSelectedCharacter);
         MsgCenter.UnregisterMsgAct(MsgConst.ON_STORE_OPEN, RefreshInfo);
         MsgCenter.UnregisterMsg(MsgConst.ON_SELECTOR_INSTRUMENT_CANCLE_BEFORE_COMPLETE, ReturnSelectorItem2Store);
+    }
+
+    private void SetSelectBackGroundSkin()
+    {
+        int skinId = GameMgr.Instance.curLevel;
+        for (int i = 0; i < images.Length; i++)
+        {
+            images[i].sprite = sprites[skinId - 1];
+        }
     }
 }

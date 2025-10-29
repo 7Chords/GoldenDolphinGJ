@@ -9,6 +9,8 @@ public class StoreItemPictureSelector : MonoBehaviour
     [SerializeField] private Sprite[] itemSprites;
     [SerializeField] private GameObject[] unlockShowGo;// 解锁展示的文字
     [SerializeField] private GameObject lockShowGo;
+    [SerializeField] private Image backGroundImage;
+    [SerializeField] private Sprite[] backGroundSprites;
     // 如果当前关卡小于解锁关卡，则显示锁定图片
 
     public bool SetInfo(long unlockLevelId)
@@ -21,10 +23,10 @@ public class StoreItemPictureSelector : MonoBehaviour
             curShowImage.gameObject.SetActive(true);
             lockShowGo.SetActive(false);
         }
-
-           
         else
             DoOnLock();
+
+        SetBackGround();
 
         return isUnLock;
     }
@@ -40,4 +42,8 @@ public class StoreItemPictureSelector : MonoBehaviour
         lockShowGo.SetActive(true);
     }
 
+    private void SetBackGround()
+    {
+        backGroundImage.sprite = backGroundSprites[GameMgr.Instance.curLevel - 1];
+    }
 }

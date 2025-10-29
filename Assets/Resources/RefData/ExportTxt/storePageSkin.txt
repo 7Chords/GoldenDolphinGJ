@@ -1,4 +1,4 @@
 ﻿id	storeBackGround	backBtn	storeText	NoteBackGround	selectContainerBackground
-1001	Level1/角色合集底框	Level1/返回	Level1/兑换界面	Level1/底框	Level1/备战底框
+1001	Level1/角色合集底框	Level1/返回	Level1/兑换界面	Level1/音符底框	Level1/备战底框
 1002	Level2/角色合集底框	Level2/返回	Level2/兑换界面	Level2/底框	Level2/备战底框
 1003	Level3/角色合集底框	Level3/返回	Level3/兑换界面	Level3/底框	Level3/备战底框
