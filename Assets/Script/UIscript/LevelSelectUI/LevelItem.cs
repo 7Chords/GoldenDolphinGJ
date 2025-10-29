@@ -97,9 +97,9 @@ public class LevelItem : UIPanelBase,
 
     private void OnSelectBtnClicked()
     {
-        if (level > GameMgr.Instance.curLevel)
+        if (level > GameMgr.Instance.PlayerMaxLevel)
             return;
-
+        GameMgr.Instance.curLevel = level;
         if (_hasSelected)
             return;
         _hasSelected = true;

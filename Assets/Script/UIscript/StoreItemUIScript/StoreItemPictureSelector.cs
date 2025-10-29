@@ -13,7 +13,7 @@ public class StoreItemPictureSelector : MonoBehaviour
 
     public bool SetInfo(long unlockLevelId)
     {
-        bool isUnLock = unlockLevelId <= GameMgr.Instance.curLevel;
+        bool isUnLock = unlockLevelId <= GameMgr.Instance.PlayerMaxLevel;
         // 真就是解锁状态 
         if (isUnLock)
         {

@@ -56,29 +56,43 @@ public class BattleWinPanel : UIPanelBase
             goNoLastTile.SetActive(true);
         }
 
-        if(GameMgr.Instance.curLevel == 2)
+        //之前打过的关卡
+        if(GameMgr.Instance.curLevel < GameMgr.Instance.PlayerMaxLevel)
         {
-            foreach (var go in goLevelTwoUnlockList)
-                go.SetActive(true);
-            foreach (var go in goLevelOneUnlockList)
-                go.SetActive(false);
-        }
-        else if (GameMgr.Instance.curLevel == 1)
-        {
+            goLastTile.SetActive(true);
+            goNoLastTile.SetActive(false);
+
             foreach (var go in goLevelTwoUnlockList)
                 go.SetActive(false);
             foreach (var go in goLevelOneUnlockList)
-                go.SetActive(true);
+                go.SetActive(false);
         }
         else
         {
-            foreach (var go in goLevelTwoUnlockList)
-                go.SetActive(false);
-            foreach (var go in goLevelOneUnlockList)
-                go.SetActive(false);
+            if (GameMgr.Instance.curLevel == 2)
+            {
+                foreach (var go in goLevelTwoUnlockList)
+                    go.SetActive(true);
+                foreach (var go in goLevelOneUnlockList)
+                    go.SetActive(false);
+            }
+            else if (GameMgr.Instance.curLevel == 1)
+            {
+                foreach (var go in goLevelTwoUnlockList)
+                    go.SetActive(false);
+                foreach (var go in goLevelOneUnlockList)
+                    go.SetActive(true);
+            }
+            else
+            {
+                foreach (var go in goLevelTwoUnlockList)
+                    go.SetActive(false);
+                foreach (var go in goLevelOneUnlockList)
+                    go.SetActive(false);
+            }
         }
 
-        GameMgr.Instance.curLevel = Mathf.Clamp(GameMgr.Instance.curLevel + 1, 1, 3);
+        GameMgr.Instance.PlayerMaxLevel = Mathf.Clamp(GameMgr.Instance.PlayerMaxLevel + 1, 1, 3);
     }
 
 
