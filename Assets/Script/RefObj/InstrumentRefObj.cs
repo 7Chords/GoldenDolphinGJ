@@ -33,6 +33,8 @@ public class InstrumentRefObj : SCRefDataCore
     public List<EInstrumentRoleTypeList> instrumentRoleTypeList;
     public string instrumentPreviewIconPath;
     public List<long> resSkinIdList;
+    public string effectTypeIconPath;
+    public string characterStoreHeadPath;
     protected override void _parseFromString()
     {
         id = getLong("id");
@@ -58,6 +60,8 @@ public class InstrumentRefObj : SCRefDataCore
         instrumentRoleTypeList = getList<EInstrumentRoleTypeList>("instrumentRoleTypeList");
         instrumentPreviewIconPath = getString("instrumentPreviewIconPath");
         resSkinIdList = getList<long>("resSkinIdList");
+        effectTypeIconPath = getString("effectTypeIconPath");
+        characterStoreHeadPath = getString("characterStoreHeadPath");
     }
 
     public static string assetPath => "RefData/ExportTxt";

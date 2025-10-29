@@ -6,12 +6,14 @@ using UnityEngine.UI;
 
 public class StoreItemUIScript : MonoBehaviour
 {
-    [SerializeField] private Text roleText;
-    [SerializeField] private Text attackOrBufferText;
+    [SerializeField] private Text effectText;
     [SerializeField] private Text healthText;
     [SerializeField] private Text desc;
-    [SerializeField] private Text name;
-    [SerializeField] private Text totalText;
+    [SerializeField] private Image effctImage;// 如果无攻击力就隐藏effct文本
+    [SerializeField] private Image charactorImage;
+    [SerializeField] private Image nameImage;
+    [SerializeField] private Image backgroundImage;
+    [SerializeField] private Image lineImage;
     public void SetInfo(long instrumentId)
     {
         InstrumentRefObj instrumentRefObj = SCRefDataMgr.Instance.instrumentRefList.refDataList
@@ -23,51 +25,39 @@ public class StoreItemUIScript : MonoBehaviour
             return;
         }
 
-        roleText.text = "  定位：" + GetRoleTypeString(instrumentRefObj.instrumentRoleTypeList);
-        int attackValue = instrumentRefObj.attack + instrumentRefObj.buff + instrumentRefObj.heal;
-        attackOrBufferText.text = "  攻击/增益：" + attackValue.ToString();
-        int health = instrumentRefObj.health;
-        healthText.text = "  生命：" + health.ToString();
-        desc.text = "  描述：" + instrumentRefObj.instrumentDesc + "  ";
-        name.text = "  名字：" + instrumentRefObj.instrumentName;
-
-        string totalDesc = "\n" + name.text + "\n" + roleText.text + "\n" + attackOrBufferText.text + "\n" + healthText.text + "\n" + desc.text;
-        totalText.text = totalDesc + "\n";
+        desc.text = instrumentRefObj.instrumentDesc;
+        healthText.text = instrumentRefObj.health.ToString();
+        SetInfoByEffectType(instrumentRefObj);
+        nameImage.sprite = Resources.Load<Sprite>(instrumentRefObj.instrumentNamePath);
+        charactorImage.sprite = Resources.Load<Sprite>(instrumentRefObj.characterStoreHeadPath);
     }
 
-    private string GetRoleTypeString(List<EInstrumentRoleTypeList> instrumentRoleTypeList)
+    private void SetInfoByEffectType(InstrumentRefObj instrumentRefObj)
     {
-        string roleTypeStr = "";
-        int tempCount = 0;
-        for (int i = 0; i < instrumentRoleTypeList.Count; i++)
-        {
-            // 标志位
-            int flag = tempCount;
+        string path = "UI/EffectIcon/";
 
-            switch (instrumentRoleTypeList[i])
-            {
-                case EInstrumentRoleTypeList.DamageDealer:
-                    roleTypeStr += "攻击 ";
-                    tempCount++;
-                    break;
-                case EInstrumentRoleTypeList.Support:
-                    roleTypeStr += "辅助 ";
-                    tempCount++;
-                    break;
-                case EInstrumentRoleTypeList.Healer:
-                    roleTypeStr += "治疗 ";
-                    tempCount++;
-                    break;
-                case EInstrumentRoleTypeList.Buffer:
-                    roleTypeStr += "增益 ";
-                    tempCount++;
-                    break;
-            }
-            if(flag != tempCount && tempCount < instrumentRoleTypeList.Count)
-            {
-                roleTypeStr += "- ";
-            }
+        EInstrumentEffectType type = instrumentRefObj.effectType;
+        switch (type)
+        {
+            case EInstrumentEffectType.Heal:
+                effectText.text = instrumentRefObj.heal.ToString();
+                break;
+            case EInstrumentEffectType.Attack:
+                effectText.text = instrumentRefObj.attack.ToString();
+                break;
+            case EInstrumentEffectType.Buff:
+                effectText.text = instrumentRefObj.buff.ToString();
+                break;
+            case EInstrumentEffectType.CopyLast:
+                effectText.text = "";
+                break;
+            default:
+                effctImage.enabled = false;
+                break;
         }
-        return roleTypeStr;
+
+        effctImage.sprite = Resources.Load<Sprite>(path + instrumentRefObj.effectTypeIconPath);
     }
+
+    
 }
