@@ -131,6 +131,7 @@ MonoBehaviour:
   clickKeepDuration: 1
   clickSmallerDuration: 0.1
   canvasGroup: {fileID: 864014791537433532}
+  togetherCGShowTime: 1
 --- !u!225 &864014791537433532
 CanvasGroup:
   m_ObjectHideFlags: 0
