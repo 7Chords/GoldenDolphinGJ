@@ -42,8 +42,12 @@ public class InstrumentContainer : UIPanelBase
                 continue;
             item.Show();
             item.SetInfo(instrumentInfoList[i]);
-
             count++;
+        }
+
+        for(int j =0; j<count;j++)
+        {
+            _instrumentItemList[j].SetSkillStar();
         }
 
         for (i = count; i < _instrumentItemList.Count; i++)

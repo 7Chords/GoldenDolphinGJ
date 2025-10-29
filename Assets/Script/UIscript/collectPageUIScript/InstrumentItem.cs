@@ -148,23 +148,23 @@ public class InstrumentItem : UIPanelBase,
         _maxHealth = _instrumentInfo.health;
         _maxSkillPoint = _instrumentInfo.refObj.canUseSkillPoint;
 
+        RefreshShow();
+    }
 
-
+    public void SetSkillStar()
+    {
         //必须自己支持合击 且场上有能和他合击的 才生成星星
         skillStarItemList = new List<SkillStarItem>();
-        if (instrumentInfo.refObj.hasTogetherSkill)
+        if (instrumentInfo.refObj.hasTogetherSkill && HasTogetherTargetInTeam())
         {
-            for(int i =0;i< instrumentInfo.refObj.canUseSkillPoint;i++)
+            for (int i = 0; i < instrumentInfo.refObj.canUseSkillPoint; i++)
             {
                 GameObject skillPointGO = GameObject.Instantiate(skillStarPrefab);
                 skillPointGO.transform.SetParent(skillStarParentTransform);
                 skillStarItemList.Add(skillPointGO.GetComponent<SkillStarItem>());
             }
         }
-
-        RefreshShow();
     }
-
     private void RefreshShow()
     {
         if (_instrumentInfo == null)
@@ -540,11 +540,13 @@ public class InstrumentItem : UIPanelBase,
         List<RaycastResult> results = new List<RaycastResult>();
         EventSystem.current.RaycastAll(eventData, results);
 
-        GameObject go = results.Find(x => x.gameObject.GetComponent<InstrumentItem>() != null).gameObject;
+        //GameObject go = results.Find(x => x.gameObject.GetComponent<InstrumentItem>() != null).gameObject;
+        GameObject go = results.Find(x => x.gameObject.name == "ray_check").gameObject;
+
         Debug.Log("go" +":"+ go);
         if (go == null)
             return null;
-        InstrumentItem item = go.GetComponent<InstrumentItem>();
+        InstrumentItem item = go.GetComponentInParent<InstrumentItem>();
         if (item != null)
         {
             if (canUseTogetherSkill(item))
@@ -728,12 +730,12 @@ public class InstrumentItem : UIPanelBase,
         {
             instrumentCharacter.gameObject.SetActive(true);
             instrumentIcon.sprite = Resources.Load<Sprite>(instrumentInfo.resRefObj.instrumentBodyBgPath);
-            AudioMgr.Instance.PlaySfx(_instrumentInfo.refObj.instrumentAttackSoundPath);
 
         }));
         seq.Append(instrumentCharacter.transform.DOScale(clickBiggerScale, clickBiggerDuration));
         seq.Append(instrumentCharacter.transform.DOScale(Vector3.one, clickSmallerDuration)).OnComplete(() =>
         {
+            AudioMgr.Instance.PlaySfx(_instrumentInfo.refObj.instrumentAttackSoundPath);
             BattleMgr.instance.isPlaying = false;
             btnClick.enabled = true;
             instrumentCharacter.gameObject.SetActive(false);
@@ -746,11 +748,27 @@ public class InstrumentItem : UIPanelBase,
     }
 
 
-    //public bool HasTogetherTargetInTeam()
-    //{
-    //    for(int i =0;i<BattleMgr.instance.instrumentItemList.Count;i++)
-    //    {
+    public bool HasTogetherTargetInTeam()
+    {
+        List<SkillRefObj> skillRefList = new List<SkillRefObj>();
+        for (int i =0;i< instrumentInfo.refObj.skillIdList.Count;i++)
+        {
+            SkillRefObj refObj = SCRefDataMgr.Instance.skillRefList.refDataList
+                .Find(x => x.id == instrumentInfo.refObj.skillIdList[i]);
+            skillRefList.Add(refObj);
+        }
 
-    //    }
-    //}
+        for(int i =0;i< skillRefList.Count;i++)
+        {
+            for(int j =0;j<skillRefList[i].skillUserList.Count;j++)
+            {
+                if (skillRefList[i].skillUserList[j] == instrumentInfo.refObj.id)
+                    continue;
+                if (BattleMgr.instance.instrumentItemList.Find(x => x.instrumentInfo.refObj.id == skillRefList[i].skillUserList[j]))
+                    return true;
+            }
+        }
+
+        return false;
+    }
 }

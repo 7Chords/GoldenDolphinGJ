@@ -89,6 +89,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d045c2a245c40f94a8508239e1def2f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fullStar: {fileID: 0}
-  emptyStar: {fileID: 0}
-  imgStar: {fileID: 0}
+  fullStar: {fileID: 21300000, guid: 9dcee4d46726ee644a9aa07687fc9458, type: 3}
+  emptyStar: {fileID: 21300000, guid: 4bf856a8ea67dc245b773a7cabb8160a, type: 3}
+  imgStar: {fileID: 1653122755829350052}
