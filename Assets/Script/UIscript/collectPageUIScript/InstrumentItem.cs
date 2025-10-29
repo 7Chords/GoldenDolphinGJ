@@ -78,7 +78,8 @@ public class InstrumentItem : UIPanelBase,
 
     [Header("画布组件")]
     public CanvasGroup canvasGroup;
-
+    [Header("合击cg展示时间")]
+    public float togetherCGShowTime;
 
     #endregion
 
@@ -548,18 +549,26 @@ public class InstrumentItem : UIPanelBase,
             .SetEase(Ease.InOutQuad));
 
         seq.Join(anotherItem.transform.DORotate(new Vector3(0, 360, 0), 0.5f, RotateMode.FastBeyond360)
-            .SetEase(Ease.InOutQuad));
+            .SetEase(Ease.InOutQuad)
+            .OnComplete(() =>
+            {
+                GameObject cgGO = GameObject.Instantiate(Resources.Load<GameObject>("UI/UIPrefabs/prefab_together_cg"));
+                cgGO.transform.SetParent(transform.parent.parent);
+                cgGO.transform.localPosition = Vector3.zero;
+                cgGO.GetComponent<TogetherCGItem>().Show(Resources.Load<Sprite>(skillRefObj.togetherSkillCGPath),togetherCGShowTime);
+            }));
 
-        seq.AppendInterval(2f).OnComplete(() =>
-        {
-            List<IDamagable> senderList = new List<IDamagable>();
-            senderList.Add(this);
-            senderList.Add(anotherItem);
-            SkillHandler.DealTogetherSkill(senderList, skillRefObj);
+        seq.Append(DOVirtual.DelayedCall(togetherCGShowTime * 2,
+            () =>
+            {
+                List<IDamagable> senderList = new List<IDamagable>();
+                senderList.Add(this);
+                senderList.Add(anotherItem);
+                SkillHandler.DealTogetherSkill(senderList, skillRefObj);
 
-            ExitTogetherSkill();
-            anotherItem.ExitTogetherSkill();
-        });
+                ExitTogetherSkill();
+                anotherItem.ExitTogetherSkill();
+            }));
     }
 
     /// <summary>
