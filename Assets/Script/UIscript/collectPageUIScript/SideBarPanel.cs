@@ -68,6 +68,14 @@ public class SideBarPanel : UIPanelBase
             return;
         hasShow = false;
         btnClose.onClick.RemoveAllListeners();
+        if(itemList != null)
+        {
+            foreach (var go in itemList)
+            {
+                Destroy(go);
+            }
+            itemList.Clear();
+        }
         _tweenContainer.RegDoTween(canvasGroup.DOFade(0, fadeOutDuration).OnComplete(() =>
         {
             onHideFinished?.Invoke();
