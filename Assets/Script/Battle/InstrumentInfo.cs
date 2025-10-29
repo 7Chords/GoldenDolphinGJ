@@ -38,6 +38,6 @@ public class InstrumentInfo
                 skillRefList.Add(tmpRefObj);
         }
         resRefObj = SCRefDataMgr.Instance.instrumentResRefList.refDataList.
-            Find(x => x.id == refObj.skillIdList[GameMgr.Instance.curLevel - 1]);
+            Find(x => x.id == refObj.resSkinIdList[GameMgr.Instance.curLevel - 1]);
     }
 }
