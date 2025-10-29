@@ -91,7 +91,18 @@ public class EnemyItem : UIPanelBase,IDamagable
         imgHealthBar.sprite = Resources.Load<Sprite>(_enemyInfo.enemyResRefObj.levelEnemyHealthBarPath);
         imgHealthHolder.sprite = Resources.Load<Sprite>(_enemyInfo.enemyResRefObj.levelEnemyHealthHolderPath);
         imgHead.sprite = Resources.Load<Sprite>(_enemyInfo.enemyResRefObj.levelEnemyHeadPath);
-        txtEnemyDesc.text = AddColorForRichText(_enemyInfo.enemyDesc, levelColorList[GameMgr.Instance.curLevel - 1]);
+
+        if(GameMgr.Instance.curLevel == 3)
+        {
+            string[] splitDescArr = _enemyInfo.enemyDesc.Split(";");
+            txtEnemyDesc.text = AddColorForRichText(_isSecondStage? splitDescArr[1]: splitDescArr[0],
+                levelColorList[GameMgr.Instance.curLevel - 1]);
+        }
+        else
+        {
+            txtEnemyDesc.text = AddColorForRichText(_enemyInfo.enemyDesc,
+                levelColorList[GameMgr.Instance.curLevel - 1]);
+        }
         Tween healthTween = imgHealthBar.DOFillAmount((float)_enemyInfo.enemyHealth / _maxHealth, healthBarChgDuration);
         _tweenContainer.RegDoTween(healthTween);
     }
