@@ -618,14 +618,19 @@ public class InstrumentItem : UIPanelBase,
 
     public void ExitTogetherSkill()
     {
-        transform.localScale = Vector3.one * exitSmallerScale;
-        _instrumentInfo.skillPoint = 0;
-        MsgCenter.SendMsgAct(MsgConst.ON_INSTRUMENT_ACTION_OVER);
-        instrumentBack.raycastTarget = true;
-        _originalCanvasGroup.blocksRaycasts = true;
-        imgDeadMask.gameObject.SetActive(true);
-        BattleMgr.instance.isPlaying = false;
-        Debug.Log(_instrumentInfo.refObj.instrumentName + ":" + _instrumentInfo.skillPoint);
+
+        _tweenContainer.RegDoTween(transform.DOScale(exitSmallerScale, exitSmallerDuration)
+            .OnComplete(()=> 
+            {
+                transform.localScale = Vector3.one * exitSmallerScale;
+                _instrumentInfo.skillPoint = 0;
+                MsgCenter.SendMsgAct(MsgConst.ON_INSTRUMENT_ACTION_OVER);
+                instrumentBack.raycastTarget = true;
+                _originalCanvasGroup.blocksRaycasts = true;
+                imgDeadMask.gameObject.SetActive(true);
+                BattleMgr.instance.isPlaying = false;
+                Debug.Log(_instrumentInfo.refObj.instrumentName + ":" + _instrumentInfo.skillPoint);
+            }));
 
     }
 
@@ -687,6 +692,8 @@ public class InstrumentItem : UIPanelBase,
         {
             instrumentCharacter.gameObject.SetActive(true);
             instrumentIcon.sprite = Resources.Load<Sprite>(instrumentInfo.resRefObj.instrumentBodyBgPath);
+            AudioMgr.Instance.PlaySfx(_instrumentInfo.refObj.instrumentAttackSoundPath);
+
         }));
         seq.Append(instrumentCharacter.transform.DOScale(clickBiggerScale, clickBiggerDuration));
         seq.Append(instrumentCharacter.transform.DOScale(Vector3.one, clickSmallerDuration)).OnComplete(() =>
