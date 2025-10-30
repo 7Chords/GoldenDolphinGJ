@@ -40,12 +40,6 @@ public class LevelSelectPanel : UIPanelBase
 
     protected override void OnHide(Action onHideFinished)
     {
-        //_tweenContainer.RegDoTween(canvasGroup.DOFade(0, fadeOutDuration).OnComplete(() =>
-        //{
-        //    onHideFinished?.Invoke();
-        //    _tweenContainer?.KillAllDoTween();
-        //    _tweenContainer = null;
-        //}));
         btnReturn.onClick.RemoveAllListeners();
         foreach (var item in levelItemList)
         {
