@@ -7,7 +7,6 @@ public class PhonographUIScript : MonoBehaviour, IPointerClickHandler
 {
     bool currentPauseState = true;
 
-    bool hasStartPlay = false;
     private void OnEnable()
     {
         currentPauseState = true;
@@ -19,28 +18,15 @@ public class PhonographUIScript : MonoBehaviour, IPointerClickHandler
         // 打开留声机 暂停时间流逝
         currentPauseState = !currentPauseState;
 
-        if(!hasStartPlay)
-        {
-            hasStartPlay = true;
-            AudioMgr.Instance.PlayBgm("土耳其");
-        }
+        if (currentPauseState)
+            AudioMgr.Instance.PauseBgm();
         else
-        {
-            if (currentPauseState)
-                AudioMgr.Instance.PauseBgm();
-            else
-                AudioMgr.Instance.ResumeBgm();
-        }
+            AudioMgr.Instance.ResumeBgm();
 
         NoteMgr.instance.SetPauseState(currentPauseState);
         // 点击过就标记开始
         NoteMgr.instance.IsStart = true;
     }
 
-    private void Start()
-    {
-        hasStartPlay = false;
-        currentPauseState = true;
-    }
 
 }
