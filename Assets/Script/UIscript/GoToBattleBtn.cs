@@ -38,7 +38,16 @@ public class GoToBattleBtn : MonoBehaviour, IPointerClickHandler, IPointerEnterH
 
         SceneLoader.Instance.AddNextScenePanel(EPanelType.BattlePanel);
 
-        SceneLoader.Instance.AddNextScenePanel(EPanelType.BattleGuidePanel);
+        if (GameMgr.Instance.curLevel == 1 && !GameMgr.Instance.IsLookLevel1Guide)
+        {
+            SceneLoader.Instance.AddNextScenePanel(EPanelType.BattleGuidePanel);
+            GameMgr.Instance.IsLookLevel1Guide = true;
+        }
+        else if (GameMgr.Instance.curLevel == 2 && !GameMgr.Instance.IsLookLevel2Guide)
+        {
+            SceneLoader.Instance.AddNextScenePanel(EPanelType.BattleGuidePanel);
+            GameMgr.Instance.IsLookLevel2Guide = true;
+        }
 
         TransitionMgr.Instance.StarTransition("BattleScene", "FadeInAndOutTransition");
     }

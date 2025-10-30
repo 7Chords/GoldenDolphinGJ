@@ -28,15 +28,13 @@ public class BattleGuideUIScript : MonoBehaviour, IPointerClickHandler
             guideUI.SetActive(false);
         }
 
-        if (GameMgr.Instance.curLevel == 1 && GameMgr.Instance.IsLookLevel1Guide)
+        if (GameMgr.Instance.curLevel == 1)
         {
             level1Guide();
-            GameMgr.Instance.IsLookLevel1Guide = true;
         }
-        else if (GameMgr.Instance.curLevel == 2 && GameMgr.Instance.IsLookLevel2Guide)
+        else if (GameMgr.Instance.curLevel == 2)
         {
             level2Guide();
-            GameMgr.Instance.IsLookLevel2Guide = true;
         }
         else PanelUIMgr.Instance.ClosePanel(EPanelType.BattleGuidePanel);
     }
