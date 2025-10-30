@@ -217,6 +217,10 @@ public class NoteMgr : SingletonMono<NoteMgr>
         isCurrentPause = isPause;
     }
 
+    private void OnDisable()
+    {
+        isCurrentPause = true;
+    }
     private void OpenStore()
     {
     }
