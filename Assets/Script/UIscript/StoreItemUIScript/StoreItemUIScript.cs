@@ -29,6 +29,8 @@ public class StoreItemUIScript : MonoBehaviour
         healthText.text = instrumentRefObj.health.ToString();
         SetInfoByEffectType(instrumentRefObj);
         nameImage.sprite = Resources.Load<Sprite>(instrumentRefObj.instrumentNamePath);
+        nameImage.SetNativeSize();
+        nameImage.rectTransform.localScale = Vector3.one * 0.85f;
         charactorImage.sprite = Resources.Load<Sprite>(instrumentRefObj.characterStoreHeadPath);
     }
 
