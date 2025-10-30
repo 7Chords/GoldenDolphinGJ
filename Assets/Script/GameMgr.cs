@@ -60,14 +60,14 @@ public class GameMgr : SingletonPersistent<GameMgr>
 
         if (UIRoot != null) PanelUIMgr.Instance.panelRoot = UIRoot;
         else Debug.LogError("UI Root is Null");
-        DontDestroyOnLoad(this.gameObject);
+        //DontDestroyOnLoad(this.gameObject);
 
-        DontDestroyOnLoad(UIRoot);
+        //DontDestroyOnLoad(UIRoot);
 
         if (TransitionRoot != null) TransitionMgr.Instance.transitionRoot = TransitionRoot;
         else Debug.LogError("TransitionRoot is Null");
 
-        DontDestroyOnLoad(TransitionRoot);
+        //DontDestroyOnLoad(TransitionRoot);
     }
 
     
