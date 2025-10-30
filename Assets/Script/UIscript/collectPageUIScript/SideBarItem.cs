@@ -55,5 +55,8 @@ public class SideBarItem : MonoBehaviour
         }
         txtNote_1.text = "×" + noteCount_1.ToString();
         txtNote_2.text = "×" + noteCount_2.ToString();
+        imgNote_1.SetNativeSize();
+        imgNote_2.SetNativeSize();
+
     }
 }
