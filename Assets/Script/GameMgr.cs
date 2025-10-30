@@ -41,11 +41,11 @@ public class GameMgr : SingletonPersistent<GameMgr>
     protected override void Awake()
     {
         base.Awake();
-        GameInit();
     }
 
     void Start()
     {
+        GameInit();
         PanelUIMgr.Instance.OpenPanel(EPanelType.StartPanel);
         AudioMgr.Instance.PlayBgm("背景音乐");
     }
