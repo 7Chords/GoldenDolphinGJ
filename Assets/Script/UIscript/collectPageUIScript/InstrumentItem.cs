@@ -593,6 +593,7 @@ public class InstrumentItem : UIPanelBase,
             .SetEase(Ease.InOutQuad)
             .OnComplete(() =>
             {
+                AudioMgr.Instance.PlaySfx("合奏");
                 GameObject cgGO = GameObject.Instantiate(Resources.Load<GameObject>("UI/UIPrefabs/prefab_together_cg"));
                 cgGO.transform.SetParent(transform.parent.parent);
                 cgGO.transform.localPosition = Vector3.zero;
