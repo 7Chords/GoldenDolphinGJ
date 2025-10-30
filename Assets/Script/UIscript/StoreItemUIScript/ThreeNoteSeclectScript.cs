@@ -14,6 +14,7 @@ public class ThreeNoteSeclectScript : MonoBehaviour
         if(index < 0 || index >= noteSprites.Length)
             return;
         noteImage.sprite = noteSprites[index];
+        noteImage.SetNativeSize();
     }
 
     public void SetNoteNumText(int num)

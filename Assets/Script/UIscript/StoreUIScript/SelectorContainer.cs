@@ -11,13 +11,16 @@ public class SelectorContainer : MonoBehaviour
     [SerializeField] private Sprite[] sprites;
     [SerializeField] private Image[] images;
     // Start is called before the first frame update
+    private void OnEnable()
+    {
+        Init();
+    }
     void Start()
     {
         // 当选中的时候 触发回调
         MsgCenter.RegisterMsg(MsgConst.ON_STORE_ITEM_SELECT, OnSelectedCharacter);
         MsgCenter.RegisterMsgAct(MsgConst.ON_STORE_OPEN, RefreshInfo);
         MsgCenter.RegisterMsg(MsgConst.ON_SELECTOR_INSTRUMENT_CANCLE_BEFORE_COMPLETE, ReturnSelectorItem2Store);
-        Init();
     }
 
     /// <summary>
@@ -61,8 +64,8 @@ public class SelectorContainer : MonoBehaviour
         }
         else if(!selectItemList[2].IsSelected && GameMgr.Instance.curLevel != 1)
         {
-            selectItemList[2].SetItemInfo(sprite, storeItemId);
             selectItemList[2].gameObject.SetActive(true);
+            selectItemList[2].SetItemInfo(sprite, storeItemId);
         }
     }
 

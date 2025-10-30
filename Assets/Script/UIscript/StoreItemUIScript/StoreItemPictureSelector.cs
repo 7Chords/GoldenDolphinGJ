@@ -15,13 +15,14 @@ public class StoreItemPictureSelector : MonoBehaviour
 
     public bool SetInfo(long unlockLevelId)
     {
-        bool isUnLock = unlockLevelId <= GameMgr.Instance.PlayerMaxLevel;
+        bool isUnLock = unlockLevelId <= GameMgr.Instance.curLevel;
         // 真就是解锁状态 
         if (isUnLock)
         {
             curShowImage.sprite = itemSprites[1]; // 解锁图片
             curShowImage.gameObject.SetActive(true);
             lockShowGo.SetActive(false);
+            DoOnUnlock();
         }
         else
             DoOnLock();
@@ -40,6 +41,17 @@ public class StoreItemPictureSelector : MonoBehaviour
         }
         curShowImage.gameObject.SetActive(false);
         lockShowGo.SetActive(true);
+    }
+
+    private void DoOnUnlock()
+    {
+        // 对列表进行显示
+        foreach (var go in unlockShowGo)
+        {
+            go.SetActive(true);
+        }
+        curShowImage.gameObject.SetActive(true);
+        lockShowGo.SetActive(false);
     }
 
     private void SetBackGround()
