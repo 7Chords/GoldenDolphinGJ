@@ -41,8 +41,6 @@ public class InstrumentContainerItem : MonoBehaviour
         // 需要根据某些条件来设置 visibilityImage 的显隐
         ApplyVisibilityBasedOnCondition();
     }
-
-
     public void ApplyVisibilityBasedOnCondition()
     {
         // todo: 根据实际条件设置 visible 变量
@@ -71,6 +69,12 @@ public class InstrumentContainerItem : MonoBehaviour
             instrumentImage.enabled = false;
             visibilityImage.enabled = true;
         }
+
+        InstrumentRefObj instrumentRefObj = SCRefDataMgr.Instance.instrumentRefList.refDataList
+            .Find(x => x.id == currentInstrumentId);
+
+        bool isNeedToshow = GameMgr.Instance.curLevel >= instrumentRefObj.unlockLevelId;
+        this.gameObject.SetActive(isNeedToshow);
     }
 
     /// <summary>
