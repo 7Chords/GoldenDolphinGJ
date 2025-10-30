@@ -32,6 +32,7 @@ public class NoteCollectPanel : UIPanelBase
 
         PlayerMgr.Instance.ClearInstrumentIdList();
         PlayerMgr.Instance.ResetNoteNum();
+        AudioMgr.Instance.PlayBgm("土耳其");
         AudioMgr.Instance.PauseBgm();
         // 设置一下皮肤
         SetCurSkin();
