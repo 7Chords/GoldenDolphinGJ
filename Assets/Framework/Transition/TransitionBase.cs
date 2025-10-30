@@ -1,13 +1,12 @@
-
 using System;
 using UnityEngine;
+using DG.Tweening;
 
 namespace GJFramework
 {
     /// <summary>
     /// 过渡效果基类（抽象类）
     /// 仅提供基础框架，具体过渡效果由子类重写实现
-    /// 已修改为非协程实现：EnterTransition/ExitTransition 为同步方法（void）
     /// </summary>
     public abstract class TransitionBase : MonoBehaviour
     {
@@ -35,14 +34,18 @@ namespace GJFramework
         {
             tragetSceneName = _tragetSceneName;
         }
+
         /// <summary>
         /// 初始化显示状态
         /// </summary>
         protected virtual void InitializeState()
         {
-            canvasGroup.alpha = 0;
-            canvasGroup.interactable = false;
-            canvasGroup.blocksRaycasts = true;
+            if (canvasGroup != null)
+            {
+                canvasGroup.alpha = 0;
+                canvasGroup.interactable = false;
+                canvasGroup.blocksRaycasts = true;
+            }
             gameObject.SetActive(false);
         }
 
@@ -57,6 +60,7 @@ namespace GJFramework
             isTransitioning = true;
             EnterTransition();
         }
+
         /// <summary>
         /// 进入过渡（抽象方法，子类必须实现） - 非协程版
         /// </summary>
@@ -72,7 +76,7 @@ namespace GJFramework
         /// </summary>
         public virtual void ShowImmediately()
         {
-            canvasGroup.alpha = 1;
+            if (canvasGroup != null) canvasGroup.alpha = 1;
             isTransitioning = false;
             gameObject.SetActive(true);
             OnShowImmediately();
@@ -83,30 +87,58 @@ namespace GJFramework
         /// </summary>
         public virtual void HideImmediately()
         {
-            canvasGroup.alpha = 0;
+            if (canvasGroup != null) canvasGroup.alpha = 0;
             isTransitioning = false;
             gameObject.SetActive(false);
             OnHideImmediately();
         }
 
-        /// <summary>
-        /// 立即显示后的回调（子类可重写）
-        /// </summary>
         protected virtual void OnShowImmediately() { }
-
-        /// <summary>
-        /// 立即隐藏后的回调（子类可重写）
-        /// </summary>
         protected virtual void OnHideImmediately() { }
 
-        public void OnHide()
+        /// <summary>
+        /// 外部安全关闭/销毁过渡：先停止 Tween，再销毁 GameObject
+        /// </summary>
+        public void CloseTransition()
         {
-            gameObject.SetActive(false);
+            // 停掉所有针对 canvasGroup 或该 GameObject 的 Tweens，防止回调访问已销毁对象
+            try
+            {
+                if (canvasGroup != null)
+                    canvasGroup.DOKill(false);
+                DOTween.Kill(gameObject, false);
+            }
+            catch (Exception) { }
+
+            isTransitioning = false;
+
+            // 先隐藏再销毁，避免瞬间可见性问题
+            try
+            {
+                if (gameObject != null)
+                    gameObject.SetActive(false);
+            }
+            catch (Exception) { }
+
+            // 延迟销毁一个 frame 更安全（可改为 0）
+            try
+            {
+                if (this != null && this.gameObject != null)
+                    Destroy(this.gameObject);
+            }
+            catch (Exception) { }
         }
 
-        public void OnShow()
+        // Unity 生命周期销毁，确保任何未被显式 Close 的情况也能安全 Kill Tween
+        protected virtual void OnDestroy()
         {
-            gameObject.SetActive(true);
+            try
+            {
+                if (canvasGroup != null)
+                    canvasGroup.DOKill(false);
+                DOTween.Kill(gameObject, false);
+            }
+            catch (Exception) { }
         }
     }
 }
