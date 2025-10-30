@@ -8,6 +8,10 @@ public class PhonographUIScript : MonoBehaviour, IPointerClickHandler
     bool currentPauseState = true;
 
     bool hasStartPlay = false;
+    private void OnEnable()
+    {
+        currentPauseState = true;
+    }
     public void OnPointerClick(PointerEventData eventData)
     {
 
@@ -36,6 +40,7 @@ public class PhonographUIScript : MonoBehaviour, IPointerClickHandler
     private void Start()
     {
         hasStartPlay = false;
-        currentPauseState = false;
+        currentPauseState = true;
     }
+
 }
