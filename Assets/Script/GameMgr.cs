@@ -11,6 +11,32 @@ public class GameMgr : SingletonPersistent<GameMgr>
 
     private int playerMaxLevel;
     private int _curLevel;
+    private bool isLookLevel1Guide = false;
+    private bool isLookLevel2Guide = false;
+
+    public bool IsLookLevel1Guide
+    {
+        get
+        {
+            return isLookLevel1Guide;
+        }
+        set
+        {
+            isLookLevel1Guide = value;
+        }
+    }
+
+    public bool IsLookLevel2Guide
+    {
+        get
+        {
+            return isLookLevel2Guide;
+        }
+        set
+        {
+            isLookLevel2Guide = value;
+        }
+    }
 
     public int PlayerMaxLevel
     {

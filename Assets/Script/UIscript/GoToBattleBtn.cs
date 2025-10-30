@@ -34,7 +34,12 @@ public class GoToBattleBtn : MonoBehaviour, IPointerClickHandler, IPointerEnterH
             return;
         }
         AudioMgr.Instance.PlaySfx("木头按钮");
+
+
         SceneLoader.Instance.AddNextScenePanel(EPanelType.BattlePanel);
+
+        SceneLoader.Instance.AddNextScenePanel(EPanelType.BattleGuidePanel);
+
         TransitionMgr.Instance.StarTransition("BattleScene", "FadeInAndOutTransition");
     }
 
