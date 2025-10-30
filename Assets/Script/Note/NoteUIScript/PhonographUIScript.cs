@@ -33,8 +33,9 @@ public class PhonographUIScript : MonoBehaviour, IPointerClickHandler
         NoteMgr.instance.IsStart = true;
     }
 
-    private void OnEnable()
+    private void Start()
     {
         hasStartPlay = false;
+        currentPauseState = false;
     }
 }

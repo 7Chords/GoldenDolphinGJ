@@ -23,7 +23,6 @@ public class LevelSelectPanel : UIPanelBase
 
     public List<LevelItem> levelItemList;
 
-    public LevelDescItem descItem;
     protected override void OnShow()
     {
         //_tweenContainer = new TweenContainer();
@@ -47,7 +46,6 @@ public class LevelSelectPanel : UIPanelBase
         {
             item?.Hide();
         }
-        descItem?.Hide();
         onHideFinished?.Invoke();
     }
 
