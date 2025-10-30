@@ -32,7 +32,6 @@ public class SettingPanel : UIPanelBase
             }));
         sldBgm.value = AudioMgr.Instance.bgmVolumeFactor;
         sldSfx.value = AudioMgr.Instance.sfxVolumeFactor;
-
         btnClose.onClick.AddListener(() =>
         {
             AudioMgr.Instance.PlaySfx("木头按钮");
@@ -60,15 +59,17 @@ public class SettingPanel : UIPanelBase
 
     protected override void OnHide(Action onHideFinished)
     {
+
         btnClose.onClick.RemoveAllListeners();
         sldBgm.onValueChanged.RemoveAllListeners();
         sldSfx.onValueChanged.RemoveAllListeners();
         canvasGroup.alpha = 1;
-        _tweenContainer.RegDoTween(canvasGroup.DOFade(0, fadeOutDuration)
-            .OnComplete(() =>
-            {
-                onHideFinished?.Invoke();
-            }));
+        //_tweenContainer.RegDoTween(canvasGroup.DOFade(0, fadeOutDuration)
+        //    .OnComplete(() =>
+        //    {
+        //        onHideFinished?.Invoke();
+        //    }));
+        onHideFinished?.Invoke();
 
     }
 
@@ -77,7 +78,6 @@ public class SettingPanel : UIPanelBase
         _tweenContainer?.KillAllDoTween();
         _tweenContainer = null;
     }
-
 
 
 }

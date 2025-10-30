@@ -16,7 +16,6 @@ public class StartPanel : UIPanelBase
         {
             GameObject videoCanvasGO = GameObject.Find("VideoCanvas");
             videoCanvasGO.transform.Find("VideoRawImg").gameObject.SetActive(true);
-            btnGo.enabled = false;
             AudioMgr.Instance.PlaySfx("开始游戏");
             _videoPlayer = FindObjectOfType<VideoPlayer>();
             _videoPlayer.time = 0;

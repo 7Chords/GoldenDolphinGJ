@@ -142,7 +142,7 @@ namespace GJFramework
             if (_panelStack.Count > 0)
             {
                 UIPanelBase newTop = _panelStack.Peek();
-                newTop.Show();
+                //newTop.Show();
                 newTop.transform.SetAsLastSibling(); // 确保显示在最上层
             }
 
