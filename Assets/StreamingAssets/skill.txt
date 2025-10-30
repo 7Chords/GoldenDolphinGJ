@@ -1,0 +1,14 @@
+﻿id	skillName	skillDesc	skillType	skillUserList	passiveSkillTriggerType	togetherSkillCGPath
+1001	小号和小提琴的合击	合击1的描述	Together	1003;1002	None	UI/TogetherCG/小提琴与小号
+1002	小号和手风琴的合击	合击2的描述	Together	1003;1004	None	UI/TogetherCG/手风琴与小号
+1003	小号和单簧管的合击	合击3的描述	Together	1003;1005	None	UI/TogetherCG/单簧管与小号
+1004	小号和小提琴的合击	合击4的描述	Together	1002;1003	None	UI/TogetherCG/小提琴与小号
+1005	小号和手风琴的合击	合击5的描述	Together	1004;1003	None	UI/TogetherCG/手风琴与小号
+1006	小号和单簧管的合击	合击6的描述	Together	1005;1003	None	UI/TogetherCG/单簧管与小号
+1007	长笛和小提琴的合击	合击7的描述	Together	1006;1002	None	UI/TogetherCG/小提琴与长笛
+1008	长笛和手风琴的合击	合击8的描述	Together	1006;1004	None	UI/TogetherCG/手风琴与长笛
+1009	长笛和单簧管的合击	合击9的描述	Together	1006;1005	None	UI/TogetherCG/单簧管与长笛
+1010	长笛和小提琴的合击	合击10的描述	Together	1002;1006	None	UI/TogetherCG/小提琴与长笛
+1011	长笛和手风琴的合击	合击11的描述	Together	1004;1006	None	UI/TogetherCG/手风琴与长笛
+1012	长笛和单簧管的合击	合击12的描述	Together	1005;1006	None	UI/TogetherCG/单簧管与长笛
+1013	反伤	反伤的描述	Passive	1001	Hurt	UI/Icon/Square

@@ -4,3 +4,5 @@
 3	1003	0	1	2	Trumpet	小号
 4	1004	2	1	0	Accordion	手风琴
 5	1005	2	0	1	Clarinet	单簧管
+6	1006	2	0	1	Flute	长笛
+7	1007	0	2	1	Triangle	三角铁
