@@ -75,4 +75,16 @@ public class LevelDescItem : MonoBehaviour
             }
         }
     }
+
+    public void Hide()
+    {
+        if(_itemList != null)
+        {
+            foreach (var go in _itemList)
+            {
+                Destroy(go);
+            }
+            _itemList.Clear();
+        }
+    }
 }
