@@ -713,6 +713,22 @@ PrefabInstance:
       propertyPath: noteNumText
       value: 
       objectReference: {fileID: 4754254746298185581}
+    - target: {fileID: 4003720983246611963, guid: d72eee7dd997f3c49b109fd8993f1809, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 54
+      objectReference: {fileID: 0}
+    - target: {fileID: 4003720983246611963, guid: d72eee7dd997f3c49b109fd8993f1809, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 101
+      objectReference: {fileID: 0}
+    - target: {fileID: 4003720983246611963, guid: d72eee7dd997f3c49b109fd8993f1809, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -27.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 5002991118716110907, guid: d72eee7dd997f3c49b109fd8993f1809, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: d30c0ea364b1ad24ab561aef2feb268f, type: 3}
     - target: {fileID: 8751200763729831999, guid: d72eee7dd997f3c49b109fd8993f1809, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
