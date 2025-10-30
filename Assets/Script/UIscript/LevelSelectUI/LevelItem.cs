@@ -69,6 +69,7 @@ public class LevelItem : UIPanelBase,
     [Header("专辑所属关卡")]
     public int level;
 
+    public GameObject mask;
 
     private BattleLevelRefObj _battleLevelRefObj;
     private TweenContainer _tweenContainer;
@@ -104,7 +105,7 @@ public class LevelItem : UIPanelBase,
             return;
         _hasSelected = true;
         gameObject.GetComponent<Canvas>().sortingOrder = 3;
-
+        mask.SetActive(true);
 
         for (int i = 0; i < fadeCanvasGroup.Count; i++)
         {
@@ -157,6 +158,7 @@ public class LevelItem : UIPanelBase,
             btnReturn.enabled = true;
             btnStart.enabled = true;
             btnStart.GetComponent<GoToCollectPage>().enabled = true;
+            mask.SetActive(false);
         });
         seq.Join(btnReturn.GetComponent<Image>().DOFade(1, btnFadeDuration));
 
@@ -167,6 +169,8 @@ public class LevelItem : UIPanelBase,
     {
         if (!_hasSelected)
             return;
+        mask.SetActive(true);
+
         btnReturn.enabled = false;
         btnStart.enabled = false;
         btnStart.GetComponent<GoToCollectPage>().enabled = false;
@@ -194,6 +198,8 @@ public class LevelItem : UIPanelBase,
             fadeGO.SetActive(false);
             gameObject.GetComponent<Canvas>().sortingOrder = 2;
             transform.GetComponent<Image>().raycastTarget = true;
+            mask.SetActive(false);
+
         }));
 
         _tweenContainer.RegDoTween(seq);
