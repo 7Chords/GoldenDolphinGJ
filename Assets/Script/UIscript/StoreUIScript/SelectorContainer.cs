@@ -39,6 +39,14 @@ public class SelectorContainer : MonoBehaviour
         bool isFirstLevel = GameMgr.Instance.curLevel == 1;
         selectItemList[2].ParentGameObject.SetActive(!isFirstLevel);
         selectItemList[2].IsSelected = isFirstLevel;
+        for(int i = 0; i < subitems.Length; i ++)
+        {
+            Image img = subitems[i];
+            Color cr = img.color;
+            cr.a = 0f;
+            img.color = cr;
+        }
+        Lock.SetActive(GameMgr.Instance.curLevel == 1);
     }
 
     private void OnSelectedCharacter(object[] _objs)
@@ -69,7 +77,6 @@ public class SelectorContainer : MonoBehaviour
             selectItemList[2].gameObject.SetActive(true);
             selectItemList[2].SetItemInfo(sprite, storeItemId);
         }
-        Lock.SetActive(GameMgr.Instance.curLevel == 1);
         SetSubIcon();
     }
 
