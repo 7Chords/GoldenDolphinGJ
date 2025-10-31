@@ -61,8 +61,8 @@ public class LevelDescItem : MonoBehaviour
         }
         for (int i = 0; i < resRefList.Count; i++)
         {
-            GameObject instruemntItem = GameObject.Instantiate(instrumentDescItemPrefab);
-            instruemntItem.transform.SetParent(instrumentSVTransform);
+            GameObject instruemntItem = GameObject.Instantiate(instrumentDescItemPrefab, instrumentSVTransform);
+            //instruemntItem.transform.SetParent(instrumentSVTransform);
             instruemntItem.GetComponent<InstrumentDescItem>().SetInfo(resRefList[i]);
             _itemList.Add(instruemntItem);
         }

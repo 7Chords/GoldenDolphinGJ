@@ -33,9 +33,9 @@ public class InstrumentContainer : UIPanelBase
             }
             else
             {
-                GameObject itemGO = GameObject.Instantiate(instrumentPrefab);
+                GameObject itemGO = GameObject.Instantiate(instrumentPrefab, instrumentGridLayout.transform);
                 item = itemGO.GetComponent<InstrumentItem>();
-                itemGO.transform.SetParent(instrumentGridLayout.transform);
+                //itemGO.transform.SetParent(instrumentGridLayout.transform);
                 _instrumentItemList.Add(item);
             }
             if (item == null)
