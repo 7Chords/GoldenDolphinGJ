@@ -160,7 +160,7 @@ public class EnemyItem : UIPanelBase,IDamagable
             _isSecondStage = true;
             _enemyInfo.enemyHealth = _maxHealth;
             RefreshShow();
-            EnemyContinueEffectHandler.RegContinueEffect(EEnemyActionType.Buff, 1, 2);
+            EnemyContinueEffectHandler.RegContinueEffect(EEnemyActionType.Buff, 1, 8);
 
         }
         else
