@@ -1,3 +1,4 @@
+using DG.Tweening;
 using GJFramework;
 using System.Collections;
 using System.Collections.Generic;
@@ -10,6 +11,8 @@ public class SelectorContainer : MonoBehaviour
     [SerializeField] private List<SelectorContainerItem> selectItemList;
     [SerializeField] private Sprite[] sprites;
     [SerializeField] private Image[] images;
+    [SerializeField] private GameObject Lock;
+    [SerializeField] private Image[] subitems;
     // Start is called before the first frame update
     private void OnEnable()
     {
@@ -36,7 +39,6 @@ public class SelectorContainer : MonoBehaviour
         bool isFirstLevel = GameMgr.Instance.curLevel == 1;
         selectItemList[2].ParentGameObject.SetActive(!isFirstLevel);
         selectItemList[2].IsSelected = isFirstLevel;
-
     }
 
     private void OnSelectedCharacter(object[] _objs)
@@ -67,8 +69,30 @@ public class SelectorContainer : MonoBehaviour
             selectItemList[2].gameObject.SetActive(true);
             selectItemList[2].SetItemInfo(sprite, storeItemId);
         }
+        Lock.SetActive(GameMgr.Instance.curLevel == 1);
+        SetSubIcon();
     }
 
+    public void SetSubIcon()
+    {
+        for (int i = 0; i < subitems.Length; i++)
+        {
+            Image img = subitems[i];
+            Color targetColor = img.color;
+
+            if (selectItemList[i].IsSelected)
+            {
+                if (GameMgr.Instance.curLevel == 1 && i == 2) continue;
+                targetColor.a = 1f;
+            }
+            else
+            {
+                targetColor.a = 0f;
+            }
+
+            img.DOColor(targetColor, 0.2f).SetEase(Ease.OutQuad);
+        }
+    }
     public void ReturnSelectorItem2Store(object[] _objs)
     {
 
@@ -95,6 +119,7 @@ public class SelectorContainer : MonoBehaviour
                 break;
             }
         }
+        SetSubIcon();
     }
 
     // refresh info
