@@ -64,6 +64,7 @@ public class EnemyItem : UIPanelBase,IDamagable
 
     public void SetInfo(EnemyInfo enemInfo)
     {
+        _isSecondStage = false;
         _enemyInfo = enemInfo;
         _maxHealth = _enemyInfo.enemyHealth;
         RefreshShow();

@@ -153,6 +153,14 @@ public class InstrumentItem : UIPanelBase,
 
     public void SetSkillStar()
     {
+        if (skillStarItemList != null)
+        {
+            foreach (var item in skillStarItemList)
+            {
+                Destroy(item.gameObject);
+            }
+        }
+        skillStarItemList.Clear();
         //必须自己支持合击 且场上有能和他合击的 才生成星星
         skillStarItemList = new List<SkillStarItem>();
         if (instrumentInfo.refObj.hasTogetherSkill && HasTogetherTargetInTeam())
