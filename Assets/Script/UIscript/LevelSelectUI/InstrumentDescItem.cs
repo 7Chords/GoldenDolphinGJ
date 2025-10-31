@@ -51,11 +51,14 @@ public class InstrumentDescItem : MonoBehaviour,
     public void OnPointerEnter(PointerEventData eventData)
     {
         _tweenContainer?.RegDoTween(transform.DOScale(enterBiggerScale, enterBiggerDuration));
+        goChgCheck.SetActive(true);
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
         _tweenContainer?.RegDoTween(transform.DOScale(exitSmallerScale, exitSmallerDuration));
+        goChgCheck.SetActive(false);
+
     }
 
     public void SetInfo(InstrumentRefObj instrumentRefObj)
@@ -138,10 +141,6 @@ public class InstrumentDescItem : MonoBehaviour,
 
             }
         }
-        btnItem.onClick.AddListener(() =>
-        {
-            goChgCheck.SetActive(!goChgCheck.activeInHierarchy);
-        });
     }
 
     private Sprite GetNoteSprite(ENoteType noteType)
