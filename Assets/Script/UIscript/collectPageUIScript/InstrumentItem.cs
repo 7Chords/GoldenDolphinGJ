@@ -590,6 +590,7 @@ public class InstrumentItem : UIPanelBase,
         Sequence seq = DOTween.Sequence();
         seq.Append(_dragClone.GetComponent<CanvasGroup>().DOFade(0, 0.25f).OnComplete(()=> 
         {
+            AudioMgr.Instance.PlaySfx("合奏");
             CleanupDragClone();
         }));
         seq.Join(_originalCanvasGroup.DOFade(1, 0.25f));
@@ -601,7 +602,6 @@ public class InstrumentItem : UIPanelBase,
             .SetEase(Ease.InOutQuad)
             .OnComplete(() =>
             {
-                AudioMgr.Instance.PlaySfx("合奏");
                 GameObject cgGO = GameObject.Instantiate(Resources.Load<GameObject>("UI/UIPrefabs/prefab_together_cg"));
                 cgGO.transform.SetParent(transform.parent.parent);
                 cgGO.transform.localPosition = Vector3.zero;
