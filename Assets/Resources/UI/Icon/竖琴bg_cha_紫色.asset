@@ -22,12 +22,12 @@ Sprite:
   m_AtlasName: 
   m_PackingTag: 
   m_RenderDataKey:
-    5ea6e6aa7d18bab4a972f293cd48077e: -1378702956
+    4559d4fee663b7b46b7cfbb09505b560: 950971354
   m_AtlasTags: []
   m_SpriteAtlas: {fileID: 0}
   m_RD:
     serializedVersion: 3
-    texture: {fileID: 2800000, guid: 5ea6e6aa7d18bab4a972f293cd48077e, type: 3}
+    texture: {fileID: 2800000, guid: 4559d4fee663b7b46b7cfbb09505b560, type: 3}
     alphaTexture: {fileID: 0}
     secondaryTextures: []
     m_SubMeshes:
@@ -118,7 +118,7 @@ Sprite:
     downscaleMultiplier: 1
   m_AtlasRD:
     serializedVersion: 3
-    texture: {fileID: 2800000, guid: 5ea6e6aa7d18bab4a972f293cd48077e, type: 3}
+    texture: {fileID: 2800000, guid: 4559d4fee663b7b46b7cfbb09505b560, type: 3}
     alphaTexture: {fileID: 0}
     secondaryTextures: []
     m_SubMeshes:
@@ -208,11 +208,11 @@ Sprite:
     uvTransform: {x: 100, y: 161, z: 100, w: 293}
     downscaleMultiplier: 1
   m_PhysicsShape:
-  - - {x: -1.29, y: 1.28}
-    - {x: -1.5999999, y: 1.03}
+  - - {x: -1.31, y: 1.28}
+    - {x: -1.5999999, y: 1.05}
     - {x: -1.5999999, y: -1.28}
     - {x: 1.5999999, y: -1.28}
     - {x: 1.5999999, y: 1.04}
-    - {x: 1.29, y: 1.28}
+    - {x: 1.3199999, y: 1.28}
   m_Bones: []
-  m_SpriteID: 6f37dc03c1781e4488c57d51e53371af
+  m_SpriteID: ec9616677684bb5458ac9a4622146f18
