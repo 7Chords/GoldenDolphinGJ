@@ -2660,7 +2660,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9194259916971356986, guid: f0b9c55324b04544a9948a625facbe9b, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -30
+      value: -25.099998
       objectReference: {fileID: 0}
     - target: {fileID: 9194259916971356986, guid: f0b9c55324b04544a9948a625facbe9b, type: 3}
       propertyPath: m_ConstrainProportionsScale
